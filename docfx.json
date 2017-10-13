@@ -73,12 +73,11 @@
     "keepFileLink": false,
     "cleanupCacheHistory": false,
     "globalMetadata": {
-      "_appTitle": "Prism Documentation",
+      "_appTitle": "Prism",
       "_appFooter": "Copyright 2017 Prism",
       "_gitContribute": {
-        "repo": "https://github.com/PrismLibrary/Prism",
-        "branch": "master",
-        "path": "docs"
+        "repo": "https://github.com/PrismLibrary/Prism-Documentation",
+        "branch": "master"
       },
       "_gitUrlPattern": "github",
       "_enableSearch": true
