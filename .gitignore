@@ -297,3 +297,11 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# DocFX
+/**/DROP/
+/**/TEMP/
+/**/packages/
+/**/bin/
+/**/obj/
+_site
