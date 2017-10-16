@@ -1,34 +1,11 @@
 {
-  "metadata": [
-    {
-      "src": [
-        {
-          "files": [
-            "src/**.csproj"
-          ],
-          "exclude": [
-            "**/obj/**",
-            "**/bin/**",
-            "_site/**"
-          ]
-        }
-      ],
-      "dest": "api"
-    }
-  ],
   "build": {
     "markdownEngineName": "dfm-latest",
     "content": [
       {
         "files": [
-          "api/**.yml",
-          "api/index.md"
-        ]
-      },
-      {
-        "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
+          "docs/**.md",
+          "docs/**/toc.yml",
           "toc.yml",
           "*.md"
         ],
@@ -41,21 +18,9 @@
     "resource": [
       {
         "files": [
-          "images/**",
-          "articles/getting-started/images/**",
-          "articles/wpf/images/**",
-          "articles/xamarin-forms/images/**"
-        ],
-        "exclude": [
-          "obj/**",
-          "_site/**"
-        ]
-      }
-    ],
-    "overwrite": [
-      {
-        "files": [
-          "apidoc/**.md"
+          "docs/getting-started/images/**",
+          "docs/wpf/images/**",
+          "docs/xamarin-forms/images/**"
         ],
         "exclude": [
           "obj/**",
