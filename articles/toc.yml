@@ -1,8 +1,8 @@
-- name: Testing
-  href: intro.md
 - name: Introduction
   href: index.md
 - name: Getting Started
-  href: Getting-Started/toc.yml
+  href: getting-started/toc.yml
+- name: WPF
+  href: wpf/toc.yml
 - name: Xamarin.Forms
-  href: Xamarin-Forms/toc.yml
+  href: xamarin-forms/toc.yml

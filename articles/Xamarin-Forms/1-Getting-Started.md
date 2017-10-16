@@ -1,48 +1,5 @@
 ﻿# Getting started with Prism for Xamarin.Forms
 
-## Content
-
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Background](#background)
-    - Xamarin.Forms
-    - MVVM
-- [Creating a new solution](#creating-a-new-solution)
-    - Installing and using the Prism Template Pack
-    - Running the app
-    - Views overview
-    - View Models overview
-- [Adding a new Page (View) and ViewModel](#adding-a-new-page-view-and-viewmodel)
-- [Navigating to your new Page](#navigating-to-your-new-page)
-
-## Overview
-
-This guide will walk you through creating a new Xamarin.Forms project that uses Prism, running the application, and modifying it to demonstrate basic use of Prism for Xamarin.Forms.
-
-## Prerequisites
-
-This guide assumes that you have Xamarin, Xamarin Android Player, and Visual Studio 2015 already installed along with a basic understanding of those technologies. If you do not, please take a look at the excellent resources available at [xamarin.com](http://xamarin.com) and [visualstudio.com](http://visualstudio.com).
-
-## Background
-
-### What's Xamarin.Forms?
-
-> Build native UIs for iOS, Android and Windows
-from a single, shared C# codebase.
-
-Xamarin.Forms allows you to build applications for iOS, Android and Windows that share both back and front end code. For more information take a look at [Xamarin.Forms](https://xamarin.com/forms).
-
-
-### What's MVVM?
-
-MVVM stands for Model View ViewModel and it is a design pattern that allows for clean separation of concerns between the user interface and the model behind it. A major advantage of MVVM is that it leverages data-binding to display information and respond to user input.
-
-The following diagram shows the interaction between the components in MVVM.
-
-![Diagram of MVVM pattern. View communicates with view model with data binding and commands. view model operates on the Model.](https://i-msdn.sec.s-msft.com/dynimg/IC564167.png)
-
-For more information reference [The MVVM Pattern](https://msdn.microsoft.com/en-us/library/hh848246.aspx) by Microsoft Patterns & Practices
-
 ## Creating a new solution
 
 ### Installing and using the Prism Template Pack
