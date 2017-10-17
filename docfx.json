@@ -1,4 +1,5 @@
 {
+
   "build": {
     "markdownEngineName": "dfm-latest",
     "content": [
@@ -18,6 +19,7 @@
     "resource": [
       {
         "files": [
+          "images/**",
           "docs/getting-started/images/**",
           "docs/wpf/images/**",
           "docs/xamarin-forms/images/**"
@@ -32,7 +34,8 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "statictoc"
+      "statictoc",
+      "templates/prism"
     ],
     "postProcessors": [],
     "noLangKeyword": false,
