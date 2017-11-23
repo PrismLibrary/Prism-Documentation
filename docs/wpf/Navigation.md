@@ -484,6 +484,25 @@ You can implement a custom journal for a region if you need to implement a speci
 
 **Note:** The navigation journal can only be used for region-based navigation operations that are coordinated by the region navigation service. If you use view discovery or view injection to implement navigation within a region, the navigation journal will not be updated during navigation and cannot be used to navigate forward or backward within that region.
 
+### Opting out of the Navigation Journal
+When using the Navigation Journal, it can be useful to display intermediary pages like splash screens, loading pages or dialogs. It is desirable that these pages should not revisited via calls to **IRegionNavigationJournal.GoForward()** or **IRegionNavigationJournal.GoBack()**. This behaviour can be achieved by implementing the **IJournalAware** interface.
+
+```
+public interface IJournalAware
+{
+    bool PersistInHistory();
+}
+```
+
+Pages can opt-out of being added to the journal history by implementing **IJournalAware** on the **View** or **View Model** and returning false from **PersistInHistory()**.
+
+```
+public class IntermediaryPage : IJournalAware
+{
+    public bool PersistInHistory() => false;
+}
+```
+
 ### Using the WPF Navigation Framework
 
 Prism region navigation was designed to address a wide range of common scenarios and challenges that you may face when implementing navigation in a loosely-coupled, modular application that uses the MVVM pattern and a dependency injection container, such as Unity, or the Managed Extensibility Framework (MEF). It also was designed to support navigation confirmation and cancellation, navigation to existing views, navigation parameters and navigation journaling.
