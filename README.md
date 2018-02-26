@@ -5,5 +5,5 @@ This is the official repository for the [Prism](https://github.com/PrismLibrary/
 # Overview of Prism
 
 Prism is a framework for building loosely coupled, maintainable, and testable XAML applications in WPF, Windows 10 UWP, and Xamarin Forms.
-Prism is one of the .NET Foundation projects [http://brianlagunas.com/prism-joins-the-net-foundation/].
+Prism is one of the [.NET Foundation](http://www.dotnetfoundation.org/) [projects](http://brianlagunas.com/prism-joins-the-net-foundation/).
 
