@@ -1,4 +1,4 @@
-# Application lifecycle Management
+# Application Lifecycle Management
 Mobile applications development has to deal with the concept of __application lifecycle__. With this we mean that mobile apps are created to manage scenarios where batterly life, CPU and memory are limited (as opposed to the classic desktop app where all of this is unlimited).
 
 When a mobile app is running in backgroud in is __suspended__ by the OS after a few seconds. The exact timing is different from OS to OS and other factors. When the application is suspended it is freezed: the app will continue to use memory but all the running operations are stopped. This way, every other application can make use of resources. However RAM isn't infinite and the app will be __killed__ by the OS to free some memory if necessary.
