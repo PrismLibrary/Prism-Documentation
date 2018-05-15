@@ -24,9 +24,19 @@
                 <div class="image stackoverflow"></div>Ask questions
             </a>
         </li>
-		<li id="connect-twitter">
+        <li id="connect-twitter">
+            <a href="https://twitter.com/prismlib" target="_blank">
+                <div class="image twitterhandle"></div>Follow @PrismLib
+            </a>
+        </li>
+        <li id="connect-twitter">
             <a href="https://twitter.com/brianlagunas" target="_blank">
                 <div class="image twitterhandle"></div>Follow @BrianLagunas
+            </a>
+        </li>
+        <li id="connect-twitter">
+            <a href="https://twitter.com/danjsiegel" target="_blank">
+                <div class="image twitterhandle"></div>Follow @DanJSiegel
             </a>
         </li>
       </ul>
