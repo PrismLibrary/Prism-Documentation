@@ -1,5 +1,32 @@
 # Working with TabbedPage's (or any MultiPage<T>)
 
+## Navigating To TabbedPage's
+
+Prism 7.0 introduced some major changes to the NavigationParameters that now allow Prism to more fully support querystring navigation. This is most noticeable with TabbedPage's as you can now dynamically add tabs to a TabbedPage as part of your navigation.
+
+To get started you will need to register the TabbedPage you wish to use (which can be the base Xamarin.Forms.TabbedPage), and any Views that you may wish to add as a Tab in your App's RegisterTypes method as shown below:
+
+```cs
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.RegisterForNavigation<TabbedPage>();
+    containerRegistry.RegisterForNavigation<ViewA>();
+    containerRegistry.RegisterForNavigation<ViewB>();
+}
+```
+
+You will need to pass in the name using the Known Navigation Parameter [createTab](https://github.com/PrismLibrary/Prism/blob/master/Source/Xamarin/Prism.Forms/Navigation/KnownNavigationParameters.cs) as shown here:
+
+```cs
+navigationService.NavigateAsync("TabbedPage?createTab=ViewA&createTab=ViewB");
+```
+
+NOTE: Dynamic tab creation is only supported from the querystring at this time, and is not supported if you were to add it to the `INavigationParameters` passed in to `NavigateAsync`.
+
+### Initially Display Tab
+
+The initial tab displayed in a Xamarin.Forms TabbedPage will always be the first Tab added. In Prism 6, you could select a different tab through deep linking like: `MyTabbedPage/ViewB`. In Prism 7 we have made a BREAKING CHANGE in favor of querystring based navigation. This also uses a [Known Navigation Parameter](https://github.com/PrismLibrary/Prism/blob/master/Source/Xamarin/Prism.Forms/Navigation/KnownNavigationParameters.cs) The resulting navigation Uri would now look like: `MyTabbedPage?selectedTab=ViewB`.
+
 ## Initialization
 
 Currently Initialization largely left up to the developer to handle. Prism will pass NavigationParameters to the Selected Child page of a TabbedPage if included in Navigation Uri like `NavigationService.NavigateAsync("MyTabbedPage/ViewA")`. However the other child pages will not have a chance to initialize with the NavigationParameters. There is a full example showing different techniques for handling View Initialization in the [samples](https://github.com/PrismLibrary/Prism-Samples-Forms) repo.
@@ -57,6 +84,7 @@ public abstract class ChildViewModelBase : BindableBase, IActiveAware, INavigati
 {
     protected bool HasInitialized { get; set; }
 
+    // NOTE: Prism.Forms only sets IsActive, and does not do anything with the event.
     public event EventHandler IsActiveChanged;
 
     private bool _isActive;
@@ -78,6 +106,7 @@ public abstract class ChildViewModelBase : BindableBase, IActiveAware, INavigati
 
     protected virtual void RaiseIsActiveChanged()
     {
+        // NOTE: You must either subscribe to the event or handle the logic here.
         IsActiveChanged?.Invoke(this, EventArgs.Empty);
     }
 }
