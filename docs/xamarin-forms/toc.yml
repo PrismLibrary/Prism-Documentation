@@ -12,3 +12,5 @@
   href: EventToCommandBehavior.md
 - name: Working with TabbedPages
   href: Working-With-TabbedPages.md
+- name: Xaml Navigation
+  href: Xaml-Navigation.md
