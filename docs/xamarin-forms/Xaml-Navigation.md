@@ -1,6 +1,6 @@
 # Xaml Navigation
 
-Prism allows you to declare your navigation directly inside your Xaml via a Markup Extensions. 
+Prism allows you to declare your navigation directly inside your Xaml via a Markup Extension if you would prefer to keep navigation logic out of your ViewModel. This approach really helps with basic navigation scenarios, and really help clean up your ViewModels.
 
 ## Defining your navigation path in Xaml
 
@@ -10,7 +10,7 @@ To define navigation from within your Xaml, simply add the prism namespace to yo
 <Page xmlns:prism="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms">
 ```
 
-And then define a button command
+And then add the Markup Extension to any `Command` property (buttons, tap gesture recognizers, etc.)
 
 ```xml
 <!-- normal navigation -->
@@ -79,7 +79,7 @@ public override void OnNavigatingTo(NavigationParameters parameters)
 
 ## Controlling `CanNavigate`
 
-You can control whether or not the user `CanNavigate` via an attached property. This attached property can be set on any parent object, and Prism will walk the tree until it finds the value.
+You can control whether or not the user `CanNavigate` via an attached property. This attached property can be set on any parent object, and Prism will walk the tree until it finds the value. If Prism cannot find a `CanNavigate` property, it simply assumes `true` with a single caviat. In order to prevent double-tap issues, Prism's Xaml Navigation tracks if the user has already initiated navigation, if they have, then it prevents them from initiating it again.
 
 ```xml
 <Page>
@@ -99,3 +99,21 @@ In the rare case that you need to tell the `NavigationService` to use a differen
 ```xml
 <Button Command="{prism:NavigateTo 'path/to/navigate', SourcePage={x:Reference SomeOtherPage}}" />
 ```
+
+One possible scenario is is one which you want your Master to use a NavigationPage for the aesthetics of having a title bar, and want to make sure that your Navigation references are navigating from the MasterDetailPage rather than inside of the NavigationPage. In order to achieve this, you'll give your `MasterDetailPage` an `x:Name` and supply that to the `SourcePage` property of the `NavigateTo` extension.
+
+```xml
+<MasterDetailPage x:Name="mdp">
+  <MasterDetailPage.Master>
+    <NavigationPage Title="Menu">
+      <x:Arguments>
+        <ContentPage Title="Foo">
+          <Button Text="ClickMe"
+                  Command="{prism:NavigateTo 'NavigationPage/ViewA', SourcePage={x:Reference mdp}}" />
+        </ContentPage>
+      <x:Arguments>
+    </NavigationPage>
+  </MasterDetailPage.Master>
+</MasterDetailPage>
+```
+
