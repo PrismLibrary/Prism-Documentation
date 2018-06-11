@@ -38,7 +38,7 @@ You can also define NavigationParameters to your Xaml in one of three ways.
 *Note: in order to access it, you need to lookup `xamlParam` from your NavigationParameters property. This is also statically defined in `KnownNavigationParameters.XamlParam`*
 
 ```xml
-<Button Command="{prism:NavigateTo path/to/navigate}" 
+<Button Command="{prism:NavigateTo 'path/to/navigate'}" 
         CommandParameter="{Binding Foo}" />
 ```
 
@@ -55,7 +55,7 @@ public override void OnNavigatingTo(NavigationParameters parameters)
 #### 2: As a single navigation parameter
 
 ```xml
-<Button Command="{prism:NavigateTo path/to/navigate}">
+<Button Command="{prism:NavigateTo 'path/to/navigate'}">
     <Button.CommandParameter>
         <prism:NavigationParameter Key="Foo" Value="Some Value">
     </Button.CommandParameter>
@@ -65,7 +65,7 @@ public override void OnNavigatingTo(NavigationParameters parameters)
 #### 3: As a collection of navigation parameters
 
 ```xml
-<Button Command="{prism:NavigateTo path/to/navigate}">
+<Button Command="{prism:NavigateTo 'path/to/navigate'}">
     <Button.CommandParameter>
         <prism:NavigationParameters>
             <prism:NavigationParameter Key="Foo" Value="Some Bar Value">
@@ -85,7 +85,7 @@ You can control whether or not the user `CanNavigate` via an attached property. 
 <Page>
     <StackLayout prism:Navigation.CanNavigate="{Binding MyCanNavigateProperty}">
         <ContentView>
-            <Button Command="{prism:NavigateTo path/to/navigate}"   
+            <Button Command="{prism:NavigateTo 'path/to/navigate'}"   
                     CommandParameter="{Binding Foo}" />
         </ContentView>
     </StackLayout>
@@ -97,5 +97,5 @@ You can control whether or not the user `CanNavigate` via an attached property. 
 In the rare case that you need to tell the `NavigationService` to use a different Page from the one that Xamarin Forms passes into the Markup Extension, you can override the `SourcePage`
 
 ```xml
-<Button Command="{prism:NavigateTo path/to/navigate, SourcePage={x:Reference SomeOtherPage}}" />
+<Button Command="{prism:NavigateTo 'path/to/navigate', SourcePage={x:Reference SomeOtherPage}}" />
 ```
