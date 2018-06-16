@@ -244,10 +244,16 @@ Creates a [DelegateCommand](https://msdn.microsoft.com/en-us/library/microsoft.p
 
 ## Navigating to your new page
 
-We now have two pages in our app, a main page and a speak page. To navigate to the new page, we'll need to register the page for navigation. In the Portable Class Library, `HelloXFPrism (Portable)`, open App.xaml.cs (you may have to click the carrot next to App.xaml to see it). Register the new page for navigation by updating `RegisterTypes()` to include the following.
+We now have two pages in our app, a main page and a speak page. To navigate to the new page, we'll need to register the page for navigation. In the Portable Class Library, `HelloXFPrism (Portable)`, open App.xaml.cs (you may have to click the carrot next to App.xaml to see it). Register the new page for navigation by updating `RegisterTypes(IContainerRegistry containerRegistry)` to include the following.
 
 ```cs
-Container.RegisterTypeForNavigation<SpeakPage>();
+public partial class App : PrismApplication
+{
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+        containerRegistry.RegisterForNavigation<SpeakPage>();
+    }
+}
 ```
 
 You can now navigate to the new page so let's setup MainPage to navigate. In `MainPage.xaml` add a button below the existing label.
