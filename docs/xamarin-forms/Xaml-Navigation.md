@@ -1,6 +1,6 @@
 # Xaml Navigation
 
-Prism allows you to declare your navigation directly inside your Xaml via a Markup Extension if you would prefer to keep navigation logic out of your ViewModel. This approach really helps with basic navigation scenarios, and really help clean up your ViewModels.
+Prism allows you to declare your navigation directly inside your Xaml via a [Markup Extension](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/xaml/markup-extensions/). This approach really helps with basic navigation scenarios, and can also help clean up your ViewModels.
 
 ## Defining your navigation path in Xaml
 
@@ -68,7 +68,7 @@ public override void OnNavigatingTo(NavigationParameters parameters)
 <Button Command="{prism:NavigateTo 'path/to/navigate'}">
     <Button.CommandParameter>
         <prism:NavigationParameters>
-            <prism:NavigationParameter Key="Foo" Value="Some Bar Value">
+            <prism:NavigationParameter Key="Foo" Value="{Binding SomeBarValue}">
             <prism:NavigationParameter Key="Fizz" Value="Some Buzz Value">
         </prism:NavigationParameters>
     </Button.CommandParameter>
@@ -79,7 +79,7 @@ public override void OnNavigatingTo(NavigationParameters parameters)
 
 ## Controlling `CanNavigate`
 
-You can control whether or not the user `CanNavigate` via an attached property. This attached property can be set on any parent object, and Prism will walk the tree until it finds the value. If Prism cannot find a `CanNavigate` property, it simply assumes `true` with a single caviat. In order to prevent double-tap issues, Prism's Xaml Navigation tracks if the user has already initiated navigation, if they have, then it prevents them from initiating it again.
+You can control whether or not the user `CanNavigate` via an [attached property](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/xaml/attached-properties). This attached property can be set on any parent object, and Prism will walk the tree until it finds the value. If Prism cannot find a `CanNavigate` property, it simply assumes `true` with a single caviat. In order to prevent double-tap issues, Prism's Xaml Navigation tracks if the user has already initiated navigation, if they have, then it prevents them from initiating it again.
 
 ```xml
 <Page>
@@ -100,7 +100,7 @@ In the rare case that you need to tell the `NavigationService` to use a differen
 <Button Command="{prism:NavigateTo 'path/to/navigate', SourcePage={x:Reference SomeOtherPage}}" />
 ```
 
-One possible scenario is is one which you want your Master to use a NavigationPage for the aesthetics of having a title bar, and want to make sure that your Navigation references are navigating from the MasterDetailPage rather than inside of the NavigationPage. In order to achieve this, you'll give your `MasterDetailPage` an `x:Name` and supply that to the `SourcePage` property of the `NavigateTo` extension.
+One possible scenario is one which you want your Master to use a NavigationPage for the aesthetics of having a title bar, and want to make sure that your Navigation references are navigating from the MasterDetailPage rather than inside of the NavigationPage. In order to achieve this, you'll give your `MasterDetailPage` an `x:Name` and supply that to the `SourcePage` property of the `NavigateTo` extension.
 
 ```xml
 <MasterDetailPage x:Name="mdp">
@@ -117,3 +117,17 @@ One possible scenario is is one which you want your Master to use a NavigationPa
 </MasterDetailPage>
 ```
 
+## Extending the markup extensions
+
+If you wish to add additional functionality to your xaml navigation, Prism has made it easy for you to extend both the `NavigateTo` and `GoBack` extensions. Some reasons you might want to do this would be to add additional options or simply add debug logging.
+
+```csharp
+public class ExNavigateToExtension : NavigateToExtension
+{
+    protected override async Task HandleNavigation(INavigationParameters parameters, INavigationService navigationService)
+    {
+        Debug.WriteLine($"Navigating to: {Name}");
+        await base.HandleNavigation(parameters, navigationService);
+    }
+}
+```
