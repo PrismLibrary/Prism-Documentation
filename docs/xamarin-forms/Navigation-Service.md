@@ -131,7 +131,7 @@ Getting to this data in the target View that is being navigated to, can be achie
 
 ## INavigationAware
 
-The ViewModel of the target navigation Page can participate in the navigation process by implementing the **INavigationAware** interface.  This interface adds three methods to your ViewModel so you can intercept before the ViewModel is navigated to **(OnNavigatingTo)*** and after **(OnNavigatedTo)**, or navigated away from **(OnNavigatedFrom)**.
+The ViewModel of the target navigation Page can participate in the navigation process by implementing the **INavigationAware** interface.  This interface adds three methods to your ViewModel so you can intercept before the View is navigated to **(OnNavigatingTo)**, once it is navigated to **(OnNavigatedTo)**, and once it is navigated away from **(OnNavigatedFrom)**.
 
 Example:
 
