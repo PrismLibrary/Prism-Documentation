@@ -131,7 +131,7 @@ Getting to this data in the target View that is being navigated to, can be achie
 
 ## INavigationAware
 
-The ViewModel of the target navigation Page can participate in the navigation process by implementing the **INavigationAware** interface.  This interface adds two methods to your ViewModel so you can intercept when the ViewModel is navigated to, or navigated away from.
+The ViewModel of the target navigation Page can participate in the navigation process by implementing the **INavigationAware** interface.  This interface adds three methods to your ViewModel so you can intercept before the ViewModel is navigated to **(OnNavigatingTo)*** and after **(OnNavigatedTo)**, or navigated away from **(OnNavigatedFrom)**.
 
 Example:
 
@@ -139,8 +139,14 @@ Example:
 public class ContactPageViewModel : INavigationAware
 {
   private Contact _contact;
-
+  private DateTime _dateTime;
+  
   public void OnNavigatedTo(NavigationParameters parameters)
+  {
+    _dateTime = DateTime.Now;
+  }
+  
+  public void OnNavigatingTo(NavigationParameters parameters)
   {
     _contact = (Contact)parameters["model"];
   }
@@ -151,6 +157,7 @@ public class ContactPageViewModel : INavigationAware
   }
 }
 ```
+**Note: **OnNavigatingTo** is not called when using device hardware or software back button.* 
 
 ## IConfirmNavigation
 
