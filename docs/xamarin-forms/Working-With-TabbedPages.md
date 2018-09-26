@@ -1,4 +1,4 @@
-# Working with TabbedPage's (or any MultiPage<T>)
+# Working with TabbedPage's
 
 ## Navigating To TabbedPage's
 
@@ -22,6 +22,8 @@ navigationService.NavigateAsync("TabbedPage?createTab=ViewA&createTab=ViewB");
 ```
 
 NOTE: Dynamic tab creation is only supported from the querystring at this time, and is not supported if you were to add it to the `INavigationParameters` passed in to `NavigateAsync`.
+
+NOTE: CarouselPages are not supported
 
 ### Initially Display Tab
 
