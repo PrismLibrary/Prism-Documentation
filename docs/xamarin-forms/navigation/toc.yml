@@ -1,0 +1,16 @@
+- name: Navigation Basics
+  href: navigation/navigation-basics.md
+- name: Passing Parameters
+  href: navigation/passing-parameters.md
+- name: Confirming Navigation
+  href: navigation/confirming-navigation.md
+- name: Deep Linking
+  href: navigation/deep-linking.md
+- name: Working with MasterDetailPages
+  href: navigation/working-with-masterdetailpages.md
+- name: Working with NavigationPages
+  href: navigation/working-with-navigationpages.md
+- name: Working with TabbedPages
+  href: navigation/working-with-tabbedpages.md
+- name: XAML Navigation
+  href: navigation/xaml-navigation.md
