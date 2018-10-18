@@ -1,7 +1,7 @@
 # Application Lifecycle Management
 Mobile applications development has to deal with the concept of __application lifecycle__. With this we mean that mobile apps are created to manage scenarios where batterly life, CPU and memory are limited (as opposed to the classic desktop app where all of this is unlimited).
 
-When a mobile app is running in backgroud in is __suspended__ by the OS after a few seconds. The exact timing is different from OS to OS and other factors. When the application is suspended it is freezed: the app will continue to use memory but all the running operations are stopped. This way, every other application can make use of resources. However RAM isn't infinite and the app will be __killed__ by the OS to free some memory if necessary.
+When a mobile app is running in backgroud it is __suspended__ by the OS after a few seconds. The exact timing is different from OS to OS and other factors. When the application is suspended it is frozen: the app will continue to use memory but all the running operations are stopped. This way, every other application can make use of resources. However RAM isn't infinite and the app will be __killed__ by the OS to free some memory if necessary.
 
 As mobile developers you need to take care of this to provide your users a smooth and transparent experience whenever possible and restore the previous state of the app.
 
@@ -10,52 +10,38 @@ The typical application lifecycle events are:
 + __Resuming__. This happens every time we restore the app from the background after it has been suspended.
 + __Sleeping__. This happens when the OS decides to freeze our app after it has gone in background.
 
-The management of these events can be tricky in an MVVM app but Prism provides the [IApplicationLifecycleAware](https://github.com/PrismLibrary/Prism/blob/master/Source/Xamarin/Prism.Forms/AppModel/IApplicationLifecycleAware.cs) to make your life easier.
+The management of these events can be tricky in an MVVM app but Prism provides the [IApplicationLifecycleAware](https://github.com/PrismLibrary/Prism/blob/master/Source/Xamarin/Prism.Forms/AppModel/IApplicationLifecycleAware.cs) interface to make your life easier.
 
 
-## How to handle ALM in your view-models
-The first thing you have to do to is to implement the `IApplicationLifecycleAware` interface in your __view-model__ class. Implemening this interface means that you have to provide an implementation of the `OnResume()` and `OnSleep()` method that are called by the framework when the app is resuming and going to sleep respectively. The typical operation you'll do in the `OnSleep()` method is to __save__ the state of your view-model to later __restore__ it during the execution of the `OnResume()` method.
+## How to handle ALM in your ViewModels
+The first thing you have to do to is to implement the `IApplicationLifecycleAware` interface in your __ViewModel__ class. Implemening this interface means that you have to provide an implementation of the `OnResume()` and `OnSleep()` method that are called by the framework when the app is resuming and going to sleep respectively. The typical operation you'll do in the `OnSleep()` method is to __save__ the state of your ViewModel to later __restore__ it during the execution of the `OnResume()` method.
 
-The following is an example of a View-Model that implements `IApplicationLifecycleAware`. 
+The following is an example of a ViewModel that implements `IApplicationLifecycleAware`. 
 
 ```csharp
-
-
  public class ViewModelExample : ViewModelBase, IApplicationLifecycleAware
     {
-        private string _title;
+        protected INavigationService NavigationService { get; private set; }
 
         public ViewModelExample(INavigationService navigationService)
         {
             NavigationService = navigationService;
         }
 
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
-
-        protected INavigationService NavigationService { get; private set; }
-
-        #region Members of IApplicationLifecycleAware
-
         public void OnResume()
         {
-            //Restore the state of your view-model.
+            //Restore the state of your ViewModel.
         }
 
         public  void OnSleep()
         {
-            //Save the state of your view-model.
+            //Save the state of your ViewModel.
         }
-
-        #endregion
     }
 ```
 
 ## How to handle ALM at Application level
-You can handle ALM events at __Application__ level by overriding the `OnSleep()` and `OnResume()` methods in the `App` class.
+You can handle ALM events at the __Application__ level by overriding the `OnSleep()` and `OnResume()` methods in the `App` class.
 The following is an example of an `App` class with ALM management.
 
 ```csharp

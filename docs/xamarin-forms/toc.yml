@@ -2,13 +2,29 @@
   href: Getting-Started.md
 - name: ViewModelLocator
   href: ViewModelLocator.md
-- name: Navigation Service
-  href: Navigation-Service.md
+- name: Navigation
+  items:
+    name: Navigation Basics
+    href: navigation/navigation-basics.md
+    name: Passing Parameters
+    href: navigation/passing-parameters.md
+    name: Confirming Navigation
+    href: navigation/confirming-navigation.md
+    name: Deep Linking
+    href: navigation/deep-linking.md
+    name: Working with MasterDetailPages
+    href: navigation/working-with-masterdetailpages.md
+    name: Working with NavigationPages
+    href: navigation/working-with-navigationpages.md
+    name: Working with TabbedPages
+    href: navigation/working-with-tabbedpages.md
+    name: XAML Navigation
+    href: navigation/xaml-navigation.md
+- name: Application Lifecycle
+  href: application-lifecycle.md
+- name: Page Lifecycle
+  href: page-lifecycle.md
 - name: Page Dialog Service
   href: Page-Dialog-Service.md
 - name: EventToCommandBehavior
   href: EventToCommandBehavior.md
-- name: Working with TabbedPages
-  href: Working-With-TabbedPages.md
-- name: Xaml Navigation
-  href: Xaml-Navigation.md
