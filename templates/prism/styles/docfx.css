@@ -1,10 +1,8 @@
-﻿/* Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information. */
-html, body {
-  font-family: 'aktiv-grotesk', sans-serif;
+/* Copyright (c) Microsoft Corporation. All Rights Reserved. Licensed under the MIT License. See License.txt in the project root for license information. */
+html,
+body {
+  font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
   height: 100%;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: #585858;
 }
 button,
 a {
@@ -177,7 +175,7 @@ header .navbar {
 }
 .navbar-brand {
   font-size: inherit;
-  padding: 5px;
+  padding: 0;
 }
 .navbar-collapse {
   margin: 0 -15px;
@@ -482,7 +480,6 @@ body .toc{
   margin-left: 5px;
   display: block;
   padding: 0;
-  font-weight: 500;
 }
 .toc .nav > li > a:hover,
 .toc .nav > li > a:focus {
@@ -549,7 +546,6 @@ body .toc{
   width: 260px;
   background-color: #f1f1f1;
   padding: 15px;
-  padding-top: 25px;
   border-left: 1px solid #e7e7e7;
   border-right: 1px solid #e7e7e7;
   z-index: 1;
@@ -601,6 +597,7 @@ body .toc{
   font-size: 12px;
   max-height: 100%;
   overflow: visible;
+  overflow: hidden;
   top: 100px;
   bottom: 10px;
   position: fixed;
