@@ -1,3 +1,16 @@
+::-moz-selection {
+    color: #fff;
+    background: #0099ff; }
+  
+::selection {
+    color: #fff;
+    background: #0099ff; }
+  
+html, .root {
+    font-size: 16px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased; }
+
 html, body {
     font-family: 'aktiv-grotesk', sans-serif;
     height: 100%;
@@ -18,7 +31,7 @@ html, body {
     line-height: 20px
   }
 
-  .navbar-brand > img {
+.navbar-brand > img {
     display: block;
     height: 57px;
 }
@@ -45,12 +58,71 @@ html, body {
 
 /******************* TOC *******************/
 
+.toc {
+    overflow-x: hidden;
+    padding-left: 10px;
+}
+
+.toc .nav > li > a {
+    color: #585858;
+    display: block;
+    position: relative;
+    padding: 0;
+}
+
+.toc .nav .level3 > li > a {
+    font-size: 14px
+}
+
+.toc .nav > li > a:hover,
+.toc .nav > li > a:focus {
+    color: #0099ff;
+    background: none;
+    text-decoration: inherit;
+}
+
+.toc .nav > li.active > a {
+    color: #337ab7;
+}
+
+.toc .nav > li.active > a:hover,
+.toc .nav > li.active > a:focus {
+    color: #23527c;
+}
+
+.toc .nav .nav {
+    margin: 0;
+    padding-left: 10px;
+}
+
+.sidetoc.shiftup {
+    bottom: 0px;
+}
+
 .sidefilter{
-    padding-top: 30px;
+ padding-top: 30px;   
 }
 
 /******************* Affix *******************/
 
 .sideaffix {
     overflow: visible;
+}
+
+/******************* Media Queries *******************/
+
+@media (min-width: 768px){
+    .container {
+        width: 100%;
+        margin-left: 0px;
+        padding-left: 0px;
+    }
+
+    .breadcrumb {
+        padding-left: 25px;
+    }
+
+    #autocollapse .navbar-header {
+        margin-left: 15px;
+    }
 }

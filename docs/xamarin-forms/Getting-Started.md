@@ -111,7 +111,7 @@ The MainPageViewModel inherits from `BindableBase` and implements the `INavigati
 
 The `BindableBase` class implements the [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged%28v=vs.110%29.aspx) interface which allows for the view to be able to databind to properties created here. `BindableBase` also provides a protected `SetProperty` method to simplify creating these properties. 
 
-The `INavigationAware` interface allows for the view model to be notified when it is being navigated from or being navigated to. See the [INavigationAware documentation](Navigation-Service.md) for more information.
+The `INavigationAware` interface allows for the view model to be notified when it is being navigated from or being navigated to. See the [INavigationAware documentation](navigation/passing-parameters.md) for more information.
 
 ```cs
 private string _title;
@@ -134,7 +134,7 @@ public void OnNavigatedTo(NavigationParameters parameters)
 ...
 ```
 
-These methods are called with the view model is navigated from or to. Here it expects a string via the NavigationParameters parameter and modifies the Title property with the string's value. See the [INavigationAware documentation](Navigation-Service.md) for more information.
+These methods are called with the view model is navigated from or to. Here it expects a string via the NavigationParameters parameter and modifies the Title property with the string's value. See the [INavigationAware documentation](navigation/passing-parameters.md) for more information.
 
 ## Adding a new Page (View) and ViewModel
 
@@ -304,4 +304,4 @@ Tells the navigation service to navigate to the SpeakPage.
 
 With navigation all wired up and the "Navigate to speak page" button is pressed in the view the NavigateToSpeakPageCommand will be called on the view model, the command will execute the NavigateToSpeakPage method, and finally the Navigation Service will perform the navigation to the SpeakPage.
 
-For more information on the navigation service see the [navigation service documentation](Navigation-Service.md)
+For more information on the navigation service see the [navigation service documentation](navigation/navigation-basics.md)

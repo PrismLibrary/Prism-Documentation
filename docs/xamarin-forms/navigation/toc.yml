@@ -6,11 +6,11 @@
   href: confirming-navigation.md
 - name: Deep Linking
   href: deep-linking.md
-- name: Working with MasterDetailPages
+- name: Working w/ MasterDetailPages
   href: working-with-masterdetailpages.md
-- name: Working with NavigationPages
+- name: Working w/ NavigationPages
   href: working-with-navigationpages.md
-- name: Working with TabbedPages
+- name: Working w/ TabbedPages
   href: working-with-tabbedpages.md
 - name: XAML Navigation
   href: xaml-navigation.md
