@@ -33,10 +33,7 @@
     "dest": "_site",
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
-    "template": [
-      "statictoc",
-      "templates/prism"
-    ],
+    "template": ["templates/prism"],
     "postProcessors": [],
     "noLangKeyword": false,
     "keepFileLink": false,
@@ -44,6 +41,7 @@
     "globalMetadata": {
       "_appTitle": "Prism",
       "_appFooter": "Copyright 2017 Prism",
+      "_appLogoPath": "images/prism-logo.png",
       "_gitContribute": {
         "repo": "https://github.com/PrismLibrary/Prism-Documentation",
         "branch": "master"

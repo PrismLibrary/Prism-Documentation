@@ -1,0 +1,67 @@
+.toc li a {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+}
+
+
+.connect-links, .connect-widget ul {
+    margin-left: 30px
+}
+
+.connect-links > li, .connect-widget ul > li {
+    position: relative
+}
+
+.connect-links > li:hover .image, .connect-widget ul > li:hover .image {
+    opacity: 1
+}
+
+.connect-links > li .image, .connect-widget ul > li .image {
+    background-image: url("../images/connect-widget-sprite.svg");
+    width: 23px;
+    height: 23px;
+    background-size: 8rem;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: -30px;
+    opacity: .8
+}
+
+.connect-links > li .github, .connect-widget ul > li .github {
+    background-position: 0% 50%
+}
+
+.connect-links > li .stackoverflow, .connect-widget ul > li .stackoverflow {
+    background-position: 20.5% 100%;
+    width: 22px;
+}
+
+.connect-links > li .twitterhandle, .connect-widget ul > li .twitterhandle {
+    background-position: 40% 50%
+}
+
+.connect-widget {
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+.connect-widget ul {
+    list-style: none;
+    padding-left: 10px
+}
+
+.connect-widget ul > li {
+    margin: 0;
+    padding-top: 8px;
+    padding-bottom: 8px
+}
+
+.connect-widget ul a {
+    text-decoration: none;
+    font-size: 12px
+}
+
+.connect-widget ul span {
+    display: block
+}
