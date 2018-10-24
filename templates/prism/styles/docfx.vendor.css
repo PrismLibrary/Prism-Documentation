@@ -1454,7 +1454,8 @@ hr {
 }
 
 p {
-    margin: 0 0 10px
+    margin: 0 0 10px;
+    max-width: 600px;
 }
 
 .lead {
