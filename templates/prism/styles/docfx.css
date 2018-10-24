@@ -476,7 +476,7 @@ body .toc{
   left: 0;
 }
 .toc .nav > li > a {
-  color: #000;
+  color: #666666;
   margin-left: 5px;
   display: block;
   padding: 0;
@@ -596,7 +596,6 @@ body .toc{
   margin-top: 50px;
   font-size: 12px;
   max-height: 100%;
-  overflow: visible;
   overflow: hidden;
   top: 100px;
   bottom: 10px;
