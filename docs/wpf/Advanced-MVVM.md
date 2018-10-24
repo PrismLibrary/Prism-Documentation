@@ -163,7 +163,7 @@ When interacting with web services or other remote access technologies, you will
 To determine when to call **EndGetQuestionnaire**, you can either poll for completion or (preferably) specify a callback during the call to **BeginGetQuestionnaire**. With the callback approach, your callback method will be called when the execution of the target method is complete, allowing you to call **EndGetQuestionnaire** from there, as shown here.
 
 ```cs
-IAsyncResult asyncResult = this.service.BeginGetQuestionnaire(GetQuestionnaireCompleted, null // object state, not used in this example);
+IAsyncResult asyncResult = this.service.BeginGetQuestionnaire(GetQuestionnaireCompleted, null ); // object state, not used in this example
 
 private void GetQuestionnaireCompleted(IAsyncResult result)
 {
