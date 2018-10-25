@@ -2,5 +2,5 @@
   href: Download-and-Setup-Prism.md
 - name: NuGet Packages
   href: NuGet-Packages.md
-- name: Assembly Versioning
-  href: Assembly-Versioning.md
+- name: Productivity Tools
+  href: productivity-tools.md

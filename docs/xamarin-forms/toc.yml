@@ -1,5 +1,5 @@
-- name: Getting Started
-  href: Getting-Started.md
+- name: Create Your First App
+  href: creating-your-first-prism-app.md
 - name: Navigation
   href: navigation/toc.yml
 - name: Application Lifecycle

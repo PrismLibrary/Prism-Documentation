@@ -73,7 +73,7 @@ The Prism library is referenced.
 
 `prism:ViewModelLocator.AutowireViewModel="True"`
 
-This view (MainPage.xaml) is wired to the view model (MainPageViewModel.cs) *automatically via naming conventions* allowing for databinding to the view model. See [ViewModelLocator documentation](ViewModelLocator.md) for more information.
+This view (MainPage.xaml) is wired to the view model (MainPageViewModel.cs) *automatically via naming conventions* allowing for databinding to the view model. See ViewModelLocator documentation for more information.
 
 `<Label Text="{Binding Title}" />`
 
@@ -168,7 +168,7 @@ Let's break down what is going on here.
 The Prism library is referenced.
 
 `prism:ViewModelLocator.AutowireViewModel="True"`
-This view (SpeakPage.xaml) is wired to the view model (SpeakPageViewModel.cs) *automatically via naming conventions* allowing for databinding to the view model. See [ViewModelLocator documentation](ViewModelLocator.md) for more information.
+This view (SpeakPage.xaml) is wired to the view model (SpeakPageViewModel.cs) *automatically via naming conventions* allowing for databinding to the view model. See ViewModelLocator documentation for more information.
 
 ```xml
 <StackLayout VerticalOptions="CenterAndExpand">
