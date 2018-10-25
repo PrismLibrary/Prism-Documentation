@@ -108,21 +108,3 @@ html, body {
 .sideaffix {
     overflow: visible;
 }
-
-/******************* Media Queries *******************/
-
-@media (min-width: 768px){
-    .container {
-        width: 100%;
-        margin-left: 0px;
-        padding-left: 0px;
-    }
-
-    .breadcrumb {
-        padding-left: 25px;
-    }
-
-    #autocollapse .navbar-header {
-        margin-left: 15px;
-    }
-}

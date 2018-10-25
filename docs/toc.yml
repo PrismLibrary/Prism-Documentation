@@ -2,6 +2,14 @@
   href: index.md
 - name: Getting Started
   href: getting-started/toc.yml
+- name: Commanding
+  href: commanding.md
+- name: Composite Commands
+  href: composite-commands.md
+- name: Event Aggregator
+  href: event-aggregator.md
+- name: ViewModelLocator
+  href: viewmodel-locator.md
 - name: WPF
   href: wpf/toc.yml
 - name: Xamarin.Forms
