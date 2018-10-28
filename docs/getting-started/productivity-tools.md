@@ -114,7 +114,7 @@ The Prism Template Pack is available on the [Visual Studio Gallery](https://mark
 ## Visual Studio for Mac Installation
 The Prism Template Studio and Developer Toolkit is available from the Visual Studio Mac Extensions Gallery.
 
-**need image**
+**need image** should VS4Mac has its own section (as below) since it has slightly different setup/tooling?
 
 # Prism Template Studio
 TBD
@@ -139,6 +139,7 @@ Available templates:
 
 ![VS4Mac Prism Extension](images/vsmac-prism-template-01.png)
 
+## App
 The official Xamarin.Forms project template creates a Xamarin.Forms app with Prism template and your choice of container and platform(s).
 
 *Note: UWP is not supported on Mac*
@@ -154,16 +155,16 @@ This template lets you create a Xamarin.Forms app for iOS and Android much like 
 ![QuickStart Prism Application](images/vsmac-qs-prism-app-blank.png)
 
 ### 2. QuickStart Prism Application
-lets you create a Xamarin.Forms app for iOS and Android. This template also provides some Power Options to supercharge your application with UI tests, MVVM helpers like Fody, barcode scanner, and data provider backends (Azure, Realm, etc.)
+This template lets you create a Xamarin.Forms app for iOS and Android. It also provides some Power Options to supercharge your application with UI tests, MVVM helpers like Fody, barcode scanner, and data provider backends (Azure, Realm, etc.)
 
 ![QuickStart Prism Application](images/vsmac-qs-prism-app-01.png)
 
-This template requires CI/CD setup for **AppCenter** and **Azure Devops (VSTS)**. To get started, go to xxx and setup your app. Then create connection to your app in Visual Studio for Mac by going to `Help -> AppCenter Congiurations`
+**Note:** This template requires CI/CD setup for **AppCenter** and **Azure Devops (VSTS)**. To get started, go to [App Center](https://docs.microsoft.com/en-us/appcenter/) and [Azure DevOps](https://visualstudio.microsoft.com/vso/) to setup your app. Then create connection to your app in Visual Studio for Mac by going to `Help -> AppCenter Congiurations`.
 
 ![QuickStart Prism Application](images/vsmac-qs-prism-app-setup.png)
 
-### Get AppCenter Personal Token
+## Module
 TBD
 
-### Get Azure DevOps (VSTS) Personal Token
+## Tests
 TBD
