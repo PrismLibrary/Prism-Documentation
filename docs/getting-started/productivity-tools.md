@@ -123,3 +123,47 @@ TBD
 The Prism Etensibility Pack is available on the [Visual Studio Gallery](https://marketplace.visualstudio.com/items?itemName=BrianLagunas.PrismExtensibilityPack). To install, just go to `Visual Studio -> Tools -> Extensions and Updates...` then search for "Prism Extensibility Pack" in the online gallery:
 
 TBD
+
+# Visual Studio for Mac
+On Visual Studio for Mac, Prism makes it easier to get Prism Template Studio and Developer Toolkit all in a single extension. Go to `Visual Studio -> Extensions...` and search for "Prism" in the Gallery tab.
+
+![VS4Mac Prism Extension](images/vsmac-prism-template-pack.png)
+
+## Prism Template Studio
+These templates let you create projectes for iOS and Android with your choice of container. 
+
+Available templates:
+- App
+- Module
+- Tests
+
+![VS4Mac Prism Extension](images/vsmac-prism-template-01.png)
+
+The official Xamarin.Forms project template creates a Xamarin.Forms app with Prism template and your choice of container and platform(s).
+
+*Note: UWP is not supported on Mac*
+
+![Official Blank Template](images/vsmac-prism-template-official.png)
+
+## QuickStart Templates
+QuickStart templates are a great way to get off the ground with most of the boiler-plate code in place. Prism QuickStarts comes with two powerful options,
+
+### 1. Blank Prism Application
+This template lets you create a Xamarin.Forms app for iOS and Android much like the "Official" template, but adds UI tests and some handy editor configurations.
+
+![QuickStart Prism Application](images/vsmac-qs-prism-app-blank.png)
+
+### 2. QuickStart Prism Application
+lets you create a Xamarin.Forms app for iOS and Android. This template also provides some Power Options to supercharge your application with UI tests, MVVM helpers like Fody, barcode scanner, and data provider backends (Azure, Realm, etc.)
+
+![QuickStart Prism Application](images/vsmac-qs-prism-app-01.png)
+
+This template requires CI/CD setup for **AppCenter** and **Azure Devops (VSTS)**. To get started, go to xxx and setup your app. Then create connection to your app in Visual Studio for Mac by going to `Help -> AppCenter Congiurations`
+
+![QuickStart Prism Application](images/vsmac-qs-prism-app-setup.png)
+
+### Get AppCenter Personal Token
+TBD
+
+### Get Azure DevOps (VSTS) Personal Token
+TBD
