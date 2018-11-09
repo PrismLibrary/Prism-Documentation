@@ -84,7 +84,7 @@ The following is an example of an `App` class with ALM management.
     }
 ```
 
-## Hanlding app resume and suspend
+## Handling app resume and suspend
 In general, an application goes into __sleep mode__ when it no longer commands the screen and has become inactive. From this sleep mode, an application can be __resumed__ (signaled by an `OnResume()` call) or __terminated__. But this is important: after the `OnSleep()` call, there is __no further notification__ that an application is being terminated. The `OnSleep()` call is as close as you get to a termination notification, and it always precedes a termination. For example, if your application is running and the user turns off the phone, the application gets an `OnSleep()` call as the phone is shutting down. If your program has established a connection with a web service, or is in the process of establishing such a connection, you might want to use `OnResume()` to restore that connection. Perhaps the connection has timed out in the interval that the program was inactive. Or perhaps some fresh data is available. 
 
 
