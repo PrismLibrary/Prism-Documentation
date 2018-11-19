@@ -69,7 +69,7 @@ There are some important things happening here, let's break down whats going on.
 
 `xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"`
 
-The Prism library is referenced. 
+The Prism library is referenced.
 
 `prism:ViewModelLocator.AutowireViewModel="True"`
 
@@ -107,9 +107,9 @@ public class MainPageViewModel : BindableBase, INavigationAware
 public class MainPageViewModel : BindableBase, INavigationAware
 ```
 
-The MainPageViewModel inherits from `BindableBase` and implements the `INavigationAware` interface. 
+The MainPageViewModel inherits from `BindableBase` and implements the `INavigationAware` interface.
 
-The `BindableBase` class implements the [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged%28v=vs.110%29.aspx) interface which allows for the view to be able to databind to properties created here. `BindableBase` also provides a protected `SetProperty` method to simplify creating these properties. 
+The `BindableBase` class implements the [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged%28v=vs.110%29.aspx) interface which allows for the view to be able to databind to properties created here. `BindableBase` also provides a protected `SetProperty` method to simplify creating these properties.
 
 The `INavigationAware` interface allows for the view model to be notified when it is being navigated from or being navigated to. See the [INavigationAware documentation](navigation/passing-parameters.md) for more information.
 
@@ -144,7 +144,7 @@ Now that we have a basic understanding of how project is setup with Prism for Xa
 
 ### View
 
-Let's create the new content page in the project, also known as the view. Again, the easiest way to do this is with the *Prism Template Pack*. We'll create the view first. Right click on the `Views` folder, click `Add > New Item...` under `Installed > Visual C# > Prism > Forms` select `Prism ContentPage (Forms)`. Name the page `SpeakPage.xaml` and click `Add`. This creates a blank content page. 
+Let's create the new content page in the project, also known as the view. Again, the easiest way to do this is with the *Prism Template Pack*. We'll create the view first. Right click on the `Views` folder, click `Add > New Item...` under `Installed > Visual C# > Prism > Forms` select `Prism ContentPage (Forms)`. Name the page `SpeakPage.xaml` and click `Add`. This creates a blank content page.
 
 There are many different types of [pages available in Xamarin Forms](https://developer.xamarin.com/guides/xamarin-forms/controls/pages/), but the ContentPage is one of the most basic. It displays a single visual object, typically a [layout](https://developer.xamarin.com/guides/xamarin-forms/controls/layouts/). Update`SpeakPage.xaml` to have the contents shown below.
 
@@ -240,7 +240,7 @@ public SpeakPageViewModel()
 }
 ```
 
-Creates a [DelegateCommand](https://msdn.microsoft.com/en-us/library/microsoft.practices.prism.commands.delegatecommand%28v=pandp.50%29.aspx) called `SpeakCommand` that the Speak button is bound to. The `SpeakCommand` is created in the `SpeakPageViewModel` constructor and will invoke the `Speak` method, which hasn't been written yet. To be able to perform the actual text-to-speech platform specific APIs need to be used. This is outside the scope of this documentation, but head over to the [Dependency Service documentation](Dependency-Service.md) to see how this is done.
+Creates a [DelegateCommand](https://msdn.microsoft.com/en-us/library/microsoft.practices.prism.commands.delegatecommand%28v=pandp.50%29.aspx) called `SpeakCommand` that the Speak button is bound to. The `SpeakCommand` is created in the `SpeakPageViewModel` constructor and will invoke the `Speak` method, which hasn't been written yet. To be able to perform the actual text-to-speech platform specific APIs need to be used. This is outside the scope of this documentation, but head over to the [IPlatformInitializer documentation](Platform-Specific-Types.md) to see how this is done.
 
 ## Navigating to your new page
 
