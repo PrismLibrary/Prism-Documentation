@@ -34,7 +34,7 @@ For example, the following code shows the `TickerSymbolSelectedEvent`. The paylo
 public class TickerSymbolSelectedEvent : PubSubEvent<string>{}
 ```
 > [!Note]
-> In a composite application, the events are frequently shared between multiple modules, so they are defined in a common place. It is common practice to deinfe these events in a shared assembly such as a "Core" or "Infrastructure" project.
+> In a composite application, the events are frequently shared between multiple modules, so they are defined in a common place. It is common practice to define these events in a shared assembly such as a "Core" or "Infrastructure" project.
 
 ## Publishing an Event
 Publishers raise an event by retrieving the event from the `EventAggregator` and calling the `Publish` method. To access the `EventAggregator`, you can use dependency injection by adding a parameter of type `IEventAggregator` to the class constructor.
