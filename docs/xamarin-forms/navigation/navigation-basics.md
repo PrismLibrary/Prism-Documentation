@@ -64,7 +64,7 @@ _navigationService.NavigateAsync("CustomKey");
 
 ### OnPlatform Registration
 
-When writing a Xamarin.Forms apllication, it is common to use a different view for a specific platform. Prism enables you to register different views for different platforms while using the same ViewModel. To do this, simply regiter your views using the `IContainerRegistry.RegisterForNavigationOnPlatform` method. The `TVIiw` and `TViewModel` will be used for all views unless you provide an IPlatform arugment.
+When writing a Xamarin.Forms apllication, it is common to use a different view for a specific platform. Prism enables you to register different views for different platforms while using the same ViewModel. To do this, simply regiter your views using the `IContainerRegistry.RegisterForNavigationOnPlatform` method. The `TView` and `TViewModel` will be used for all views unless you provide an IPlatform arugment.
 
 For example; The following code will use the MainPage, with the MainPageViewModel as it's BindingContent, for every platform except Android and iOS.  For Android, we have rgeistered the MainPageAndroid, and for iOS we have registered the MainPageiOS. Both MainPageAndroid and MainPageiOS will use the MainPageViewModel as their BindingContent.
 
