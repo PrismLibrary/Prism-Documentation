@@ -91,7 +91,7 @@ In general, an application goes into __sleep mode__ when it no longer commands t
 ## Debugging tips and tricks
 When your app is attached to the Visual Studio debugger, it will not be suspended. You can suspend it from the debugger, however, and then send it a Resume event so that you can debug your code. Make sure the Debug Location toolbar is visible and click the drop-down next to the Suspend icon. Then choose Resume.
 
-![how to activate debug-location](../../images/xf-iapplicationlifecycleaware-debug-location.png)
+![how to activate debug-location](images/xf-iapplicationlifecycleaware-debug-location.png)
 
 ## Reference
 + [Xamarin Docs App Lifecycle](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/app-lifecycle/)
