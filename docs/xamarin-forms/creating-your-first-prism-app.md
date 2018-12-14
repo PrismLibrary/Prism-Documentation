@@ -1,6 +1,8 @@
 # Creating Your First Prism App
 In this topic, we will walk through the necessary steps required to create a new Xamarin.Forms application using the Prism Library.
 
+> [!Video https://www.youtube.com/embed/81Q2fxFWIqA]
+
 ## Create the Application
 
 First, make sure you have installed the Prism Template Pack.
