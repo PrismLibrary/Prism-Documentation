@@ -12,5 +12,7 @@
   href: viewmodel-locator.md
 - name: WPF
   href: wpf/toc.yml
+- name: WPF Prism 7.x
+  href: wpf7x/toc.yml
 - name: Xamarin.Forms
   href: xamarin-forms/toc.yml
