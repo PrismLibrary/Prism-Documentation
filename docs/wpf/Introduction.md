@@ -2,7 +2,7 @@
 
 Composite applications typically feature multiple screens, rich user interaction and data visualization, and that embody significant presentation and business logic. These applications typically interact with multiple back-end systems and services and, using a layered architecture, may be physically deployed across multiple tiers. It is expected that the application will evolve significantly over its lifetime in response to new requirements and business opportunities. In short, these applications are "built to last" and "built for change." Applications that do not demand these characteristics may not benefit from using Prism.
 
-Prism includes reference implementations, QuickStarts, reusable library code (the Prism Library), and extensive documentation. This version of Prism targets the Microsoft .NET Framework 4.5 and includes new guidance around the Model-View-ViewModel (MVVM) pattern, navigation, and the Managed Extensibility Framework (MEF). Because Prism is built on the .NET Framework 4.5 (which includes WPF) , familiarity with these technologies is useful for evaluating and adopting Prism.
+Prism includes reference implementations, QuickStarts, reusable library code (the Prism Library), and extensive documentation. This version of Prism targets the Microsoft .NET Framework 4.5 and includes new guidance around the Model-View-ViewModel (MVVM) pattern, navigation, and the Managed Extensibility Framework (MEF). Because Prism is built on the .NET Framework 4.5 (which includes WPF), familiarity with these technologies is useful for evaluating and adopting Prism.
 
 It should be noted that while Prism is not difficult to learn, developers must be ready and willing to embrace patterns and practices that may be new to them. Management understanding and commitment is crucial, and the project deadline must accommodate an investment of time up front for learning these patterns and practices.
 
@@ -54,7 +54,7 @@ Although Prism helps you to address many of the challenges you might face when b
 
 ## Prerequisites
 
-Prism assumes you have hands-on experience with WPF . There are a few important concepts that Prism uses heavily, and you should become familiar with them. They include the following:
+Prism assumes you have hands-on experience with WPF. There are a few important concepts that Prism uses heavily, and you should become familiar with them. They include the following:
 
 - **XAML (Extensible Application Markup Language)**. The language to declaratively define and initialize the user interface in WPF applications.
 - **Data binding**. This is how UI elements are connected to components and data in WPF.
