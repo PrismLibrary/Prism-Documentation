@@ -10,7 +10,7 @@
   href: event-aggregator.md
 - name: ViewModelLocator
   href: viewmodel-locator.md
-- name: WPF
+- name: WPF Prism 6.3
   href: wpf/toc.yml
 - name: WPF Prism 7.x
   href: wpf7x/toc.yml
