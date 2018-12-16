@@ -2,11 +2,14 @@
 
 This topic addresses what needs to happen to get a Prism for WPF application up and running. A Prism application requires registration and configuration during the application startup process—this is known as bootstrapping the application. The Prism bootstrapping process includes creating and configuring a module catalog, creating a dependency injection container such as Unity, configuring default region adapter for UI composition, creating and initializing the shell view, and initializing modules.
 
-## What Is a Bootstrapper?
+## Initializing the Application
 
-A bootstrapper is a class that is responsible for the initialization of an application built using the Prism Library. By using a bootstrapper, you have more control of how the Prism Library components are wired up to your application.
+The Prism Library includes abstract **Bootstrapper** base class that can be specialized for use with any container. Many of the methods on the bootstrapper classes are virtual methods. You can override these methods as appropriate in your own custom bootstrapper implementation. 
 
-The Prism Library includes a default abstract **Bootstrapper** base class that can be specialized for use with any container. Many of the methods on the bootstrapper classes are virtual methods. You can override these methods as appropriate in your own custom bootstrapper implementation. 
+The Prism Library includes abstract classes that are based on the Application class in WPF. Each of these abstract classes are centered around a dependency injection container. For the purposes of this article Prism.Wpf.Unity.PrismApplication class will be used.
+
+The PrismApplication class takes care of much of the boilerplate code that would typically need to be included to start up an app. Apps are only required to implement CreateShell and RegisterTypes.
+
 
 ![Basic stages of the bootstrapping process](images/Ch2BootstrapperFig1.png)
 
