@@ -17,7 +17,7 @@ Below are the basic steps that take place within Prism for WPF.
 | **3. Create Module Catalog** | Yes | This step creates the module catalog that is used to manage the loading and dependencies of the modules in an application. By default, this step provides the most basic module catalog implementation where the app registers modules via code. Override this to use a different catalog technique. |
 | **4. DI Prism Services** | Yes | This step is used to register all of the services that Prism requires with the selected dependency injection container. It can be overridden, but probably shouldn't. App specific services should instead be registered in step 4 |
 | **5. DI App Services** | **MUST** | This step is used to register all of the app specific services with the selected dependency injection container. This method must be implemented. |
-| **6. Service Locator** | Yes | I don't know what this is for yet |
+| **6. Service Locator** | Yes | The IServiceLocator pattern is used extensively in the regions section of Prism. It is hooked up the DI container so that it can properly resolve objects. |
 | **7. Configure Module Catalog** | Yes | If the app is registering modules via code, override this function to perform that operation. |
 | **8. Configure Region Adapter Mappings** | Yes | This step configures the default region adapter mappings. |
 | **9. Configure Region Behavior** | Yes | Configure the list of default behaviors that will be added to regions. |
