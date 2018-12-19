@@ -11,6 +11,9 @@ Implementing the `ICommand` interface is straightforward. Prism provides the `De
 > `DelegateCommand` can be found in the Prism.Commands namespace which is located in the Prism.Core NuGet package.
 
 ## Creating a DelegateCommand
+
+> [!Video https://www.youtube.com/embed/tYItSPv58Bo]
+
 The Prism `DelegateCommand` class encapsulates two delegates that each reference a method implemented within your ViewModel class. It implements the `ICommand` interface's `Execute` and `CanExecute` methods by invoking these delegates. You specify the delegates to your ViewModel methods in the `DelegateCommand` class constructor. For example, the following code example shows how a `DelegateCommand` instance, which represents a Submit command, is constructed by specifying delegates to the OnSubmit and CanSubmit ViewModel methods. The command is then exposed to the view via a read-only property that returns a reference to the `DelegateCommand`.
 
 ```cs
