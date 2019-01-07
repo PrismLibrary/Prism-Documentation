@@ -14,6 +14,8 @@ The `CompositeCommand` class maintains a list of child commands (`DelegateComman
 > [!NOTE]
 > `CompositeCommand` can be found in the Prism.Commands namespace which is located in the Prism.Core NuGet package.
 
+> [!Video https://youtu.be/kssprOqdfME]
+
 ## Creating a Composite Command
 To create a composite command, instantiate a `CompositeCommand` instance and then expose it as either an `ICommand` or `ComponsiteCommand` property.
 ```cs
