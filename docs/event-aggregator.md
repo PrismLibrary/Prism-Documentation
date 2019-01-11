@@ -7,6 +7,8 @@ Events created with the Prism Library are typed events. This means you can take 
 
 ![Using the event aggregator](images/event-aggregator-1.png)
 
+> [!Video https://www.youtube.com/embed/xTP9_hN_3xA]
+
 ## IEventAggregator
 The `EventAggregator` class is offered as a service in the container and can be retrieved through the `IEventAggregator `interface. The event aggregator is responsible for locating or building events and for keeping a collection of the events in the system.
 ```cs
