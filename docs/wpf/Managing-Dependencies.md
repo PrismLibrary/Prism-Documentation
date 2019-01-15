@@ -19,35 +19,93 @@ In the context of an application based on the Prism Library, there are specific 
 * A container injects the composition services, such as the region manager and the event aggregator.
 * A container is used for registering module-specific services, which are services that have module-specific functionality.
 
-**Note:** Some samples in the Prism guidance rely on the Unity Application Block (Unity) as the container. Other code samples, for example the Modularity QuickStarts, use Managed Extensibility Framework (MEF). The Prism Library itself is not container-specific, and you can use its services and patterns with other containers, such as Castle Windsor, StructureMap, and Spring.NET.
-
 ## Key Decision: Choosing a Dependency Injection Container
 
-The Prism Library provides two options for dependency injection containers: Unity or MEF. Prism is extensible, thereby allowing other containers to be used instead with a little bit of work. Both Unity and MEF provide the same basic functionality for dependency injection, even though they work very differently. Some of the capabilities provided by both containers include the following:
+The Prism Library provides six options for dependency injection containers: Unity, MEF, AutoFAC, Dryloc, StructureMap and Ninject. The Prism Library makes them almost interchangable, but the container should still be carefully chosen. Not all containers support the concept of Prism Modules and not all containers are available on all of the different platforms that Prism supports.
 
-* They both register types with the container.
-* They both register instances with the container.
-* They both imperatively create instances of registered types.
-* They both inject instances of registered types into constructors.
-* They both inject instances of registered types into properties.
-* They both have declarative attributes for marking types and dependencies that need to be managed.
-* They both resolve dependencies in an object graph.
+| Prism WPF | WPF Modules | Xamarin | Xamarin Modules | UWP | UWP Modules |
+|-----------|-------------|---------|-----------------|-----|-------------|
+| Prism.AutoFac | No | Yes | No | No | No | No | 
+| Prism.Dryloc | Yes | Yes | Yes | Yes | Yes | Yes | 
+| Prism.MEF | Yes* | No | No | No | No | No | 
+| Prism.NInject | Yes | Yes | Yes | No | No | No | 
+| Prism.StructureMap | Yes | No | No | No | No | No | 
+| Prism.Unity | Yes | Yes | Yes | Yes | Yes |
 
-Unity provides several capabilities that MEF does not:
+(*) Prism.MEF bootstraps the application in the old manner with a separate bootstrapper class and does not work off of the main App object.
 
-* It resolves concrete types without registration.
-* It resolves open generics.
-* It uses interception to capture calls to objects and add additional functionality to the target object.
+## IContainerRegistry Interface
 
-MEF provides several capabilities that Unity does not:
+Each container is hidden behind an interface that provides standard functions used by the application for registering and resolving types.
 
-* It discovers assemblies in a directory.
-* It uses XAP file download and assembly discovery.
-* It recomposes properties and collections as new types are discovered.
-* It automatically exports derived types.
-* It is deployed with the .NET Framework.
+| Functions          | Description |
+|--------------------|-------------|
+| ```GetInstance``` | Returns an instance of the native container hidden behind the interface. |
+| ```Register(Type type)``` | Registers a type with the container for construction. |
+| ```Register(Type type, string name)``` | Registers a type with the container for construction and gives it a scope to resolve against. |
+| ```Register(Type from, Type to)``` | Registers a from, typically an interface, to a "to" that is a concrete class that implements the interface. |
+| ```Register(Type from, Type to, string name)``` | Same as above but gives the resolution a scope to resolve against. |
+| ```Register<T>()``` | Template style version of ```Register(Type type)```. |
+| ```Register<T>(string name)``` | Template style version of ```Register(Type type, string name)```. |
+| ```Register<TFrom, TTo>()``` | Template style version of ```Register(Type from, Type to)```. |
+| ```Register<TFrom, TTo>(string name)``` | Template style version of ```Register(Type from, Type to, string name)```. |
+| ```RegisterForNavigation(Type type, string name)``` | Used to register a view for navigation. Not really used in WPF. |
+| ```RegisterForNavigation<T>(string name)``` | Used to register a view for navigation. Not used in WPF. |
+| ```RegisterForNavigation<TView, TViewModel>(string name)``` | Used to register a view, its view model for navigation. Not used in WPF. |
+| ```RegisterInstance(Type type, object instance)``` | Registers an object in the container and associates it with a type. |
+| ```RegisterInstance<T>(T instance)``` | Template implementation of above. |
+| ```RegisterSingleton(Type t)``` | Creates an instance of ```Type T``` upon demand. Once created, subsequent requests will get the same instance. |
+| ```RegisterSingleton<T>()``` | Templated version of above but typed. |
+| ```RegisterSingleton<TFrom, TTo>()``` | Templated version of above, but when ```TFrom``` is demanded, ```TTo``` is supplied. ```TFrom``` is typically an interface and ```TTo``` is the concrete class that implements the interface. |
 
-The containers have differences in capabilities and work differently, but the Prism Library will work with either container and provide similar functionality. When considering which container to use, keep in mind the preceding capabilities and determine which fits your scenario better. 
+
+### Registering and Resolving Objects
+
+Applications make use of app specific services, for example, a service that could be used to manage a customer store of some kind. Many different objects in the app could make use of that customer store: one could list all the customers, one could add a new customer, one could list all the details for a single customer and permit editing.
+
+All of these services can be hidden behind an interface:
+```cs
+public interface ICustomerStore
+{
+    IList<Customer> GetAllCustomers();
+    bool AddNewCustomer(Customer customer);
+    Customer GetCustomer(int id);
+    bool UpdateCustomer(Customer customer);
+}
+```
+
+This interface could be implemented in a number of different ways, such as over a SQL server, a REST API, a flat file, etc.
+```cs
+public class SqlCustomerStore : ICustomerStore
+{
+    /// implementation here
+}
+```
+Remember from the initializing section, we need to register all of our services. Using the above, it could look like this:
+```cs
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.Register<ICustomerStore, SqlCustomerStore>();
+}
+```
+
+Now when the app needs to create the customer details view, Prism will also take care of instantiating the view model for the view see [ViewModelLocator](implementing-mvvm.md). The view model itself will have a dependency on the ```ICustomerStore``` interface such as below:
+```cs
+public class CustomerDetailViewModel : BaseViewModel
+{
+    CustomerDetailViewModel(ICustomerStore customerStore)
+    {
+    }
+}
+```
+The application will use the container to create the viewmodel and it will see the dependency on ```ICustomerStore```. The container will create an instance of ```SqlCustomerStore``` for use in the constructor.
+
+Of course the wonderful thing about this is that the app view model is decoupled from the implementation details of customer services. By simply changing the registration in ```RegisterTypes``` and the application will be updated everywhere.
+
+Use either ```RegisterInstance``` or ```RegisterSingleton``` if the application needs to use the same instance of an object everywhere.
+
+If you need container specific capabilities, use the ```Container``` property of your ```Application``` object to access. 
+
 
 ## Considerations for Using the Container
 
@@ -71,268 +129,48 @@ You should consider the following before using containers:
 
 **Note:** Some containers, such as MEF, cannot be configured via a configuration file and must be configured via code.
 
-## Core Scenarios
 
-Containers are used for two primary purposes, namely registering and resolving.
+## Using Another Container
+If none of the containers meet the needs of the app, a custom implementation of Prism.Wpf.PrismApplicationBase can be derived with a new container as the app needs. In that case, use one of the existing libraries (i.e. Prism.Unity or Prism.Dryloc) as a template to build something app specific.
 
-### Registering
 
-Before you can inject dependencies into an object, the types of the dependencies need to be registered with the container. Registering a type typically involves passing the container an interface and a concrete type that implements that interface. There are primarily two means for registering types and objects: through code or through configuration. The specific means vary from container to container.
 
-Typically, there are two ways of registering types and objects in the container through code:
 
-* You can register a type or a mapping with the container. At the appropriate time, the container will build an instance of the type you specify.
-* You can register an existing object instance in the container as a singleton. The container will return a reference to the existing object.
+## IServiceLocator
 
-#### Registering Types with the Unity Container
+The Prism WPF Region services also make use of the ```IServiceLocator``` interface for dynamically resolving regions in the user interface. ```IServiceLocator``` is implemented by ```ServiceLocatorImplBase``` which in turn is implemented by each of the containers. All ```IServiceLocator``` functions are in effect implemented by the container, so it will take advantage of all of the registrations that the application performs.
 
-During initialization, a type can register other types, such as views and services. Registration allows their dependencies to be provided through the container and allows them to be accessed from other types. To do this, the type will need to have the container injected into the module constructor. The following code shows how the **OrderModule** type in the Commanding QuickStart registers a type.
+## Prism Registrations
 
-```cs
-// OrderModule.cs
-public class OrderModule : IModule
-{
-    public void Initialize()
-    {
-        this.container.RegisterType<IOrdersRepository, OrdersRepository>(new ContainerControlledLifetimeManager());
-        ...
-    }
-    ...
-}
-```
+Prism registers several services for you out of the box. You can use these in your app. Below is a list along with the type of registration.
+- instance = one object for the app already created
+- singleton = one object for the app, will get created on first use
+- type = a new instance is created each time the type is requested from the container
 
-Depending on which container you use, registration can also be performed outside the code through configuration. For an example of this, see in .
-
-**Note:** The advantage of registering in code, compared to configuration, is that the registration happens only if the module loads.
-
-#### Registering Types with MEF
-
-MEF uses an attribute-based system for registering types with the container. As a result, adding type registration to the container is simple: it requires the addition of the **[Export]** attribute to a type as shown in the following code example.
-
-```cs
-[Export(typeof(ILoggerFacade))]
-public class CallbackLogger: ILoggerFacade
-{
-}
-```
-
-Another option when using MEF is to create an instance of a class and register that particular instance with the container. The **QuickStartBootstrapper** in the Modularity with MEF QuickStart shows an example of this in the **ConfigureContainer** method, as shown here.
-
-```cs
-protected override void ConfigureContainer()
-{
-    base.ConfigureContainer();
-
-    // Because we created the CallbackLogger and it needs to
-    // be used immediately, we compose it to satisfy any imports it has.
-    this.Container.ComposeExportedValue<CallbackLogger>(this.callbackLogger);
-}
-```
-
-**Note:** When using MEF as your container, it is recommended that you use attributes to register types.
-
-### Resolving
-
-After a type is registered, it can be resolved or injected as a dependency. When a type is being resolved, and the container needs to create a new instance, it injects the dependencies into these instances.
-
-In general, when a type is resolved, one of three things happens:
-
-* If the type has not been registered, the container throws an exception.
-
-    **Note:** Some containers, including Unity, allow you to resolve a concrete type that has not been registered.
-* If the type has been registered as a singleton, the container returns the singleton instance. If this is the first time the type was called for, the container creates it and holds on to it for future calls.
-* If the type has not been registered as a singleton, the container returns a new instance.
-
-    **Note:** By default, types registered with MEF are singletons and the container holds a reference to the object. In Unity, new instances of objects are returned by default, and the container does not maintain a reference to the object.
-
-#### Resolving Instances with Unity
-
-The following code example from the Commanding QuickStart shows where the **OrdersEditorView** and **OrdersToolBar** views are resolved from the container to associate them to the corresponding regions.
-
-```cs
-// OrderModule.cs
-public class OrderModule : IModule
-{
-    public void Initialize()
-    {
-        this.container.RegisterType<IOrdersRepository, OrdersRepository>(new ContainerControlledLifetimeManager());
-
-        // Show the Orders Editor view in the shell's main region.
-        this.regionManager.RegisterViewWithRegion("MainRegion",
-            () => this.container.Resolve<OrdersEditorView>());
-
-        // Show the Orders Toolbar view in the shell's toolbar region.
-        this.regionManager.RegisterViewWithRegion("GlobalCommandsRegion",
-            () => this.container.Resolve<OrdersToolBar>());
-    }
-    ...
-}
-```
-
-The **OrdersEditorViewModel** constructor contains the following dependencies (the orders repository and the orders command proxy), which are injected when it is resolved.
-
-```cs
-// OrdersEditorViewModel.cs
-public OrdersEditorViewModel(IOrdersRepository ordersRepository, OrdersCommandProxy commandProxy)
-{
-    this.ordersRepository = ordersRepository;
-    this.commandProxy     = commandProxy;
-
-    // Create dummy order data.
-    this.PopulateOrders();
-
-    // Initialize a CollectionView for the underlying Orders collection.
-    this.Orders = new ListCollectionView( _orders );
-    // Track the current selection.
-    this.Orders.CurrentChanged += SelectedOrderChanged;
-    this.Orders.MoveCurrentTo(null);
-}
-```
-
-In addition to the constructor injection shown in the preceding code, Unity also allows for property injection. Any properties that have a **[Dependency]** attribute applied are automatically resolved and injected when the object is resolved.
-
-#### Resolving Instances with MEF
-
-The following code example shows how the **Bootstrapper** in the Modularity with MEF QuickStart obtains an instance of the shell. Instead of requesting a concrete type, the code could request an instance of an interface.
-
-```cs
-protected override DependencyObject CreateShell()
-{
-    return this.Container.GetExportedValue<Shell>();
-}
-```
-
-In any class that is resolved by MEF, you can also use constructor injection, as shown in the following code example from ModuleA in the Modularity with MEF QuickStart, which has an **ILoggerFacade** and an **IModuleTracker** injected.
-
-```cs
-[ImportingConstructor]
-public ModuleA(ILoggerFacade logger, IModuleTracker moduleTracker)
-{
-    if (logger == null)
-    {
-        throw new ArgumentNullException("logger");
-    }
-    if (moduleTracker == null)
-    {
-        throw new ArgumentNullException("moduleTracker");
-    }
-    this.logger = logger;
-    this.moduleTracker = moduleTracker;
-    this.moduleTracker.RecordModuleConstructed(WellKnownModuleNames.ModuleA);
-}
-```
-
-Another option is to use property injection, as shown in the **ModuleTracker** class from the Modularity with MEF QuickStart, which has an instance of the **ILoggerFacade** injected.
-
-```cs
-[Export(typeof(IModuleTracker))]
-public class ModuleTracker : IModuleTracker
-{
-    [Import] private ILoggerFacade Logger;
-}
-```
-
-## Using Dependency Injection Containers and Services in Prism
-
-Dependency injection containers, often referred to as just "containers," are used to satisfy dependencies between components; satisfying these dependencies typically involves registration and resolution. The Prism Library provides support for the Unity container and for MEF, but it is not container-specific. Because the library accesses the container through the **IServiceLocator** interface, the container can be replaced. To do this, your container must implement the **IServiceLocator** interface. Usually, if you are replacing the container, you will also need to provide your own container-specific bootstrapper. The **IServiceLocator** interface is defined in the Common Service Locator Library. This is an open source effort to provide an abstraction over IoC (Inversion of Control) containers, such as dependency injection containers, and service locators. The objective of using this library is to leverage IoC and Service Location without tying to a specific implementation.
-
-The Prism Library provides the **UnityServiceLocatorAdapter** and the **MefServiceLocatorAdapter**. Both adapters implement the **ISeviceLocator** interface by extending the **ServiceLocatorImplBase** type. The following illustration shows the class hierarchy.
-
-![Common Service Locator implementations in Prism](images/Ch3DIFig1.png)
-
-Although the Prism Library does not reference or rely on a specific container, it is typical for an application to rely on a specific container. This means that it is reasonable for a specific application to refer to the container, but the Prism Library does not refer to the container directly. For example, the Stock Trader RI and several of the QuickStarts included with Prism rely on Unity as the container. Other samples and QuickStarts rely on MEF.
-
-### IServiceLocator
-
-The following code shows the **IServiceLocator** interface.
-
-```cs
-public interface IServiceLocator : IServiceProvider
-{
-    object GetInstance(Type serviceType);
-    object GetInstance(Type serviceType, string key);
-    IEnumerable<object> GetAllInstances(Type serviceType);
-    TService GetInstance<TService>();
-    TService GetInstance<TService>(string key);
-    IEnumerable<TService> GetAllInstances<TService>();
-}
-```
-
-The Service Locator is extended in the Prism Library with the extension methods shown in the following code. You can see that **IServiceLocator** is used only for resolving, meaning it is used to obtain an instance; it is not used for registration.
-
-```cs
-// ServiceLocatorExtensions
-public static class ServiceLocatorExtensions
-{
-    public static object TryResolve(this IServiceLocator locator, Type type)
-    {
-        try
-        {
-            return locator.GetInstance(type);
-        }
-        catch (ActivationException)
-        {
-            return null;
-        }
-    }
-
-    public static T TryResolve<T>(this IServiceLocator locator) where T: class
-    {
-        return locator.TryResolve(typeof(T)) as T;
-    }
-}
-```
-
-The **TryResolve** extension method—which the Unity container does not support—returns an instance of the type to be resolved if it has been registered; otherwise, it returns **null**.
-
-The **ModuleInitializer** uses **IServiceLocator** for resolving the module during module loading, as shown in the following code examples.
-
-```cs
-// ModuleInitializer.cs - Initialize()
-IModule moduleInstance = null;
-try
-{
-    moduleInstance = this.CreateModule(moduleInfo);
-    moduleInstance.Initialize();
-}
-...
-```
-
-```cs
-// ModuleInitializer.cs - CreateModule()
-protected virtual IModule CreateModule(string typeName)
-{
-    Type moduleType = Type.GetType(typeName);
-
-    if (moduleType == null)
-    {
-        throw new ModuleInitializeException(string.Format(CultureInfo.CurrentCulture, Properties.Resources.FailedToGetType, typeName));
-    }
-
-    return (IModule)this.serviceLocator.GetInstance(moduleType);
-}
-```
-
-## Considerations for Using IServiceLocator
-
-**IServiceLocator** is not meant to be the general-purpose container. Containers have different semantics of usage, which often drives the decision for why that container is chosen. Bearing this in mind, the Stock Trader RI uses the dependency injection container directly instead of using the **IServiceLocator**. This is the recommend approach for your application development.
-
-In the following situations, it may be appropriate for you to use the **IServiceLocator**:
-
-* You are an independent software vendor (ISV) designing a third-party service that needs to support multiple containers.
-* You are designing a service to be used in an organization where they use multiple containers.
+| Service | Type | Implementation | Description |
+|---------|------|----------------|-------------|
+| IContainerExtension | Instance | Package dependent, could be Unity, Dryloc, etc. | This is the instance of your selected container see ```IContainerRegistry``` interface for details on available methods. |
+| IModuleCatalog | Instance | ModuleCatalog | This class manages the independent modules for your application. If you want to use a different implementation, override the ```CreateModuleCatalog``` function in your ```Application``` class. |
+| ILoggerFacade | Singleton | TextLogger | Used for logging messages in your app. This implementation outputs log messages to the console. If you want something different, register a different implementation in your ```RegisterTypes``` method of your ```Application``` class. |
+| IModuleInitializer | Singleton | ModuleInitializer | This service handles loading and initializing modules in your application. See [Modules](modules.md) for more information on this service. |
+| IModuleManager | Singleton | ModuleManager | This service is used to create a loading strategy for your application modules. It is used to ensure that modules are loaded in the right order with the correct dependencies. |
+| RegionAdapterMappings | Singleton | RegionAdapterMappings | For use with composable UI. Tells the ```IRegionManager``` what type of adapter to use with the region container control. See [Composing the UI](Composing-the-ui.md) for more details. |
+| IRegionManager | Singleton | RegionManager | This service will maintain the collection of regions and is responsible for creating the control for the region. See [Composing the UI](Composing-the-ui.md) for more details. |
+| IEventAggregator | Singleton | EventAggregator | This service is used for communicating between components. Components don't need to know about each other, instead they just subscribe to message types. See [Communication](communication.md) for more details. |
+| IRegionViewRegistry | Singleton | RegionViewRegistry | This service is used to manage the collection of regions. See [Composing the UI](Composing-the-ui.md) for more details. |
+| IRegionBehaviorFactory | Singleton | RegionBehaviorFactory | Allows the registration of the default behaviors for regions. See [Composing the UI](Composing-the-ui.md) for more details. |
+| IRegionNavigationJournalEntry | Type | RegionNavigationJournalEntry | For navigation, this represents a journal entry for tracking navigation within the ui. |
+| IRegionNavigationJournal | Type | RegionNavigationJournal | Provides journaling of current, back and forward navigation within regions. See [Composing the UI](Composing-the-ui.md) for more details. |
+| IRegionNavigationService | Type | RegionNavigationService | Provides navigation for regions. |
 
 ## More Information
 
 For information related to containers, see the following:
 
-* [Unity Application Block](http://www.msdn.com/unity) on MSDN.
-* [Unity community site](http://www.codeplex.com/unity) on CodePlex.
-* [Managed Extensibility Framework Overview](http://msdn.microsoft.com/en-us/library/dd460648.aspx) on MSDN.
-* [MEF community site](http://mef.codeplex.com/) on CodePlex.
 * [Inversion of Control containers and the Dependency Injection pattern](http://www.martinfowler.com/articles/injection.html) on Martin Fowler's website.
-* [Design Patterns: Dependency Injection](http://msdn.microsoft.com/en-us/magazine/cc163739.aspx) in *MSDN Magazine*.
-* [Loosen Up: Tame Your Software Dependencies for More Flexible Apps](http://msdn.microsoft.com/en-us/magazine/cc337885.aspx) in *MSDN Magazine*.
-* [Castle Project](http://www.castleproject.org/container/index.html)
-* [StructureMap](http://structuremap.sourceforge.net/Default.htm)
-* [Spring.NET](http://www.springframework.net/)
+* [Unity](https://github.com/unitycontainer/container)
+* [AutoFac](https://github.com/autofac/Autofac)
+* [Dryloc](https://github.com/dadhi/DryIoc)
+* [MEF](https://github.com/MicrosoftArchive/mef)
+* [NInject](http://www.ninject.org/)
+* [StructureMap](https://github.com/structuremap/structuremap)
