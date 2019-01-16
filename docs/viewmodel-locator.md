@@ -1,15 +1,11 @@
 # Using the ViewModelLocator
 
-Prism for XF depends on the use of VML
+> [!Video https://www.youtube.com/embed/I_3LxBdvJi4]
 
-namespace
+## Change the Naming Convention
 
-attached property
+## Custom Registrations
 
-naming convention
+## Change the Resolver
 
-change naming convention
 
-changing resolver
-
-custom registrations
