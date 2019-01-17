@@ -4,6 +4,8 @@
 
 ## Change the Naming Convention
 
+> [!Video https://www.youtube.com/embed/o4ibaOFvfww]
+
 ## Custom Registrations
 
 ## Change the Resolver
