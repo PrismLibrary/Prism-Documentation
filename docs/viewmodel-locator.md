@@ -38,7 +38,7 @@ protected override void ConfigureViewModelLocator()
 
     ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
     {
-        var viewName = viewType.FullName.Replace(".ViewModels.", "CustomNamespace");
+        var viewName = viewType.FullName.Replace(".ViewModels.", ".CustomNamespace.");
         var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
         var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
         return Type.GetType(viewModelName);
