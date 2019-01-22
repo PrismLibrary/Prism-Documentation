@@ -79,6 +79,8 @@ ViewModelLocationProvider.Register<MainWindow, CustomViewModel>();
 > [!Important]
 > The `viewTypeName` parameter must be the fully qualifyied name of the view's Type (`Type.ToString()`). Otherwise the mapping will fail.
 
+> [!Video https://www.youtube.com/embed/phMc4OuKs58]
+
 ## Control how ViewModels are Resolved
 By default, the `ViewModelLocator` will use the DI container you have chosen to create your Prism application to resolve ViewModels.  However, if you ever have the need to customize how ViewModels are resolved or change the resolver altogether, you can achieve this by using the `ViewModelLocationProvider.SetDefaultViewModelFactory` method.
 
