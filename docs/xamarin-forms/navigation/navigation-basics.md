@@ -4,6 +4,8 @@ Navigating in a Prism application is conceptually different than standard naviga
 
 Page navigation in Prism is accomplished by using the **INavigationService**.
 
+> [!Video https://www.youtube.com/embed/33hYzo5cFcE]
+
 ## Registering
 
 Registering your Page for navigation is essentially mapping a unique identifier/key to the target view during the bootstrapping process.  In order to register your Pages for Navigation, override the **RegisterTypes** method in your **App.cs**. There are four ways to register your Pages for navigation; default, custom, OnPlatform, and OnIdiom.
