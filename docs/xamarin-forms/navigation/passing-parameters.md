@@ -2,6 +2,8 @@
 
 The Prism navigation service also allows you to pass parameters to the target view during the navigation process.  Passing parameters to the next View can be done using an overload of the **INavigationService.NavigateAsync** method. This overload accepts a **NavigationParameters** object that can be used to supply data to the next View. The **NavigationParameters** object is in fact just a dictionary. It can accept any arbitrary object as a value.
 
+> [!Video https://www.youtube.com/embed/inxl6Xfqsjs]
+
 ## Creating Parameters
 
 Creating parameters can be done in a variety of ways.
