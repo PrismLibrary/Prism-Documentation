@@ -27,10 +27,10 @@ async void SelectTab(object parameters)
 }
 ```
 
-> [NOTE]
+> [!NOTE]
 > When selecting a tab programmatically both the INavigationAware and IConfirmNavigation interfaces are invoked.
 
-> [Note]
+> [!Note]
 > The target tab and the calling tab must exist within the same TabbedPage instance.
 
 ## Creating Tabs at Runtime
@@ -60,10 +60,10 @@ To create a tab that wraps a page in a NavigationPage, simply denote this as a n
 _navigationService.NavigateAsync("MyTabbedPage?createTab=NavigationPage|ViewA");
 ```
 
-> [Note]
+> [!Note]
 > Dynamic tab creation is only supported from the querystring at this time, and is not supported if you were to add it to the `INavigationParameters` passed in to `NavigateAsync`.
 
-> [Note]
+> [!Note]
 > CarouselPages are not supported
 
 ## Knowing the Selected Tab
