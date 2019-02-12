@@ -1,7 +1,6 @@
 # Working with TabbedPages
 
 ## Selecting the Initial Tab
-
 When navigating to a TabbedPage, by default the selected tab displayed will always be the first Tab defined for the TabbedPage. In Prism, you could select a different tab by specifying the `KnownNavigationParameters.SelectedTab` constant or the "selctedTab" parameter name as a navigation parameter.
 
 ```cs
@@ -14,8 +13,27 @@ _navigationService.NavigateAsync($"MyTabbedPage?{KnownNavigationParameters.Selec
 
 For tabs that are wrapped inside a NavigationPage, you do not need to change anything. The syntax is the same.
 
-## Creating Tabs at Runtime
+## Selecting a Tab
+You can select a tab programmatically from within a tab's ViewModel by using the `INavigationService.SelectTabAsync` method. In order to use this method, you must add the `Prism.Navigation.TabbedPages` namespace to your ViewModel.
 
+```
+using Prism.Navigation.TabbedPages;
+```
+
+```
+async void SelectTab(object parameters)
+{
+    var result = await _navigationService.SelectTabAsync("Tab3");    
+}
+```
+
+> [NOTE]
+> When selecting a tab programmatically both the INavigationAware and IConfirmNavigation interfaces are invoked.
+
+> [Note]
+> The target tab and the calling tab must exist within the same TabbedPage instance.
+
+## Creating Tabs at Runtime
 To get started you will need to register the TabbedPage you wish to use (which can be the base Xamarin.Forms.TabbedPage), and any Views that you may wish to add as a Tab in your App's RegisterTypes method as shown below:
 
 ```cs
@@ -42,11 +60,13 @@ To create a tab that wraps a page in a NavigationPage, simply denote this as a n
 _navigationService.NavigateAsync("MyTabbedPage?createTab=NavigationPage|ViewA");
 ```
 
-_NOTE: Dynamic tab creation is only supported from the querystring at this time, and is not supported if you were to add it to the `INavigationParameters` passed in to `NavigateAsync`._
-_NOTE: CarouselPages are not supported_
+> [Note]
+> Dynamic tab creation is only supported from the querystring at this time, and is not supported if you were to add it to the `INavigationParameters` passed in to `NavigateAsync`.
+
+> [Note]
+> CarouselPages are not supported
 
 ## Knowing the Selected Tab
-
 The `IActiveAware` interface allows you to respond to tabs being selected/unselected in a TabbedPage. When a tab is selected and it, or it's ViewModel, implements that `IActiveAware` interface, the `IActiveAware.IsActive` property is set to either `true` if selected, or `false` if not selected.
 
 ```cs
