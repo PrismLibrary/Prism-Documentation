@@ -30,7 +30,7 @@ This convention assumes:
 ## Change the Naming Convention
 If your application does not follow the `ViewModelLocator` default naming convention, you can change the convention to meet the requirements of your application.  The `ViewModelLocationProvider` class provides a static method called `SetDefaultViewTypeToViewModelTypeResolver` that can be used to provide your own convention for associating views to view models.
 
-To change the `ViewModelLocator` naming convention, override the `ConfigureViewModelLocator` method in the `App.xmla.cs` class. Then provide your custom naming convention logic in the `ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver` method.
+To change the `ViewModelLocator` naming convention, override the `ConfigureViewModelLocator` method in the `App.xaml.cs` class. Then provide your custom naming convention logic in the `ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver` method.
 ```
 protected override void ConfigureViewModelLocator()
 {
