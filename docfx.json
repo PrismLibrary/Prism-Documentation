@@ -22,7 +22,7 @@
           "images/**",
           "docs/images/**",
           "docs/getting-started/images/**",
-          "docs/wpf/images/**",
+          "docs/wpf/legacy/images/**",
           "docs/xamarin-forms/images/**",
           "docs/xamarin-forms/getting-started/images/**"
         ],
