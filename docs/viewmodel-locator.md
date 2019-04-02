@@ -23,7 +23,7 @@ This convention assumes:
 > The `ViewModelLocationProvider` can be found in the `Prism.Mvvm` namespace in the **Prism.Core** NuGet package. The `ViewModelLocator` can be found in the `Prism.Mvvm` namespace in the **Prism.WPF** NuGet package.
 
 > [!Note]
-> The ViewModelLocator is required, and automatically applied to every View, when developing with Xamarin.Forms as it is responsible for providing the correct instance of the `INavigationServcie` to the ViewModel. When developing a Xamarin.Forms app, the `ViewModelLocator` is opt-out only.
+> The ViewModelLocator is required, and automatically applied to every View, when developing with Xamarin.Forms as it is responsible for providing the correct instance of the `INavigationService` to the ViewModel. When developing a Xamarin.Forms app, the `ViewModelLocator` is opt-out only.
 
 > [!Video https://www.youtube.com/embed/I_3LxBdvJi4]
 
