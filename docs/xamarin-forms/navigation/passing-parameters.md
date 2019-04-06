@@ -58,7 +58,7 @@ Getting the parameters that were passed to the target View being navigated to ca
 
 ### INavigationAware
 
-The ViewModel of the target navigation Page can participate in the navigation process by implementing the `INavigationAware` interface.  This interface adds three methods to your ViewModel so you can intercept before the View is navigated to **(OnNavigatingTo)**, once it is navigated to **(OnNavigatedTo)**, and once it is navigated away from **(OnNavigatedFrom)**.  These methods make the `NavigationParameters` accessible fomr either the View being navigated to, or the View being navigated away from.
+The ViewModel of the target navigation Page can participate in the navigation process by implementing the `INavigationAware` interface.  This interface adds three methods to your ViewModel so you can intercept before the View is navigated to **(OnNavigatingTo)**, once it is navigated to **(OnNavigatedTo)**, and once it is navigated away from **(OnNavigatedFrom)**.  These methods make the `NavigationParameters` accessible from either the View being navigated to, or the View being navigated away from.
 
 _Note: You can implement `INavigationAware` on either the View or ViewModel_
 
@@ -148,7 +148,7 @@ public void OnNavigatedTo(INavigationParameters parameters)
 
 When navigating, it is sometimes important to know which direction you are heading in the navigation stack.  This allows you to make different decisions based on if you are navigating forward or back.
 
-To get the NavigationMode, simple call the INavigationParameters.GetNavigationMode` method.
+To get the NavigationMode, simple call the `INavigationParameters.GetNavigationMode` method.
 
 ```cs
 public void OnNavigatedFrom(INavigationParameters parameters)
