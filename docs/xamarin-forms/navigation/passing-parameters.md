@@ -148,7 +148,7 @@ public void OnNavigatedTo(INavigationParameters parameters)
 
 When navigating, it is sometimes important to know which direction you are heading in the navigation stack.  This allows you to make different decisions based on if you are navigating forward or back.
 
-To get the NavigationMode, simple call the `INavigationParameters.GetNavigationMode` method.
+To get the NavigationMode, simply call the `INavigationParameters.GetNavigationMode` method.
 
 ```cs
 public void OnNavigatedFrom(INavigationParameters parameters)
