@@ -66,7 +66,7 @@ _navigationService.NavigateAsync("CustomKey");
 
 ### OnPlatform Registration
 
-When writing a Xamarin.Forms apllication, it is common to use a different view for a specific platform. Prism enables you to register different views for different platforms while using the same ViewModel. To do this, simply regiter your views using the `IContainerRegistry.RegisterForNavigationOnPlatform` method. The `TView` and `TViewModel` will be used for all views unless you provide an IPlatform arugment.
+When writing a Xamarin.Forms apllication, it is common to use a different view for a specific platform. Prism enables you to register different views for different platforms while using the same ViewModel. To do this, simply register your views using the `IContainerRegistry.RegisterForNavigationOnPlatform` method. The `TView` and `TViewModel` will be used for all views unless you provide an IPlatform arugment.
 
 For example; The following code will use the MainPage, with the MainPageViewModel as it's BindingContent, for every platform except Android and iOS.  For Android, we have rgeistered the MainPageAndroid, and for iOS we have registered the MainPageiOS. Both MainPageAndroid and MainPageiOS will use the MainPageViewModel as their BindingContent.
 
@@ -151,7 +151,7 @@ _navigationService.GoBackAsync();
 
 ### Forcing a Modal or Non-Modal Navigation
 
-The Prism navigation service tries it's best to understand the intent of the navigation operation and perform the appropriate modal/non-modal navigation. However, sometimes you require full contol over whether or not you perform a modal or non-moda navigation.  To tell the Prism navigation service how to handle the navigation request, set the `useModalNavigation` parameter in the `INavigationService.NavigateAsync` method signature.
+The Prism navigation service tries it's best to understand the intent of the navigation operation and perform the appropriate modal/non-modal navigation. However, sometimes you require full contol over whether or not you perform a modal or non-modal navigation.  To tell the Prism navigation service how to handle the navigation request, set the `useModalNavigation` parameter in the `INavigationService.NavigateAsync` method signature.
 
 For example; if your navigation stack is rooted within a NavigationPage such as "NavigationPage/ViewA/ViewB", then you call `_navigationService.NavigateAsync("ViewC")` from ViewB, ViewC will be pushed onto the NavigationPage's nav stack and your new navigation stack will look like "NavigationPage/ViewA/ViewB/ViewC".  If you do not want this behavior, and instead wish to force ViewC to be navigated to modally, you must set the `useModalNavigation` parameter to `true`.
 

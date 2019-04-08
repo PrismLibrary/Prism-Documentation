@@ -190,7 +190,7 @@ The `BindableBase` class implements the [INotifyPropertyChanged](https://msdn.mi
 
 The `INavigationAware` interface provides the `OnNavigatedFrom`, `OnNavigatingTo`, and `OnNavigatedTo` methods and allows for the ViewModel to be notified when it is being navigated from or being navigated to. See the [Navigation topic](navigation/passing-parameters.md) for more information.
 
-The `MainPageViewModel` has a public property named `Title` (nherited from `ViewModelBase`) that triggers the `INotifyPropertyChanged.OnPropertyChanged` event when the value is set.
+The `MainPageViewModel` has a public property named `Title` (inherited from `ViewModelBase`) that triggers the `INotifyPropertyChanged.OnPropertyChanged` event when the value is set.
 ```cs
 private string _title;
 public string Title

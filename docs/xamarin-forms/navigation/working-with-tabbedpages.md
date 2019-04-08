@@ -44,7 +44,7 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
     containerRegistry.RegisterForNavigation<ViewB>();
 }
 ```
-Once you have verified your pages have been registerd, you can now dynamically create tabs when navigating to a TabbedPage by using the `KnownNavigationParameters.CreateTab` constant or by using the "createTab" parameter name.
+Once you have verified your pages have been registered, you can now dynamically create tabs when navigating to a TabbedPage by using the `KnownNavigationParameters.CreateTab` constant or by using the "createTab" parameter name.
 
 ```cs
 //using parameter name
