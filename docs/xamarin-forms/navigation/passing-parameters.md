@@ -67,19 +67,19 @@ Example:
 ```cs
 public class ContactPageViewModel : INavigationAware
 {  
-  public void OnNavigatedTo(NavigationParameters parameters)
+  public override void OnNavigatedTo(INavigationParameters parameters)
   {
 
   }
   
-  public void OnNavigatingTo(NavigationParameters parameters)
+  public override void OnNavigatedFrom(INavigationParameters parameters)
   {
-    
+  
   }
 
-  public void OnNavigatedFrom(NavigationParameters parameters)
+  public override void OnNavigatingTo(INavigationParameters parameters)
   {
-
+  
   }
 }
 ```
