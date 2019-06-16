@@ -94,7 +94,7 @@ The Prism Template Pack contains a collection of snippets, item templates, and p
 - Prism Blank App - this is a project template that essentially creates a new WPF shell application.  It will have a basic bootstrapper that is responsible for initializing the app, and showing the shell.  It will have a MainWindow and a MainWindowViewModel located in the Views and ViewModels folders respectively.
 - Prism Module - this project template will add a new project to your solution that will act as a Prism module.  It will have a class defined that implements IModule with two empty folders for your Views and ViewModels.
 
-Use the new WPF project wizard to choose your container and no longer have to worry about brinign in the correct Nuget packages.
+Use the new WPF project wizard to choose your container and no longer have to worry about bringing in the correct Nuget packages.
 
 ![WPF Project Wizard](images/wpf-project-wizard.png)
 
@@ -193,7 +193,7 @@ TODO
 ![QuickStart Prism Application](images/vsmac-qs-prism-app-01.png)
 
 > [!NOTE]
-This template requires CI/CD setup for **AppCenter** and **Azure Devops (VSTS)**. To get started, go to [App Center](https://docs.microsoft.com/en-us/appcenter/) and [Azure DevOps](https://visualstudio.microsoft.com/vso/) to setup your app. Then create connection to your app in Visual Studio for Mac by going to `Help -> AppCenter Congiurations`.
+This template requires CI/CD setup for **AppCenter** and **Azure Devops (VSTS)**. To get started, go to [App Center](https://docs.microsoft.com/en-us/appcenter/) and [Azure DevOps](https://visualstudio.microsoft.com/vso/) to setup your app. Then create connection to your app in Visual Studio for Mac by going to `Help -> AppCenter Configurations`.
 ![QuickStart Prism Application](images/vsmac-qs-prism-app-setup.png)
 Tutorial for this QuickStart can be found [here](https://dansiegel.net/post/2018/06/21/developer-toolkit-for-visual-studio-mac).
 
