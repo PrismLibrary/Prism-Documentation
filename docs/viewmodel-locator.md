@@ -74,7 +74,7 @@ ViewModelLocationProvider.Register<MainWindow, CustomViewModel>();
 ```
 
 > [!Note]
-> Registering your ViewModels directly with the `ViewModelLocator` is faster that relying on the default naming convention. This is because the naming convention requires the use of reflection, while a custom mapping provides the type directly to the `ViewModelLocator`.
+> Registering your ViewModels directly with the `ViewModelLocator` is faster than relying on the default naming convention. This is because the naming convention requires the use of reflection, while a custom mapping provides the type directly to the `ViewModelLocator`.
 
 > [!Important]
 > The `viewTypeName` parameter must be the fully qualifyied name of the view's Type (`Type.ToString()`). Otherwise the mapping will fail.
