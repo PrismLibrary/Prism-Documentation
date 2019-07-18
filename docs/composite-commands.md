@@ -96,7 +96,7 @@ In your ViewModel, associate child commands to the static `ApplicationCommands` 
 ```
 
 > [!NOTE]
-> To increase the maintainability and testability of your code, it is recommended that you using the dependncy injection approach.
+> To increase the maintainability and testability of your code, it is recommended that you using the dependency injection approach.
 
 ## Binding to a Globally Available Command
 Once you have created your CompositeCommands, you must now bind them to UI elements in order to invoke the commands.
