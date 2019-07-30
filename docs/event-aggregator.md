@@ -110,7 +110,7 @@ The following options are available for `ThreadOption`:
 > In order for `PubSubEvent` to publish to subscribers on the UI thread, the `EventAggregator` must initially be constructed on the UI thread.
 
 ### Subscription Filtering
-Subscribers may not need to handle every instance of a published event. In these cases, the subscriber can use the filter parameter. The filter parameter is of type `System.Predicate<TPayLoad>` and is a delegate that gets executed when the event is published to determine if the payload of the published event matches a set of criteria required to have the subscriber callback invoked. If the payload does not meet the specified criteria, the subscriber callback is not executed.
+Subscribers may not need to handle every instance of a published event. In these cases, the subscriber can use the filter parameter. The filter parameter is type of `System.Predicate<TPayLoad>` and is a delegate that gets executed when the event is published to determine if the payload of the published event matches a set of criteria required to have the subscriber callback invoked. If the payload does not meet the specified criteria, the subscriber callback is not executed.
 
 Frequently, this filter is supplied as a lambda expression, as shown in the following code example.
 ```cs
