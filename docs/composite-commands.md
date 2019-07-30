@@ -204,7 +204,7 @@ By implementing the `IActiveAware` interface on your ViewModels, you will be not
         private void OnIsActiveChanged()
         {
             UpdateCommand.IsActive = IsActive; //set the command as active
-            IsActiveChanged?.Invoke(this, new EventArgs()); //invoke the event for al listeners
+            IsActiveChanged?.Invoke(this, new EventArgs()); //invoke the event for all listeners
         }
     }
 ```
