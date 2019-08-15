@@ -1,6 +1,6 @@
 # Using the DependencyService with Prism
 
-Xamarin.Forms includes a DependencyService to let shared code to easily resolve Interfaces to platform-specific implementations, allowing you to access features of the iOS, Android and Windows Phone SDKs from your PCL or Shared Project.
+Xamarin.Forms includes a DependencyService to let shared code to easily resolve Interfaces to platform-specific implementations, allowing you to access features of the iOS, Android and UWP SDKs from your PCL or Shared Project.
 
 The **problem** with Xamarin's DependencyService is that it requires a static call to DependencyService.Get<> in your shared code to get a platform-specific instance of the interface at run time.  This makes your ViewModels less testable, and hides the dependencies of your class.
 
@@ -57,15 +57,18 @@ public interface ITextToSpeech
 
 * Add a class that implements our interface to each specific platform.
 
-#### Windows Phone
+#### UWP
 
 ```cs
-public class TextToSpeech_WinPhone : ITextToSpeech
+public class TextToSpeech_UWP : ITextToSpeech
 {
     public async void Speak(string text)
     {
-        SpeechSynthesizer synth = new SpeechSynthesizer();
-        await synth.SpeakTextAsync(text);
+        var player = new MediaElement();
+        var synth = new SpeechSynthesizer();
+        SpeechSynthesisStream audioStream = await synth.SynthesizeTextToStreamAsync(text);
+        player.SetSource(audioStream, audioStream.ContentType);
+        player.Play();
     }
 }
 ```
@@ -136,30 +139,44 @@ public class TextToSpeech_iOS : ITextToSpeech
 }
 ```
 
-**Note:** To Enable the speech capabilities on Windows Phone, tick the **ID_CAP_SPEECH_RECOGNITION** capability in the WMAppManifest.xml, otherwise access to the speech APIs are blocked.
-
-![WMAppManifest setting for speech](images/dependencyservice_01.png)
-
 ### Step 4: Attribute the DependencyService
 
-Now, add the DependencyService attribute to each of the services classes in the respective platforms.  This registers the platform specific implementation of the speech service with Xamarin.Forms' DependencyService.
+Now, register each of the services classes in the respective platforms.  This registers the platform specific implementation of the speech service with Xamarin.Forms' DependencyService.
 
-#### Windows Phone DependencyService
+#### UWP DependencyService
 
 ```cs
-[assembly: Dependency(typeof(TextToSpeech_WinPhone))]
+
+Within your MainPage.xaml.cs
+
+public void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.Register<ITextToSpeech, TextToSpeech>();
+}
 ```
 
 #### Android DependencyService
 
 ```cs
-[assembly: Dependency(typeof(TextToSpeech_Android))]
+
+Within your MainActivity.cs
+
+public void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.Register<ITextToSpeech, TextToSpeech_Android>();
+}
 ```
 
 #### iOS DependencyService
 
 ```cs
-[assembly: Dependency(typeof(TextToSpeech_iOS))]
+
+Within your AppDelegate.cs
+
+public void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.Register<ITextToSpeech, TextToSpeech>();
+}
 ```
 
 ### Step 5: Use the Speech Service
@@ -221,9 +238,9 @@ private void Speak()
 }
 ```
 
-This is **not** good.  You always want to avoid making calls to static methods in your ViewModela for a number of reasons. So how do we fix this?  Easy!  Let Prism do it for you.
+This is **not** good.  You always want to avoid making calls to static methods in your ViewModels for a number of reasons. So how do we fix this?  Easy!  Let Prism do it for you.
 
-When you attribute a class with the Xamarin.Forms DependencyService attribute, Prism automatically registers that class with the container.  This means you can now request the service via the ViewModel constructor as you do with your other dependencies.
+Because you're registered your service implementations with Prism's container you can now request the service via the ViewModel constructor as you do with your other dependencies.
 
 Modify the ViewModel to accept the service through the constructor.  You will need to store this service instance in a variable so that it can be access in the Speak method.
 
@@ -256,5 +273,5 @@ public class MainPageViewModel : BindableBase
 
 As you can see, you no longer need to make a call to the static Xamarin.Forms.DependencyService.  Just ask for it in your ViewModel constructor, and Prism will use the container to resolve the instance and provide it to you.
 
-[View the Sample](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/UsingDependencyService)
+[View the Sample](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/UsingPlatformSpecificServices)
 
