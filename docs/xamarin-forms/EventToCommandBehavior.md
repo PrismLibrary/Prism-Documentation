@@ -92,7 +92,7 @@ The XAML need a reference to the converter and the converter resource need to be
 
 ### EventArgsParameterPath
 
-Attach the command to **ItemTapped** event will raise the `itemTappedEventArgs` event.
+Attach the command to **ItemTapped** event will raise the `ItemTappedEventArgs` event.
 
 ```c#
 public class ItemTappedEventArgs : EventArgs
