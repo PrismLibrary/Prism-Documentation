@@ -6,7 +6,7 @@
   href: application-lifecycle.md
 - name: Page Lifecycle
   href: page-lifecycle.md
-- name: Page Dialog Service
-  href: Page-Dialog-Service.md
+- name: Dialogs
+  href: dialogs/toc.yml
 - name: EventToCommandBehavior
   href: EventToCommandBehavior.md
