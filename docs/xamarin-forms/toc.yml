@@ -2,11 +2,13 @@
   href: creating-your-first-prism-app.md
 - name: Navigation
   href: navigation/toc.yml
+- name: Auto Initialization
+  href: auto-initialization.md
 - name: Application Lifecycle
   href: application-lifecycle.md
 - name: Page Lifecycle
   href: page-lifecycle.md
 - name: Dialogs
   href: dialogs/toc.yml
-- name: EventToCommandBehavior
-  href: EventToCommandBehavior.md
+- name: Behaviors
+  href: behaviors/toc.yml
