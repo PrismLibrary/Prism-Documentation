@@ -17,7 +17,7 @@ The **DisplayAlertAsync** method shows a modal pop-up to alert the user or ask s
 _dialogService.DisplayAlertAsync("Alert", "You have been alerted", "OK");
 ```
 
-![Alert dialog on the 3 major platforms](images/pagedialogservice_01.png)
+![Alert dialog on the 3 major platforms](../images/pagedialogservice_01.png)
 
 This example does not collect information from the user. The alert displays modally and once dismissed the user continues interacting with the application. DisplayAlertAsync can also be used to capture a user's response by presenting two buttons and returning a boolean.
 
@@ -32,7 +32,7 @@ alertButton2.Clicked += async (sender, e) =>
 };
 ```
 
-![Question dialog on the 3 major platforms](images/pagedialogservice_02.png)
+![Question dialog on the 3 major platforms](../images/pagedialogservice_02.png)
 
 ## DisplayActionSheetAsync
 
@@ -49,7 +49,7 @@ actionButton1.Clicked += async (sender, e) =>
 };
 ```
 
-![Action dialog on the 3 major platforms](images/pagedialogservice_03.png)
+![Action dialog on the 3 major platforms](../images/pagedialogservice_03.png)
 
 The destroy button is rendered differently than the others, and can be left null or specified as the third string parameter. This example uses the destroy button:
 
@@ -62,7 +62,7 @@ actionButton2.Clicked += async (sender, e) =>
 };
 ```
 
-![Another action dialog on the 3 major platforms](images/pagedialogservice_04.png)
+![Another action dialog on the 3 major platforms](../images/pagedialogservice_04.png)
 
 Additionally, Prism provides another option which accepts an array of **IActionSheetButton** that allow you to specificy the title of the buttons, as well as the **DelegateCommand** that should be executed when the option is selected by the user.  This eliminates the need to capture a string result, perform a logical check against the result, and then execute a method or logic in response.
 
@@ -84,3 +84,9 @@ void ShowActionSheet()
 ```
 
 _Note: The order in which you pass in the IActionSheetButton parameters does not matter. The IPageDialogService will make sure the parameters are handled properly for you._
+
+## Samples
+
+Want to see it all in action? Be sure to check out the following samples from the Prism Forms Samples repo!
+
+- [PageDialogService Sample](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/06-PageDialogService)
