@@ -8,5 +8,5 @@
   href: page-lifecycle.md
 - name: Dialogs
   href: dialogs/toc.yml
-- name: EventToCommandBehavior
-  href: EventToCommandBehavior.md
+- name: Behaviors
+  href: behaviors/toc.yml
