@@ -1,2 +1,0 @@
-# Using Platform Specific Types
-

@@ -1,5 +1,8 @@
 # Using the DependencyService with Prism
 
+> [!WARNING]
+> Use of the DependencyService in any way is deprecated in Prism 7. Please see the Dependency Injection topic for more information on how to best update your code.
+
 Xamarin.Forms includes a DependencyService to let shared code to easily resolve Interfaces to platform-specific implementations, allowing you to access features of the iOS, Android and Windows Phone SDKs from your PCL or Shared Project.
 
 The **problem** with Xamarin's DependencyService is that it requires a static call to DependencyService.Get<> in your shared code to get a platform-specific instance of the interface at run time.  This makes your ViewModels less testable, and hides the dependencies of your class.
