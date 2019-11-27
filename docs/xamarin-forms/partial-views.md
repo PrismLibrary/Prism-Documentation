@@ -4,7 +4,7 @@ The concept of a Partial View is to support a custom layout which may be reused 
 
 ### Parent View
 
-```csharp
+```xml
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AwesomeApp.Views"
@@ -21,7 +21,7 @@ The concept of a Partial View is to support a custom layout which may be reused 
 
 ### Partial View To Be Included In Parent View
 
-```csharp
+```xml
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:AwesomeApp.Views"
@@ -35,7 +35,7 @@ The concept of a Partial View is to support a custom layout which may be reused 
 ```
 
 > [!Important]
-> Dynamically adding/removing of Partial Views is unsupported. 
+> Dynamically adding/removing of Partial Views is unsupported.
 
 ## Helpful Hints
 
