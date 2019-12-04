@@ -19,25 +19,25 @@ The first thing you have to do to is to implement the `IApplicationLifecycleAwar
 The following is an example of a ViewModel that implements `IApplicationLifecycleAware`. 
 
 ```csharp
- public class ViewModelExample : ViewModelBase, IApplicationLifecycleAware
+public class ViewModelExample : ViewModelBase, IApplicationLifecycleAware
+{
+    protected INavigationService NavigationService { get; private set; }
+
+    public ViewModelExample(INavigationService navigationService)
     {
-        protected INavigationService NavigationService { get; private set; }
-
-        public ViewModelExample(INavigationService navigationService)
-        {
-            NavigationService = navigationService;
-        }
-
-        public void OnResume()
-        {
-            //Restore the state of your ViewModel.
-        }
-
-        public  void OnSleep()
-        {
-            //Save the state of your ViewModel.
-        }
+        NavigationService = navigationService;
     }
+
+    public void OnResume()
+    {
+        //Restore the state of your ViewModel.
+    }
+
+    public  void OnSleep()
+    {
+        //Save the state of your ViewModel.
+    }
+}
 ```
 
 ## How to handle ALM at Application level
@@ -45,43 +45,41 @@ You can handle ALM events at the __Application__ level by overriding the `OnSlee
 The following is an example of an `App` class with ALM management.
 
 ```csharp
-    public partial class App : PrismApplication
+public partial class App : PrismApplication
+{
+  
+    public App() : this(null) { }
+
+    public App(IPlatformInitializer initializer) : base(initializer) { }
+
+    protected override async void OnInitialized()
     {
-      
-        public App() : this(null) { }
+        InitializeComponent();
 
-        public App(IPlatformInitializer initializer) : base(initializer) { }
-
-        protected override async void OnInitialized()
-        {
-            InitializeComponent();
-
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
-        }
-
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage>();
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-
-            // TODO: Refresh network data, perform UI updates, and reacquire resources like cameras, I/O devices, etc.
-   
-        }
-
-        protected override void OnSleep()
-        {
-            base.OnSleep();
-
-            // TODO: This is the time to save app data in case the process is terminated.
-            // This is the perfect timing to release exclusive resources (camera, I/O devices, etc...)
-            
-        }
+        await NavigationService.NavigateAsync("NavigationPage/MainPage");
     }
+
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+        containerRegistry.RegisterForNavigation<NavigationPage>();
+        containerRegistry.RegisterForNavigation<MainPage>();
+    }
+
+    protected override void OnResume()
+    {
+        base.OnResume();
+
+        // TODO: Refresh network data, perform UI updates, and reacquire resources like cameras, I/O devices, etc.
+    }
+
+    protected override void OnSleep()
+    {
+        base.OnSleep();
+
+        // TODO: This is the time to save app data in case the process is terminated.
+        // This is the perfect timing to release exclusive resources (camera, I/O devices, etc...)
+    }
+}
 ```
 
 ## Handling app resume and suspend
