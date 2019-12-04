@@ -1,12 +1,12 @@
 # Registering Types with Prism
 
-For those who may be familiar with ASP.NET Core you may be familiar with 3 basic types of Registrations, Transients, Singletons, and Scoped Services. It is important to understand that Prism has no use, and no implementations for Scoped Services. Unlike the web environment in which many of your services are scoped around the User Request, for Desktop and Mobile applications we are dealing with a single user. As a result, we must instead decide whether for memory management and other business requirements our services are best suited as a single instance that will be reused throughout our application or whether we will create a new instance each time it is requested and then allow the Garbage Collector to free up the memory when we are done with it.
+For those who may be familiar with ASP.NET Core you may be familiar with 3 basic types of dependency registrations: Transients, Singletons, and Scoped Services. It is important to understand that Prism has no use, and no implementations for Scoped Services. Unlike the web environment in which many of your services are scoped around the User Request, for Desktop and Mobile applications we are dealing with a single user. As a result, we must instead decide whether for memory management and other business requirements our services are best suited as a single instance that will be reused throughout our application or whether we will create a new instance each time it is requested and then allow the Garbage Collector to free up the memory when we are done with it.
 
 It is also important to consider that Prism has a hard requirement on the use of named service registrations. This is what allows Prism to register your Page for navigation and then resolve it later based on the Uri segment like `MyMasterDetailPage/NavigationPage/ViewA`. Any Dependency Injection container which does not support named services out of the box therefore cannot and will not be implemented officially by the Prism team.
 
 ## Registering Transient Services
 
-For those services that you expect to create a new instance each time it is created you will simply call the Register method and provide the Service Type and the Implementing Type, except in cases where it may be appropriate to simply register the concrete type.
+For those services that you expect to create a new instance each time it is created you will simply call the `Register` method and provide the Service Type and the Implementing Type, except in cases where it may be appropriate to simply register the concrete type.
 
 ```cs
 // Where it will be appropriate to use FooService as a concrete type
@@ -31,7 +31,7 @@ containerRegistry.RegisterSingleton<IBarService, BarService>();
 
 ### Registering a Service Instance
 
-While many times you'll want to register a Singleton by simply providing the Service and Implementation types, there are times in which you may simply want to new up a service and provide it for a given service, or which you may want to register the Current instance by a plugin such as MonkeyCache as shown below:
+While many times you'll want to register a Singleton by simply providing the Service and Implementation types, there are times in which you may want to new up a service instance and provide it for a given service, or in which you may want to register the Current instance from a plugin such as MonkeyCache as shown below:
 
 ```cs
 containerRegistry.RegisterInstance<IFoo>(new FooImplementation());
@@ -81,7 +81,7 @@ public class ViewAViewModel
 
 ### How Prism uses Named Services under the hood
 
-Prism uses named services in two major ways. The first is that the NavigationService is registered as a named service so that we can resolve it transitively and provide the specific Page which it will navigate from as all Navigation in Xamarin.Forms is relative to a specific Page.
+Prism uses named services in two major ways. The first is that the `NavigationService` is registered as a named service so that we can resolve it transitively and provide the specific Page which it will navigate from as all Navigation in Xamarin.Forms is relative to a specific Page.
 
 The second way that Prism uses named services under the hood is for registering Pages for Navigation. Rather than Prism staticly tracking a mapping between a navigation key and the Page type it is simply registered as a named service like the following:
 
@@ -102,7 +102,7 @@ var viewB = (Page)Container.Resolve<object>("ViewB");
 There are many times particularly when writing Prism Modules or Plugins in which you may want to check if a service has been registered and then do something based on whether it has or has not been registered.
 
 > [!NOTE]
-> When working with Prism Modules if you have a hard dependency on a given service it should be injected into the Constructor so as to generate an exception when initializing the Module if the serivce type is missing. You should only use IsRegistered to check for it if your intent is to register a default implementation.
+> When working with Prism Modules if you have a hard dependency on a given service it should be injected into the constructor so as to generate an exception when initializing the Module if the service type is missing. You should only use `IsRegistered` to check for it if your intent is to register a default implementation.
 
 ```cs
 if (containerRegistry.IsRegistered<ISomeService>())

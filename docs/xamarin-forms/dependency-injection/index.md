@@ -11,8 +11,8 @@ As a result you can easily implement support for a container that is not otherwi
 
 ## Next Steps
 
-- Learn how to [Register Services](registering-types.md) and [Register Pages for Navigation](registering-types.md)
-- Learn how to [Register Platform Speicific Services](platform-specific-services.md)
+- Learn how to [Register Services](registering-types.md) and [Register Pages for Navigation](../navigation/navigation-basics.md)
+- Learn how to [Register Platform Specific Services](platform-specific-services.md)
 - Learn how to [Add a Custom Container](add-custom-container.md)
 - Learn how to use the [Xamarin.Forms Dependency Resolver with Prism](custom-renderers.md)
 - Learn more about the Prism Container Extensions and working with Shiny in the [Appendix](appendix.md)
