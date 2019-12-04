@@ -131,7 +131,6 @@ To recapitulate the packages described above, this is the list of all assemblies
 [AutofacFormsNuGet]: https://www.nuget.org/packages/Prism.Autofac.Forms/
 [DryIocFormsNuGet]: https://www.nuget.org/packages/Prism.DryIoc.Forms/
 
-
 [CoreNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Core.svg
 [WpfNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Wpf.svg
 [FormsNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Forms.svg
@@ -144,15 +143,14 @@ To recapitulate the packages described above, this is the list of all assemblies
 [StructureMapWpfNuGetShield]: https://img.shields.io/nuget/vpre/Prism.StructureMap.svg
 [UnityWpfNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Unity.svg
 
-[AutofacUWPNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Autofac.svg
-[SimpleInjectorUWPNuGetShield]: https://img.shields.io/nuget/vpre/Prism.SimpleInjector.svg
-[UnityUWPNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Unity.svg
+[AutofacUWPNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Autofac.Windows.svg
+[SimpleInjectorUWPNuGetShield]: https://img.shields.io/nuget/vpre/Prism.SimpleInjector.Windows.svg
+[UnityUWPNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Unity.Windows.svg
 
 [AutofacFormsNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Autofac.Forms.svg
 [DryIocFormsNuGetShield]: https://img.shields.io/nuget/vpre/Prism.DryIoc.Forms.svg
 [NinjectFormsNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Ninject.Forms.svg
 [UnityFormsNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Unity.Forms.svg
-
 
 [CoreMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Core
 [WpfMyGet]: https://www.myget.org/feed/prism/package/nuget/Prism.Wpf/
