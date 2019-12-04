@@ -2,7 +2,7 @@
 
 Learn what’s included in Prism including the documentation, code samples, and libraries.  Additionally find out where to get the library and sample source code and the library NuGet packages.
 
-For a list of the new features, bug fixes, and API changes, see the [release notes](https://github.com/PrismLibrary/Prism/wiki).
+For a list of the new features, bug fixes, and API changes, see the [release notes](https://github.com/PrismLibrary/Prism/releases).
 
 ## Download and Setup the Prism Source Code
 
