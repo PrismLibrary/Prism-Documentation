@@ -109,7 +109,7 @@ public partial class App : PrismApplication
 
 At this point, the app can be built and run and should look like the following:
 
-![First Run of App](images/FirstRun.png)
+![First Run of App](images/FirstRun.PNG)
 
 It doesn't look too exciting yet, but there are lots of good things setup under the hood and will see some of that in action.
 
@@ -232,9 +232,11 @@ namespace WpfApp1.ViewModels
 }
 ```
 
-A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that it's implementation can be handled by via the dependency container. There is a ```Customers``` property that is bound to the listview in our user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
+A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that it's implementation can be handled by the dependency container. There is a ```Customers``` property that is bound to the listview in our user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
 
-There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` that allows delegates to be passed in to handle implementing the ```ICommand``` interface. More on ```ICommand``` and ```DelegateCommand``` later.
+There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` that allows delegates to be passed in to handle implementing the ```ICommand``` interface. In the case of ```CommandLoad```, the ```CommandLoadExecute``` function is passed in as the delegate and now, whenever the WPF binding system tries to execute ```ICommand.Execute```, ```CommandLoadExecute``` is invoked.
+
+For more details on DelegateCommand, see [Commanding](../commanding.md).
 
 Now there is a view and a view model, but how are they linked together? There are a couple of different ways this can be done, one explicitly and one via convention.
 
@@ -251,3 +253,35 @@ public MainWindow(ViewModels.MainWindowViewModel vm)
 ```
 
 The ```Container``` inside of the ```PrismApplication``` object will see that the ```MainWindow``` has a dependency on ```MainWindowViewModel``` and try to construct it first. It will see at this point that the ```MainWindowViewModel``` has a dependency on ```ICustomerStore``` and construct that as well. The ```Container``` brings it all together and end up with a view where the business logic is in a plain class that is easily unit tested and the implementation of the service for getting customers is hidden and easily mocked for testing.
+
+> Now what should be pretty obvious is that if the implementation of ```ICustomerStore``` ever had to change through out the entire app, all that needs to be done is change the registration in ```App.RegisterTypes```.
+
+### Using the ViewModelLocator
+
+Prism also has a convention based view model injector. This is an attached property that will, when the view is constructed, find the view model class, use the container to construct it and its dependencies and assign it to the view's DataContext property. Out of the box it uses this convention:
+
+If the view is located in the ```Views``` namespace, it will look inside of the ```ViewModels``` namespace for a class with the same name as view and ending with ViewModel. In the case of the WpfApp1 sample above:
+
+- ```WpfApp1.Views.MainWindow``` => ```WpfApp1.ViewModels.MainWindowViewModel```
+- ```WpfApp1.Views.OtherView``` => ```WpfApp1.ViewModels.OtherViewModel```
+
+This is configurable and different resolution logic can be added.
+
+To enable this to work, views and viewmodels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:
+
+![Viewmodel Locator Project Structure](images/viewmodellocator.png)
+
+In addition, two lines need to be added to the view markup:
+
+```xml
+<Window
+    ...
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    >
+
+	<!-- ui controls here -->
+</Window>
+```
+
+Click [here](../viewmodel-locator.md) for detailed information on the ```ViewModelLocator```.
