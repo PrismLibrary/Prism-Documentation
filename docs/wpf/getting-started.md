@@ -2,11 +2,11 @@
 
 Getting started with Prism is pretty easy. Follow the steps below and you will be up and running quickly with the start of a modular and easy to maintain app.
 
-> This guide assumes that you have some knowledge of the structure of a WPF project and some comfort with C#. An understanding of the Model-View-Viewmodel (MVVM) pattern is helpful as well. This would be a good time to refresh on MVVM if needed.
+> This guide assumes that you have some knowledge of the structure of a WPF application project and some comfort with C#. An understanding of the Model-View-Viewmodel (MVVM) pattern is helpful as well as WPF lends to that pattern very easily. If you aren't, consider taking a moment to do a bit of research on it first.
 
 ## Install the Nuget Packages
 
-You have created your app in Visual Studio. Next up is to install the appropriate nuget packages. You have to make a choice at this point, and that is which container you want to use for managing your dependencies. For the purposes of this documentation, Unity will be the container of choice. See the list below of what is available.
+A brand new WPF application has been created in Visual Studio. Next up is to install the appropriate nuget packages. At this point, a choice needs to be made, and that is which container to use for managing dependencies. For the purposes of this documentation, Unity will be the container of choice. See the list below of what is available.
 
 | Package | Container | Version |
 |---------|-----------|---------|
@@ -14,13 +14,13 @@ You have created your app in Visual Studio. Next up is to install the appropriat
 | Prism.Dryloc  | [DryLoc](https://github.com/dadhi/DryIoc)        | 4.0.7  |
 | Prism.Ninject | [Ninject](http://www.ninject.org)                | 3.3.4  |
 
-> Note: You do not need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism Packages.
+> Note: There is no need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism Packages.
 
 ![Install Nuget](images/nuget-install.png)
 
 ## Override the Existing Application Object
 
-The next step in getting started is to subclass the Application object that your WPF project was created with. In our project, navigate to the ```App.xaml``` and use the Prism ```PrismApplication``` class.
+The next step in getting started is to subclass the Application object contained in the newly created WPF project. Navigate to the ```App.xaml``` and  replace the standard WPF Application class with the Prism ```PrismApplication``` class.
 
 ```xml
 <prism:PrismApplication
@@ -88,11 +88,11 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
-> IContainerRegistry has other functions for registering against interfaces as well. ```RegisterInstance``` will register a created instance of an object against an interface. In effect the implementation of the registered interface is a singleton. A similar method is ```RegisterSingleton``` that will create a single instance at the time the dependency is made and not before. It should be noted that the ```Container``` can also resolve implemented types as well without a prior registration.
+> IContainerRegistry has other functions for registering against interfaces as well. ```RegisterInstance``` will register a created instance of an object against an interface. In effect the implementation of the registered interface is a singleton. A similar method is ```RegisterSingleton``` that will create a single instance at the time the dependency is made and not before. It should be noted that the ```Container``` can also resolve concrete without a prior registration.
 
 ### CreateShell
 
-The second method that has to be implemented is the CreateShell method. This is the method that will create the main window of the application. The Container property of the App class should be used to create the window as it takes care of the dependencies.
+The second method that has to be implemented is the CreateShell method. This is the method that will create the main window of the application. The Container property of the App class should be used to create the window as it takes care of any dependencies.
 
 ```cs
 public partial class App : PrismApplication
@@ -171,7 +171,7 @@ Inside the ```App.xaml.cs``` file, ensure that ```RegisterTypes``` has the follo
 
 ## Creating the View Model
 
-First, at the root level of your project, create a folder called ```ViewModels```. Use that exact name for reasons that are shown later.
+First, at the root level of your project, create a folder called ```ViewModels```. Use that exact name because that will be needed later when view model resolution is discussed.
 
 ![Project Folder Structure](images/ProjectStructure.PNG)
 
@@ -234,7 +234,7 @@ namespace WpfApp1.ViewModels
 
 A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that it's implementation can be handled by the dependency container. There is a ```Customers``` property that is bound to the listview in our user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
 
-There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` that allows delegates to be passed in to handle implementing the ```ICommand``` interface. In the case of ```CommandLoad```, the ```CommandLoadExecute``` function is passed in as the delegate and now, whenever the WPF binding system tries to execute ```ICommand.Execute```, ```CommandLoadExecute``` is invoked.
+There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` class that allows delegates to be passed in to handle implementing the ```ICommand``` interface. In the case of ```CommandLoad```, the ```CommandLoadExecute``` function is passed in as the delegate and now, whenever the WPF binding system tries to execute ```ICommand.Execute```, ```CommandLoadExecute``` is invoked.
 
 For more details on DelegateCommand, see [Commanding](../commanding.md).
 
@@ -285,3 +285,8 @@ In addition, two lines need to be added to the view markup:
 ```
 
 Click [here](../viewmodel-locator.md) for detailed information on the ```ViewModelLocator```.
+
+
+
+
+Above should be enough to get started with Prism.
