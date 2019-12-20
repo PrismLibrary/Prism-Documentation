@@ -6,7 +6,7 @@ Getting started with Prism is pretty easy. Follow the steps below and you will b
 
 ## Install the Nuget Packages
 
-A brand new WPF application has been created in Visual Studio. Next up is to install the appropriate nuget packages. At this point, a choice needs to be made, and that is which container to use for managing dependencies. For the purposes of this documentation, Unity will be the container of choice. See the list below of what is available.
+Create a brand new WPF application in Visual Studio. Next up is to install the appropriate nuget packages. At this point, a choice needs to be made, and that is which container to use for managing dependencies. For the purposes of this documentation, Unity will be the container of choice. See the list below of what is available.
 
 | Package | Container | Version |
 |---------|-----------|---------|
@@ -14,7 +14,7 @@ A brand new WPF application has been created in Visual Studio. Next up is to ins
 | Prism.Dryloc  | [DryLoc](https://github.com/dadhi/DryIoc)        | 4.0.7  |
 | Prism.Ninject | [Ninject](http://www.ninject.org)                | 3.3.4  |
 
-> Note: There is no need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism Packages.
+> Note: There is no need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism packages.
 
 ![Install Nuget](images/nuget-install.png)
 
@@ -57,7 +57,7 @@ namespace WpfApp1
 }
 ```
 
-There are a pair of abstract methods defined in ```PrismApplication``` that must be implemented first.
+There are a pair of abstract methods defined in ```PrismApplication``` that must be implemented first: RegisterTypes and CreateShell.
 
 ### RegisterTypes
 
@@ -88,7 +88,7 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
-> IContainerRegistry has other functions for registering against interfaces as well. ```RegisterInstance``` will register a created instance of an object against an interface. In effect the implementation of the registered interface is a singleton. A similar method is ```RegisterSingleton``` that will create a single instance at the time the dependency is made and not before. It should be noted that the ```Container``` can also resolve concrete without a prior registration.
+> IContainerRegistry has other functions for registering against interfaces as well. ```RegisterInstance``` will register a created instance of an object against an interface. In effect the implementation of the registered interface is a singleton. A similar method is ```RegisterSingleton``` that will create a single instance at the time the dependency is made and not before. It should be noted that the ```Container``` can also resolve concrete types without a prior registration.
 
 ### CreateShell
 
@@ -111,13 +111,13 @@ At this point, the app can be built and run and should look like the following:
 
 ![First Run of App](images/FirstRun.PNG)
 
-It doesn't look too exciting yet, but there are lots of good things setup under the hood and will see some of that in action.
+This now a Prism app. There isn't much here yet, but there are lots of things that Prism can help out with, such as breaking up the app into manageable chunks, navigation and implementing the MVVM patterns.
 
 ## View Models
 
-WPF is well setup to use an MVVM pattern and Prism helps a lot with this. It has a base class that handles the INotifyPropertyChanged infrastructure that publishes changes from thew view model to the view. There are some other classes that make it simple to handle buttons from within the view model as opposed to writing an event handler in your code behind.
+WPF is well setup to use an MVVM pattern and Prism helps a lot with this. It has a base class that handles the INotifyPropertyChanged infrastructure that publishes changes from the view model to the view. There are some other classes that make it simple to handle buttons from within the view model as opposed to writing an event handler in your code behind.
 
-First there needs to be some controls added to our view. Go to ```MainWindow.xaml``` and add the following markup inside the ```<Grid></Grid>```.
+First there needs to be some controls added to the view. Go to ```MainWindow.xaml``` and add the following markup inside the ```<Grid></Grid>``` element.
 
 ```xml
         <Grid.RowDefinitions>
@@ -141,7 +141,7 @@ The above will add a new listview that will display a list of customer names and
 
 > The important thing to remember is that every time there is a ```Binding```, there is a linkage to the view model for this view.
 
-To help out with this part of the guide, the service that was shown above needs to be setup in the project. In the root of the project, create a ```Services``` folder. In that folder, create the ```CustomerStore.cs``` file and add the following code:
+To help out with this part of the Getting Started Guide, the service that was shown above needs to be setup in the project. In the root of the project, create a ```Services``` folder. In that folder, create the ```CustomerStore.cs``` file and add the following code:
 
 ```cs
     public interface ICustomerStore
@@ -232,7 +232,7 @@ namespace WpfApp1.ViewModels
 }
 ```
 
-A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that it's implementation can be handled by the dependency container. There is a ```Customers``` property that is bound to the listview in our user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
+A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that it's implementation can be handled by the dependency container. There is a ```Customers``` property that is bound to the listview in the user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
 
 There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` class that allows delegates to be passed in to handle implementing the ```ICommand``` interface. In the case of ```CommandLoad```, the ```CommandLoadExecute``` function is passed in as the delegate and now, whenever the WPF binding system tries to execute ```ICommand.Execute```, ```CommandLoadExecute``` is invoked.
 
@@ -242,7 +242,7 @@ Now there is a view and a view model, but how are they linked together? There ar
 
 ### Explicit
 
-In the constructor for the view, add a dependency on the view model and the assign it to the DataContext. Remember that the view is being created via the container and that takes care of creating all of the dependencies.
+In the constructor for the view, add a dependency on the view model and then assign it to the DataContext. Remember that the view is being created via the container and that takes care of creating all of the dependencies.
 
 ```cs
 public MainWindow(ViewModels.MainWindowViewModel vm)
@@ -252,9 +252,9 @@ public MainWindow(ViewModels.MainWindowViewModel vm)
 }
 ```
 
-The ```Container``` inside of the ```PrismApplication``` object will see that the ```MainWindow``` has a dependency on ```MainWindowViewModel``` and try to construct it first. It will see at this point that the ```MainWindowViewModel``` has a dependency on ```ICustomerStore``` and construct that as well. The ```Container``` brings it all together and end up with a view where the business logic is in a plain class that is easily unit tested and the implementation of the service for getting customers is hidden and easily mocked for testing.
+The ```Container``` inside of the ```PrismApplication``` object will see that the ```MainWindow``` has a dependency on ```MainWindowViewModel``` and try to construct it first. It will see at this point that the ```MainWindowViewModel``` has a dependency on ```ICustomerStore``` and construct that as well. The ```Container``` brings it all together and returns a view where the business logic is in a plain class and the service implementation is hidden making it easy to test.
 
-> Now what should be pretty obvious is that if the implementation of ```ICustomerStore``` ever had to change through out the entire app, all that needs to be done is change the registration in ```App.RegisterTypes```.
+> It should be noted that if the implementation of ```ICustomerStore``` ever had to change through out the entire app, all that needs to be done is change the registration in ```App.RegisterTypes```.
 
 ### Using the ViewModelLocator
 
@@ -267,7 +267,7 @@ If the view is located in the ```Views``` namespace, it will look inside of the 
 
 This is configurable and different resolution logic can be added.
 
-To enable this to work, views and viewmodels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:
+For this to work, views and viewmodels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:
 
 ![Viewmodel Locator Project Structure](images/viewmodellocator.png)
 
@@ -284,7 +284,16 @@ In addition, two lines need to be added to the view markup:
 </Window>
 ```
 
+And finally, change the ```App.CreateShell``` function as follows:
+```cs
+public override Window CreateShell()
+{
+    Views.MainWindow w = Container.Resolve<Views.MainWindow>();
+    return w;
+}
+```
+
 Click [here](../viewmodel-locator.md) for detailed information on the ```ViewModelLocator```.
 
+Click [here](https://github.com/MichaelPonti/Prism-Documentation-WpfSample/tree/master/GettingStarted) for the complete sample app in this chapter.
 
-Above should be enough to get started with Prism. Go forth and write awesome code!
