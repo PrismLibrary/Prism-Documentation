@@ -287,6 +287,4 @@ In addition, two lines need to be added to the view markup:
 Click [here](../viewmodel-locator.md) for detailed information on the ```ViewModelLocator```.
 
 
-
-
-Above should be enough to get started with Prism.
+Above should be enough to get started with Prism. Go forth and write awesome code!
