@@ -78,7 +78,7 @@ public class DbCustomerStore()
 }
 ```
 
-Objects in the app, such as view models, that have a dependency on the customer data would require an ```ICustomerStore``` object. In the ```App.RegisterTypes``` function, a registration would be made to use the ```DbCustomerStore``` every time an object takes a dependency on ```ICustomerStore```.
+Objects in the app, such as view models, that have a dependency on the customer data would require an ```ICustomerStore``` object. In the ```App.RegisterTypes``` function, a registration would be made to create a ```DbCustomerStore``` every time an object takes a dependency on ```ICustomerStore```.
 
 ```cs
 protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -88,7 +88,7 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
-> The reason for this will become clear when a view model is constructed.
+> IContainerRegistry has other functions for registering against interfaces as well. ```RegisterInstance``` will register a created instance of an object against an interface. In effect the implementation of the registered interface is a singleton. A similar method is ```RegisterSingleton``` that will create a single instance at the time the dependency is made and not before. It should be noted that the ```Container``` can also resolve implemented types as well without a prior registration.
 
 ### CreateShell
 
