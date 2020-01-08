@@ -66,15 +66,15 @@ Example:
 
 ```cs
 public class ContactPageViewModel : INavigationAware
-{  
+{
   public void OnNavigatedTo(NavigationParameters parameters)
   {
 
   }
-  
+
   public void OnNavigatingTo(NavigationParameters parameters)
   {
-    
+
   }
 
   public void OnNavigatedFrom(NavigationParameters parameters)
@@ -135,7 +135,7 @@ public void OnNavigatedTo(INavigationParameters parameters)
 {
   //get a single parameter as type object, which must be cast
   var color = parameters["color"] as Color;
-            
+
   //get a single typed parameter
   var color = parameters.GetValue<Color>("color");
 
