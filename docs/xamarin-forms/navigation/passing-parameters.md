@@ -9,8 +9,8 @@ The Prism navigation service also allows you to pass parameters to the target vi
 Creating parameters can be done in a variety of ways.
 
 ```cs
-var navigationParams = new NavigationParameters ();
-navigationParams.Add("model", new Contact ());
+var navigationParams = new NavigationParameters();
+navigationParams.Add("model", new Contact());
 _navigationService.NavigateAsync("MainPage", navigationParams);
 ```
 
@@ -32,7 +32,7 @@ _navigationService.NavigateAsync("MainPage?id=3&name=brian");
 _navigationService.NavigateAsync("MainPage" + navParameters.ToString());
 
 //using both short-syntax parameters and NavigationParameters
-var navParameters = new NavigationParameters ();
+var navParameters = new NavigationParameters();
 navParameters.Add("name", "brian");
 _navigationService.NavigateAsync("MainPage?id=3", navParameters);
 ```
@@ -66,21 +66,16 @@ Example:
 
 ```cs
 public class ContactPageViewModel : INavigationAware
-{
-  public void OnNavigatedTo(NavigationParameters parameters)
-  {
+{  
+    public void OnNavigatedTo(INavigationParameters parameters)
+    {
 
-  }
+    }
 
-  public void OnNavigatingTo(NavigationParameters parameters)
-  {
+    public void OnNavigatedFrom(INavigationParameters parameters)
+    {
 
-  }
-
-  public void OnNavigatedFrom(NavigationParameters parameters)
-  {
-
-  }
+    }
 }
 ```
 
@@ -112,10 +107,10 @@ public interface INavigatingAware
     /// <param name="parameters">The navigation parameters.</param>
     /// <remarks>Not called when using device hardware or software back buttons</remarks>
     void OnNavigatingTo(INavigationParameters parameters);
-    }
+}
 ```
 
-In fact, the `INavigationAware` intefrace simply implements both the `INavigatedAware` and `INavigatingAware` interfaces.
+In fact, the `INavigationAware` interface simply implements both the `INavigatedAware` and `INavigatingAware` interfaces.
 
 ```cs
 public interface INavigationAware : INavigatedAware, INavigatingAware
@@ -124,7 +119,8 @@ public interface INavigationAware : INavigatedAware, INavigatingAware
 }
 ```
 
-_Note: **OnNavigatingTo** is not called when using device hardware or software back button._
+> [!NOTE]
+**OnNavigatingTo** is not called when using device hardware or software back button.
 
 ## Reading Parameters
 
@@ -172,4 +168,5 @@ Prism for Xamarin.Forms only support two `NavigationMode` options:
     }
 ```
 
-_Note: `NavigationMode.Forward` and `NavigationMode.Refresh` are not supported in Xamarin.Forms. These are used in UWP only._
+> [!NOTE]
+`NavigationMode.Forward` and `NavigationMode.Refresh` are not supported in Xamarin.Forms. These are used in UWP only.
