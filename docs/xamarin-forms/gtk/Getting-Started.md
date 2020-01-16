@@ -63,44 +63,8 @@ public class GtkInitializer : IPlatformInitializer
 
 Right Click on the project and select `Properties` select `Application` change `Output Type` from 'Class Library' to 'Windows Application'. Save and close properties.
 
-## Manually edit Prism References
+## Run
 
-Because the GTK project is a regular .NET Framework application we need to manually edit the `Project.csproj` to swap the prism references from .NET 4.5 to .NET Standard 2.0.
-
-If you skip this step you will get this error message: `System.TypeLoadException: 'Could not load type 'Prism.Navigation.INavigationService' from assembly 'Prism, Version=7.1.0.431 ... '`
-
-![Type Load Exception](images/TypeLoadException.png)
-
-This is because the Prism.*IoC*.Forms library expects a version of the Prism library designed for mobile/forms and we currently have the net45 version (because this is a net45 project) of Prism selected automatically by NuGet.
-
-Right click on the project and select `Unload Project` right click on the now grayed-out project and select `edit (ProjectName).csproj`. Change the hint paths for the DLLs from the Prism package: `Prism` & `Prism.Forms` from `net45` to `netstandard2.0`. 
-
-We want to go from references like these (`..\packages\Prism.Core.7.1.0.431\lib\net45\*.dll`):
-
-```xml
-<Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
-    <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
-</Reference>
-<Reference Include="Prism.Forms, Version=7.1.0.431, Culture=neutral, processorArchitecture=MSIL">
-    <HintPath>..\packages\Prism.Forms.7.1.0.431\lib\net45\Prism.Forms.dll</HintPath>
-</Reference>
-```
-
-To NetStandard 2.0 references like these (`..\packages\Prism.Core.7.1.0.431\lib\netstandard2.0\*.dll`):
-
-```xml
-<Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
-    <HintPath>..\packages\Prism.Core.7.1.0.431\lib\netstandard2.0\Prism.dll</HintPath>
-</Reference>
-<Reference Include="Prism.Forms, Version=7.1.0.431, Culture=neutral, processorArchitecture=MSIL">
-    <HintPath>..\packages\Prism.Forms.7.1.0.431\lib\netstandard2.0\Prism.Forms.dll</HintPath>
-</Reference>
-```
-
-\* *do not copy this block, just change `net45` to `netstandard2.0`*
-
-## Reload the Project and Run
-
-Save the `csproj` file, right click the project and select `Reload Project`. Set the project as the Startup Project, build, and run the solution.
+Set the project as the Startup Project, build, and run the solution.
 
 ![Running GTK#](images/RunningScreen.png)
