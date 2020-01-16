@@ -1,7 +1,15 @@
 - name: Create Your First App
   href: creating-your-first-prism-app.md
+- name: Behaviors
+  href: behaviors/toc.yml
+- name: Dependency Injection
+  href: dependency-injection/toc.yml
+- name: Dialogs
+  href: dialogs/toc.yml
 - name: Navigation
   href: navigation/toc.yml
+- name: Auto Initialization
+  href: auto-initialization.md
 - name: Application Lifecycle
   href: application-lifecycle.md
 - name: Page Lifecycle

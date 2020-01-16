@@ -83,7 +83,7 @@ One approach to this problem is to bind the button in the data template to the c
         <ListBox.ItemTemplate>
             <DataTemplate>
                 <Button Content="{Binding Path=Name}"
-                    Command="{Binding ElementName=root, 
+                    Command="{Binding ElementName=root,
                     Path=DataContext.DeleteCommand}" />
             </DataTemplate>
         </ListBox.ItemTemplate>
@@ -213,7 +213,7 @@ The **result** object returned wraps the result retrieved in addition to errors 
 this.questionnaireRepository.GetQuestionnaireAsync(
     (result) =>
     {
-        if (result.Error == null) 
+        if (result.Error == null)
         {
             this.Questionnaire = result.Result;
             ...
@@ -357,7 +357,7 @@ The view must be set up to detect an interaction request event, and then to pres
 
 The standard **EventTrigger** provided by Blend can be used to monitor an interaction request event by binding to the interaction request objects exposed by the view model. However, the Prism Library defines a custom **EventTrigger**, named **InteractionRequestTrigger**, which automatically connects to the appropriate **Raised** event of the **IInteractionRequest** interface. This reduces the amount of Extensible Application Markup Language (XAML) needed and reduces the chance of inadvertently entering an incorrect event name.
 
-After the event is raised, the **InteractionRequestTrigger** will invoke the specified action. For WPF, the Prism Library provides the **PopupWindowAction** class, which displays a pop-up window to the user. When the window is displayed, its data context is set to the context parameter of the interaction request. Using the **WindowContent** property of the **PopupWindowAction** class, you can specify the view that will be shown in the popup window. The title of the pop-up window is bound to the Title property of the context object. 
+After the event is raised, the **InteractionRequestTrigger** will invoke the specified action. For WPF, the Prism Library provides the **PopupWindowAction** class, which displays a pop-up window to the user. When the window is displayed, its data context is set to the context parameter of the interaction request. Using the **WindowContent** property of the **PopupWindowAction** class, you can specify the view that will be shown in the popup window. The title of the pop-up window is bound to the Title property of the context object.
 
 _**Note:** By default, the specific type of pop-up window displayed by the **PopupWindowAction** class depends on the type of the context object. For a **Notification** context object, a **DefaultNotificationWindow** is displayed, while for a **Confirmation** context object, a **DefaultConfirmationWindow** is displayed. The **DefaultNotificationWindow** displays a simple popup window to display the notification, while the **DefaultConfirmationWindow** also contains **Accept** and **Cancel** buttons to capture the user's response. You can override this behavior by specifying a custom pop-up window using the **WindowContent** property of the **PopupWindowAction** class._
 
@@ -615,7 +615,7 @@ helper.ValidatePropertyChange(
 
 When implementing the MVVM pattern, view models usually invoke operations on services, often asynchronously. Tests for code that invokes these operations typically use mocks or stubs as replacements for the actual services.
 
-The standard patterns used to implement asynchronous operations provide different guarantees regarding the thread in which notifications about the status of an operation occur. Although the [Event-based Asynchronous design pattern](http://msdn.microsoft.com/en-us/library/wewwczdw.aspx) guarantees that handlers for the events are invoked on a thread that is appropriate for the application, the [IAsyncResult design pattern](http://msdn.microsoft.com/en-us/library/ms228963.aspx) does not provide any such guarantees forcing the view model code that originates the call to ensure any changes that would affect the view are posted to the UI thread.
+The standard patterns used to implement asynchronous operations provide different guarantees regarding the thread in which notifications about the status of an operation occur. Although the [Event-based Asynchronous design pattern](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/event-based-asynchronous-pattern-overview) guarantees that handlers for the events are invoked on a thread that is appropriate for the application, the [IAsyncResult design pattern](https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm) does not provide any such guarantees forcing the view model code that originates the call to ensure any changes that would affect the view are posted to the UI thread.
 
 Dealing with threading concerns requires more complicated, and, therefore, usually harder to test, code. It also usually requires the tests themselves to be asynchronous. When notifications are guaranteed to occur in the UI thread, either because the standard event-based asynchronous pattern is used or because view models rely on a service access layer to marshal notifications to the appropriate thread, tests can be simplified and can essentially play the role of a "dispatcher for the UI thread."
 

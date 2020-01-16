@@ -1,0 +1,6 @@
+- name: Working with Behaviors
+  href: index.md
+- name: EventToCommand Behavior
+  href: eventtocommandbehavior.md
+- name: PageBehaviorFactory
+  href: page-behavior-factory.md

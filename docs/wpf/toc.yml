@@ -1,2 +1,18 @@
+- name: Introduction
+  href: introduction.md
+- name: Getting Started
+  href: getting-started.md
+- name: View Composition
+  href: view-composition.md
+- name: Region Navigation
+  href: region-navigation/toc.yml
+- name: Modules
+  href: modules.md
+- name: Interactivity
+  href: interactivity/toc.yml
+- name: Dialog Service
+  href: dialog-service.md
+- name: Advanced
+  href: advanced/toc.yml
 - name: Legacy (Prism 6)
   href: legacy/toc.yml

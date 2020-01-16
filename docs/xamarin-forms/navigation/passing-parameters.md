@@ -9,8 +9,8 @@ The Prism navigation service also allows you to pass parameters to the target vi
 Creating parameters can be done in a variety of ways.
 
 ```cs
-var navigationParams = new NavigationParameters ();
-navigationParams.Add("model", new Contact ());
+var navigationParams = new NavigationParameters();
+navigationParams.Add("model", new Contact());
 _navigationService.NavigateAsync("MainPage", navigationParams);
 ```
 
@@ -32,7 +32,7 @@ _navigationService.NavigateAsync("MainPage?id=3&name=brian");
 _navigationService.NavigateAsync("MainPage" + navParameters.ToString());
 
 //using both short-syntax parameters and NavigationParameters
-var navParameters = new NavigationParameters ();
+var navParameters = new NavigationParameters();
 navParameters.Add("name", "brian");
 _navigationService.NavigateAsync("MainPage?id=3", navParameters);
 ```
@@ -58,7 +58,7 @@ Getting the parameters that were passed to the target View being navigated to ca
 
 ### INavigationAware
 
-The ViewModel of the target navigation Page can participate in the navigation process by implementing the `INavigationAware` interface.  This interface adds three methods to your ViewModel so you can intercept before the View is navigated to **(OnNavigatingTo)**, once it is navigated to **(OnNavigatedTo)**, and once it is navigated away from **(OnNavigatedFrom)**.  These methods make the `NavigationParameters` accessible fomr either the View being navigated to, or the View being navigated away from.
+The ViewModel of the target navigation Page can participate in the navigation process by implementing the `INavigationAware` interface.  This interface adds three methods to your ViewModel so you can intercept before the View is navigated to **(OnNavigatingTo)**, once it is navigated to **(OnNavigatedTo)**, and once it is navigated away from **(OnNavigatedFrom)**.  These methods make the `NavigationParameters` accessible from either the View being navigated to, or the View being navigated away from.
 
 _Note: You can implement `INavigationAware` on either the View or ViewModel_
 
@@ -67,20 +67,15 @@ Example:
 ```cs
 public class ContactPageViewModel : INavigationAware
 {  
-  public void OnNavigatedTo(NavigationParameters parameters)
-  {
+    public void OnNavigatedTo(INavigationParameters parameters)
+    {
 
-  }
-  
-  public void OnNavigatingTo(NavigationParameters parameters)
-  {
-    
-  }
+    }
 
-  public void OnNavigatedFrom(NavigationParameters parameters)
-  {
+    public void OnNavigatedFrom(INavigationParameters parameters)
+    {
 
-  }
+    }
 }
 ```
 
@@ -112,10 +107,10 @@ public interface INavigatingAware
     /// <param name="parameters">The navigation parameters.</param>
     /// <remarks>Not called when using device hardware or software back buttons</remarks>
     void OnNavigatingTo(INavigationParameters parameters);
-    }
+}
 ```
 
-In fact, the `INavigationAware` intefrace simply implements both the `INavigatedAware` and `INavigatingAware` interfaces.
+In fact, the `INavigationAware` interface simply implements both the `INavigatedAware` and `INavigatingAware` interfaces.
 
 ```cs
 public interface INavigationAware : INavigatedAware, INavigatingAware
@@ -124,7 +119,8 @@ public interface INavigationAware : INavigatedAware, INavigatingAware
 }
 ```
 
-_Note: **OnNavigatingTo** is not called when using device hardware or software back button._
+> [!NOTE]
+**OnNavigatingTo** is not called when using device hardware or software back button.
 
 ## Reading Parameters
 
@@ -135,7 +131,7 @@ public void OnNavigatedTo(INavigationParameters parameters)
 {
   //get a single parameter as type object, which must be cast
   var color = parameters["color"] as Color;
-            
+
   //get a single typed parameter
   var color = parameters.GetValue<Color>("color");
 
@@ -148,7 +144,7 @@ public void OnNavigatedTo(INavigationParameters parameters)
 
 When navigating, it is sometimes important to know which direction you are heading in the navigation stack.  This allows you to make different decisions based on if you are navigating forward or back.
 
-To get the NavigationMode, simple call the INavigationParameters.GetNavigationMode` method.
+To get the NavigationMode, simply call the `INavigationParameters.GetNavigationMode` method.
 
 ```cs
 public void OnNavigatedFrom(INavigationParameters parameters)
@@ -172,4 +168,5 @@ Prism for Xamarin.Forms only support two `NavigationMode` options:
     }
 ```
 
-_Note: `NavigationMode.Forward` and `NavigationMode.Refresh` are not supported in Xamarin.Forms. These are used in UWP only._
+> [!NOTE]
+`NavigationMode.Forward` and `NavigationMode.Refresh` are not supported in Xamarin.Forms. These are used in UWP only.

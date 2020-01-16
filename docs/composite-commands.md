@@ -96,7 +96,7 @@ In your ViewModel, associate child commands to the static `ApplicationCommands` 
 ```
 
 > [!NOTE]
-> To increase the maintainability and testability of your code, it is recommended that you using the dependncy injection approach.
+> To increase the maintainability and testability of your code, it is recommended that you using the dependency injection approach.
 
 ## Binding to a Globally Available Command
 Once you have created your CompositeCommands, you must now bind them to UI elements in order to invoke the commands.
@@ -204,7 +204,7 @@ By implementing the `IActiveAware` interface on your ViewModels, you will be not
         private void OnIsActiveChanged()
         {
             UpdateCommand.IsActive = IsActive; //set the command as active
-            IsActiveChanged?.Invoke(this, new EventArgs()); //invoke the event for al listeners
+            IsActiveChanged?.Invoke(this, new EventArgs()); //invoke the event for all listeners
         }
     }
 ```

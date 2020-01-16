@@ -11,7 +11,7 @@ Add the `AutoWireViewModel` attached property to each View:
     prism:ViewModelLocator.AutoWireViewModel="True">
 ```
 
-To locate a ViewModel, the `ViewModelLocationProvider` first attempts to resolve the ViewModel from any mappings that may have been registered by the `ViewModelLocationProvider.Register` method (See **Custom ViewModel Registrations**).  If the ViewModel cannot be resolved using this approach, the `ViewModelLocationProvider` falls back to a convention-based approach to resolve the correct ViewModel type.  
+To locate a ViewModel, the `ViewModelLocationProvider` first attempts to resolve the ViewModel from any mappings that may have been registered by the `ViewModelLocationProvider.Register` method (See [Custom ViewModel Registrations](#Custom-ViewModel-Registrations)).  If the ViewModel cannot be resolved using this approach, the `ViewModelLocationProvider` falls back to a convention-based approach to resolve the correct ViewModel type.  
 
 This convention assumes:
 - that ViewModels are in the same assembly as the view types
@@ -20,10 +20,10 @@ This convention assumes:
 - that ViewModel names correspond with view names and end with "ViewModel."
 
 > [!Note]
-> The `ViewModelLocationProvider` can be found in the `Prism.Mvvm` namespace in the **Prism.Core** NuGet package. The `ViewModelLocator` can be found in the `Prism.Mvvm` namespace in the **Prism.WPF** NuGet package.
+> The `ViewModelLocationProvider` can be found in the `Prism.Mvvm` namespace in the **Prism.Core** NuGet package. The `ViewModelLocator` can be found in the `Prism.Mvvm` namespace in the platform specific packages (**Prism.WPF**, **Prism.Forms**) NuGet package.
 
 > [!Note]
-> The ViewModelLocator is required, and automatically applied to every View, when developing with Xamarin.Forms as it is responsible for providing the correct instance of the `INavigationServcie` to the ViewModel. When developing a Xamarin.Forms app, the `ViewModelLocator` is opt-out only.
+> The ViewModelLocator is required, and automatically applied to every View, when developing with Xamarin.Forms as it is responsible for providing the correct instance of the `INavigationService` to the ViewModel. When developing a Xamarin.Forms app, the `ViewModelLocator` is opt-out only.
 
 > [!Video https://www.youtube.com/embed/I_3LxBdvJi4]
 
@@ -74,7 +74,7 @@ ViewModelLocationProvider.Register<MainWindow, CustomViewModel>();
 ```
 
 > [!Note]
-> Registering your ViewModels directly with the `ViewModelLocator` is faster that relying on the default naming convention. This is because the naming convention requires the use of reflection, while a custom mapping provides the type directly to the `ViewModelLocator`.
+> Registering your ViewModels directly with the `ViewModelLocator` is faster than relying on the default naming convention. This is because the naming convention requires the use of reflection, while a custom mapping provides the type directly to the `ViewModelLocator`.
 
 > [!Important]
 > The `viewTypeName` parameter must be the fully qualifyied name of the view's Type (`Type.ToString()`). Otherwise the mapping will fail.
