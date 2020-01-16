@@ -12,15 +12,15 @@ This section describes how to install Prism. It involves the following three ste
 - Download and extract the Prism source code and documentation.
 - Compile and run the samples.
 
-### Step 1: Install System Requirements 
+### Step 1: Install System Requirements
 
 Prism was designed to run on the Microsoft Windows 8 desktop, Microsoft Windows 7, Windows Vista, or Windows Server 2008 operating system. WPF applications built using this guidance require the .NET Framework 4.5.
 
 Before you can use the Prism Library, the following must be installed:
 
 - Microsoft .NET Framework 4.5 or greater.
-- Microsoft Visual Studio 2012 or greater.
-- Xamarin for Visual Studio 3.11.1537 or greater.
+- Microsoft Visual Studio 2017 or greater. (2019 recommended)
+- Xamarin workload must be installed for Prism.Forms.
 
 ### Step 2: Download and Extract the Prism Source Code and Documentation
 
@@ -31,7 +31,6 @@ You can download the source code, documentation, and samples for the Prism libra
 - [Prism Source Code and Documentation](https://github.com/PrismLibrary/Prism/releases)
 - Samples
     - [WPF](https://github.com/PrismLibrary/Prism-Samples-Wpf)
-    - [Universal Windows Platform](https://github.com/PrismLibrary/Prism-Samples-Windows)
     - [Xamarin.Forms](https://github.com/PrismLibrary/Prism-Samples-Forms)
 
 _Optionally you can add the Prism assemblies directly to your projects by using the [NuGet packages](NuGet-Packages.md)._
