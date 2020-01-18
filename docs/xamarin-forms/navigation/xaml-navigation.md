@@ -7,7 +7,7 @@ Prism allows you to declare your navigation directly inside your Xaml via a [Mar
 To define navigation from within your Xaml, simply add the prism namespace to your Page
 
 ```xml
-<Page xmlns:prism="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms">
+<Page xmlns:prism="http://prismlibrary.com">
 ```
 
 And then add the Markup Extension to any `Command` property (buttons, tap gesture recognizers, etc.)
@@ -34,16 +34,16 @@ Navigating back OR back to the root page will be done via the GoBack extension
 
 You can also define NavigationParameters to your Xaml in one of three ways.
 
-#### 1: Directly as a CommandParameter Binding.   
+#### 1: Directly as a CommandParameter Binding.
 *Note: in order to access it, you need to lookup `xamlParam` from your NavigationParameters property. This is also statically defined in `KnownNavigationParameters.XamlParam`*
 
 ```xml
-<Button Command="{prism:NavigateTo 'path/to/navigate'}" 
+<Button Command="{prism:NavigateTo 'path/to/navigate'}"
         CommandParameter="{Binding Foo}" />
 ```
 
 ```csharp
-public override void OnNavigatingTo(NavigationParameters parameters)
+public override void OnNavigatingTo(INavigationParameters parameters)
 {
     if(parameters.TryGetValue(KnownNavigationParameters.XamlParam, out object fooObject))
     {
@@ -85,7 +85,7 @@ You can control whether or not the user `CanNavigate` via an [attached property]
 <Page>
     <StackLayout prism:Navigation.CanNavigate="{Binding MyCanNavigateProperty}">
         <ContentView>
-            <Button Command="{prism:NavigateTo 'path/to/navigate'}"   
+            <Button Command="{prism:NavigateTo 'path/to/navigate'}"
                     CommandParameter="{Binding Foo}" />
         </ContentView>
     </StackLayout>

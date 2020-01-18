@@ -7,9 +7,9 @@ A ViewModel can determine whether or not it can perform a navigation operation. 
 ## IConfirmNavigation
 
 ```cs
-public class ContactPageViewModel : IConfirmNavigation 
+public class ContactPageViewModel : IConfirmNavigation
 {
-  public bool CanNavigate(NavigationParameters parameters)
+  public bool CanNavigate(INavigationParameters parameters)
   {
     return true;
   }

@@ -25,7 +25,7 @@
           "docs/wpf/legacy/images/**",
           "docs/xamarin-forms/images/**",
           "docs/xamarin-forms/getting-started/images/**",
-          "docs/xamarin-forms/gtk/images/**"
+          "docs/xamarin-forms/platform-reference/images/**"
         ],
         "exclude": [
           "obj/**",

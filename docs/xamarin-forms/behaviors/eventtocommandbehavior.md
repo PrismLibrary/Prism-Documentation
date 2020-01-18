@@ -15,22 +15,22 @@ The `EventToCommandBehavior` expose the following properties
 
 First declare the namespace and assembly in where `EventToCommandBehavior` is declared and declare a XML-namespace.
 
-`xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"`
+`xmlns:prism="http://prismlibrary.com"`
 
 ### CommandParameter
 
 Bind or declare a parameter that will be sent to the `ICommand.Execute(object)` method.
 
 ```xml
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyNamespace.ContentPage"
-             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms">
+             xmlns:prism="http://prismlibrary.com">
     <ListView>
         <ListView.Behaviors>
-            <b:EventToCommandBehavior EventName="ItemTapped" 
-                                      Command="{Binding ItemTappedCommand}"
-                                      CommandParameter="MyParameter" />
+            <prism:EventToCommandBehavior EventName="ItemTapped"
+                                          Command="{Binding ItemTappedCommand}"
+                                          CommandParameter="MyParameter" />
         </ListView.Behaviors>
     </ListView>
 </ContentPage>
@@ -73,8 +73,8 @@ The XAML need a reference to the converter and the converter resource need to be
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyNamespace.ContentPage"
-             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
-             xmlns:c="clr-namespace:Prism.Converters;assembly=Prism.Forms">
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:c="clr-namespace:AwesomeApp.Converters;assembly=YourProject">
     <ContentPage.Resources>
         <ResourceDictionary>
             <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
@@ -82,9 +82,9 @@ The XAML need a reference to the converter and the converter resource need to be
     </ContentPage.Resources>
     <ListView>
         <ListView.Behaviors>
-            <b:EventToCommandBehavior EventName="ItemTapped" 
-                                      Command="{Binding ItemTappedCommand}"
-                                      EventArgsConverter="{StaticResource itemTappedEventArgsConverter}" />
+            <prism:EventToCommandBehavior EventName="ItemTapped"
+                                          Command="{Binding ItemTappedCommand}"
+                                          EventArgsConverter="{StaticResource itemTappedEventArgsConverter}" />
         </ListView.Behaviors>
     </ListView>
 </ContentPage>
@@ -105,15 +105,15 @@ public class ItemTappedEventArgs : EventArgs
 Setting `EventArgsParameterPath` to **Item** will extract the property value and pass it to the `ICommand.Execute(object)` method
 
 ```xml
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyNamespace.ContentPage"
-             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms">
+             xmlns:prism="http://prismlibrary.com">
     <ListView>
         <ListView.Behaviors>
-            <b:EventToCommandBehavior EventName="ItemTapped" 
-                                      Command="{Binding ItemTappedCommand}"
-                                      EventArgsParameterPath="Item" />
+            <prism:EventToCommandBehavior EventName="ItemTapped"
+                                          Command="{Binding ItemTappedCommand}"
+                                          EventArgsParameterPath="Item" />
         </ListView.Behaviors>
     </ListView>
 </ContentPage>

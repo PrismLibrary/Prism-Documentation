@@ -16,12 +16,12 @@ The management of these events can be tricky in an MVVM app but Prism provides t
 ## How to handle ALM in your ViewModels
 The first thing you have to do to is to implement the `IApplicationLifecycleAware` interface in your __ViewModel__ class. Implemening this interface means that you have to provide an implementation of the `OnResume()` and `OnSleep()` method that are called by the framework when the app is resuming and going to sleep respectively. The typical operation you'll do in the `OnSleep()` method is to __save__ the state of your ViewModel to later __restore__ it during the execution of the `OnResume()` method.
 
-The following is an example of a ViewModel that implements `IApplicationLifecycleAware`. 
+The following is an example of a ViewModel that implements `IApplicationLifecycleAware`.
 
 ```csharp
 public class ViewModelExample : ViewModelBase, IApplicationLifecycleAware
 {
-    protected INavigationService NavigationService { get; private set; }
+    protected INavigationService NavigationService { get; }
 
     public ViewModelExample(INavigationService navigationService)
     {
@@ -47,7 +47,7 @@ The following is an example of an `App` class with ALM management.
 ```csharp
 public partial class App : PrismApplication
 {
-  
+
     public App() : this(null) { }
 
     public App(IPlatformInitializer initializer) : base(initializer) { }
@@ -56,7 +56,7 @@ public partial class App : PrismApplication
     {
         InitializeComponent();
 
-        await NavigationService.NavigateAsync("NavigationPage/MainPage");
+        var result = await NavigationService.NavigateAsync("NavigationPage/MainPage");
     }
 
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -83,7 +83,7 @@ public partial class App : PrismApplication
 ```
 
 ## Handling app resume and suspend
-In general, an application goes into __sleep mode__ when it no longer commands the screen and has become inactive. From this sleep mode, an application can be __resumed__ (signaled by an `OnResume()` call) or __terminated__. But this is important: after the `OnSleep()` call, there is __no further notification__ that an application is being terminated. The `OnSleep()` call is as close as you get to a termination notification, and it always precedes a termination. For example, if your application is running and the user turns off the phone, the application gets an `OnSleep()` call as the phone is shutting down. If your program has established a connection with a web service, or is in the process of establishing such a connection, you might want to use `OnResume()` to restore that connection. Perhaps the connection has timed out in the interval that the program was inactive. Or perhaps some fresh data is available. 
+In general, an application goes into __sleep mode__ when it no longer commands the screen and has become inactive. From this sleep mode, an application can be __resumed__ (signaled by an `OnResume()` call) or __terminated__. But this is important: after the `OnSleep()` call, there is __no further notification__ that an application is being terminated. The `OnSleep()` call is as close as you get to a termination notification, and it always precedes a termination. For example, if your application is running and the user turns off the phone, the application gets an `OnSleep()` call as the phone is shutting down. If your program has established a connection with a web service, or is in the process of establishing such a connection, you might want to use `OnResume()` to restore that connection. Perhaps the connection has timed out in the interval that the program was inactive. Or perhaps some fresh data is available.
 
 
 ## Debugging tips and tricks
