@@ -92,7 +92,7 @@ When your app is attached to the Visual Studio debugger, it will not be suspende
 ![how to activate debug-location](images/xf-iapplicationlifecycleaware-debug-location.png)
 
 ## Reference
-+ [Xamarin Docs App Lifecycle](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/app-lifecycle/)
++ [Xamarin Docs App Lifecycle](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/app-lifecycle)
 
 + [Xamarin Forms Book](https://xamarin.azureedge.net/developer/xamarin-forms-book/XamarinFormsBook-Ch06-Apr2016.pdf)
 
