@@ -14,3 +14,9 @@
   href: application-lifecycle.md
 - name: Page Lifecycle
   href: page-lifecycle.md
+- name: Page Dialog Service
+  href: Page-Dialog-Service.md
+- name: EventToCommandBehavior
+  href: EventToCommandBehavior.md
+- name: GTK#
+  href: gtk/toc.yml
