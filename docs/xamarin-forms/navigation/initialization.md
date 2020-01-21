@@ -9,6 +9,8 @@ Initializing your ViewModels is considered a ONE TIME task. This is only done af
 
 TODO
 
+> [!Video https://www.youtube.com/embed/uGDflfthMeA]
+
 ## When to use IInitializeAsync
 
 TODO
@@ -17,3 +19,4 @@ TODO
 
 - [Confirm Navigation](confirming-navigation.md)
 - [Auto Initialization](../auto-initialization.md)
+- [Sample App - ViewModel Initialization](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/13-ViewModelInitialization)
