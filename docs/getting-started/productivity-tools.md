@@ -112,9 +112,14 @@ The Prism Template Pack is available on the [Visual Studio Gallery](https://mark
 ![Prism Template Pack](images/prism-template-pack-win.jpg)
 
 # Prism Template Studio
+
 The Prism Template Studio contains a collection of snippets, item templates, and project templates for use with Xamarin.Forms applications using Prism with Visual Studio for Mac.
 
+> [!WARNING]
+> The Prism Template Studio for Visual Studio Mac is not compatibile with Visual Studio Mac 8.X. Work is currently being done to bring this up to date and provide the full functionality in Visual Studio on Windows, however it will only be available for those [sponsoring Dan on GitHub](https://xam.dev/sponsordan).
+
 ### Snippets
+
 - propp - Property, with a backing field, that depends on BindableBase
 ```cs
     private string _fieldName;
