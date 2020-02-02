@@ -57,7 +57,7 @@ public override void OnNavigatingTo(INavigationParameters parameters)
 ```xml
 <Button Command="{prism:NavigateTo 'path/to/navigate'}">
     <Button.CommandParameter>
-        <prism:NavigationParameter Key="Foo" Value="Some Value">
+        <prism:NavigationParameter Key="Foo" Value="Some Value" />
     </Button.CommandParameter>
 </Button>
 ```
@@ -68,8 +68,8 @@ public override void OnNavigatingTo(INavigationParameters parameters)
 <Button Command="{prism:NavigateTo 'path/to/navigate'}">
     <Button.CommandParameter>
         <prism:NavigationParameters>
-            <prism:NavigationParameter Key="Foo" Value="{Binding SomeBarValue}">
-            <prism:NavigationParameter Key="Fizz" Value="Some Buzz Value">
+            <prism:NavigationParameter Key="Foo" Value="{Binding SomeBarValue}" />
+            <prism:NavigationParameter Key="Fizz" Value="Some Buzz Value" />
         </prism:NavigationParameters>
     </Button.CommandParameter>
 </Button>
