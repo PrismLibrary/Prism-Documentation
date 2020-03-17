@@ -69,7 +69,7 @@ public interface ICustomerStore
     List<string> GetAll();
 }
 
-public class DbCustomerStore()
+public class DbCustomerStore : ICustomerStore
 {
     public List<string> GetAll()
     {
@@ -117,9 +117,10 @@ This now a Prism app. There isn't much here yet, but there are lots of things th
 
 WPF is well setup to use an MVVM pattern and Prism helps a lot with this. It has a base class that handles the INotifyPropertyChanged infrastructure that publishes changes from the view model to the view. There are some other classes that make it simple to handle buttons from within the view model as opposed to writing an event handler in your code behind.
 
-First there needs to be some controls added to the view. Go to ```MainWindow.xaml``` and add the following markup inside the ```<Grid></Grid>``` element.
+First there needs to be some controls added to the view. Go to ```MainWindow.xaml``` and add the following ```<Grid>``` markup as the content for the ```<MainWindow>```.
 
 ```xml
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -134,7 +135,7 @@ First there needs to be some controls added to the view. Go to ```MainWindow.xam
             Command="{Binding CommandLoad}"
             Content="LOAD"
         />
-
+    </Grid>
 ```
 
 The above will add a new listview that will display a list of customer names and a button to load the list.
@@ -238,27 +239,11 @@ There is also CommandLoad object that implements the ```ICommand``` interface. T
 
 For more details on DelegateCommand, see [Commanding](../commanding.md).
 
-Now there is a view and a view model, but how are they linked together? There are a couple of different ways this can be done, one explicitly and one via convention.
-
-### Explicit
-
-In the constructor for the view, add a dependency on the view model and then assign it to the DataContext. Remember that the view is being created via the container and that takes care of creating all of the dependencies.
-
-```cs
-public MainWindow(ViewModels.MainWindowViewModel vm)
-{
-    InitializeComponent();
-    DataContext = vm;
-}
-```
-
-The ```Container``` inside of the ```PrismApplication``` object will see that the ```MainWindow``` has a dependency on ```MainWindowViewModel``` and try to construct it first. It will see at this point that the ```MainWindowViewModel``` has a dependency on ```ICustomerStore``` and construct that as well. The ```Container``` brings it all together and returns a view where the business logic is in a plain class and the service implementation is hidden making it easy to test.
-
-> It should be noted that if the implementation of ```ICustomerStore``` ever had to change through out the entire app, all that needs to be done is change the registration in ```App.RegisterTypes```.
+Now there is a view and a view model, but how are they linked together? The easiest way is to inject the view model automatically using the ```ViewModelLocator``` and naming conventions.
 
 ### Using the ViewModelLocator
 
-Prism also has a convention based view model injector. This is an attached property that will, when the view is constructed, find the view model class, use the container to construct it and its dependencies and assign it to the view's DataContext property. Out of the box it uses this convention:
+Prism has a convention based view model injector. This is an attached property that will, when the view is constructed, find the view model class, use the container to construct it and its dependencies and assign it to the view's DataContext property. Out of the box it uses this convention:
 
 If the view is located in the ```Views``` namespace, it will look inside of the ```ViewModels``` namespace for a class with the same name as view and ending with ViewModel. In the case of the WpfApp1 sample above:
 
