@@ -2,6 +2,8 @@
   href: introduction.md
 - name: Getting Started
   href: getting-started.md
+- name: Converting From Prism 6.x
+  href: converting-from-6.md
 - name: View Composition
   href: view-composition.md
 - name: Region Navigation
