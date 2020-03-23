@@ -23,6 +23,7 @@
           "docs/images/**",
           "docs/getting-started/images/**",
           "docs/wpf/legacy/images/**",
+          "docs/wpf/images/**",
           "docs/xamarin-forms/images/**",
           "docs/xamarin-forms/getting-started/images/**",
           "docs/xamarin-forms/platform-reference/images/**"
