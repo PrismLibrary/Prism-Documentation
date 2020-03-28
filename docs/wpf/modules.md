@@ -20,7 +20,7 @@ Focusing on the right hand side, it does much the same thing. Clicking on ```Upd
 
 The interesting thing about the app above is that the set of controls on the right are hosted in an assembly that is not referenced by the main window. It can be swapped out for something completely different without updating code or references for the main window.
 
-The other interesting thing is that hte code that generates the new string values in the right hand set of controls, it isn't referenced by any other assembly.
+The other interesting thing is that the implementation that generates the new string values in the right hand set of controls, isn't referenced by any other assembly.
 
 Here is how this app can be broken out into components.
 
@@ -271,4 +271,4 @@ In the ```MainWindow.xaml```, a ```<ContentControl />```is added with an attribu
 </Window>
 ```
 
-In the code above, the ```<ContentControl>``` has an [attached property](https://github.com/MichaelPonti/Prism-Documentation-WpfSample/blob/4aba077191ad105ab579c86682c1dc509db06ac6/Modularity/Modularity/Views/MainWindow.xaml#L42) that specifies which region this content control hosts. Notice that the code is referencing a constant in a class so to avoid using magic strings.
+In the code above, the ```<ContentControl>``` has an [attached property](https://github.com/MichaelPonti/Prism-Documentation-WpfSample/blob/4aba077191ad105ab579c86682c1dc509db06ac6/Modularity/Modularity/Views/MainWindow.xaml#L42) that specifies which region this content control hosts. Notice that the code is referencing a constant in a class so to avoid using magic strings. See [View Composition](./view-composition.md) for more information.
