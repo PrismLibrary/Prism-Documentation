@@ -8,7 +8,7 @@ Prism can help with this effort by providing the infrastructure to assemble your
 
 
 ## Getting Started
-Really the first thing to happen is app architecture. Below is a screen shot of an example app:
+The first thing is to explain the app architecture in the sample app.
 
 ![App Screen Shot](./images/ModularityApp.png)
 
