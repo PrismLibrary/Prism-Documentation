@@ -4,7 +4,7 @@ It is often advantageous to build out an application in smaller blocks of functi
 
 Prism can help with this effort by providing the infrastructure to assemble your app into a cohesive functioning whole from disparate parts at runtime by using the Modularity services.
 
-> To really use the power of Modularity in Prism, there are a few concepts that are often used in conjunction with. [EventAggregation](../../../event-aggregator.md) is used to enable communication between components without knowing anything about the other components. [View composition](./view-composition.md) is used to compose user interfaces without knowing the implementation of each of the views. Some basics of using both are in this topic.
+> To really use the power of Modularity in Prism, there are a few concepts that are often used in conjunction with. ```Dependency Injection``` reduces coupling between objects. [EventAggregation](../../../event-aggregator.md) is used to enable communication between components without knowing anything about the other components. [View composition](./view-composition.md) is used to compose user interfaces without knowing the implementation of each of the views. Some basics of using the three concepts are in this topic.
 
 
 ## Getting Started
@@ -12,7 +12,7 @@ Really the first thing to happen is app architecture. Below is a screen shot of 
 
 ![App Screen Shot](./images/ModularityApp.png)
 
-In the app above, there are two main components. The first component is the main window which contains the controls on the left and the status bar at the bottom of the window. The second is the set of controls on the right containing the title, a text box and a button to update the text box.
+In the app above, there are two main components. The first component is the main window that contains the controls on the left and the status bar at the bottom of the window. The second is the set of controls on the right containing the title, a text box and a button to update the text box.
 
 Focusing on the left hand side, clicking on the button ```UPDATE``` will update the value in the text block above the button. It will also update the text in the status bar.
 
@@ -32,6 +32,10 @@ Here is how this app can be broken out into components.
 | Modularity.exe | This is the main app exe. It contains the main window and the controls that are on the left hand side. |
 | Modularity.AlternateViewA.dll | This assembly contains the controls that are visible on the right hand side of the main window. It consumes strings from the Modularity.NewStringService without referencing the component and updates the status bar of the main window without any reference to that assembly. |
 | Modularity.NewStringService.dll | This implements a service that provides string values. |
+
+In the project .exe, here is what the project references look like. Notice that there are no other project references except for ```Modularity.Infrastructure```.
+
+![Project References](./images/ModularityReferences.png)
 
 ## Following Along In Code
 
@@ -102,7 +106,7 @@ Next the contents of the ```app.config``` file need to be filled in. The ```<mod
 </configuration>
 ```
 
-An explanation on the snippet above. Each ```<module>``` entry in the modules section specifies a dependency that the app depends on. The ```assemblyFile``` attribute specifies the assembly's file name so that the catalog can load it.
+An explanation on the snippet above. Each ```<module>``` entry in the modules section specifies a dependency that the app requires to run. The ```assemblyFile``` attribute specifies the assembly's file name so that the catalog can load it.
 
 The ```startupLoaded``` attribute specifies whether the module should be loaded on startup or on demand. In larger apps, it can be advantageous to enable this.
 
@@ -128,11 +132,11 @@ The ```ILooseStringService``` is defined in the ```Modularity.Infrastructure``` 
 
 ## A More Complex Example
 
-In the ```app.config``` file shown above, there is a module in assembly ```Modularity.AlternateViewA.dll```. It has two dependencies, one on the ```Modularity.Infrastructure``` and one on the first example of ```Modular.NewStringService.dll```.  The module catalog, when it is created, will ensure that both of those assemblies are loaded before ```Modularity.AlternateViewA.dll``` is loaded.
+In the ```app.config``` file shown above, there is a module implemented in assembly ```Modularity.AlternateViewA.dll```. It has two dependencies, one on the ```Modularity.Infrastructure``` and one on the first example of ```Modular.NewStringService.dll```.  The module catalog, when it is created, will ensure that both of those assemblies are loaded before ```Modularity.AlternateViewA.dll``` is loaded.
 
 In the ```app.config``` file it shows that the ```Modularity.AlternateViewA.Module``` type is the type that should be instantiated on loading and have the two methods invoked. In this implementation, the ```OnInitialized``` method is used to register the view.
 
-> In this example, view injection is being used to compose the user interface. This shows just the basics and there will be a [separate topic](./view-composition.md) on this elsewhere.
+> In this example, view injection is being used to compose the user interface. This shows just the basics and there will be a [separate topic](./view-composition.md) on this.
 
 Below is the implementation for the ```IModule``` for this assembly. Note that the ```containerProvider``` is used to retrieve the instance of the ```IRegionManager``` so that the view can be registered:
 ```csharp
