@@ -18,7 +18,7 @@ Focusing on the left hand side, clicking on the button ```UPDATE``` will update 
 
 Focusing on the right hand side, it does much the same thing. Clicking on ```Update Text Box``` updates the value in the text box above the button. It also updates the status bar at the bottom of the main window.
 
-The interesting thing about the app above is that the set of controls on the right are hosted in an assembly that is not referenced by the main window. It can be swapped out for something completely different without updating code or references for the main window.
+The interesting thing about the app above is that the set of controls on the right are hosted in an assembly that is not referenced by the assembly containing the main window. It can be swapped out for something completely different without updating code or references for the main window assembly.
 
 The other interesting thing is that the implementation that generates the new string values in the right hand set of controls, isn't referenced by any other assembly.
 
@@ -30,7 +30,7 @@ Here is how this app can be broken out into components.
 |-----------|-------------|
 | Modularity.Infrastructure.dll | This assembly is referenced by all the other components in the app. It only contains items such as abstract base classes, interfaces and data models. |
 | Modularity.exe | This is the main app exe. It contains the main window and the controls that are on the left hand side. |
-| Modularity.AlternateViewA.dll | This assembly contains the controls that are visible on the right hand side of the main window. It consumes strings from the Modularity.NewStringService without referencing the component and updates the status bar of the main window without any reference to that assembly. |
+| Modularity.AlternateViewA.dll | This assembly contains the controls that are visible on the right hand side of the main window. It consumes strings from the Modularity.NewStringService without referencing the assembly and updates the status bar of the main window without any reference to that assembly. |
 | Modularity.NewStringService.dll | This implements a service that provides string values. |
 
 In the project .exe, here is what the project references look like. Notice that there are no other project references except for ```Modularity.Infrastructure```.
@@ -110,9 +110,9 @@ An explanation on the snippet above. Each ```<module>``` entry in the modules se
 
 The ```startupLoaded``` attribute specifies whether the module should be loaded on startup or on demand. In larger apps, it can be advantageous to enable this.
 
-The ```dependencies``` element contains a list of all the dependencies this module depends on. Use this to ensure that modules are loaded in the correct order.
+The ```dependencies``` element contains a list of all the dependencies this assembly depends on. Use this to ensure that assemblies are loaded in the correct order.
 
-The ```moduleType``` attribute specifies the name of the class to instantiate when the assembly file is loaded. This class must implement the ```IModule``` interface. This interface specifies two methods ```RegisterTypes``` and ```OnInitialized```. Any types that need to be registered should be handled in the ```RegisterTypes``` function. Any other work that needs to be done, such as registering views, or initialization code should be performed in the ```OnInitialized``` method. In the ```app.config``` file above, the ```Modularity.NewStringService.dll``` implements the module as below:
+The ```moduleType``` attribute specifies the name of the class to instantiate when the assembly file is loaded. This class must implement the ```IModule``` interface. This interface specifies two methods ```RegisterTypes``` and ```OnInitialized```. Any types that need to be registered should be handled in the ```RegisterTypes``` function. Any other work that needs to be done, such as registering views, or initialization code should be performed in the ```OnInitialized``` method. The entry in the ```app.config``` file for the ```Modularity.NewStringService.dll``` assembly specifies the ```IModule``` implementation for loading the assembly. It is implemented below:
 
 ```csharp
 public sealed class Module : IModuleInfo
@@ -132,7 +132,7 @@ The ```ILooseStringService``` is defined in the ```Modularity.Infrastructure``` 
 
 ## A More Complex Example
 
-In the ```app.config``` file shown above, there is a module implemented in assembly ```Modularity.AlternateViewA.dll```. It has two dependencies, one on the ```Modularity.Infrastructure``` and one on the first example of ```Modular.NewStringService.dll```.  The module catalog, when it is created, will ensure that both of those assemblies are loaded before ```Modularity.AlternateViewA.dll``` is loaded.
+In the ```app.config``` file shown above, there is a module implemented in assembly ```Modularity.AlternateViewA.dll```. It has two dependencies, one on the ```Modularity.Infrastructure``` and one on the first example of ```Modularity.NewStringService.dll```.  The module catalog, when it is created, will ensure that both of those assemblies are loaded before ```Modularity.AlternateViewA.dll``` is loaded.
 
 In the ```app.config``` file it shows that the ```Modularity.AlternateViewA.Module``` type is the type that should be instantiated on loading and have the two methods invoked. In this implementation, the ```OnInitialized``` method is used to register the view.
 
@@ -276,3 +276,7 @@ In the ```MainWindow.xaml```, a ```<ContentControl />```is added with an attribu
 ```
 
 In the code above, the ```<ContentControl>``` has an [attached property](https://github.com/MichaelPonti/Prism-Documentation-WpfSample/blob/4aba077191ad105ab579c86682c1dc509db06ac6/Modularity/Modularity/Views/MainWindow.xaml#L42) that specifies which region this content control hosts. Notice that the code is referencing a constant in a class so to avoid using magic strings. See [View Composition](./view-composition.md) for more information.
+
+> NOTE: Now that the app has no references, this means the build output won't make it to the directory where it is needed. In each of the assemblies, change the build output location. One simpleway is to specify the build output to go to the ```bin``` folder in the solution directory. 
+
+There are a lot of moving parts with modularity. Once setup, it gives you the tools to structure your app and make it easier to maintain.
