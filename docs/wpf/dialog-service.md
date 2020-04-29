@@ -107,6 +107,7 @@ To register a dialog, you must have a View (UserControl) and a corresponding Vie
  protected override void RegisterTypes(IContainerRegistry containerRegistry)
  {
      containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>();
+     //or simply: containerRegistry.RegisterDialog<NotificationDialog>(); if you are using AutoWireViewModel=True
  }
 ```
 
