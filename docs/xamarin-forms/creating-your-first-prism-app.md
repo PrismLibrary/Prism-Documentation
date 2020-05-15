@@ -74,7 +74,7 @@ The `App.xaml.cs` file contains the logic required to configure a Prism applicat
          * This imposes a limitation in which the App class must have a default constructor.
          * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
          */
-        public App() : this(null) { }
+        public App() : base(null) { }
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
 
