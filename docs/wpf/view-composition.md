@@ -100,51 +100,44 @@ A region behavior is a class that is attached to a region to give the region add
 
 The next sections describe the default behaviors that are automatically added to all regions. One behavior, the ```SelectorItemsSourceSyncBehavior```, is only attached to controls that derive from the ```Selector```.
 
-
-
-
-
-
-
-
 ##### Registration Behavior
 
-The ```RegionManagerRegistrationBehavior``` is responsible for making sure that the region is registered to the correct **RegionManager**. When a view or control is added to the visual tree as a child of another control or region, any region defined in the control should be registered in the **RegionManager** of the parent control. When the child control is removed, the registered region is unregistered.
+The ```RegionManagerRegistrationBehavior``` is responsible for making sure that the region is registered to the correct ```RegionManager```. When a view or control is added to the visual tree as a child of another control or region, any region defined in the control should be registered in the ```RegionManager``` of the parent control. When the child control is removed, the registered region is unregistered.
 
 ##### Auto-Population Behavior
 
-There are two classes responsible for implementing view discovery. One of them is the **AutoPopulateRegionBehavior**. When it is attached to a region, it retrieves all view types that are registered under the name of the region. It then creates instances of those views and adds them to the region. After the region is created, the **AutoPopulateRegionBehavior** monitors the **RegionViewRegistry** for any newly registered view types for that region name.
+There are two classes responsible for implementing view discovery. One of them is the ```AutoPopulateRegionBehavior```. When it is attached to a region, it retrieves all view types that are registered under the name of the region. It then creates instances of those views and adds them to the region. After the region is created, the ```AutoPopulateRegionBehavior``` monitors the ```RegionViewRegistry``` for any newly registered view types for that region name.
 
-If you want to have more control over the view discovery process, consider creating your own implementation of the **IRegionViewRegistry** and the **AutoPopulateRegionBehavior**.
+If you want to have more control over the view discovery process, consider creating your own implementation of the ```IRegionViewRegistry``` and the ```AutoPopulateRegionBehavior```.
 
 ##### Region Context Behaviors
 
-The region context functionality is contained within two behaviors: the **SyncRegionContextWithHostBehavior** and the **BindRegionContextToDependencyObjectBehavior**. These behaviors are responsible for monitoring changes to the context that were made on the region, and then synchronizing the context with a context dependency property attached to the view.
+The region context functionality is contained within two behaviors: the ```SyncRegionContextWithHostBehavior``` and the ```BindRegionContextToDependencyObjectBehavior```. These behaviors are responsible for monitoring changes to the context that were made on the region, and then synchronizing the context with a context dependency property attached to the view.
 
 ##### Activation Behavior
 
-The **RegionActiveAwareBehavior** is responsible for notifying a view if it is active or inactive. The view must implement **IActiveAware** to receive these change notifications. This active aware notification is one-directional (it travels from the behavior to the view). The view cannot affect its active state by changing the active property on the **IActiveAware** interface.
+The ```RegionActiveAwareBehavior``` is responsible for notifying a view if it is active or inactive. The view must implement ```IActiveAware``` to receive these change notifications. This active aware notification is one-directional (it travels from the behavior to the view). The view cannot affect its active state by changing the active property on the ```IActiveAware``` interface.
 
 ##### Region Lifetime Behavior
 
-The **RegionMemberLifetimeBehavior** is responsible for determining if an item should be removed from the region when it is deactivated. The **RegionMemberLifetimeBehavior** monitors the region's **ActiveViews** collection to discover items that transition into a deactivated state. The behavior checks the removed items for **IRegionMemberLifetime** or the **RegionMemberLifetimeAttribute** (in that order) to determine if it should be kept alive on removal.
+The ```RegionMemberLifetimeBehavior``` is responsible for determining if an item should be removed from the region when it is deactivated. The ```RegionMemberLifetimeBehavior``` monitors the region's ```ActiveViews``` collection to discover items that transition into a deactivated state. The behavior checks the removed items for ```IRegionMemberLifetime``` or the ```RegionMemberLifetimeAttribute``` (in that order) to determine if it should be kept alive on removal.
 
-If the item in the collection is a **System.Windows.FrameworkElement**, it will also check its **DataContext** for **IRegionMemberLifetime** or the **RegionMemberLifetimeAttribute**.
+If the item in the collection is a ```System.Windows.FrameworkElement```, it will also check its ```DataContext``` for ```IRegionMemberLifetime``` or the ```RegionMemberLifetimeAttribute```.
 
 The region items are checked in the following order:
 
-1. **IRegionMemberLifetime.KeepAlive** value
-1. **DataContext's IRegionMemberLifetime.KeepAlive** value
-1. **RegionMemberLifetimeAttribute.KeepAlive** value
-1. **DataContext's RegionMemberLifetimeAttribute.KeepAlive** value
+1. ```IRegionMemberLifetime.KeepAlive``` value
+1. ```DataContext```'s ```IRegionMemberLifetime.KeepAlive``` value
+1. ```RegionMemberLifetimeAttribute.KeepAlive``` value
+1. ```DataContext```'s ```RegionMemberLifetimeAttribute.KeepAlive``` value
 
 ##### Control-Specific Behaviors
 
-The **SelectorItemsSourceSyncBehavior** is used only for controls that derive from **Selector**, such as a tab control in WPF. It is responsible for synchronizing the views in the region with the items of the selector, and then synchronizing the active views in the region with the selected items of the selector.
+The ```SelectorItemsSourceSyncBehavior``` is used only for controls that derive from ```Selector```, such as a tab control in WPF. It is responsible for synchronizing the views in the region with the items of the selector, and then synchronizing the active views in the region with the selected items of the selector.
 
 #### Extending the Region Implementation
 
-The Prism Library provides extension points that allow you to customize or extend the default behavior of the provided APIs. For example, you can write your own region adapters, region behaviors, or change the way the Navigation API parses URIs. For more information about extending the Prism Library, see [Extending the Prism Library](Appendix-D-Extending-Prism.md).
+The Prism Library provides extension points that allow you to customize or extend the default behavior of the provided APIs. For example, you can write your own region adapters, region behaviors, or change the way the Navigation API parses URIs.
 
 ### View Composition 
 
@@ -154,15 +147,15 @@ Views can be created and displayed in the locations either automatically through
 
 #### View Discovery
 
-In view discovery, you set up a relationship in the **RegionViewRegistry** between a region's name and the type of a view. When a region is created, the region looks for all the **ViewTypes** associated with the region and automatically instantiates and loads the corresponding views. Therefore, with view discovery, you do not have explicit control over when the views that correspond to a region are loaded and displayed.
+In view discovery, you set up a relationship in the ```RegionViewRegistry``` between a region's name and the type of a view. When a region is created, the region looks for all the ```ViewTypes``` associated with the region and automatically instantiates and loads the corresponding views. Therefore, with view discovery, you do not have explicit control over when the views that correspond to a region are loaded and displayed.
 
 #### View Injection
 
-In view injection, your code obtains a reference to a region, and then programmatically adds a view into it. Typically, this is done when a module initializes or as a result of a user action. Your code will query a **RegionManager** for a specific region by name and then inject views into it. With view injection, you have more control over when views are loaded and displayed. You also have the ability to remove views from the region. However, with view injection, you cannot add a view to a region that has not yet been created.
+In view injection, your code obtains a reference to a region, and then programmatically adds a view into it. Typically, this is done when a module initializes or as a result of a user action. Your code will query a ```RegionManager``` for a specific region by name and then inject views into it. With view injection, you have more control over when views are loaded and displayed. You also have the ability to remove views from the region. However, with view injection, you cannot add a view to a region that has not yet been created.
 
 #### Navigation
 
-The Prism Library 4.0 contains Navigation APIs. The Navigation APIs simplify the view injection process by allowing you to navigate a region to an URI. The Navigation API instantiates the view, adds it to the region, and then activates it. Additionally, the Navigation API allows navigating back to a previously created view contained in a region. For more information about the Navigation APIs, see [Navigation](Navigation.md).
+The Prism Library 7.1 contains Navigation APIs. The Navigation APIs simplify the view injection process by allowing you to navigate a region to an URI. The Navigation API instantiates the view, adds it to the region, and then activates it. Additionally, the Navigation API allows navigating back to a previously created view contained in a region. For more information about the Navigation APIs, see [Navigation](region-navigation/Navigation.md).
 
 #### When to Use View Discovery vs. View Injection
 
@@ -186,17 +179,28 @@ In composite applications, views from multiple modules are displayed at run time
 
 The decoupling of the view and the location in the UI in which it will be displayed allows the appearance and layout of the application to evolve independently of the views that appear within the region.
 
-The next sections describe the core scenarios you will encounter when you develop a composite application. When appropriate, examples from the Stock Trader RI will be used to demonstrate a solution for the scenario.
+The next sections describe the core scenarios you will encounter when you develop a composite application.
 
 ### Implementing the Shell
 
-The shell is the application root object in which the primary UI content is contained. In a Windows Presentation Foundation (WPF) application, the shell is the **Window** object.
+The shell is the application root object in which the primary UI content is contained. In a WPF application, the shell is the ```Window``` object.
 
 A shell can contain named regions where modules can specify the views that will appear. It can also define certain top-level UI elements, such as the main menu and toolbar. The shell defines the overall structure and appearance for the application, and is similar to an ASP.NET master page control. It could define styles and borders that are present and visible in the shell layout itself, and it could also define styles, templates, and themes that are applied to the views that are plugged into the shell.
 
 You do not need to have a distinct shell as part of your application architecture to use the Prism Library. If you are building a completely new composite application, implementing a shell provides a well-defined root and initialization pattern for setting up the main UI of your application. However, if you are adding Prism Library features to an existing application, you do not have to change the basic architecture of your application to add a shell. Instead, you can alter your existing window definitions or controls to add regions that can pull in views as needed.
 
 You can also have more than one shell in your application. If your application is designed to open more than one top-level window for the user, each top-level window acts as shell for the content it contains.
+
+
+
+
+
+
+
+
+
+
+
 
 #### Stock Trader RI Shell
 
