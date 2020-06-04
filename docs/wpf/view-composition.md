@@ -1,6 +1,6 @@
 # Composing the User Interface Using the Prism Library for WPF
 
-A composite application user interface (UI) is composed from loosely coupled visual components known as *views* that are typically contained in the application modules, but they do not need to be. If you divide your application into modules, you need some way to loosely compose the UI, but you might choose to use this approach even if the views are not in modules. To the user, the application presents a seamless user experience and delivers a fully integrated application.
+A composite application user interface (UI) is composed from loosely coupled visual components known as **views** that are typically contained in the application modules, but they do not need to be. If you divide your application into modules, you need some way to loosely compose the UI, but you might choose to use this approach even if the views are not in modules. To the user, the application presents a seamless user experience and delivers a fully integrated application.
 
 To compose your UI, you need an architecture that allows you to create a layout composed of loosely coupled visual elements generated at run time. Additionally, the architecture should provide strategies for these visual elements to communicate in a loosely coupled fashion.
 
@@ -191,26 +191,15 @@ You do not need to have a distinct shell as part of your application architectur
 
 You can also have more than one shell in your application. If your application is designed to open more than one top-level window for the user, each top-level window acts as shell for the content it contains.
 
+#### Sample Shell
 
+This sample has a shell as its main window. In the following illustration, the shell and views are highlighted. The shell is the main window that appears when the app starts and which contains all the views. It defines the regions into which modules add their views and a couple of top-level UI items, including the title and the Watch List tear-off banner.
 
+![Sample shell window, regions, and views](images/Ch7UIFig1.png)
 
+The shell implementation in the app is provided by Shell.xaml, its code-behind file Shell.xaml.cs, and its view model ShellViewModel.cs. Shell.xaml includes the layout and UI elements that are part of the shell, including definitions of regions to which modules add their views.
 
-
-
-
-
-
-
-
-#### Stock Trader RI Shell
-
-The WPF Stock Trader RI has a shell as its main window. In the following illustration, the shell and views are highlighted. The shell is the main window that appears when the Stock Trader RI starts and which contains all the views. It defines the regions into which modules add their views and a couple of top-level UI items, including the CFI Stock Trader title and the Watch List tear-off banner.
-
-![Stock Trader RI shell window, regions, and views](images/Ch7UIFig1.png)
-
-The shell implementation in the Stock Trader RI is provided by Shell.xaml, its code-behind file Shell.xaml.cs, and its view model ShellViewModel.cs. Shell.xaml includes the layout and UI elements that are part of the shell, including definitions of regions to which modules add their views.
-
-The following XAML shows the structure and main XAML elements that define the shell. Notice that the **RegionName** attached property is used to define the four regions and that the window background image provides a background for the shell.
+The following XAML shows the structure and main XAML elements that define the shell. Notice that the ```RegionName``` attached property is used to define the four regions and that the window background image provides a background for the shell.
 
 ```xml
 <!--Shell.xaml (WPF) -->
@@ -258,7 +247,7 @@ The following XAML shows the structure and main XAML elements that define the sh
 </Window>
 ```
 
-The implementation of the **Shell** code-behind file is very simple. The **Shell** is exported so that when the bootstrapper creates it, its dependencies will be resolved by the Managed Extensibility Framework (MEF). The shell has its single dependency—the **ShellViewModel**—injected during construction, as shown in the following example.
+The implementation of the ```Shell``` code-behind file is very simple. The ```Shell``` is exported so that when your ```App``` object creates it, its dependencies will be and added.
 
 ```cs
 // Shell.xaml.cs
@@ -269,24 +258,6 @@ public partial class Shell : Window
     {
         InitializeComponent();
     }
-
-    [Import]
-    ShellViewModel ViewModel
-    {
-        set
-        {
-            this.DataContext = value;
-        }
-    }
-}
-```
-
-```cs
-// ShellViewModel.cs
-[Export]
-public class ShellViewModel : BindableBase
-{
-    // This is where any view model logic for the shell would go.
 }
 ```
 
@@ -302,49 +273,27 @@ The shell of the application defines the application layout at the highest level
 
 ![A template shell](images/Ch7UIFig6.png)
 
-Regions are sometimes used to define locations for multiple views that are logically related. In this scenario, the region control is typically an **ItemsControl**-derived control that will display the views according to the layout strategy that it implements, such as in a stacked or tabbed layout arrangement.
+Regions are sometimes used to define locations for multiple views that are logically related. In this scenario, the region control is typically an ```ItemsControl```-derived control that will display the views according to the layout strategy that it implements, such as in a stacked or tabbed layout arrangement.
 
-Regions can also be used to define a location for a single view; for example, by using a **ContentControl**. In this scenario, the region control displays only one view at a time, even if more than one view is mapped to that region location.
+Regions can also be used to define a location for a single view; for example, by using a ```ContentControl```. In this scenario, the region control displays only one view at a time, even if more than one view is mapped to that region location.
 
-#### Stock Trader RI Shell Regions
+#### Sample App Shell Regions
 
-![Stock Trader RI shell regions](images/Ch7UIFig3.png)
+![Sample app shell regions](images/Ch7UIFig3.png)
 
-A multiple-view layout is also demonstrated in the Stock Trader RI when the application is buying or selling a stock. The Buy/Sell area is a list-style region that shows multiple buy/sell views (**OrderCompositeView**) as part of its list, as shown in the following illustration.
+A multiple-view layout is also demonstrated in the example app ui when the application is buying or selling a stock. The Buy/Sell area is a list-style region that shows multiple buy/sell views (**OrderCompositeView**) as part of its list, as shown in the following illustration.
 
 ![ItemsControl region](images/Ch7UIFig8.png)
 
 The shell's **ActionRegion** contains the **OrdersView**. The **OrdersView** contains the **Submit All** and **Cancel All** buttons as well as the **OrdersRegion**. The **OrdersRegion** is attached to a **ListBox** control which displays multiple **OrderCompositeViews**.
 
-#### IRegion
-
-A region is a class that implements the **IRegion** interface. The region is the container that holds content to be displayed by a control. The following code shows the **IRegion** interface.
-
-```cs
-public interface IRegion : INavigateAsync, INotifyPropertyChanged
-{
-    IViewsCollection Views { get; }
-    IViewsCollection ActiveViews { get; }
-    object Context { get; set; }
-    string Name { get; set; }
-    Comparison<object> SortComparison { get; set; }
-    IRegionManager Add(object view);
-    IRegionManager Add(object view, string viewName);
-    IRegionManager Add(object view, string viewName, bool createRegionManagerScope);
-    void Remove(object view);
-    void Deactivate(object view);
-    object GetView(string viewName);
-    IRegionManager RegionManager { get; set; }
-    IRegionBehaviorCollection Behaviors { get; }
-    IRegionNavigationService NavigationService { get; set; }
-}
-```
-
 #### Adding a Region in XAML
 
-The **RegionManager** supplies an attached property that you can use for simple region creation in XAML. To use the attached property, you must load the Prism Library namespace into the XAML and then use the **RegionName** attached property. The following example shows how to use the attached property in a window with an **AnimatedTabControl**.
+A region is a class that implements the ```IRegion``` interface. The region is the container that holds content to be displayed by a control.
 
-Notice the use of the **x:Static** markup extension to reference the **MainRegion** string constant. This practice eliminates magic strings in the XAML.
+The ```RegionManager``` supplies an attached property that you can use for simple region creation in XAML. To use the attached property, you must load the Prism Library namespace into the XAML and then use the ```RegionName``` attached property. The following example shows how to use the attached property in a window with an ```AnimatedTabControl```.
+
+Notice the use of the ```x:Static``` markup extension to reference the ```MainRegion``` string constant. This practice eliminates magic strings in the XAML.
 
 ```xml
 <!-- (WPF) -->
@@ -355,7 +304,7 @@ Notice the use of the **x:Static** markup extension to reference the **MainRegio
 
 #### Adding a Region by Using Code
 
-The **RegionManager** can register regions directly without using XAML. The following code example shows how to add a region to a control from the code-behind file. First a reference to the region manager is obtained. Then, using the **RegionManager** static methods **SetRegionManager** and **SetRegionName**, the region is attached to the UI's **ActionContent** control and then that region is named **ActionRegion**.
+The ```RegionManager``` can register regions directly without using XAML. The following code example shows how to add a region to a control from the code-behind file. First a reference to the region manager is obtained. Then, using the ```RegionManager``` static methods ```SetRegionManager``` and ```SetRegionName```, the region is attached to the UI's ```ActionContent``` control and then that region is named ```ActionRegion```.
 
 ```cs
 IRegionManager regionManager = ServiceLocator.Current.GetInstance<IRegionManager>();
@@ -375,7 +324,7 @@ The following illustration shows the view discovery approach.
 
 ![View discovery](images/Ch7UIFig9.png)
 
-The Prism Library defines a standard registry, **RegionViewRegistry**, to register views for these named locations.
+The Prism Library defines a standard registry, ```RegionViewRegistry```, to register views for these named locations.
 
 To show a view in a region, register the view with the region manager, as shown in the following code example. You can directly register a view type with the region, in which case the view will be constructed by the dependency injection container and added to the region when the control hosting the region is loaded.
 
@@ -384,14 +333,20 @@ To show a view in a region, register the view with the region manager, as shown 
 this.regionManager.RegisterViewWithRegion("MainRegion", typeof(EmployeeView));
 ```
 
-Optionally, you can provide a delegate that returns the view to be shown, as shown in the next example. The region manager will display the view when the region is created. 
+Optionally, you can provide a delegate that returns the view to be shown, as shown in the next example. The region manager will display the view when the region is created.
 
 ```cs
 // View discovery
 this.regionManager.RegisterViewWithRegion("MainRegion", () => this.container.Resolve<EmployeeView>());
 ```
 
-The UI Composition QuickStart has a walkthrough in the EmployeeModule ModuleInit.cs file that demonstrates how to use the **RegisterViewWithRegion** method.
+
+
+
+
+
+
+
 
 ### Displaying Views in a Region Programmatically
 
