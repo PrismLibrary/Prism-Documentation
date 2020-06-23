@@ -259,5 +259,5 @@ public class MainPageViewModel : BindableBase
 
 As you can see, you no longer need to make a call to the static Xamarin.Forms.DependencyService.  Just ask for it in your ViewModel constructor, and Prism will use the container to resolve the instance and provide it to you.
 
-[View the Sample](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/UsingDependencyService)
+[View the Sample](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/03-PlatformSpecificServices)
 
