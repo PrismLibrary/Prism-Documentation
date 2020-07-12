@@ -5,7 +5,7 @@ Prism has always been built around Dependency Injection. This helps you to archi
 Prism 7 introduced several new interfaces for abstracting what Prism requires for dependency injection. This has several benefits as you might imagine including:
 
 - Docs showing how to do something in Prism will always show you what you need to do without any concern for which dependency injection container you are using.
-- This greatly simplified what needed to be added to any container specific package. In the case of Prism.Forms this reduces each container specific project 3 classes: `PrismApplication`, an implementation of `IContainerExtension` and an extension class to retieve the underlying container should you feel the need to access it for one of it's API's that is not implemented by Prism.
+- This greatly simplified what needed to be added to any container specific package. In the case of Prism.Forms this reduces each container specific project 3 classes: `PrismApplication`, an implementation of `IContainerExtension` and an extension class to retrieve the underlying container should you feel the need to access it for one of it's API's that is not implemented by Prism.
 
 As a result you can easily implement support for a container that is not otherwise provided out of the box by the Prism team. For more information on this be sure to read more on how this works in this blog post by Dan Siegel, [Using "Unsupported" DI Containers with Prism](https://dansiegel.net/post/2018/10/29/using-unsupported-di-containers-with-prism).
 
