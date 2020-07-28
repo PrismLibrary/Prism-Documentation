@@ -1,6 +1,6 @@
 # Application Dialogs
 
-Applications have a variety of reasons to display a dialog. Starting with Prism 7.2 we have 2 Dialog Services that each provide you a way to provide dialogs in your app. Each of these serivces operate in very different ways and have different purposes.
+Applications have a variety of reasons to display a dialog. Starting with Prism 7.2 we have 2 Dialog Services that each provide you a way to provide dialogs in your app. Each of these services operate in very different ways and have different purposes.
 
 ## Legacy IPageDialogService
 
