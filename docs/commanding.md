@@ -143,7 +143,7 @@ public class ArticleViewModel : BindableBase
 
     public ArticleViewModel()
     {
-        SubmitCommand = new DelegateCommand(Submit, CanSubmit).ObservesCanExecute(() => IsEnabled);
+        SubmitCommand = new DelegateCommand(Submit).ObservesCanExecute(() => IsEnabled);
     }
 
     void Submit()
