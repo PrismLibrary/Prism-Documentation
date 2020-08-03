@@ -30,7 +30,7 @@ To create a composite command, instantiate a `CompositeCommand` instance and the
 ```
 
 ## Making a CompositeCommand Globally Available
-Typically, CompositeCommands are shared throughout an application and need to be made available globally. It's important that when you register a child command with a `CompositeCommand` that you are using the same instance of the CompositeCommand throughout the application. This requires the CompositeCommand to be deinfed as a singleton in your application.  This can be done by either using dependency injection (DI), or by defining your CompositeCommand as a static class.
+Typically, CompositeCommands are shared throughout an application and need to be made available globally. It's important that when you register a child command with a `CompositeCommand` that you are using the same instance of the CompositeCommand throughout the application. This requires the CompositeCommand to be defined as a singleton in your application.  This can be done by either using dependency injection (DI), or by defining your CompositeCommand as a static class.
 
 ### Using Dependency Injection
 The first step in defining your CompositeCommands is to create an interface.
