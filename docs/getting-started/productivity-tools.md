@@ -107,7 +107,7 @@ Tired of creating every Xamarin.Forms platform project available? Now you can ch
 ![Xamarin.Forms Project Wizard](images/xf-project-wizard.png)
 
 ## Visual Studio Installation
-The Prism Template Pack is available on the [Visual Studio Gallery](https://marketplace.visualstudio.com/items?itemName=BrianLagunas.PrismTemplatePack). To install, just go to `Visual Studio -> Tools -> Extensions and Updates...` then search for "Prism Template Pack" in the online gallery:
+The Prism Template Pack is available on the [Visual Studio Gallery](https://marketplace.visualstudio.com/items?itemName=BrianLagunas.PrismTemplatePack). To install in Visual Studio 2019, just go to `Visual Studio -> Extensions -> ManageExtensions -> Online -> Visual Studio Marketplace` then search for "Prism Template Pack" in the online gallery:
 
 ![Prism Template Pack](images/prism-template-pack-win.jpg)
 
