@@ -4,6 +4,8 @@
   href: registering-types.md
 - name: Platform Specific Services
   href: platform-specific-services.md
+- name: Exception Handling
+  href: resolution-errors.md
 - name: Adding a Custom Container
   href: add-custom-container.md
 - name: Appendix

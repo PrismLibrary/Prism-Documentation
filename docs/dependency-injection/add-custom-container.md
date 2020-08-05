@@ -8,7 +8,8 @@ Prism imposes the following requirements in order to use a container:
 - The container must support Transient and Singleton registrations
 - The container must support registering a specified instance
 - The container must support keyed registrations / resolving by name
-- The container must support all three Prism platforms (WPF, UWP, Xamarin.Forms)
+- The container must support accessing it's service registrations
+- The container must support all three Prism platforms (WPF, Uno/WinUI/UWP, Xamarin.Forms)
 
 In this topic we wil be creating a conatiner extension for the Grace DI container.
 
@@ -16,7 +17,11 @@ In this topic we wil be creating a conatiner extension for the Grace DI containe
 
 The first step is to create a new project that will contain the code for your DI container extension.
 
-TODO: fill this section out
+```shell
+dotnet new classlib
+```
+
+Next you'll want to add a Reference to the Prism.Core and your container of choice
 
 ## Adding a Container Extension
 
@@ -64,34 +69,36 @@ public class GraceContainerExtension : IContainerExtension<IInjectionScope>
     public IContainerRegistry RegisterSingleton(Type from, Type to) =>
         Instance.Configure(c => c.Export(to).As(from).Lifestyle.Singleton());
 
-    public object Resolve(Type type) =>
-        Instance.Locate(type);
-
-    public object Resolve(Type type, string name) =>
-        Instance.Locate(type, withKey: name);
-
-    public object ResolveViewModelForView(object view, Type viewModelType)
+    // NOTE: ContainerResolutionException is v8.0+
+    public object Resolve(Type type)
     {
-        Page page = null;
-
-        switch(view)
+        try
         {
-            case Page viewAsPage:
-                page = viewAsPage;
-                break;
-            case BindableObject bindable:
-                page = bindable.GetValue(ViewModelLocator.AutowirePartialViewProperty) as Page;
-                break;
-            default:
-                return Instance.Locate(viewModelType);
+            return Instance.Locate(type);
         }
+        catch(Exception ex)
+        {
+            throw new ContainerResolutionException(ex);
+        }
+    }
 
-        var navService = Instance.Locate<INavigationService>(withKey: PrismApplicationBase.NavigationServiceName);
-        ((IPageAware)navService).Page = page;
-        return Instance.Locate(viewModelType, new[] { navService });
+    // NOTE: ContainerResolutionException is v8.0+
+    public object Resolve(Type type, string name)
+    {
+        try
+        {
+            return Instance.Locate(type, withKey: name);
+        }
+        catch(Exception ex)
+        {
+            throw new ContainerResolutionException(ex);
+        }
     }
 }
 ```
+
+> [!NOTE]
+> If using Prism 8+ you will need to additionally implement `IContainerInfo`, and your Resolve methods should catch any exception thrown by the container and rethrow using the Prism ContainerResolutionException.
 
 ## Create the Application Class
 
@@ -107,7 +114,7 @@ namespace Prism.Grace
 }
 ```
 
-As I mentioned, Prism's IOC abstraction only provides the most common functionality. This means that you could find an advanced scenario where you need direct access to the underlying container. To achieve a more complex registration, you can add an extension method like we provide in the Container specific packages:
+As previously mentioned, Prism's IOC abstraction only provides the most common functionality. This means that you could find an advanced scenario where you need direct access to the underlying container. To achieve a more complex registration, you can add an extension method like we provide in the Container specific packages:
 
 ```cs
 public static class ContainerExtensions

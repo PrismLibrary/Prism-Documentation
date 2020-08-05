@@ -2,6 +2,8 @@
   href: index.md
 - name: Getting Started
   href: getting-started/toc.yml
+- name: Dependency Injection
+  href: dependency-injection/toc.yml
 - name: Commanding
   href: commanding.md
 - name: Composite Commands
@@ -10,7 +12,7 @@
   href: event-aggregator.md
 - name: ViewModelLocator
   href: viewmodel-locator.md
-- name: WPF
+- name: 'WPF / Uno'
   href: wpf/toc.yml
 - name: Xamarin.Forms
   href: xamarin-forms/toc.yml

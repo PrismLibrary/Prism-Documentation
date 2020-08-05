@@ -1,5 +1,8 @@
 # Using IPlatformInitializer
 
+> [!NOTE]
+> The following docs are only relavent to Prism for Xamarin.Forms. `IPlatformInitializer` is not used by Prism.Wpf or Prism.Uno
+
 With Xamarin.Forms you may have read how you can add the Dependency attribute for an impelementing type in your Platform Specific code and then resolve it with the Xamarin.Forms DependencyService. This is considered a major Anti-Pattern that should be avoided when you are using a proper Dependency Injection container. It is for this reason that Prism has dropped all support for working with the DependencyService as of Prism 7.0. Starting with Prism 6.3 the `IPlatformInitializer` was introduced. This allows you to easily register types with Prism's container.
 
 > [!Video https://www.youtube.com/embed/qMzTAOOgY8c]

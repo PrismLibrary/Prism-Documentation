@@ -2,8 +2,6 @@
   href: creating-your-first-prism-app.md
 - name: Behaviors
   href: behaviors/toc.yml
-- name: Dependency Injection
-  href: dependency-injection/toc.yml
 - name: Dialogs
   href: dialogs/toc.yml
 - name: Navigation

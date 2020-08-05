@@ -41,62 +41,6 @@ Barrel.ApplicationId = "your_unique_name_here";
 containerRegistry.RegisterInstance<IBarrel>(Barrel.Current);
 ```
 
-## Understanding Named Services
-
-Both the Transient and Singleton registration methods have overloads which allow you to specify a specific name for a given service which again may be very useful in some circumstances.
-
-```cs
-containerRegistry.Register<IVehicleService, CarService>("carService");
-containerRegistry.Register<IVehicleService, TruckService>("truckService");
-```
-
-In the example here you may have a single interface `IVehicleService` which has an implementation for Cars and another for Trucks. In this scenario you may inject both implementations into a consuming type like:
-
-```cs
-public class ViewAViewModel
-{
-    private IVehicleService _carService { get; }
-    private IVehicleService _truckService { get; }
-
-    public ViewAViewModel(IVehicleService carService, IVehicleService truckService)
-    {
-        _carService = carService;
-        _truckService = truckService;
-    }
-
-    private void DoSomething(VehicleType vehicleType)
-    {
-        switch(vehicleType)
-        {
-            case VehicleType.Car:
-                _carService.DoFoo();
-                break;
-            case VehicleType.Truck:
-                _truckService.DoFoo();
-                break;
-        }
-    }
-}
-```
-
-### How Prism uses Named Services under the hood
-
-Prism uses named services in two major ways. The first is that the `NavigationService` is registered as a named service so that we can resolve it transitively and provide the specific Page which it will navigate from as all Navigation in Xamarin.Forms is relative to a specific Page.
-
-The second way that Prism uses named services under the hood is for registering Pages for Navigation. Rather than Prism staticly tracking a mapping between a navigation key and the Page type it is simply registered as a named service like the following:
-
-```cs
-containerRegistry.Register<object, ViewA>("ViewA");
-containerRegistry.Register<object, ViewB>("ViewB");
-```
-
-This then allows Prism behind the scenes to resove the Page like:
-
-```cs
-var viewA = (Page)Container.Resolve<object>("ViewA");
-var viewB = (Page)Container.Resolve<object>("ViewB");
-```
-
 ## Checking if a Service has been Registered
 
 There are many times particularly when writing Prism Modules or Plugins in which you may want to check if a service has been registered and then do something based on whether it has or has not been registered.
