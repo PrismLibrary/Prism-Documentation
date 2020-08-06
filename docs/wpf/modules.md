@@ -240,7 +240,7 @@ public class ModuleA : IModule
 }
 ```
 
-To specify on-demand loading in code, add the ```InitializationMOde``` property to yur new instance of ModuleInfo. Using the code wee above:
+To specify on-demand loading in code, add the ```InitializationMode``` property to your new instance of ModuleInfo. Using the code below:
 
 ```cs
 Type moduleCType = typeof(ModuleC);
