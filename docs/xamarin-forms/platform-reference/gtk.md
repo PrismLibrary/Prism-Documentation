@@ -65,7 +65,7 @@ Right Click on the project and select `Properties` select `Application` change `
 
 ## Edit project file
 
-Right click on your project and select `Unload Project`, then right click on the project again and select `Edit Project File`. Add following code to the project file and save it. Right click on your project again and select `Reload Project`.
+Right click on the project and select `Unload Project`, then right click on the project again and select `Edit Project File`. Add following code to the project file and save it. Right click on the project again and select `Reload Project`.
 
 ```csharp
   <ItemGroup>
