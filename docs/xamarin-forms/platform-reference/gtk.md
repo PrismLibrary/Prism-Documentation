@@ -63,6 +63,21 @@ public class GtkInitializer : IPlatformInitializer
 
 Right Click on the project and select `Properties` select `Application` change `Output Type` from 'Class Library' to 'Windows Application'. Save and close properties.
 
+## Edit project file
+
+Right click on your project and select `Unload Project`, then right click on the project again and select `Edit Project File`. Add following code to the project file and save it. Right click on your project again and select `Reload Project`.
+
+```csharp
+  <ItemGroup>
+    <PackageReference Include="Prism.Core" ExcludeAssets="Compile" GeneratePathProperty="true">
+      <Version>7.2.0.1422</Version>
+    </PackageReference>
+    <Reference Include="Prism">
+      <HintPath>$(PkgPrism_Core)\lib\netstandard2.0\Prism.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+```
+
 ## Run
 
 Set the project as the Startup Project, build, and run the solution.
