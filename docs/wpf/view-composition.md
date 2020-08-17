@@ -247,7 +247,7 @@ The following XAML shows the structure and main XAML elements that define the sh
 </Window>
 ```
 
-The implementation of the ```Shell``` code-behind file is very simple. The ```Shell``` is exported so that when your ```App``` object creates it, its dependencies will be and added.
+The implementation of the ```Shell``` code-behind file is very simple. The ```Shell``` is exported so that when your ```App``` object creates it, its dependencies will be added.
 
 ```cs
 // Shell.xaml.cs
