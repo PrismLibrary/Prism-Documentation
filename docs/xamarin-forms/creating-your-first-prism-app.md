@@ -67,14 +67,14 @@ The `App.xaml` and `App.xaml.cs` files are the entry point of the application. T
 
 The `App.xaml.cs` file contains the logic required to configure a Prism application and navigate to the root page on start up.
 ```cs
-    public partial class App
+    public partial class App : PrismApplication
     {
         /*
          * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
          * This imposes a limitation in which the App class must have a default constructor.
          * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
          */
-        public App() : this(null) { }
+        public App() : base(null) { }
 
         public App(IPlatformInitializer initializer) : base(initializer) { }
 
