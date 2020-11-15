@@ -98,7 +98,7 @@ The `RegisterTypes` method is used to register any services that you will be usi
 You define which View you want to navigate to when the app loads in the `OnInitialized` method using the `NavigationService` property. In this example, we are setting the root page to a `NavigationPage` and immediately pushing the `MainPage` onto the navigation stack.  Basically, we are wrapping our `MainPage` in a `NavigationPage` and setting it as the root page of the application when it launches.
 
 > [!Important]
-> You must call the `InitializeComponent` method in the `OnInitialized` method **before** you make a call to the `NavigationService`. You risk the application crashing on starup if you fail to do this.
+> You must call the `InitializeComponent` method in the `OnInitialized` method **before** you make a call to the `NavigationService`. You risk the application crashing on startup if you fail to do this.
 
 ### Views
 
