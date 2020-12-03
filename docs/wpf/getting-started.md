@@ -111,7 +111,7 @@ At this point, the app can be built and run and should look like the following:
 
 ![First Run of App](images/FirstRun.PNG)
 
-This now a Prism app. There isn't much here yet, but there are lots of things that Prism can help out with, such as breaking up the app into manageable chunks, navigation and implementing the MVVM patterns.
+This is now a Prism app. There isn't much here yet, but there are lots of things that Prism can help out with, such as breaking up the app into manageable chunks, navigation and implementing the MVVM patterns.
 
 ## View Models
 
@@ -233,7 +233,7 @@ namespace WpfApp1.ViewModels
 }
 ```
 
-A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that it's implementation can be handled by the dependency container. There is a ```Customers``` property that is bound to the listview in the user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
+A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that its implementation can be handled by the dependency container. There is a ```Customers``` property that is bound to the listview in the user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
 
 There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` class that allows delegates to be passed in to handle implementing the ```ICommand``` interface. In the case of ```CommandLoad```, the ```CommandLoadExecute``` function is passed in as the delegate and now, whenever the WPF binding system tries to execute ```ICommand.Execute```, ```CommandLoadExecute``` is invoked.
 
