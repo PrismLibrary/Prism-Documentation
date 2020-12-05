@@ -8,10 +8,10 @@ Prism imposes the following requirements in order to use a container:
 - The container must support Transient and Singleton registrations
 - The container must support registering a specified instance
 - The container must support keyed registrations / resolving by name
-- The container must support accessing it's service registrations
+- The container must support accessing its service registrations
 - The container must support all three Prism platforms (WPF, Uno/WinUI/UWP, Xamarin.Forms)
 
-In this topic we wil be creating a conatiner extension for the Grace DI container.
+In this topic we will be creating a container extension for the Grace DI container.
 
 ## Create a New Project
 
