@@ -111,7 +111,7 @@ Even though modules should have low coupling between each other, it is common fo
 
 Containers like the **Unity**, **DryIoc** and **NInject** allow you to easily use Inversion of Control (IoC) and Dependency Injection, which are powerful design patterns that help to compose components in a loosely-coupled fashion. It allows components to obtain references to the other components that they depend on without having to hard code those references, thereby promoting better code re-use and improved flexibility. Dependency injection is very useful when building a loosely coupled, modular application. Prism is designed to be agnostic about the dependency injection container used to compose components within an application.
 
-Regardless of which of the three containrs is chosen, Prism will use the container to construct and initialize each of the modules so that they remain loosely coupled.
+Regardless of which of the three containers is chosen, Prism will use the container to construct and initialize each of the modules so that they remain loosely coupled.
 
 ## Key Decisions
 
