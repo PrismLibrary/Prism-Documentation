@@ -11,7 +11,7 @@ Create a brand new WPF application in Visual Studio. Next up is to install the a
 | Package | Container | Version |
 |---------|-----------|---------|
 | Prism.Unity   | [Unity](https://github.com/unitycontainer/unity) | 5.11.1 |
-| Prism.Dryloc  | [DryLoc](https://github.com/dadhi/DryIoc)        | 4.0.7  |
+| Prism.DryIoc  | [DryIoc](https://github.com/dadhi/DryIoc)        | 4.0.7  |
 | Prism.Ninject | [Ninject](http://www.ninject.org)                | 3.3.4  |
 
 > Note: There is no need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism packages.
