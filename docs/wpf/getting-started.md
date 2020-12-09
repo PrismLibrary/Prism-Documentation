@@ -239,13 +239,11 @@ There is also CommandLoad object that implements the ```ICommand``` interface. T
 
 For more details on DelegateCommand, see [Commanding](../commanding.md).
 
-Now there is a view and a view model, but how are they linked together? The easiest way is to inject the view model automatically using the ```ViewModelLocator``` and naming conventions.
-
 ### Using the ViewModelLocator
 
-Prism has a convention based view model injector. This is an attached property that will, when the view is constructed, find the view model class, use the container to construct it and its dependencies and assign it to the view's DataContext property. Out of the box it uses this convention:
+Now there is a view and a view model, but how are they linked together? Out of the box, Prism has a ```ViewModelLocator``` that uses convention to determine the correct class for the view model, instantiate it with its dependencies and attach it to the ```DataContext``` of the view.
 
-If the view is located in the ```Views``` namespace, it will look inside of the ```ViewModels``` namespace for a class with the same name as view and ending with ViewModel. In the case of the WpfApp1 sample above:
+The default convention is to place all the views in the ```Views``` folder and the view models in the ```ViewModels``` folder.
 
 - ```WpfApp1.Views.MainWindow``` => ```WpfApp1.ViewModels.MainWindowViewModel```
 - ```WpfApp1.Views.OtherView``` => ```WpfApp1.ViewModels.OtherViewModel```
@@ -256,29 +254,17 @@ For this to work, views and viewmodels must be properly located within their cor
 
 ![Viewmodel Locator Project Structure](images/viewmodellocator.png)
 
-In addition, two lines need to be added to the view markup:
+Click [here](../viewmodel-locator.md) for detailed information on the ```ViewModelLocator```.
+
+If you don't want to use this capability for some reason, you will have to opt out in your view. You can manage this in your XAML as follows:
 
 ```xml
 <Window
     ...
     xmlns:prism="http://prismlibrary.com/"
-    prism:ViewModelLocator.AutoWireViewModel="True"
+    prism:ViewModelLocator.AutoWireViewModel="False"
     >
 
 	<!-- ui controls here -->
 </Window>
 ```
-
-And finally, change the ```App.CreateShell``` function as follows:
-```cs
-public override Window CreateShell()
-{
-    Views.MainWindow w = Container.Resolve<Views.MainWindow>();
-    return w;
-}
-```
-
-Click [here](../viewmodel-locator.md) for detailed information on the ```ViewModelLocator```.
-
-Click [here](https://github.com/MichaelPonti/Prism-Documentation-WpfSample/tree/master/GettingStarted) for the complete sample app in this chapter.
-
