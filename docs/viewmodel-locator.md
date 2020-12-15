@@ -2,9 +2,11 @@
 
 The `ViewModelLocator` is used to wire the `DataContext` of a view to an instance of a ViewModel using a standard naming convention.
 
-The Prism `ViewModelLocator` has an `AutoWireViewModel` attached property, that when set to `true` calls the `AutoWireViewModelChanged` method in the `ViewModelLocationProvider` class to resolve the ViewModel for the view, and then set the view’s data context to an instance of that ViewModel. This behavior is on by default: if you don't want that for your view, you need to opt-out:
+The Prism `ViewModelLocator` has an `AutoWireViewModel` attached property, that when set to `true` calls the `AutoWireViewModelChanged` method in the `ViewModelLocationProvider` class to resolve the ViewModel for the view, and then set the view’s data context to an instance of that ViewModel. This behavior is on by default: if you don't want that for your view, you need to opt-out.
 
-Add the `AutoWireViewModel` attached property to each View:
+> In the case of **WPF**, this is only the default behavior when using **region navigation** and ```IDialogService```. If you are using **view injection**, your view will need to opt-in.
+
+Use the `AutoWireViewModel` attached property as below. Set the value to ```False``` to opt-out and ```True``` to explicitly opt-in.
 
 ```xml
 <Window x:Class="Demo.Views.MainWindow"
