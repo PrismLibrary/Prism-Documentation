@@ -91,7 +91,7 @@ Consider how you are partitioning your application, common usage scenarios and a
 
 ### Integrate Modules With The Application
 
-Each of the ```Prism.DryIoc.Wpf```, ```Prism.Ninject.wpf``` and ```Prism.Unity.Wpf``` assemblies provide an ```Application``` based class that is used as the base class for the App class. Override the virtual method ```CreateModuleCatalog``` to create the desired type of module catalog.
+Each of the ```Prism.DryIoc.Wpf``` and ```Prism.Unity.Wpf``` assemblies provide an ```Application``` based class that is used as the base class for the App class. Override the virtual method ```CreateModuleCatalog``` to create the desired type of module catalog.
 
 For each of the modules in the app, implement the ```IModuleInfo``` interface to register module types and services. The following are common things to do to when integrating a module into the app:
 
@@ -109,7 +109,7 @@ Even though modules should have low coupling between each other, it is common fo
 
 ### Dependency Injection and Modular Applications
 
-Containers like the **Unity**, **DryIoc** and **NInject** allow you to easily use Inversion of Control (IoC) and Dependency Injection, which are powerful design patterns that help to compose components in a loosely-coupled fashion. It allows components to obtain references to the other components that they depend on without having to hard code those references, thereby promoting better code re-use and improved flexibility. Dependency injection is very useful when building a loosely coupled, modular application. Prism is designed to be agnostic about the dependency injection container used to compose components within an application.
+Containers like **Unity** and **DryIoc** allow you to easily use Inversion of Control (IoC) and Dependency Injection, which are powerful design patterns that help to compose components in a loosely-coupled fashion. It allows components to obtain references to the other components that they depend on without having to hard code those references, thereby promoting better code re-use and improved flexibility. Dependency injection is very useful when building a loosely coupled, modular application. Prism is designed to be agnostic about the dependency injection container used to compose components within an application.
 
 Regardless of which of the three containers is chosen, Prism will use the container to construct and initialize each of the modules so that they remain loosely coupled.
 
@@ -123,7 +123,7 @@ The first decision you will make is whether you want to develop a modular soluti
 - **Determine the core services that the application will provide to all modules**. An example is that core services could be an error reporting service or an authentication and authorization service.
 - **If you are using Prism, determine what approach you are using to register modules in the module catalog**. For WPF, you can register modules in code, XAML, in a configuration file, or discovering modules in a local directory on disk.
 - **Determine your module communication and dependency strategy**. Modules will need to communicate with each other, and you will need to deal with dependencies between modules.
-- **Determine your dependency injection container**. Typically, modular systems require dependency injection, inversion of control, or service locator to allow the loose coupling and dynamic loading and creating of modules. Prism allows a choice between using the Unity, DryIoc or NInject and provides libraries for Unity, DryIoc and NInject based applications.
+- **Determine your dependency injection container**. Typically, modular systems require dependency injection, inversion of control, or service locator to allow the loose coupling and dynamic loading and creating of modules. Prism allows a choice between using Unity or DryIoc and provides libraries for Unity and DryIoc based applications.
 - **Minimize application startup time**. Think about on-demand and background downloading of modules to minimize application startup time.
 - **Determine deployment requirements**. You will need to think about how you intend to deploy your application.
 
@@ -162,7 +162,7 @@ There are several ways to create and package modules. The recommended and most c
 
 A module may depend on components and services provided by the host application or by other modules. Prism supports the ability to register dependencies between modules so that they are loaded and initialized in the right order. Prism also supports the initialization of modules when they are loaded into the application. During module initialization, the module can retrieve references to the additional components and services it requires, and/or register any components and services that it contains in order to make them available to other modules.
 
-A module should use an independent mechanism to get instances of external interfaces instead of directly instantiating a concrete type, for example by using a dependency injection container or factory service. Dependency injection containers such as Unity, DryIoc or NInject allow a type to automatically acquire instances of the interfaces and types it needs through dependency injection. Prism integrates with Unity, DryIoc and NInject to allow a module to easily use dependency injection.
+A module should use an independent mechanism to get instances of external interfaces instead of directly instantiating a concrete type, for example by using a dependency injection container or factory service. Dependency injection containers such as Unity or DryIoc allow a type to automatically acquire instances of the interfaces and types it needs through dependency injection. Prism integrates with Unity and DryIoc to allow a module to easily use dependency injection.
 
 The following diagram shows the typical sequence of operations when modules are loaded that need to acquire or register references to the components and services.
 

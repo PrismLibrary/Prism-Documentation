@@ -27,7 +27,6 @@ Adding the container-specific package to your project, will also pull in the cor
 | Package | NuGet | MyGet |
 |---------|-------|-------|
 | [Prism.DryIoc][DryIocWpfNuGet] | [![DryIocWpfNuGetShield]][DryIocWpfNuGet] | [![DryIocWpfMyGetShield]][DryIocWpfNuGet] |
-| [Prism.Ninject][NinjectWpfNuGet] | [![NinjectWpfNuGetShield]][NinjectWpfNuGet] | [![NinjectWpfMyGetShield]][NinjectWpfNuGet] |
 | [Prism.Unity][UnityWpfNuGet] | [![UnityWpfNuGetShield]][UnityWpfNuGet] | [![UnityWpfMyGetShield]][UnityWpfNuGet] |
 
 #### Xamarin Forms
@@ -53,7 +52,6 @@ To recapitulate the packages described above, this is the list of all assemblies
 | -------- | ------- |
 | Prism.Wpf.dll | [Prism.Wpf][2] |
 | Prism.Unity.Wpf.dll | [Prism.Unity][5] |
-| Prism.Ninject.Wpf.dll | [Prism.Ninject][9] |
 | Prism.DryIoc.Wpf.dll | [Prism.DryIoc][14] |
 
 #### Xamarin.Forms
@@ -69,7 +67,6 @@ To recapitulate the packages described above, this is the list of all assemblies
 [2]: https://www.nuget.org/packages/Prism.Wpf/
 [3]: https://www.nuget.org/packages/Prism.Forms/
 [5]: https://www.nuget.org/packages/Prism.Unity/
-[9]: https://www.nuget.org/packages/Prism.Ninject/
 [10]: https://www.nuget.org/packages/Prism.Unity.Forms/
 [13]: https://www.nuget.org/packages/Prism.DryIoc.Forms/
 [14]: https://www.nuget.org/packages/Prism.DryIoc/
@@ -79,7 +76,6 @@ To recapitulate the packages described above, this is the list of all assemblies
 [FormsNuGet]: https://www.nuget.org/packages/Prism.Forms/
 
 [DryIocWpfNuGet]: https://www.nuget.org/packages/Prism.DryIoc/
-[NinjectWpfNuGet]: https://www.nuget.org/packages/Prism.Ninject/
 [UnityWpfNuGet]: https://www.nuget.org/packages/Prism.Unity/
 
 [UnityFormsNuGet]: https://www.nuget.org/packages/Prism.Unity.Forms/
@@ -90,7 +86,6 @@ To recapitulate the packages described above, this is the list of all assemblies
 [FormsNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Forms.svg
 
 [DryIocWpfNuGetShield]: https://img.shields.io/nuget/vpre/Prism.DryIoc.svg
-[NinjectWpfNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Ninject.svg
 [UnityWpfNuGetShield]: https://img.shields.io/nuget/vpre/Prism.Unity.svg
 
 [DryIocFormsNuGetShield]: https://img.shields.io/nuget/vpre/Prism.DryIoc.Forms.svg
@@ -108,7 +103,6 @@ To recapitulate the packages described above, this is the list of all assemblies
 [FormsMyGetShield]: https://img.shields.io/myget/prism/vpre/Prism.Forms.svg
 
 [DryIocWpfMyGetShield]: https://img.shields.io/myget/prism/vpre/Prism.DryIoc.svg
-[NinjectWpfMyGetShield]: https://img.shields.io/myget/prism/vpre/Prism.Ninject.svg
 [UnityWpfMyGetShield]: https://img.shields.io/myget/prism/vpre/Prism.Unity.svg
 
 [DryIocFormsMyGetShield]: https://img.shields.io/myget/prism/vpre/Prism.DryIoc.Forms.svg
