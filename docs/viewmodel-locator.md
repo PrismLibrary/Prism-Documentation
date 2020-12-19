@@ -1,19 +1,24 @@
 # Using the ViewModelLocator
+
 The `ViewModelLocator` is used to wire the `DataContext` of a view to an instance of a ViewModel using a standard naming convention.
 
-The Prism `ViewModelLocator` has an `AutoWireViewModel` attached property, that when set to `true` calls the `AutoWireViewModelChanged` method in the `ViewModelLocationProvider` class to resolve the ViewModel for the view, and then set the view’s data context to an instance of that ViewModel.
+The Prism `ViewModelLocator` has an `AutoWireViewModel` attached property, that when set to `true` calls the `AutoWireViewModelChanged` method in the `ViewModelLocationProvider` class to resolve the ViewModel for the view, and then set the view’s data context to an instance of that ViewModel. This behavior is on by default: if you don't want that for your view, you need to opt-out.
 
-Add the `AutoWireViewModel` attached property to each View:
-```
+> In the case of **WPF**, this is only the default behavior when using **region navigation** and ```IDialogService```. If you are using **view injection**, your view will need to opt-in.
+
+Use the `AutoWireViewModel` attached property as below. Set the value to ```False``` to opt-out and ```True``` to explicitly opt-in.
+
+```xml
 <Window x:Class="Demo.Views.MainWindow"
     ...
     xmlns:prism="http://prismlibrary.com/"
-    prism:ViewModelLocator.AutoWireViewModel="True">
+    prism:ViewModelLocator.AutoWireViewModel="False">
 ```
 
 To locate a ViewModel, the `ViewModelLocationProvider` first attempts to resolve the ViewModel from any mappings that may have been registered by the `ViewModelLocationProvider.Register` method (See [Custom ViewModel Registrations](#Custom-ViewModel-Registrations)).  If the ViewModel cannot be resolved using this approach, the `ViewModelLocationProvider` falls back to a convention-based approach to resolve the correct ViewModel type.  
 
 This convention assumes:
+
 - that ViewModels are in the same assembly as the view types
 - that ViewModels are in a `.ViewModels` child namespace
 - that views are in a `.Views` child namespace
@@ -28,10 +33,12 @@ This convention assumes:
 > [!Video https://www.youtube.com/embed/I_3LxBdvJi4]
 
 ## Change the Naming Convention
+
 If your application does not follow the `ViewModelLocator` default naming convention, you can change the convention to meet the requirements of your application.  The `ViewModelLocationProvider` class provides a static method called `SetDefaultViewTypeToViewModelTypeResolver` that can be used to provide your own convention for associating views to view models.
 
 To change the `ViewModelLocator` naming convention, override the `ConfigureViewModelLocator` method in the `App.xaml.cs` class. Then provide your custom naming convention logic in the `ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver` method.
-```
+
+```cs
 protected override void ConfigureViewModelLocator()
 {
     base.ConfigureViewModelLocator();
@@ -49,27 +56,32 @@ protected override void ConfigureViewModelLocator()
 > [!Video https://www.youtube.com/embed/o4ibaOFvfww]
 
 ## Custom ViewModel Registrations
+
 There may be instances where your app is following the `ViewModelLocator` default naming convention, but you have a number of ViewModels that do not follow the convention. Instead of trying to customize the naming convention logic to conditionally meet all your naming requirments, you can register a mapping for a ViewModel to a specific view directly with the `ViewModelLocator` by using the `ViewModelLocationProvider.Register` method.
 
 The following examples show the various ways to create a mapping between a view called `MainWindow` and a ViewModel named `CustomViewModel`.
 
 **Type / Type**
-```
+
+```cs
 ViewModelLocationProvider.Register(typeof(MainWindow).ToString(), typeof(CustomViewModel));
 ```
 
 **Type / Factory**
-```
+
+```cs
 ViewModelLocationProvider.Register(typeof(MainWindow).ToString(), () => Container.Resolve<CustomViewModel>());
 ```
 
 **Generic Factory**
-```
+
+```cs
 ViewModelLocationProvider.Register<MainWindow>(() => Container.Resolve<CustomViewModel>());
 ```
 
 **Generic Type**
-```
+
+```cs
 ViewModelLocationProvider.Register<MainWindow, CustomViewModel>();
 ```
 
@@ -82,10 +94,12 @@ ViewModelLocationProvider.Register<MainWindow, CustomViewModel>();
 > [!Video https://www.youtube.com/embed/phMc4OuKs58]
 
 ## Control how ViewModels are Resolved
+
 By default, the `ViewModelLocator` will use the DI container you have chosen to create your Prism application to resolve ViewModels.  However, if you ever have the need to customize how ViewModels are resolved or change the resolver altogether, you can achieve this by using the `ViewModelLocationProvider.SetDefaultViewModelFactory` method.
 
 This example shows how you might change the container used for resolving the ViewModel instances.
-```
+
+```cs
 protected override void ConfigureViewModelLocator()
 {
     base.ConfigureViewModelLocator();
@@ -98,7 +112,8 @@ protected override void ConfigureViewModelLocator()
 ```
 
 This is an example of how you might check the type of the view the ViewModel is being created for, and performing logic to control how the ViewModel is created.
-```
+
+```cs
 protected override void ConfigureViewModelLocator()
 {
     base.ConfigureViewModelLocator();

@@ -9,7 +9,6 @@ This section contains all of the WPF specific portions of Prism. Unless there is
 | [View Model Injection](../viewmodel-locator.md) | Setup Prism to automatically inject your view model based on naming conventions |
 | [Event Aggregation](../event-aggregator.md) | Send messages between components without components knowing about each other |
 
-
 # WPF Specific Topics
 
 ## Getting Started
@@ -17,6 +16,9 @@ In this document, learn how to get started with Prism by creating an application
 
 [Get Started](./getting-started.md)
 
+## Converting from Version 7.x
+
+In this document, learn how to convert an application built using Prism 7.x to 8.x+.
 
 ## Converting From Version 6.x
 
@@ -24,13 +26,11 @@ In this document, learn how to convert an application built using Prism 6.x to 7
 
 [Convert to Version 7.x](./converting-from-6.md)
 
-
 ## Presenting Child Windows in MVVM
 
 Learn how to use the Prism dialog service to present dialog windows in an MVVM friendly manner.
 
 [Prism IDialogService](./dialog-service.md)
-
 
 ## Application Modularity
 
