@@ -10,8 +10,6 @@
   href: view-composition.md
 - name: Region Navigation
   href: region-navigation/toc.yml
-- name: Modules
-  href: modules.md
 - name: Interactivity
   href: interactivity/toc.yml
 - name: Dialog Service

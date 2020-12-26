@@ -8,6 +8,7 @@ This section contains all of the WPF specific portions of Prism. Unless there is
 | [Composite Commands](../composite-commands.md) | From parent view model, execute commands in child view models |
 | [View Model Injection](../viewmodel-locator.md) | Setup Prism to automatically inject your view model based on naming conventions |
 | [Event Aggregation](../event-aggregator.md) | Send messages between components without components knowing about each other |
+| [Application Modularity](../modules.md) | It can be very helpful for testing and maintainability to structure applications in separate pieces without each component being coupled with the others. Prism has some patterns to help with this problem. |
 
 # WPF Specific Topics
 
@@ -31,12 +32,6 @@ In this document, learn how to convert an application built using Prism 6.x to 7
 Learn how to use the Prism dialog service to present dialog windows in an MVVM friendly manner.
 
 [Prism IDialogService](./dialog-service.md)
-
-## Application Modularity
-
-It can be very helpful for testing and maintainability to structure applications in separate pieces without each component being coupled with the others. Prism has some patterns to help with this problem.
-
-[Application Modules](./modules.md)
 
 ## Prism 6.x
 
