@@ -155,7 +155,7 @@ In view injection, your code obtains a reference to a region, and then programma
 
 #### Navigation
 
-The Prism Library 7.1 contains Navigation APIs. The Navigation APIs simplify the view injection process by allowing you to navigate a region to an URI. The Navigation API instantiates the view, adds it to the region, and then activates it. Additionally, the Navigation API allows navigating back to a previously created view contained in a region. For more information about the Navigation APIs, see [Basic Region Navigation](region-navigation/basic-region-navigation.md).
+The Prism Library 8 contains Navigation APIs. The Navigation APIs simplify the view injection process by allowing you to navigate a region to an URI. The Navigation API instantiates the view, adds it to the region, and then activates it. Additionally, the Navigation API allows navigating back to a previously created view contained in a region. For more information about the Navigation APIs, see [Basic Region Navigation](region-navigation/basic-region-navigation.md).
 
 #### When to Use View Discovery vs. View Injection
 
