@@ -1,4 +1,4 @@
-### Basic Region Navigation
+# Basic Region Navigation
 
 Both view injection and view discovery can be considered to be limited forms of navigation. View injection is a form of explicit, programmatic navigation and view discovery is a form of implicit or deferred navigation. However, in Prism, regions have been extended to support a more general notion of navigation, based on URIs and an extensible navigation mechanism.
 
