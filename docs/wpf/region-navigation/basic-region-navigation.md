@@ -13,11 +13,25 @@ IRegion mainRegion = ...;
 mainRegion.RequestNavigate(new Uri("InboxView", UriKind.Relative));
 ```
 
+You can also use the simpler string overload:
+
+```cs
+IRegion mainRegion = ...;
+mainRegion.RequestNavigate("InboxView");
+```
+
 You can also call the **RequestNavigate** method on the **RegionManager**, which allows you to specify the name of the region to be navigated. This convenient method obtains a reference to the specified region and then calls the **RequestNavigate** method, as shown in the preceding code example.
 
 ```cs
 IRegionManager regionManager = ...;
 regionManager.RequestNavigate("MainRegion", new Uri("InboxView", UriKind.Relative));
+```
+
+As above, you can use a string overload to navigate:
+
+```cs
+IRegionManager regionManager = ...;
+regionManager.RequestNavigate("MainRegion", "InboxView");
 ```
 
 By default, the navigation URI specifies the name of a view that is registered in the container.
