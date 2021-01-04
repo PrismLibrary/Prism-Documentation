@@ -211,7 +211,7 @@ The module catalog is represented by a class that implements the ```IModuleCatal
 
 By default, the ```App``` class, derived from ```PrismApplication```, creates a ```ModuleCatalog``` in the ```CreateModuleCatalog``` method. In WPF and UNO, you can override this method to use different types of ```ModuleCatalog```.
 
-#### Registering Modules in Code (all platforms)
+#### Registering Modules in Code
 
 The most basic module catalog, and default, is provided by the ```ModuleCatalog``` class. You can use this module catalog to programmatically register modules by specifying the module class type. You can also programmatically specify the module name and initialization mode. To register the module directly with the ```ModuleCatalog``` class, call the ```AddModule``` method in your application's ```PrismApplication``` derived ```App``` class. Override ```ConfigureModuleCatalog``` to add your modules. An example is shown in the following code.
 
@@ -252,7 +252,7 @@ ModuleCatalog.AddModule(new ModuleInfo()
 });
 ```
 
-#### Registering Modules Using a XAML File (WPF and UNO)
+#### Registering Modules Using a XAML File
 
 You can define a module catalog declaratively by specifying it in a XAML file. The XAML file specifies what kind of module catalog class to create and which modules to add to it. Usually, the .xaml file is added as a resource to your shell project. The module catalog is created by the App with a call to the ```CreateFromXaml``` method. From a technical perspective, this approach is very similar to defining the ```ModuleCatalog``` in code because the XAML file simply defines a hierarchy of objects to be instantiated.
 
@@ -312,7 +312,7 @@ To specify on-demand loading of your module, add the ```startupLoaded``` attribu
 <Modularity:ModuleInfo Ref="file://ModuleE.dll" moduleName="ModuleE" moduleType="ModuleE.Module, ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" startupLoaded="false" />
 ```
 
-#### Registering Modules Using a Configuration File (WPF and UNO)
+#### Registering Modules Using a Configuration File
 
 In WPF, it is possible to specify the module information in the App.config file. The advantage of this approach is that this file is not compiled into the application. This makes it very easy to add or remove modules at run time without recompiling the application.
 
@@ -370,7 +370,7 @@ To specify on-demand loading using a configuration file, set the ```startupLoade
 <module assemblyFile="ModularityWithUnity.Desktop.ModuleE.dll" moduleType="ModularityWithUnity.Desktop.ModuleE, ModularityWithUnity.Desktop.ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" moduleName="ModuleE" startupLoaded="false" />
 ```
 
-#### Discovering Modules in a Directory (WPF and UNO)
+#### Discovering Modules in a Directory
 
 The Prism ```DirectoryModuleCatalog``` class allows you to specify a local directory as a module catalog in WPF. This module catalog will scan the specified folder and search for assemblies that define the modules for your application. To use this approach, you will need to use declarative attributes on your module classes to specify the module name and any dependencies that they have. The following code example shows a module catalog that is populated by discovering assemblies in a directory.
 
