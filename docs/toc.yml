@@ -12,6 +12,8 @@
   href: event-aggregator.md
 - name: ViewModelLocator
   href: viewmodel-locator.md
+- name: Modules
+  href: modules.md
 - name: 'WPF / Uno'
   href: wpf/toc.yml
 - name: Xamarin.Forms

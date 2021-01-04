@@ -1,4 +1,4 @@
-# Modular Application Development Using Prism Library for WPF
+# Modular Application Development Using Prism Library
 
 A modular application is an application that is divided into a set of loosely coupled functional units (named modules) that can be integrated into a larger application. A client module encapsulates a portion of the application's overall functionality and typically represents a set of related concerns. It can include a collection of related components, such as application features, including user interface and business logic, or pieces of application infrastructure, such as application-level services for logging or authenticating users. Modules are independent of one another but can communicate with each other in a loosely coupled fashion. Using a modular application design makes it easier for you to develop, test, deploy, and maintain your application.
 
@@ -91,7 +91,7 @@ Consider how you are partitioning your application, common usage scenarios and a
 
 ### Integrate Modules With The Application
 
-Each of the ```Prism.DryIoc.Wpf``` and ```Prism.Unity.Wpf``` assemblies provide an ```Application``` based class that is used as the base class for the App class. Override the virtual method ```CreateModuleCatalog``` to create the desired type of module catalog.
+Each of the ```Prism.DryIoc.[Platform]``` and ```Prism.Unity.[Platform]``` assemblies provide an ```Application``` based class that is used as the base class for the App class. Override the virtual method ```CreateModuleCatalog``` to create the desired type of module catalog.
 
 For each of the modules in the app, implement the ```IModuleInfo``` interface to register module types and services. The following are common things to do to when integrating a module into the app:
 
@@ -209,7 +209,7 @@ The modules that an application can load are defined in a module catalog. The Pr
 
 The module catalog is represented by a class that implements the ```IModuleCatalog``` interface. The module catalog class is created by the ```PrismApplication``` base class during application initialization. Prism provides different implementations of module catalog for you to choose from. You can also populate a module catalog from another data source by calling the ```AddModule``` method or by deriving from ```ModuleCatalog``` to create a module catalog with customized behavior.
 
-By default, the ```App``` class, derived from ```PrismApplication```, creates a ```ModuleCatalog``` in the ```CreateModuleCatalog``` method. Override this method to use different types of ```ModuleCatalog```.
+By default, the ```App``` class, derived from ```PrismApplication```, creates a ```ModuleCatalog``` in the ```CreateModuleCatalog``` method. In WPF and UNO, you can override this method to use different types of ```ModuleCatalog```.
 
 #### Registering Modules in Code
 
@@ -370,7 +370,7 @@ To specify on-demand loading using a configuration file, set the ```startupLoade
 <module assemblyFile="ModularityWithUnity.Desktop.ModuleE.dll" moduleType="ModularityWithUnity.Desktop.ModuleE, ModularityWithUnity.Desktop.ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" moduleName="ModuleE" startupLoaded="false" />
 ```
 
-#### Discovering Modules in a Directory 
+#### Discovering Modules in a Directory
 
 The Prism ```DirectoryModuleCatalog``` class allows you to specify a local directory as a module catalog in WPF. This module catalog will scan the specified folder and search for assemblies that define the modules for your application. To use this approach, you will need to use declarative attributes on your module classes to specify the module name and any dependencies that they have. The following code example shows a module catalog that is populated by discovering assemblies in a directory.
 
