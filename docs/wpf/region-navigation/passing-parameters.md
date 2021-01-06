@@ -41,3 +41,12 @@ public void OnNavigatedTo(NavigationContext navigationContext)
     ObjectParameter myParameter = navigationContext.Parameters["myObjectParameter"];
 }
 ```
+
+You can also retrieve parameters in a type safe manner using generics:
+
+```cs
+public void OnNavigatedTo(NavigationContext navigationContext)
+{
+    ObjectParameter objectParameter = navigationContext.Parameters.GetValue<ObjectParameter>("myObjectParameter");
+}
+```
