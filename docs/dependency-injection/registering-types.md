@@ -54,3 +54,35 @@ if (containerRegistry.IsRegistered<ISomeService>())
     // Do something...
 }
 ```
+
+## Lazy Resolution
+
+As shown previously you can register your services like `containerRegistry.Register<IFoo, Foo>()`. Many developers may have use cases where they want to conserve memory and lazy load services either as `Func<IFoo>` or `Lazy<IFoo>`. Prism 8 supports this out of the box. In order to do this you simply need to add the parameter to your ViewModel or Service as shown below.
+
+```cs
+public class ViewAViewModel
+{
+    public ViewAViewModel(Func<IFoo> fooFactory, Lazy<IBar> lazyBar)
+    {
+    }
+}
+```
+
+> [NOTE]
+> Take note of the service registration type. It generally does NOT make sense to use `Lazy<T>` or `Func<T>` resolutions when you are working with a Singleton Service. For instance the `IEventAggregator` is a singleton. This means that you get a single instance of the Event Aggregator that is used through the entire application. By using `Lazy<T>` or `Func<T>` you ultimately use more memory and may take performance hits instead of just requesting the service outright.
+
+## Resolve All
+
+Some Developers may find the need to Register multiple implementations of the same service contract with an expectation of resolving all of them. As a common use case, Shiny uses this pattern with some of its delegate interfaces. This can allow you to build more modular code by responding to the same event in bite sized chunks. Again there is nothing special that you need to do with the registration. To use this feature you simply need to inject `IEnumerable<T>` into your constructor as show here.
+
+```cs
+public class SomeService
+{
+    public SomeService(IEnumerable<IFoo> fooCollection)
+    {
+    }
+}
+```
+
+> [NOTE]
+> This feature is only supported in DryIoc at this time. This may become available to those using Unity Container once version 6 releases.
