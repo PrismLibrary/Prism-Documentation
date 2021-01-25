@@ -6,6 +6,8 @@
   href: platform-specific-services.md
 - name: Exception Handling
   href: resolution-errors.md
+- name: ContainerLocator
+  href: container-locator.md
 - name: Adding a Custom Container
   href: add-custom-container.md
 - name: Appendix
