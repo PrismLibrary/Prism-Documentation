@@ -68,7 +68,7 @@ public class ViewAViewModel
 }
 ```
 
-> [NOTE]
+> [!NOTE]
 > Take note of the service registration type. It generally does NOT make sense to use `Lazy<T>` or `Func<T>` resolutions when you are working with a Singleton Service. For instance the `IEventAggregator` is a singleton. This means that you get a single instance of the Event Aggregator that is used through the entire application. By using `Lazy<T>` or `Func<T>` you ultimately use more memory and may take performance hits instead of just requesting the service outright.
 
 ## Resolve All
@@ -84,5 +84,5 @@ public class SomeService
 }
 ```
 
-> [NOTE]
+> [!NOTE]
 > This feature is only supported in DryIoc at this time. This may become available to those using Unity Container once version 6 releases.

@@ -4,7 +4,7 @@ The ContainerLocator is new in Prism 8.0. This was introduced to help Prism get 
 
 The ContainerLocator also has some additional benefits for Prism, particularly for those developers working on Cross Platform applications such as Xamarin.Forms or Uno Platform. In these cases it may sometimes be necessary to initialize the container prior to initializing your PrismApplication. A common example of this would be apps that are leveraging Shiny. For such apps you may want to add the ServiceCollection to your Prism container and then return the ServiceProvider to Shiny. This allows both Prism and Shiny to maintain a single container rather than have multiple containers.
 
-> [NOTE]
+> [!NOTE]
 > For those developers sponsoring [Dan Siegel](https://xam.dev/sponsor-prism-dan) it is recommended that you use the Prism.Magician for this.
 
 ## How to use the ContainerLocator
@@ -16,7 +16,7 @@ var createContainerExtension = () => new DryIocContainerExtension();
 ContainerLocator.SetContainerExtension(createContainerExtension);
 ```
 
-> [WARNING]
+> [!WARNING]
 > If you do not call `ContainerLocator.Current` or `ContainerLocator.Container` after setting the creation delegate, subsequent calls to `SetContainerExtension` will override your initial delegate.
 
 ## Advanced Usage
