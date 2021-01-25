@@ -27,6 +27,9 @@ Next you'll want to add a Reference to the Prism.Core and your container of choi
 
 Next, add a new class to your project and implement the `IContainerExtension` interface.  The `IContainerExtension` interface is used to create a mapping for the most common registration and resolution methods.
 
+> [!NOTE]
+> The implementation shown here is not maintained. Note that there are differences in the Prism 8 Ioc abstractions from what is shown here, and there may additionally be changes in the GraceIoc API. This is provided only as an example.
+
 In the case of the Grace DI container we simply need to add this single class:
 
 ```cs
@@ -43,8 +46,6 @@ public class GraceContainerExtension : IContainerExtension<IInjectionScope>
     }
 
     public IInjectionScope Instance { get; }
-
-    public bool SupportsModules => true;
 
     public void FinalizeExtension() { }
 
