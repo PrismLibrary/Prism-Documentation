@@ -9,8 +9,10 @@ The Prism navigation service also allows you to pass parameters to the target vi
 Creating parameters can be done in a variety of ways.
 
 ```cs
-var navigationParams = new NavigationParameters();
-navigationParams.Add("model", new Contact());
+var navigationParams = new NavigationParameters
+{
+    { "model", new Contact() }
+};
 _navigationService.NavigateAsync("MainPage", navigationParams);
 ```
 
@@ -32,8 +34,10 @@ _navigationService.NavigateAsync("MainPage?id=3&name=brian");
 _navigationService.NavigateAsync("MainPage" + navParameters.ToString());
 
 //using both short-syntax parameters and NavigationParameters
-var navParameters = new NavigationParameters();
-navParameters.Add("name", "brian");
+var navParameters = new NavigationParameters
+{
+    { "name", "brian" }
+};
 _navigationService.NavigateAsync("MainPage?id=3", navParameters);
 ```
 
@@ -47,8 +51,10 @@ _navigationService.NavigateAsync(new Uri("MainPage?id=3&name=brian", UriKind.Rel
 _navigationService.NavigateAsync(new Uri("MainPage" + navParameters.ToString(), UriKind.Relative));
 
 //using both Uri parameters and NavigationParameters
-var navParameters = new NavigationParameters ();
-navParameters.Add("name", "brian");
+var navParameters = new NavigationParameters
+{
+    { "name", "brian" }
+};
 _navigationService.NavigateAsync(new Uri("MainPage?id=3", UriKind.Relative), navParameters);
 ```
 
@@ -58,7 +64,7 @@ Getting the parameters that were passed to the target View being navigated to ca
 
 ### INavigationAware
 
-The ViewModel of the target navigation Page can participate in the navigation process by implementing the `INavigationAware` interface.  This interface adds three methods to your ViewModel so you can intercept before the View is navigated to **(OnNavigatingTo)**, once it is navigated to **(OnNavigatedTo)**, and once it is navigated away from **(OnNavigatedFrom)**.  These methods make the `NavigationParameters` accessible from either the View being navigated to, or the View being navigated away from.
+The ViewModel of the target navigation Page can participate in the navigation process by implementing the `INavigationAware` interface.  This interface adds two methods to your ViewModel so you can intercept once it is navigated to **(OnNavigatedTo)**, and once it is navigated away from **(OnNavigatedFrom)**.  These methods make the `NavigationParameters` accessible from either the View being navigated to, or the View being navigated away from.
 
 _Note: You can implement `INavigationAware` on either the View or ViewModel_
 
@@ -66,7 +72,7 @@ Example:
 
 ```cs
 public class ContactPageViewModel : INavigationAware
-{  
+{
     public void OnNavigatedTo(INavigationParameters parameters)
     {
 
@@ -79,48 +85,33 @@ public class ContactPageViewModel : INavigationAware
 }
 ```
 
-For more granular control, or if you wish to only implement very specific methods, you may choose to implement `INavigatedAware` or `INavigatingAware` interfaces.  These interfaces provide you the ability to choose exactly which navigation methods you wish to participate in.
+### ViewModel Initialization
+
+Prism.Forms has two options for handling ViewModel initialization. This is the processing of NavigationParameters **BEFORE** the View is navigated to. It is important to remember that Initialization only occurs once when the View is being navigated to for the first time.
+
+For most use cases you will want to use `IInitailize` to ready your ViewModel as it is navigated to.
 
 ```cs
-public interface INavigatedAware
+public interface IInitialize
 {
-    /// <summary>
-    /// Called when the implementer has been navigated away from.
-    /// </summary>
-    /// <param name="parameters">The navigation parameters.</param>
-    void OnNavigatedFrom(INavigationParameters parameters);
-
-    /// <summary>
-    /// Called when the implementer has been navigated to.
-    /// </summary>
-    /// <param name="parameters">The navigation parameters.</param>
-    void OnNavigatedTo(INavigationParameters parameters);
+    void Initialize(INavigationParameters parameters);
 }
 ```
 
+Similar to `INavigationAware` we will pass in the NavigationParameters to be evaluated and make our ViewModel ready.
+
+Many times you may however find that you need to do something asynchronously. This could be an API call, or you may be using an async API to access a Sqlite Database locally. Whatever your issue is it can sometimes be desireable to have an async API to work with. For this reason Prism also has added the `IInitializeAsync` interface.
+
+
 ```cs
-public interface INavigatingAware
+public interface IInitializeAsync
 {
-    /// <summary>
-    /// Called before the implementor has been navigated to.
-    /// </summary>
-    /// <param name="parameters">The navigation parameters.</param>
-    /// <remarks>Not called when using device hardware or software back buttons</remarks>
-    void OnNavigatingTo(INavigationParameters parameters);
+    Task InitializeAsync(INavigationParameters parameters);
 }
 ```
 
-In fact, the `INavigationAware` interface simply implements both the `INavigatedAware` and `INavigatingAware` interfaces.
-
-```cs
-public interface INavigationAware : INavigatedAware, INavigatingAware
-{
-
-}
-```
-
-> [!NOTE]
-**OnNavigatingTo** is not called when using device hardware or software back button.
+> [!WARNING]
+> .NET Developers have an over reliance on async Task without understanding what that will mean. Any delay caused by the Navigation Service awaiting InitializeAsync **WILL** result in delay in UI Navigation. While this may be the desired effect, if you do not architect your app properly this will result in a poor user experience as it may appear that the UI is unresponsive. You should **NEVER** use this on the initial navigation when your app starts.
 
 ## Reading Parameters
 
@@ -129,9 +120,6 @@ Now that you have access to the parameters, you must read the parameters from th
 ```cs
 public void OnNavigatedTo(INavigationParameters parameters)
 {
-  //get a single parameter as type object, which must be cast
-  var color = parameters["color"] as Color;
-
   //get a single typed parameter
   var color = parameters.GetValue<Color>("color");
 
@@ -158,11 +146,11 @@ Prism for Xamarin.Forms only support two `NavigationMode` options:
     public enum NavigationMode
     {
         /// <summary>
-        /// Indicates that a navigation operation occured that resulted in navigating backwards in the navigation stack.
+        /// Indicates that a navigation operation occurred that resulted in navigating backwards in the navigation stack.
         /// </summary>
         Back,
         /// <summary>
-        /// Indicates that a new navigaton operaton has occured and a new page has been added to the navigation stack.
+        /// Indicates that a new navigation operation has occurred and a new page has been added to the navigation stack.
         /// </summary>
         New,
     }
