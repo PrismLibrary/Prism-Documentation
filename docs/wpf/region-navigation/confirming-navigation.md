@@ -27,6 +27,9 @@ public class ViewAViewModel : BindableBase, IConfirmNavigationRequest
     {
         bool result = true;
 
+        // this is demo code only and not suitable for production. It is generally
+        // poor practice to reference your UI in the view model. Use the Prism
+        // IDialogService to help with this.
         if (MessageBox.Show("Do you to navigate?", "Navigate?", MessageBoxButton.YesNo) == MessageBoxResult.No)
             result = false;
 
