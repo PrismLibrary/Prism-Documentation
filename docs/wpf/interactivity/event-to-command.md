@@ -107,7 +107,8 @@ public class MainWindowViewModel : BindableBase
     private void SelectedCommandExecute(object[] selectedItems)
     {
         // do your business logic here
-        var firstItemText = selectedItems.FirstOrDefault()?.ToString() ?? "";
+        var firstItemText = selectedItems.FirstOrDefault().ToString();
+        System.Diagnostics.Debug.WriteLine($"first item selected: {firstItemText}");
     }
 }
 
