@@ -1,8 +1,8 @@
 # Using the EventToCommandBehavior
 
-The `EventToCommandBehavior` class provide a convenient way to, in XAML, "bind" events to `ICommand` according to MVVM paradigm to avoid code behind.
+The `EventToCommandBehavior` class provides a convenient way to, in XAML, "bind" events to `ICommand` according to MVVM paradigm to avoid code behind.
 
-### Usage
+## Properties
 
 The `EventToCommandBehavior` expose the following properties
 
@@ -12,6 +12,8 @@ The `EventToCommandBehavior` expose the following properties
 * **EventArgsConverter** Instance of `IValueConverter` that allows operating on the `EventArgs` type for the *EventName*
 * **EventArgsConverterParameter** The parameter that will be sent as the _parameter_ argument to `IValueConverter.Convert` method
 * **EventArgsParameterPath** Parameter path to extract property from `EventArgs` that will be passed to `ICommand.Execute(object)`
+
+## Usage
 
 First declare the namespace and assembly in where `EventToCommandBehavior` is declared and declare a XML-namespace.
 
