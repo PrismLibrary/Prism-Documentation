@@ -15,7 +15,7 @@ Prism supports the two scenarios described earlier via the **IsNavigationTarget*
 The implementation of the **IsNavigationTarget** method can use the **NavigationContext** parameter to determine whether it can handle the navigation request. The **NavigationContext** object provides access to the navigation URI and the navigation parameters. In the preceding examples, the implementation of this method in the **EditCustomer** view model compares the current customer ID to the ID specified in the navigation request, and it returns **true** if they match.
 
 ```cs
-public bool EmployeeDetailsViewModel : BindableBase, INavigationAware
+public class EmployeeDetailsViewModel : BindableBase, INavigationAware
 {
     public bool IsNavigationTarget(NavigationContext navigationContext)
     {
