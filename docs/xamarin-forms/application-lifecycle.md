@@ -10,7 +10,7 @@ The typical application lifecycle events are:
 + __Resuming__. This happens every time we restore the app from the background after it has been suspended.
 + __Sleeping__. This happens when the OS decides to freeze our app after it has gone in background.
 
-The management of these events can be tricky in an MVVM app but Prism provides the [IApplicationLifecycleAware](https://github.com/PrismLibrary/Prism/blob/master/Source/Xamarin/Prism.Forms/AppModel/IApplicationLifecycleAware.cs) interface to make your life easier.
+The management of these events can be tricky in an MVVM app but Prism provides the [IApplicationLifecycleAware](https://github.com/PrismLibrary/Prism/blob/master/src/Forms/Prism.Forms/AppModel/IApplicationLifecycleAware.cs) interface to make your life easier.
 
 
 ## How to handle ALM in your ViewModels
@@ -96,4 +96,4 @@ When your app is attached to the Visual Studio debugger, it will not be suspende
 
 + [Xamarin Forms Book](https://xamarin.azureedge.net/developer/xamarin-forms-book/XamarinFormsBook-Ch06-Apr2016.pdf)
 
-+ [PrismApplicationBase source code](https://github.com/PrismLibrary/Prism/blob/36dc541274edb3e1d1ee2957e1ae65aafbf6c0a1/Source/Xamarin/Prism.Forms/PrismApplicationBase.cs)
++ [PrismApplicationBase source code](https://github.com/PrismLibrary/Prism/blob/master/src/Forms/Prism.Forms/PrismApplicationBase.cs)
