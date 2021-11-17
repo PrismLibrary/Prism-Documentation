@@ -35,12 +35,12 @@ And attach to the control with the desired event.
         Title="{Binding Title}" Height="350" Width="525">
     <Grid>
         <ListBox ItemsSource="{Binding Items}" SelectionMode="Single">
-            <i:InteractionTriggers>
+            <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding SelectedCommand}"
                                                CommandParameter="{Binding MyParameter}" />
                 </i:EventTrigger>
-            </i:InteractionTriggers>
+            </i:Interaction.Triggers>
         </ListBox>
     </Grid>
 </Window>
@@ -60,13 +60,13 @@ In the code below, the ```SelectionChanged``` event receives a  ```SelectionChan
         Title="{Binding Title}" Height="350" Width="525">
     <Grid>
         <ListBox ItemsSource="{Binding Items}" SelectionMode="Single">
-            <i:InteractionTriggers>
+            <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding SelectedCommand}"
                                                CommandParameter="{Binding MyParameter}"
                                                TriggerParameterPath="AddedItems" />
                 </i:EventTrigger>
-            </i:InteractionTriggers>
+            </i:Interaction.Triggers>
         </ListBox>
     </Grid>
 </Window>
@@ -86,14 +86,14 @@ The `AutoEnable` property specifies if the associated element should be automati
         Title="{Binding Title}" Height="350" Width="525">
     <Grid>
         <ListBox ItemsSource="{Binding Items}" SelectionMode="Single">
-            <i:InteractionTriggers>
+            <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding SelectedCommand}"
                                                CommandParameter="{Binding MyParameter}"
                                                TriggerParameterPath="AddedItems"
                                                AutoEnable="true" />
                 </i:EventTrigger>
-            </i:InteractionTriggers>
+            </i:Interaction.Triggers>
         </ListBox>
     </Grid>
 </Window>
