@@ -16,5 +16,7 @@
   href: modules.md
 - name: 'WPF / Uno'
   href: wpf/toc.yml
+- name: .NET MAUI
+  href: maui/toc.yml
 - name: Xamarin.Forms
   href: xamarin-forms/toc.yml

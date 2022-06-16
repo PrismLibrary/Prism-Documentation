@@ -1,0 +1,16 @@
+- name: Getting Started
+  href: index.md
+- name: Migrating from Prism.Forms
+  href: migrating.md
+- name: Dependency Injection
+  href: dependencyinjection.md
+- name: AppModel
+  href: appmodel/toc.yml
+- name: Behaviors
+  href: behaviors/toc.yml
+- name: Dialogs
+  href: dialogs/toc.yml
+- name: Navigation
+  href: navigation/toc.yml
+- name: Regions
+  href: regions/toc.yml
