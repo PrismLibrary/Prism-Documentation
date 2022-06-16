@@ -179,8 +179,9 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
     containerRegistry.RegisterDialogWindow<NotificationWindow>("notifyWindow");
 }
 ```
-> [!NOTE] In order to use a dialog window by name, you must provide the dialog window name in the `IDialogService.Show` or `IDialogService.ShowDialog` method as follows:
-```
+> [!NOTE]
+> In order to use a dialog window by name, you must provide the dialog window name in the `IDialogService.Show` or `IDialogService.ShowDialog` method as follows:
+```cs
  _dialogService.ShowDialog("DialogName", dialogParameters), r =>
     { ...  }, "notifyWindow");
 ```

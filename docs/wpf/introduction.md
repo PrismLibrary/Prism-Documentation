@@ -37,4 +37,4 @@ Learn how to use the Prism dialog service to present dialog windows in an MVVM f
 
 Maintaining a Prism 6.x app with no plans to bring it forward, find documentation here.
 
-[Legacy documentation](lgegacy/Introduction.md)
+[Legacy documentation](legacy/Introduction.md)
