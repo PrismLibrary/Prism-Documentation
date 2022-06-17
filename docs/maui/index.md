@@ -4,6 +4,8 @@ From a simple perspective, .NET Multi-Platform App UI (MAUI) is the next evoluti
 
 .NET MAUI however represents a shift in paradigms, with the introduction of the SingleProject, an App Builder with Dependency Injection as a built in first class citizen. As a result there are many differences between Prism.Maui and Prism.Forms.
 
+> [!Video https://www.youtube.com/embed/KWiWMp6jklI]
+
 ## Next Steps
 
 - [Migrating from Prism.Forms](migrating.md)
