@@ -8,12 +8,13 @@ With more than 5 million downloads Prsim.Forms has been an amazingly popular cho
 
 While there were a number of methods off of the `PrismApplication`, the majority of code most people wrote was located within 2 methods:
 
-1) `OnInitialized`
-2) `RegisterTypes`
+1. `OnInitialized`
+2. `RegisterTypes`
 
 To better support developers migrating code from Prism.Forms to Prism.Maui, both of these methods remain in the `PrismApplication` class, and will be called automatically on application startup. Any code that you might have customizing the container, adding Prism Modules, or customizing the ViewModelLocationProvider will need to be move to the `PrismAppBuilder`.
 
-Prism.Forms applications made primary use of the RegisterTypes method in the PrismApplication class and 
+! NOTE note
+    These methods will only be supported in .NET 6.0 & .NET 7.0. These are planned for removal in .NET 8.0.
 
 ### IPlatformInitializer Conversion
 
