@@ -2,12 +2,10 @@
   href: index.md
 - name: Getting Started
   href: getting-started/toc.yml
+- name: Commands
+  href: commands/toc.yml
 - name: Dependency Injection
   href: dependency-injection/toc.yml
-- name: Commanding
-  href: commanding.md
-- name: Composite Commands
-  href: composite-commands.md
 - name: Event Aggregator
   href: event-aggregator.md
 - name: ViewModelLocator

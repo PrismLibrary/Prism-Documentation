@@ -1,0 +1,4 @@
+- name: Commanding
+  href: commanding.md
+- name: Composite Commands
+  href: composite-commands.md

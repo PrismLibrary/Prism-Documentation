@@ -236,7 +236,7 @@ A bit of an explanation on what is happening here. MainWindowViewModel has a dep
 
 There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` class that allows delegates to be passed in to handle implementing the ```ICommand``` interface. In the case of ```CommandLoad```, the ```CommandLoadExecute``` function is passed in as the delegate and now, whenever the WPF binding system tries to execute ```ICommand.Execute```, ```CommandLoadExecute``` is invoked.
 
-For more details on DelegateCommand, see [Commanding](../commanding.md).
+For more details on DelegateCommand, see [Commanding](../commands/commanding.md).
 
 ### Using the ViewModelLocator
 
