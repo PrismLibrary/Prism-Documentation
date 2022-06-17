@@ -8,7 +8,7 @@ By Default the `PrismAppBuilder` will register the `PrismNavigationPage` with th
 
 ## What does it do?
 
-By default the PrismNavigationPage will intercept the request to Pop the CurrentPage and cancel the request. It will then retrieve the NavigationService for the CurrentPage, and call the NavigationService's `GoBackAsync` method. As a result the Navigation Events will occur as you would expect honoring things like Prism's `IConfirmNavigation` rather than being reactionary. 
+By default the PrismNavigationPage will intercept the request to Pop the CurrentPage and cancel the request. It will then retrieve the NavigationService for the CurrentPage, and call the NavigationService's `GoBackAsync` method. As a result the Navigation Events will occur as you would expect honoring things like Prism's `IConfirmNavigation` rather than being reactionary.
 
 ## Why do we need it?
 

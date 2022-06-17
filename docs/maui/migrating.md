@@ -13,8 +13,8 @@ While there were a number of methods off of the `PrismApplication`, the majority
 
 To better support developers migrating code from Prism.Forms to Prism.Maui, both of these methods remain in the `PrismApplication` class, and will be called automatically on application startup. Any code that you might have customizing the container, adding Prism Modules, or customizing the ViewModelLocationProvider will need to be move to the `PrismAppBuilder`.
 
-! NOTE note
-    These methods will only be supported in .NET 6.0 & .NET 7.0. These are planned for removal in .NET 8.0.
+> [!Note]
+> These methods will only be supported in .NET 6.0 & .NET 7.0. These are planned for removal in .NET 8.0.
 
 ### IPlatformInitializer Conversion
 

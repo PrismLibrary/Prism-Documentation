@@ -2,6 +2,8 @@
   href: index.md
 - name: Migrating from Prism.Forms
   href: migrating.md
+- name: PrismAppBuilder
+  href: appbuilder.md
 - name: Dependency Injection
   href: dependencyinjection.md
 - name: AppModel

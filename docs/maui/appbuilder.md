@@ -19,8 +19,8 @@ builder.UsePrismApp<App>(prism =>
 
 The `UsePrismApp` method expects a delegate that will configure the startup for Prism applications. This includes registering services, adding modules, and various other common tasks. While we have tried to keep this as simple as possible, we have also tried to provide a number of overloads to make it easier to get started for developers who may have different requirements as you will see as we go into depth into the `PrismAppBuilder`.
 
-! INFO Info
-    In the Prism Templates we use a static `PrismStartup` class. The class is no way required. This is provided out of the box for convenience as many medium to large apps may have hundreds of lines of code simply to register base services. We find that smaller/focused files are easier for many developers to maintain. By moving the configuration of Prism to another file we can more easily focus on thew lines that build the pipeline for the MauiApplicationBuilder.
+> [!NOTE]
+> In the Prism Templates we use a static `PrismStartup` class. The class is no way required. This is provided out of the box for convenience as many medium to large apps may have hundreds of lines of code simply to register base services. We find that smaller/focused files are easier for many developers to maintain. By moving the configuration of Prism to another file we can more easily focus on thew lines that build the pipeline for the MauiApplicationBuilder.
 
 ### Registering Services with Prism's IContainerRegistry
 
@@ -86,8 +86,8 @@ builder.UsePrismApp<App>(prism =>
 
 While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Services` property, it does not have an easy to use extension for registering services. To help make it even easier on developers using Prism, we have exposed an extension method on the `PrismAppBuilder` to give you the ability to easily register services with either `IContainerRegistry` or `IServiceCollection` on an as needed basis. As discussed in the [Dependency Injection](dependencyinjection.md) topic, we do expose several additional extensions on the `IServiceCollection` to make it even easier on you to ensure you can register what you need to with Prism even when you're using the `IServiceCollection`.
 
-! INFO info
-    It's important to remember that if you register a service with the `IServiceCollection` it will not be available from the `IContainerRegistry`. As a result if you call the `IsRegistered&lt;T&gt;` method on the `IContainerRegistry` it will return `false`.
+> [!NOTE]
+> It's important to remember that if you register a service with the `IServiceCollection` it will not be available from the `IContainerRegistry`. As a result if you call the `IsRegistered<T>` method on the `IContainerRegistry` it will return `false`.
 
 ```cs
 var builder = MauiApp.CreateBuilder();
