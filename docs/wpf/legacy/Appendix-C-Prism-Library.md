@@ -19,7 +19,7 @@ The Prism Library ships signed binaries through NuGet packages to allow you to t
 
 ## Add Reference using NuGet and Accessing the Library Source Code
 
-Add references to the Prism binaries in your code by searching NuGet for Prism. See the list of current [Nuget packages](../getting-started/NuGet-Packages.md).
+Add references to the Prism binaries in your code by searching NuGet for Prism. See the list of current [Nuget packages](../../getting-started/NuGet-Packages.md).
 
 ## Organization of the Prism Library
 

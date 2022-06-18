@@ -240,7 +240,7 @@ public SpeakPageViewModel()
 }
 ```
 
-Creates a [DelegateCommand](https://github.com/PrismLibrary/Prism/blob/master/Source/Prism/Commands/DelegateCommand.cs) called `SpeakCommand` that the Speak button is bound to. The `SpeakCommand` is created in the `SpeakPageViewModel` constructor and will invoke the `Speak` method, which hasn't been written yet. To be able to perform the actual text-to-speech platform specific APIs need to be used. This is outside the scope of this documentation, but head over to the [IPlatformInitializer documentation](Platform-Specific-Types.md) to see how this is done.
+Creates a [DelegateCommand](https://github.com/PrismLibrary/Prism/blob/master/Source/Prism/Commands/DelegateCommand.cs) called `SpeakCommand` that the Speak button is bound to. The `SpeakCommand` is created in the `SpeakPageViewModel` constructor and will invoke the `Speak` method, which hasn't been written yet. To be able to perform the actual text-to-speech platform specific APIs need to be used. This is outside the scope of this documentation, but head over to the [IPlatformInitializer documentation](../dependency-injection/platform-specific-services.md) to see how this is done.
 
 ## Navigating to your new page
 

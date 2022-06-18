@@ -6,8 +6,6 @@
   href: dialogs/toc.yml
 - name: Navigation
   href: navigation/toc.yml
-- name: Auto Initialization
-  href: auto-initialization.md
 - name: Application Lifecycle
   href: application-lifecycle.md
 - name: Page Lifecycle

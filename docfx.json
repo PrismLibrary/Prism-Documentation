@@ -22,6 +22,7 @@
           "images/**",
           "docs/images/**",
           "docs/getting-started/images/**",
+          "docs/maui/images/**",
           "docs/wpf/legacy/images/**",
           "docs/wpf/images/**",
           "docs/xamarin-forms/images/**",
@@ -44,7 +45,7 @@
     "cleanupCacheHistory": false,
     "globalMetadata": {
       "_appTitle": "Prism",
-      "_appFooter": "Copyright 2017 Prism",
+      "_appFooter": "Copyright 2015-2022 Prism",
       "_appLogoPath": "images/prism-logo.png",
       "_gitContribute": {
         "repo": "https://github.com/PrismLibrary/Prism-Documentation",

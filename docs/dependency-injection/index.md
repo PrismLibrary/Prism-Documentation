@@ -15,3 +15,4 @@ As a result you can easily implement support for a container that is not otherwi
 - Learn how to [Register Platform Specific Services](platform-specific-services.md) ***(Xamarin Specific)***
 - Learn how to [Add a Custom Container](add-custom-container.md)
 - Learn more about the Prism Container Extensions and working with Shiny in the [Appendix](appendix.md)
+- [IServiceCollection Support with Prism.Maui](../maui/dependencyinjection.md)

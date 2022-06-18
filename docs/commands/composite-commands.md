@@ -3,7 +3,7 @@ In many cases, a command defined by a view model will be bound to controls in th
 
 For example, if your application allows the user to edit multiple items at the same time, you may want to allow the user to save all the items using a single command represented by a button in the application's toolbar or ribbon. In this case, the Save All command will invoke each of the Save commands implemented by the view model instance for each item as shown in the following illustration.
 
-![SaveAll composite command](images/composite-commands-1.png)
+![SaveAll composite command](../images/composite-commands-1.png)
 
 Prism supports this scenario through the `CompositeCommand` class.
 
@@ -146,7 +146,7 @@ As seen in the previous examples, child commands are registered using the `Compo
 ## Executing Commands on Active Views
 Composite commands at the parent view level will often be used to coordinate how commands at the child view level are invoked. In some cases, you will want the commands for all shown views to be executed, as in the Save All command example described earlier. In other cases, you will want the command to be executed only on the active view. In this case, the composite command will execute the child commands only on views that are deemed to be active; it will not execute the child commands on views that are not active. For example, you may want to implement a Zoom command on the application's toolbar that causes only the currently active item to be zoomed, as shown in the following diagram.
 
-![Executing a CompositeCommand on a single child](images/composite-commands-2.png)
+![Executing a CompositeCommand on a single child](../images/composite-commands-2.png)
 
 To support this scenario, Prism provides the `IActiveAware` interface. The `IActiveAware` interface defines an `IsActive` property that returns `true` when the implementer is active, and an `IsActiveChanged` event that is raised whenever the active state is changed.
 
