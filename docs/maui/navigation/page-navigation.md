@@ -2,6 +2,9 @@
 
 For those who may be familiar with Prism.Forms this is perhaps one of the most beloved features of Prism. Prism's INavigationService provides us the ability to easily navigate between pages with a powerful understanding of URI's. This allows us to inject parameters into the URI's that will be passed to specific Pages, overload query parameters, and even control the behavior of the navigation such as whether or not to animate the transition or navigate modally at a specific URI segment.
 
+> [!NOTE]
+> Page based navigation in .NET MAUI is specific to the individual page you want to navigate from. This is NOT a concept unique to Prism, but is actually a fundamental part of how navigation within .NET MAUI works. As a result, Prism relies on Dependency Injection Container Scoping around the creation of Each Page to ensure that we inject an instance of the Navigation Service that has the ability to navigate from the corresponding Page for the current scope.
+
 ## What the heck is a Navigation Segment?
 
 You may see the term `Navigation Segment` used several times throughout the docs, but what is it? Given that you have a URI that looks like `ViewA/ViewB/ViewC`, we will split the URI into 3 segments, `ViewA`, `ViewB`, and `ViewC`. Each segment may contain it's own query parameters which are only passed to that specific Page during the navigation. An example of this would be `ViewA?color=Red/ViewB?color=Blue/ViewC?color=Green`. In this example `ViewA` will have a query parameter of `color=Red` and `ViewB` will have a query parameter of `color=Blue` and `ViewC` will have a query parameter of `color=Green`.
@@ -47,7 +50,7 @@ The actual `INavigationService` interface is kept as clean as possible with 3 co
 
 ### NavigateAsync
 
-The `NavigateAsync` method is one of most critical core concepts to building apps with Prism. This is where you will 
+The `NavigateAsync` method is one of most critical core concepts to building apps with Prism. This is where we accomplish setting the Page on our Application Window and updating the Navigation Stack by pushing pages Modally or non-Modally within our app. We can also use this method to dynamically set the FlyoutPage's Detail, add a page to a brand new NavigationPage, or even create an entire TabbedPage on the fly. We do this all through the requested Navigation URI. As has been already discussed the Navigation Service break apart the Navigation URI and process each segment. It is extremely intelligent in figuring out the context it needs to navigate. As a result, when Navigating from a FlyoutPage the Navigation Service understands that the next page will set the Detail of the FlyoutPage. When navigating within the context of a NavigationPage, the Navigation Service understands that the next page will be added to the NavigationPage and will not be pushed Modally.
 
 #### FlyoutPages
 
@@ -75,9 +78,57 @@ The Flyout itself may be a bit tricker for some to understand. The reality is th
 > [!Note]
 > In some cases you may find that you do not even need a ViewModel for the FlyoutPage if simply have a static view with a Menu that uses the [Xaml Navigation Extensions](./xaml-navigation.md)
 
+If we were building a .NET MAUI application without the benefit of Prism, we would expect to set a NavigationPage as the Detail of the FlyoutPage, and then push our ContentPage into the NavigationPage. From code this might look something like:
+
+```cs
+var mainPage = new FlyoutPage()
+{
+    Flyout = new ContentPage()
+    {
+        Title = "Menu",
+        Content = new StackLayout()
+        {
+            Children =
+            {
+                new Label()
+                {
+                    Text = "Hello World"
+                }
+            }
+        }
+    },
+    Detail = new NavigationPage(new ContentPage()
+    {
+        Title = "Content Page",
+        Content = new StackLayout()
+        {
+            Children =
+            {
+                new Label()
+                {
+                    Text = "Hello World"
+                }
+            }
+        }
+    })
+};
+```
+
+As already mentioned you should never set the Detail property of the FlyoutPage. Instead we will do this with the Navigation URI. Our Navigation might look something like:
+
+```cs
+Navigation.NavigateAsync("MyFlyoutPage/NavigationPage/ViewA");
+```
+
 #### Deep Linking
 
-#### Relative Navigation
+#### Absolute vs Relative Navigation
+
+A URI has two basic states, absolute and relative. Absolute URIs are URIs that start with a `/`, relative URIs do not. A relative URI may simply start with a ViewName, or it may start with `../` to go back a level.
+
+When navigating with an Absolute URI, the Navigation Service will set a new Page on the Application Window. When navigating with a Relative URI, the Navigation Service will push a new Page onto the Navigation Stack.
+
+Better yet when using the shorthand syntax `../` you can use this to both Navigate Back and Navigate Forward at the same time. Conceptually you might consider the example where your current Navigation Stack looks like `NavigationPage/ViewA/ViewB` and you are navigating from the ViewBViewModel. You can pass instead of first calling GoBack and then having to navigate forward again, you can instead pass a URI like `../ViewC` and the Navigation Service will pop ViewB from the NavigationPage and push ViewC onto the NavigationStack.
 
 ### GoBackAsync
 
