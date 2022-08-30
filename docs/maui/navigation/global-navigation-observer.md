@@ -8,7 +8,8 @@ As mentioned out of the Box Prism will use the IEventAggregator to publish notif
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<App>(prism => {
+builder.UseMauiApp<App>()
+builder.UsePrism(prism => {
     prism.OnInitialized(container => {
         var eventAggregator = container.Resolve<IEventAggregator>();
         eventAggregator.GetEvent<NavigationRequestEvent>().Subscribe(context => {
@@ -24,7 +25,8 @@ Reactive Programming has become a popular topic among .NET developers over the p
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<App>(prism => {
+builder.UseMauiApp<App>()
+builder.UsePrism(prism => {
     prism.AddGlobalNavigationObserver(observable => observable.Subscribe(context => {
         if(!context.Success)
         {
