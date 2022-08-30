@@ -1,6 +1,6 @@
 # App Builder
 
-.NET MAUI adopts a pattern that we see commonly throughout modern .NET Applications with a Builder Pattern. Prism.Maui adopts this as part of the natural pattern for MAUI Developers by first exposing an extension method on the `MauiAppBuilder`. To get started we simply need to replace the `UseMauiApp` call on the `MauiAppBuilder` with `UsePrismApp`.
+.NET MAUI adopts a pattern that we see commonly throughout modern .NET Applications with a Builder Pattern. Prism.Maui adopts this as part of the natural pattern for MAUI Developers by first exposing an extension method on the `MauiAppBuilder`. To get started we simply need to include `UsePrism` after the `UseMauiApp` call on the `MauiAppBuilder`.
 
 ```cs
 var builder = MauiApp.CreateBuilder();
@@ -8,8 +8,9 @@ var builder = MauiApp.CreateBuilder();
 // Default MAUI Applications
 builder.UseMauiApp<App>();
 
-// Replace UseMauiApp with UsePrismApp
-builder.UsePrismApp<App>(prism =>
+// Include UsePrism after UseMauiApp
+builder.UseMauiApp<App>()
+builder.UsePrism(prism =>
 {
     // configure prism
 });
@@ -17,7 +18,7 @@ builder.UsePrismApp<App>(prism =>
 
 ## Configuring Prism
 
-The `UsePrismApp` method expects a delegate that will configure the startup for Prism applications. This includes registering services, adding modules, and various other common tasks. While we have tried to keep this as simple as possible, we have also tried to provide a number of overloads to make it easier to get started for developers who may have different requirements as you will see as we go into depth into the `PrismAppBuilder`.
+The `UsePrism` method expects a delegate that will configure the startup for Prism applications. This includes registering services, adding modules, and various other common tasks. While we have tried to keep this as simple as possible, we have also tried to provide a number of overloads to make it easier to get started for developers who may have different requirements as you will see as we go into depth into the `PrismAppBuilder`.
 
 > [!NOTE]
 > In the Prism Templates we use a static `PrismStartup` class. The class is no way required. This is provided out of the box for convenience as many medium to large apps may have hundreds of lines of code simply to register base services. We find that smaller/focused files are easier for many developers to maintain. By moving the configuration of Prism to another file we can more easily focus on thew lines that build the pipeline for the MauiApplicationBuilder.
@@ -28,7 +29,8 @@ If you are coming to Prism.Maui from Prism.Forms, Prism.Wpf, or Prism.Uno you ma
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<App>(prism =>
+builder.UseMauiApp<App>()
+builder.UsePrism(prism =>
 {
     prism.RegisterTypes(container => {
         // Register platform agnostic types
@@ -73,7 +75,8 @@ With this we can now simply update our our code like:
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<App>(prism =>
+builder.UseMauiApp<App>()
+builder.UsePrism(prism =>
 {
     prism.RegisterTypes(PlatformRegistrations.RegisterPlatformTypes)
         .RegisterTypes(container => {
@@ -91,7 +94,8 @@ While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Se
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<PrismApp>(prism => {
+builder.UseMauiApp<App>()
+builder.UsePrism(prism => {
     prism.ConfigureServices(services => {
         // Register services with the IServiceCollection
         services.AddSingleton<IFoo, Foo>();
@@ -105,7 +109,8 @@ Similar to the `ConfigureServices` overload which is provided as a convenience m
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<App>(prism => {
+builder.UseMauiApp<App>()
+builder.UsePrism(prism => {
     prism.ConfigureLogging(builder => {
         builder.AddConsole();
     });
@@ -118,7 +123,8 @@ While .NET MAUI does actually provide an interface that you can register to hand
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<App>(prism =>
+builder.UseMauiApp<App>()
+builder.UsePrism(prism =>
 {
     prism.OnInitialized(container =>
     {
@@ -136,7 +142,8 @@ For those coming from other platforms you may be used to adding your Modules to 
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UsePrismApp<App>(prism =>{
+builder.UseMauiApp<App>()
+builder.UsePrism(prism => {
     prism.ConfigureModuleCatalog(moduleCatalog => {
         moduleCatalog.AddModule<ModuleA>();
         moduleCatalog.AddModule<ModuleB>();
@@ -150,27 +157,28 @@ This is an entirely new concept unique to Prism.Maui. The OnAppStart method is o
 
 ```cs
 var builder = MauiApp.CreateBuilder();
+builder.UseMauiApp<App>()
 
 // Bare Bones
-builder.UsePrismApp<App>(prism => {
+builder.UsePrism(prism => {
     // Register Types excluded for brevity
     prism.OnAppStart("/MainPage");
 });
 
 // Bare Bones with Exception Handler
-builder.UsePrismApp<App>(prism => {
+builder.UsePrism(prism => {
     // Register Types excluded for brevity
     prism.OnAppStart("/MainPage", exception => Console.WriteLine(exception));
 });
 
 // Use the NavigationService
-builder.UsePrismApp<App>(prism => {
+builder.UsePrism(prism => {
     // Register Types excluded for brevity
     prism.OnAppStart(navigation => navigation.NavigateAsync("/MainPage"));
 });
 
 // Use the NavigationService & Container
-builder.UsePrismApp<App>(prism => {
+builder.UsePrism(prism => {
     // Register Types excluded for brevity
     prism.OnAppStart(async (container, navigation) => {
         var result =  await navigation.NavigateAsync("/MainPage");
