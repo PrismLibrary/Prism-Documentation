@@ -61,7 +61,7 @@ If you do not add both the Registration will not exist for the ViewModel to be a
 
 ```cs
 NavigationService.CreateBuilder()
-    .AddSegement<ViewAViewModel>()
+    .AddSegment<ViewAViewModel>()
 ```
 
 ### Navigation Pages
