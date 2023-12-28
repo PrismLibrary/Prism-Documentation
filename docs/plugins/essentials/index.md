@@ -10,32 +10,17 @@ The API is generally inspired by a combination of Xamarin/.NET MAUI Essentials a
 
 # [.NET MAUI](#tab/maui)
 
-Some content here
+Be sure to install `Prism.Plugin.Essentials.Maui`
 
 # [WPF](#tab/wpf)
 
-Some content here
+Be sure to install `Prism.Plugin.Essentials.Wpf`
 
 # [Uno Platform](#tab/uno-platform)
 
-Some content here
+Be sure to install `Prism.Plugin.Essentials.Uno.WinUI`
 
 ---
 
-## Some Other Content
-
-Some Other content here
-
-# [.NET MAUI](#tab/maui)
-
-Some content here
-
-# [WPF](#tab/wpf)
-
-Some content here
-
-# [Uno Platform](#tab/uno-platform)
-
-Some content here
-
----
+> [!NOTE]
+> Prism.Plugins including Prism.Plugin.Essentials is only available for those with an active Commercial Plus license, and is available on the private Prism NuGet server.
