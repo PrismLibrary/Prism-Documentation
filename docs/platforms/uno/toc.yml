@@ -1,2 +1,4 @@
 - name: Getting Started
   href: index.md
+- name: Uno.Extensions
+  href: extensions.md
