@@ -45,7 +45,7 @@
     "cleanupCacheHistory": false,
     "globalMetadata": {
       "_appTitle": "Prism",
-      "_appFooter": "Copyright 2015-2022 Prism",
+      "_appFooter": "Copyright 2015-2024 Prism Software, LLC",
       "_appLogoPath": "images/prism-logo.png",
       "_gitContribute": {
         "repo": "https://github.com/PrismLibrary/Prism-Documentation",

@@ -1,3 +1,7 @@
+---
+uid: DependencyInjection.GettingStarted
+---
+
 # Dependency Injection with Prism
 
 Prism has always been built around Dependency Injection. This helps you to architect apps that are maintainable and testable and help you reduce or eliminate your dependence on Static and circular references. Prior to Prism 7, dependency injection with Prism was focused around various containers that were implemented for use with Prism. This led to a number of issues including that while docs may have been written showing you how to do something with one container they did not necessarily reflect the appropriate API to use for the container that you were using for your application.
@@ -11,8 +15,8 @@ As a result you can easily implement support for a container that is not otherwi
 
 ## Next Steps
 
-- Learn how to [Register Services](registering-types.md) and [Register Pages for Navigation](../xamarin-forms/navigation/navigation-basics.md) ***(Xamarin Specific)***
-- Learn how to [Register Platform Specific Services](platform-specific-services.md) ***(Xamarin Specific)***
-- Learn how to [Add a Custom Container](add-custom-container.md)
-- Learn more about the Prism Container Extensions and working with Shiny in the [Appendix](appendix.md)
+- Learn how to [Register Services](xref:DependencyInjection.RegisterServices) and [Register Pages for Navigation](../xamarin-forms/navigation/navigation-basics.md) ***(Xamarin Specific)***
+- Learn how to [Register Platform Specific Services](xref:DependencyInjection.IPlatformInitializer) ***(Xamarin Specific)***
+- Learn how to [Add a Custom Container](xref:DependencyInjection.AddCustomContainer)
+- Learn more about the Prism Container Extensions and working with Shiny in the [Appendix](xref:DependencyInjection.Appendix)
 - [IServiceCollection Support with Prism.Maui](../maui/dependencyinjection.md)

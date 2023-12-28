@@ -1,4 +1,9 @@
+---
+uid: Commands.CompositeCommands
+---
+
 # Composite Commands
+
 In many cases, a command defined by a view model will be bound to controls in the associated view so that the user can directly invoke the command from within the view. However, in some cases, you may want to be able to invoke commands on one or more view models from a control in a parent view in the application's UI.
 
 For example, if your application allows the user to edit multiple items at the same time, you may want to allow the user to save all the items using a single command represented by a button in the application's toolbar or ribbon. In this case, the Save All command will invoke each of the Save commands implemented by the view model instance for each item as shown in the following illustration.
@@ -17,23 +22,28 @@ The `CompositeCommand` class maintains a list of child commands (`DelegateComman
 > [!Video https://www.youtube.com/embed/kssprOqdfME]
 
 ## Creating a Composite Command
-To create a composite command, instantiate a `CompositeCommand` instance and then expose it as either an `ICommand` or `ComponsiteCommand` property.
+
+To create a composite command, instantiate a `CompositeCommand` instance and then expose it as either an `ICommand` or `CompositeCommand` property.
+
 ```cs
     public class ApplicationCommands
     {
         private CompositeCommand _saveCommand = new CompositeCommand();
         public CompositeCommand SaveCommand
         {
-            get { return _saveCommand; }
+            get => _saveCommand;
         }
     }
 ```
 
 ## Making a CompositeCommand Globally Available
+
 Typically, CompositeCommands are shared throughout an application and need to be made available globally. It's important that when you register a child command with a `CompositeCommand` that you are using the same instance of the CompositeCommand throughout the application. This requires the CompositeCommand to be defined as a singleton in your application.  This can be done by either using dependency injection (DI), or by defining your CompositeCommand as a static class.
 
 ### Using Dependency Injection
+
 The first step in defining your CompositeCommands is to create an interface.
+
 ```cs
     public interface IApplicationCommands
     {
@@ -42,16 +52,18 @@ The first step in defining your CompositeCommands is to create an interface.
 ```
 
 Next, create a class that implements the interface.
+
 ```cs
     public class ApplicationCommands : IApplicationCommands
     {
         private CompositeCommand _saveCommand = new CompositeCommand();
         public CompositeCommand SaveCommand
         {
-            get { return _saveCommand; }
+            get =>_saveCommand;
         }
     }
 ```
+
 Once you have defined your ApplicationCommands class, you must register it as a singleton with the container.
 
 ```cs
@@ -65,6 +77,7 @@ Once you have defined your ApplicationCommands class, you must register it as a 
 ```
 
 Next, ask for the `IApplicationCommands` interface in the ViewModel constructor.  Once you have an instance of the `ApplicationCommands` class, can now register your DelegateCommands with the appropriate CompositeCommand.
+
 ```cs
     public DelegateCommand UpdateCommand { get; private set; }
 
@@ -76,7 +89,9 @@ Next, ask for the `IApplicationCommands` interface in the ViewModel constructor.
 ```
 
 ### Using a Static Class
+
 Create a static class that will represent your CompositeCommands
+
 ```cs
 public static class ApplicationCommands
 {
@@ -85,6 +100,7 @@ public static class ApplicationCommands
 ```
 
 In your ViewModel, associate child commands to the static `ApplicationCommands` class.
+
 ```cs
     public DelegateCommand UpdateCommand { get; private set; }
 
@@ -99,18 +115,21 @@ In your ViewModel, associate child commands to the static `ApplicationCommands` 
 > To increase the maintainability and testability of your code, it is recommended that you using the dependency injection approach.
 
 ## Binding to a Globally Available Command
+
 Once you have created your CompositeCommands, you must now bind them to UI elements in order to invoke the commands.
 
 ### Using Depency Injection
+
 When using DI, you must expose the `IApplicationCommands` for binding to a View.  In the ViewModel of the view, ask for the `IApplicationCommands` in the constructor and set a property of type `IApplicationCommands` to the instance.
+
 ```cs
     public class MainWindowViewModel : BindableBase
     {
         private IApplicationCommands _applicationCommands;
         public IApplicationCommands ApplicationCommands
         {
-            get { return _applicationCommands; }
-            set { SetProperty(ref _applicationCommands, value); }
+            get => _applicationCommands;
+            set => SetProperty(ref _applicationCommands, value);
         }
 
         public MainWindowViewModel(IApplicationCommands applicationCommands)
@@ -160,7 +179,7 @@ The `DelegateCommand` class also implements the `IActiveAware` interface. The `C
         private CompositeCommand _saveCommand = new CompositeCommand(true);
         public CompositeCommand SaveCommand
         {
-            get { return _saveCommand; }
+            get => _saveCommand;
         }
     }
 ```
@@ -179,11 +198,7 @@ By implementing the `IActiveAware` interface on your ViewModels, you will be not
         public bool IsActive
         {
             get { return _isActive; }
-            set
-            {
-                _isActive = value;
-                OnIsActiveChanged();
-            }
+            set => SetProperty(ref _isActive, OnIsActiveChanged);
         }
 
         public event EventHandler IsActiveChanged;

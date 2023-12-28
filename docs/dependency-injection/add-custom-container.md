@@ -1,3 +1,7 @@
+---
+uid: DependencyInjection.AddCustomContainer
+---
+
 # Custom Containers
 
 For a variety of reasons the Prism team cannot support every container that developers may want to use. Prism makes it very easy to use a container that isn't officially supported or shipped by the Prism Library.

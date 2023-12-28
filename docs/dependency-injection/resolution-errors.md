@@ -1,4 +1,8 @@
-## Handling Resolution Errors
+---
+uid: DependencyInjection.HandlingResolutionErrors
+---
+
+# Handling Resolution Errors
 
 > [!NOTE]
 > This feature was introduced in Prism 8 and does not apply if your app is targeting an earlier version

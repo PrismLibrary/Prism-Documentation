@@ -1,33 +1,24 @@
 ﻿# Introduction to Prism
 
-Prism is a framework for building loosely coupled, maintainable, and testable XAML applications in WPF, and Xamarin Forms. Separate releases are available for each platform and those will be developed on independent timelines. Prism provides an implementation of a collection of design patterns that are helpful in writing well-structured and maintainable XAML applications, including MVVM, dependency injection, commands, EventAggregator, and others. Prism's core functionality is a shared code base in a Cross Compiled .NET Standard and .NET 4.5/4.8 Library. Those things that need to be platform specific are implemented in the respective libraries for the target platform. Prism also provides great integration of these patterns with the target platform. For example, Prism for Xamarin Forms allows you to use an abstraction for navigation that is unit testable, but that layers on top of the platform concepts and APIs for navigation so that you can fully leverage what the platform itself has to offer, but done in the MVVM way.
+Prism is a framework for building loosely coupled, maintainable, and testable XAML applications in WPF, .NET MAUI, Uno Platform and Xamarin Forms. Separate releases are available for each platform and those will be developed on independent timelines. Prism provides an implementation of a collection of design patterns that are helpful in writing well-structured and maintainable XAML applications, including MVVM, dependency injection, commands, EventAggregator, and others. Prism's core functionality is a shared code base in a Cross Compiled .NET Standard and .NET 4.5/4.8 Library. Those things that need to be platform specific are implemented in the respective libraries for the target platform. Prism also provides great integration of these patterns with the target platform. For example, Prism for Xamarin Forms allows you to use an abstraction for navigation that is unit testable, but that layers on top of the platform concepts and APIs for navigation so that you can fully leverage what the platform itself has to offer, but done in the MVVM way.
 
-Prism 8 is a fully open source version of the Prism guidance originally produced by Microsoft patterns & practices. The core team members were all part of the P&P team that developed Prism 1 through 5, and the effort has now been turned over to the open source community to keep it alive and thriving to support the .NET community. There are thousands of companies who have adopted previous versions of Prism for WPF, Silverlight, and Windows Runtime, and we hope they will continue to move along with us as we continue to evolve and enhance the framework to keep pace with current platform capabilities and requirements.
+Prism 9 represents a major leap forward for app developers with a lot of focus having been spent on unifying the API across all platforms. This will unlock many possibilities for developers to move code forward from legacy applications or transition from one app development platform to another maximizing code reuse and eliminating development costs.
 
-At the current time, Prism supports WPF, Xamarin Forms and UNO. We have no plans to create new versions of the library for Silverlight, Windows 8/8.1/WP8.1 or for UWP. For those you can still use the previous releases from Microsoft p&p [here](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/gg430869(v=pandp.40)) and [here](http://prismwindowsruntime.codeplex.com/) or previous releases of this library in the [GitHub Repo](https://github.com/PrismLibrary/Prism/tree/Prism.v6.3.0).
+## Licensing
 
-## Help Support Prism
+Note that the Prism License has changed for Prism 9. In order to help ensure that Prism continues to be a sustainable project Prism 9 and future versions of Prism will ship under a dual Community / Commercial License.
 
-As most of you know, it takes a lot of time and effort for our small team to manage and maintain Prism in our spare time. Even though Prism is open source and hosted on GitHub, there are a number of costs associated with maintaining a project such as Prism.  Please be sure to Star the Prism repo and help sponsor Dan and Brian on GitHub.
+```
+Prism can be licensed either under the Prism Community License or the Prism Commercial license.
 
-Don't forget both Brian and Dan stream live on Twitch and host recorded content on their YouTube Channels. Be sure to Subscribe and Ring that Bell for notifications when they go live or post new content.
+To be qualified for the Prism Community License you must have an annual gross revenue of less than one (1) million U.S. dollars ($1,000,000.00 USD) per year or have never received more than $3 million USD in capital from an outside source, such as private equity or venture capital, and agree to be bound by Prism's terms and conditions.
 
-| | Sponsor | Twitter | Twitch | YouTube |
-|:-:|:--:|:--:|:--:|:--:|
-| Brian Lagunas | [![GitHub][OctoSponsor]][BrianSponsor] | [![Twitter][TwitterLogo]][BrianTwitter]<br /><span style="font-size:9px">Follow</span> | [![Twitch][TwitchLogo]][BrianTwitch]<br /><span style="font-size:9px">Follow & Subscribe</span> | [![YouTube][YouTubeLogo]][BrianYouTube]<br /><span style="font-size:9px">Subcribe & Ring the Bell</span>
-| Dan Siegel | [![GitHub][OctoSponsor]][DanSponsor] | [![Twitter][TwitterLogo]][DanTwitter]<br /><span style="font-size:9px">Follow</span> | [![Twitch][TwitchLogo]][DanTwitch]<br /><span style="font-size:9px">Follow & Subscribe</span> | [![YouTube][YouTubeLogo]][DanYouTube]<br /><span style="font-size:9px">Subscribe & Ring the Bell</span>
+Customers who do not qualify for the community license can visit the Prism Library website (https://prismlibrary.com/) for commercial licensing options.
 
-[BrianTwitter]: https://twitter.com/brianlagunas
-[BrianYouTube]: https://youtube.com/brianlagunas
-[BrianTwitch]: https://twitch.tv/brianlagunas
-[BrianSponsor]: https://xam.dev/sponsor-prism-brian
+Under no circumstances can you use this product without (1) either a Community License or a Commercial License and (2) without agreeing and abiding by Prism's license containing all terms and conditions. 
 
-[DanTwitter]: https://twitter.com/DanJSiegel
-[DanYouTube]: https://youtube.com/dansiegel
-[DanTwitch]: https://twitch.tv/dansiegel
-[DanSponsor]: https://xam.dev/sponsor-prism-dan
+The Prism license that contains the terms and conditions can be found at
+https://prismlibrary.com/downloads/prism_license.pdf
+```
 
-[TwitterLogo]: https://dansiegelgithubsponsors.blob.core.windows.net/images/twitter.png
-[TwitchLogo]: https://dansiegelgithubsponsors.blob.core.windows.net/images/twitch.png
-[YouTubeLogo]: https://dansiegelgithubsponsors.blob.core.windows.net/images/youtube.png
-[OctoSponsor]: https://dansiegelgithubsponsors.blob.core.windows.net/images/octosponsor.png
+[Download the full Prism License](https://prismlibrary.com/downloads/prism_license.pdf)

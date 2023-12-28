@@ -1,0 +1,5 @@
+---
+uid: Dialogs.IDialogAware
+---
+
+# IDialogAware
