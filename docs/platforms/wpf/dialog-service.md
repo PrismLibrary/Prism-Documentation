@@ -101,7 +101,7 @@ public class NotificationDialogViewModel : BindableBase, IDialogAware
 
 ## Register the Dialog
 
-To register a dialog, you must have a View (UserControl) and a corresponding ViewModel (which must implement `IDialogAware`).  In the `RegisterTypes` method, simply register your dialog like you would any other service by using the `IContainterRegistery.RegisterDialog` method.
+To register a dialog, you must have a View (UserControl) and a corresponding ViewModel (which must implement `IDialogAware`).  In the `RegisterTypes` method, simply register your dialog like you would any other service by using the `IContainerRegistry.RegisterDialog` method.
 
 ```cs
  protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -111,6 +111,7 @@ To register a dialog, you must have a View (UserControl) and a corresponding Vie
 ```
 
 Optionally, you can provide a custom name for your dialog.
+
 ```cs
  protected override void RegisterTypes(IContainerRegistry containerRegistry)
  {
@@ -179,6 +180,7 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
     containerRegistry.RegisterDialogWindow<NotificationWindow>("notifyWindow");
 }
 ```
+
 > [!NOTE]
 > In order to use a dialog window by name, you must provide the dialog window name in the `IDialogService.Show` or `IDialogService.ShowDialog` method as follows:
 ```cs

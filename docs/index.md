@@ -8,7 +8,7 @@ Prism 9 represents a major leap forward for app developers with a lot of focus h
 
 Note that the Prism License has changed for Prism 9. In order to help ensure that Prism continues to be a sustainable project Prism 9 and future versions of Prism will ship under a dual Community / Commercial License.
 
-```
+```text
 Prism can be licensed either under the Prism Community License or the Prism Commercial license.
 
 To be qualified for the Prism Community License you must have an annual gross revenue of less than one (1) million U.S. dollars ($1,000,000.00 USD) per year or have never received more than $3 million USD in capital from an outside source, such as private equity or venture capital, and agree to be bound by Prism's terms and conditions.

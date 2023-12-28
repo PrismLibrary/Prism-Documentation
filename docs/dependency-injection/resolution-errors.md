@@ -66,7 +66,7 @@ protected virtual void LoadModuleCompleted(IModuleInfo moduleInfo, Exception err
 
 When we run this we should see something like the following output:
 
-```
+```text
 Error with: MyProject.Services.IServiceIForgotToRegister
 ContainerResolutionException: No Registration was found in the container for the specified type
 ```

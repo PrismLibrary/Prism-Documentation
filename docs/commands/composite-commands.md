@@ -118,7 +118,7 @@ In your ViewModel, associate child commands to the static `ApplicationCommands` 
 
 Once you have created your CompositeCommands, you must now bind them to UI elements in order to invoke the commands.
 
-### Using Depency Injection
+### Using Dependency Injection
 
 When using DI, you must expose the `IApplicationCommands` for binding to a View.  In the ViewModel of the view, ask for the `IApplicationCommands` in the constructor and set a property of type `IApplicationCommands` to the instance.
 
@@ -140,18 +140,24 @@ When using DI, you must expose the `IApplicationCommands` for binding to a View.
 ```
 
 In the view, bind the button to the `ApplicationCommands.SaveCommand` property. The `SaveCommand` is a property that is defined on the `ApplicationCommands` class.
+
 ```xml
 <Button Content="Save" Command="{Binding ApplicationCommands.SaveCommand}"/>
 ```
 
+<!--TODO: Remove duplicate sections -->
 ### Using a Static Class
+
 If you are using the static class approach, the following code example shows how to bind a button to the static ApplicationCommands class in WPF.
+
 ```xml
 <Button Content="Save" Command="{x:Static local:ApplicationCommands.SaveCommand}" />
 ```
 
 ## Unregister a Command
+
 As seen in the previous examples, child commands are registered using the `CompositeCommand.RegisterCommand` method. However, when you no longer wish to respond to a CompositeCommand or if you are destroying the View/ViewModel for garbage collection, you should unregister the child commands with the `CompositeCommand.UnregisterCommand` method.
+
 ```cs
     public void Destroy()
     {
@@ -163,6 +169,7 @@ As seen in the previous examples, child commands are registered using the `Compo
 > You MUST unregister your commands from a `CompositeCommand` when the View/ViewModel is no longer needed (ready for GC). Otherwise you will have introduced a memory leak.
 
 ## Executing Commands on Active Views
+
 Composite commands at the parent view level will often be used to coordinate how commands at the child view level are invoked. In some cases, you will want the commands for all shown views to be executed, as in the Save All command example described earlier. In other cases, you will want the command to be executed only on the active view. In this case, the composite command will execute the child commands only on views that are deemed to be active; it will not execute the child commands on views that are not active. For example, you may want to implement a Zoom command on the application's toolbar that causes only the currently active item to be zoomed, as shown in the following diagram.
 
 ![Executing a CompositeCommand on a single child](../images/composite-commands-2.png)

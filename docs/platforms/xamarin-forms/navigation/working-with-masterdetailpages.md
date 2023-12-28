@@ -101,7 +101,7 @@ public class App : PrismApplication
 
 ### Navigating from the Master page
 
-Earlier we looked at how we could add a simple master right in the XAML of our MasterDetailPage. We bound our button to a Command in our ViewModel named NavigateCommand. Our button simply passed back that we wanted to Navigate to ViewA, however as you remember we want the Navigation bar with the page title, so we need the actual Detail to be the NavigationPage with it's root page being ViewA. We can do this easily by prefing the `NavigationPage/` before the path we are passed in our Command handler as shown here.
+Earlier we looked at how we could add a simple master right in the XAML of our MasterDetailPage. We bound our button to a Command in our ViewModel named NavigateCommand. Our button simply passed back that we wanted to Navigate to ViewA, however as you remember we want the Navigation bar with the page title, so we need the actual Detail to be the NavigationPage with it's root page being ViewA. We can do this easily by prefixing the `NavigationPage/` before the path we are passed in our Command handler as shown here.
 
 ```csharp
 public class MainPageViewModel : BindableBase

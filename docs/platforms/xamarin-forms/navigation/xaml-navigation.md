@@ -34,7 +34,8 @@ Navigating back OR back to the root page will be done via the GoBack extension
 
 You can also define NavigationParameters to your Xaml in one of three ways.
 
-#### 1: Directly as a CommandParameter Binding.
+### 1: Directly as a CommandParameter Binding.
+
 *Note: in order to access it, you need to lookup `xamlParam` from your NavigationParameters property. This is also statically defined in `KnownNavigationParameters.XamlParam`*
 
 ```xml
@@ -52,7 +53,7 @@ public override void OnNavigatingTo(INavigationParameters parameters)
 }
 ```
 
-#### 2: As a single navigation parameter
+### 2: As a single navigation parameter
 
 ```xml
 <Button Command="{prism:NavigateTo 'path/to/navigate'}">
@@ -62,7 +63,7 @@ public override void OnNavigatingTo(INavigationParameters parameters)
 </Button>
 ```
 
-#### 3: As a collection of navigation parameters
+### 3: As a collection of navigation parameters
 
 ```xml
 <Button Command="{prism:NavigateTo 'path/to/navigate'}">
@@ -79,7 +80,7 @@ public override void OnNavigatingTo(INavigationParameters parameters)
 
 ## Controlling `CanNavigate`
 
-You can control whether or not the user `CanNavigate` via an [attached property](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/xaml/attached-properties). This attached property can be set on any parent object, and Prism will walk the tree until it finds the value. If Prism cannot find a `CanNavigate` property, it simply assumes `true` with a single caviat. In order to prevent double-tap issues, Prism's Xaml Navigation tracks if the user has already initiated navigation, if they have, then it prevents them from initiating it again.
+You can control whether or not the user `CanNavigate` via an [attached property](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/xaml/attached-properties). This attached property can be set on any parent object, and Prism will walk the tree until it finds the value. If Prism cannot find a `CanNavigate` property, it simply assumes `true` with a single caveat. In order to prevent double-tap issues, Prism's Xaml Navigation tracks if the user has already initiated navigation, if they have, then it prevents them from initiating it again.
 
 ```xml
 <Page>

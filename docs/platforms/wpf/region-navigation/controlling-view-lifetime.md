@@ -19,6 +19,7 @@ The **IRegionMemberLifetime** interface defines a single read-only property, **K
 ## RegionMemberLifetimeAttribute
 
 You can accomplish the same thing using an attribute instead.
+
 ```cs
 [RegionMemberLifetime(KeepAlive = true)]
 public class EmployeeDetailViewModel : BindableBase

@@ -108,7 +108,7 @@ protected override void ConfigureViewModelLocator()
 {
     base.ConfigureViewModelLocator();
 
-    ViewModelLocationProvider.SetDefaultViewModelFactory(viewModelType) =>
+    ViewModelLocationProvider.SetDefaultViewModelFactory((viewModelType) =>
     {
         return MyAwesomeNewContainer.Resolve(viewModelType);
     });

@@ -21,7 +21,7 @@ builder.UsePrism(prism => {
         });
     });
 });
-````
+```
 
 ## GlobalNavigationObserver
 

@@ -169,6 +169,7 @@ To help out with this part of the Getting Started Guide, the service that was sh
 ```
 
 Inside the ```App.xaml.cs``` file, ensure that ```RegisterTypes``` has the following line:
+
 ```cs
     containerRegistry.Register<Services.ICustomerStore, Services.DbCustomerStore>();
 ```

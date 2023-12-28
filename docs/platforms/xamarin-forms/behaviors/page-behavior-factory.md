@@ -36,7 +36,7 @@ Now that we have a custom implementation all we need to do is Register it in our
 ```cs
 protected override void RegisterTypes(IContainerRegistry containerRegistry)
 {
-    constinerRegistry.RegisterSingleton<IPageBehaviorFactory, CustomPageBehaviorFactory>();
+    containerRegistry.RegisterSingleton<IPageBehaviorFactory, CustomPageBehaviorFactory>();
 }
 ```
 

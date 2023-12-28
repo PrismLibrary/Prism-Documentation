@@ -19,7 +19,6 @@ Events created with the Prism Library are typed events. This means you can take 
 The `EventAggregator` class is offered as a service in the container and can be retrieved through the `IEventAggregator` interface. The event aggregator is responsible for locating or building events and for keeping a collection of the events in the system.
 
 ```cs
-
 public interface IEventAggregator
 {
     TEventType GetEvent<TEventType>() where TEventType : EventBase;

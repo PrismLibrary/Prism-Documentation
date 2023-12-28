@@ -89,7 +89,7 @@ public class ContactPageViewModel : INavigationAware
 
 Prism.Forms has two options for handling ViewModel initialization. This is the processing of NavigationParameters **BEFORE** the View is navigated to. It is important to remember that Initialization only occurs once when the View is being navigated to for the first time.
 
-For most use cases you will want to use `IInitailize` to ready your ViewModel as it is navigated to.
+For most use cases you will want to use `IInitialize` to ready your ViewModel as it is navigated to.
 
 ```cs
 public interface IInitialize
@@ -140,6 +140,7 @@ public void OnNavigatedFrom(INavigationParameters parameters)
   var navigationMode = parameters.GetNavigationMode();
 }
 ```
+
 Prism for Xamarin.Forms only support two `NavigationMode` options:
 
 ```cs
