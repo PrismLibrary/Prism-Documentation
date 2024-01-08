@@ -155,9 +155,15 @@ builder.UsePrism(prism => {
 });
 ```
 
-### OnAppStart
+### CreateWindow
 
-This is an entirely new concept unique to Prism.Maui. The OnAppStart method is one of the most important methods on the `PrismAppBuilder` as it is used as your starting point to set the initial Navigation Event for Prism. We provide a number of overloads here to make it easier for you whether you want to operate within an Async or Synchronous context. We also provide overloads that let you access the container to resolve services you may need such as the `ILogger` to Log a Navigation Exception that was encountered. Additionally if you want to keep things as simple as possible we even have an overload to let you only pass in a Navigation URI.
+> [!NOTE] If upgrading from previews of Prism.Maui CreateWindow has replaced the formerly available OnAppStart
+
+In .NET MAUI, the Application has been re-architected. While the `Application.MainPage` still technically exists for legacy compatibility purposes it is not used. .NET MAUI instead uses an API that focuses around the use of Windows. While the exact implementation of what a Window is may vary based on Desktop vs Mobile, the concept nonetheless is central to the design and application startup process.
+
+Prism registers a service with .NET MAUI that allows Prism to provide a callback and return the initial application window that will be created for the Application in the `Application.CreateWindow` method. While the Window is abstracted away from Prism's Uri based navigation, this extension of the `PrismAppBuilder` has been mapped to match the name of the corresponding .NET MAUI API that ultimately invokes it to better show where your code will be executed.
+
+The CreateWindow method is one of the most important methods on the `PrismAppBuilder` as it is used as your starting point to set the initial Navigation Event for Prism. We provide a number of overloads here to make it easier for you whether you want to operate within an Async or Synchronous context. We also provide overloads that let you access the container to resolve services you may need such as the `ILogger` to Log a Navigation Exception that was encountered. Additionally if you want to keep things as simple as possible we even have an overload to let you only pass in a Navigation URI.
 
 ```cs
 var builder = MauiApp.CreateBuilder();
@@ -166,25 +172,33 @@ builder.UseMauiApp<App>()
 // Bare Bones
 builder.UsePrism(prism => {
     // Register Types excluded for brevity
-    prism.OnAppStart("/MainPage");
+    prism.CreateWindow("/MainPage");
 });
 
 // Bare Bones with Exception Handler
 builder.UsePrism(prism => {
     // Register Types excluded for brevity
-    prism.OnAppStart("/MainPage", exception => Console.WriteLine(exception));
+    prism.CreateWindow("/MainPage", exception => Console.WriteLine(exception));
 });
 
 // Use the NavigationService
 builder.UsePrism(prism => {
     // Register Types excluded for brevity
-    prism.OnAppStart(navigation => navigation.NavigateAsync("/MainPage"));
+    prism.CreateWindow(navigation => navigation.NavigateAsync("/MainPage"));
+});
+
+// Use the NavigationBuilder
+builder.UsePrism(prism => {
+    // Register Types excluded for brevity
+    prism.CreateWindow(navigation => navigation.CreateBuilder()
+        .UseAbsoluteNavigation()
+        .AddSegment("MainPage"))
 });
 
 // Use the NavigationService & Container
 builder.UsePrism(prism => {
     // Register Types excluded for brevity
-    prism.OnAppStart(async (container, navigation) => {
+    prism.CreateWindow(async (container, navigation) => {
         var result =  await navigation.NavigateAsync("/MainPage");
         if(!result.Success)
         {
