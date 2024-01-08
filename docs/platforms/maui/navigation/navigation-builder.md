@@ -70,7 +70,7 @@ NavigationService.CreateBuilder()
 
 ### Navigation Pages
 
-As you may have previously read, Prism will automatically register the [PrismNavigationPage](prismnavigationpage.md) for Navigation. Regardless of whether this is the registered NavigationPage or you have provided your own NavigationPage type, as long as there is a SINGLE registration for a NavigationPage, you can use the helper extension which will check the View Registrations for the proper Navigation Name of the registered NavigationPage.
+As you may have previously read, Prism will automatically register the [PrismNavigationPage](xref:Platforms.Maui.Navigation.PrismNavigationPage) for Navigation. Regardless of whether this is the registered NavigationPage or you have provided your own NavigationPage type, as long as there is a SINGLE registration for a NavigationPage, you can use the helper extension which will check the View Registrations for the proper Navigation Name of the registered NavigationPage.
 
 ```cs
 NavigationService.CreateBuilder()
@@ -155,7 +155,7 @@ NavigationService.CreateBuilder()
     .Navigate();
 ```
 
-For those who may be dropping this into existing code you can of course simply call the classic `NavigateAsync` and get the [INavigationResult](./navigation-result.md) back.
+For those who may be dropping this into existing code you can of course simply call the classic `NavigateAsync` and get the [INavigationResult](xref:Platforms.Maui.Navigation.NavigationResult) back.
 
 ```cs
 var result = await NavigationService.CreateBuilder()

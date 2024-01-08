@@ -4,8 +4,6 @@
   href: migrating.md
 - name: PrismAppBuilder
   href: appbuilder.md
-- name: Dependency Injection
-  href: dependencyinjection.md
 - name: AppModel
   href: appmodel/toc.yml
 - name: Behaviors

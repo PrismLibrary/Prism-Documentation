@@ -91,7 +91,7 @@ builder.UsePrism(prism =>
 
 ### IServiceCollection Support
 
-While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Services` property, it does not have an easy to use extension for registering services. To help make it even easier on developers using Prism, we have exposed an extension method on the `PrismAppBuilder` to give you the ability to easily register services with either `IContainerRegistry` or `IServiceCollection` on an as needed basis. As discussed in the [Dependency Injection](dependencyinjection.md) topic, we do expose several additional extensions on the `IServiceCollection` to make it even easier on you to ensure you can register what you need to with Prism even when you're using the `IServiceCollection`.
+While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Services` property, it does not have an easy to use extension for registering services. To help make it even easier on developers using Prism, we have exposed an extension method on the `PrismAppBuilder` to give you the ability to easily register services with either `IContainerRegistry` or `IServiceCollection` on an as needed basis. As discussed in the [Dependency Injection - Supplement](xref:DependencyInjection.Supplement) topic, we do expose several additional extensions on the `IServiceCollection` to make it even easier on you to ensure you can register what you need to with Prism even when you're using the `IServiceCollection`.
 
 > [!NOTE]
 > It's important to remember that if you register a service with the `IServiceCollection` it will not be available from the `IContainerRegistry`. As a result if you call the `IsRegistered<T>` method on the `IContainerRegistry` it will return `false`.
@@ -157,7 +157,8 @@ builder.UsePrism(prism => {
 
 ### CreateWindow
 
-> [!NOTE] If upgrading from previews of Prism.Maui CreateWindow has replaced the formerly available OnAppStart
+> [!NOTE]
+> If upgrading from previews of Prism.Maui CreateWindow has replaced the formerly available OnAppStart
 
 In .NET MAUI, the Application has been re-architected. While the `Application.MainPage` still technically exists for legacy compatibility purposes it is not used. .NET MAUI instead uses an API that focuses around the use of Windows. While the exact implementation of what a Window is may vary based on Desktop vs Mobile, the concept nonetheless is central to the design and application startup process.
 

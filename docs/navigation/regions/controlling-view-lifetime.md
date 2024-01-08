@@ -1,3 +1,6 @@
+---
+uid: Navigation.Regions.ControllingViewLifetime
+---
 # Controlling View Lifetime
 
 ## IRegionMemberLifetime

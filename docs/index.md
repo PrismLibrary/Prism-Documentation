@@ -22,3 +22,16 @@ https://prismlibrary.com/downloads/prism_license.pdf
 ```
 
 [Download the full Prism License](https://prismlibrary.com/downloads/prism_license.pdf)
+
+### Commercial Plus License
+
+The Commercial Plus license offers a number of additional packages to help developers. At the time of writing the docs this would include:
+
+- Prism.Plugin.Popups (.NET MAUI)
+- Prism.Plugin.Essentials - A cross between several Shiny and .NET MAUI Essentials APIs abstracted and supported across all Prism Platforms allowing you to make use of these APIs with the same ViewModel regardless of which platform you are developing with.
+- Prism.Magician - A collection of Roslyn Analyzers, Source Generators, and IL Weaving to help you write less code and catch issues in your code quicker
+- Support for additional containers
+  - Microsoft.Extensions.DependencyInjection
+  - Grace Ioc
+
+Additionally Commercial Plus license holders have access to a private Discord group where they can ask questions, help one another and get help directly from the Prism team.

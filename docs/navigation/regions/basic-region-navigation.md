@@ -1,3 +1,6 @@
+---
+uid: Navigation.Regions.BasicRegionNavigation
+---
 # Basic Region Navigation
 
 Both view injection and view discovery can be considered to be limited forms of navigation. View injection is a form of explicit, programmatic navigation and view discovery is a form of implicit or deferred navigation. However, in Prism, regions have been extended to support a more general notion of navigation, based on URIs and an extensible navigation mechanism.
@@ -36,7 +39,7 @@ regionManager.RequestNavigate("MainRegion", "InboxView");
 
 By default, the navigation URI specifies the name of a view that is registered in the container.
 
-During navigation, the specified view is instantiated, via the container, along with its corresponding view model and other dependent services and components. After the view is instantiated, it is then added to the specified region and activated. Refer to [View and View Model Participation](view-viewmodel-participation.md) for more information on this.
+During navigation, the specified view is instantiated, via the container, along with its corresponding view model and other dependent services and components. After the view is instantiated, it is then added to the specified region and activated. Refer to [View and View Model Participation](xref:Navigation.Regions.ViewViewModelParticipation) for more information on this.
 
 >**Note:** The preceding description illustrates view-first navigation, where the URI refers to the name of the view type, as it is registered with the container. With view-first navigation, the dependent view model is created as a dependency of the view. An alternative approach is to use view model–first navigation, where the navigation URI refers to the name of the view model type, as it is registered with the container. View model–first navigation is useful when the view is defined as a data template, or when you want your navigation scheme to be defined independently of the views.
 

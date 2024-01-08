@@ -111,7 +111,7 @@ The MainPageViewModel inherits from `BindableBase` and implements the `INavigati
 
 The `BindableBase` class implements the [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?view=netframework-4.8) interface which allows for the view to be able to databind to properties created here. `BindableBase` also provides a protected `SetProperty` method to simplify creating these properties.
 
-The `INavigationAware` interface allows for the view model to be notified when it is being navigated from or being navigated to. See the [INavigationAware documentation](navigation/passing-parameters.md) for more information.
+The `INavigationAware` interface allows for the view model to be notified when it is being navigated from or being navigated to. See the [INavigationAware documentation](xref:Platforms.XamarinForms.Navigation.PassingParameters) for more information.
 
 ```cs
 private string _title;
@@ -134,7 +134,7 @@ public void OnNavigatedTo(INavigationParameters parameters)
 }
 ```
 
-These methods are called with the view model is navigated from or to. Here it expects a string via the NavigationParameters parameter and modifies the Title property with the string's value. See the [INavigationAware documentation](navigation/passing-parameters.md) for more information.
+These methods are called with the view model is navigated from or to. Here it expects a string via the NavigationParameters parameter and modifies the Title property with the string's value. See the [INavigationAware documentation](xref:Platforms.XamarinForms.Navigation.PassingParameters) for more information.
 
 ## Adding a new Page (View) and ViewModel
 
@@ -240,7 +240,7 @@ public SpeakPageViewModel()
 }
 ```
 
-Creates a [DelegateCommand](https://github.com/PrismLibrary/Prism/blob/master/Source/Prism/Commands/DelegateCommand.cs) called `SpeakCommand` that the Speak button is bound to. The `SpeakCommand` is created in the `SpeakPageViewModel` constructor and will invoke the `Speak` method, which hasn't been written yet. To be able to perform the actual text-to-speech platform specific APIs need to be used. This is outside the scope of this documentation, but head over to the [IPlatformInitializer documentation](../dependency-injection/platform-specific-services.md) to see how this is done.
+Creates a [DelegateCommand](https://github.com/PrismLibrary/Prism/blob/master/src/Prism.Core/Commands/DelegateCommand.cs) called `SpeakCommand` that the Speak button is bound to. The `SpeakCommand` is created in the `SpeakPageViewModel` constructor and will invoke the `Speak` method, which hasn't been written yet. To be able to perform the actual text-to-speech platform specific APIs need to be used. This is outside the scope of this documentation, but head over to the [IPlatformInitializer documentation](xref:DependencyInjection.IPlatformInitializer) to see how this is done.
 
 ## Navigating to your new page
 
@@ -304,4 +304,4 @@ Tells the navigation service to navigate to the SpeakPage.
 
 With navigation all wired up and the "Navigate to speak page" button is pressed in the view the NavigateToSpeakPageCommand will be called on the view model, the command will execute the NavigateToSpeakPage method, and finally the Navigation Service will perform the navigation to the SpeakPage.
 
-For more information on the navigation service see the [navigation service documentation](navigation/navigation-basics.md)
+For more information on the navigation service see the [navigation service documentation](xref:Platforms.XamarinForms.Navigation.Basics)

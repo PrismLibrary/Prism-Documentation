@@ -1,3 +1,0 @@
-# Partial Views
-
-TODO

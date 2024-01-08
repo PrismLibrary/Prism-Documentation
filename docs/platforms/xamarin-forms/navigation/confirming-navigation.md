@@ -1,4 +1,7 @@
-# Confirming Navigaton
+---
+uid: Platforms.XamarinForms.Navigation.Confirming
+---
+# Confirming Navigation
 
 A ViewModel can determine whether or not it can perform a navigation operation. When a ViewModel implements the **IConfirmNavigation** or the **IConfirmNavigationAsync** interface, the navigation process looks to see what the result of this method is.  If _true_, a navigation process can be invoked, meaning a call to `NavigationService.NavigateAsync("target")` can be made.  If _false_, the ViewModel cannot invoke the navigation process.
 

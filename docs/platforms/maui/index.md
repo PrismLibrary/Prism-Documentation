@@ -13,5 +13,5 @@ From a simple perspective, .NET Multi-Platform App UI (MAUI) is the next evoluti
 ## Next Steps
 
 - [Migrating from Prism.Forms](xref:Platforms.Maui.Migrating)
-- [Dependency Injection Supplement - Using IServiceCollection](dependencyinjection.md)
+- [Dependency Injection Supplement - Using IServiceCollection](xref:DependencyInjection.Supplement)
 - [MauiAppBuilder / PrismAppBuilder](xref:Platforms.Maui.AppBuilder)

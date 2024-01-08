@@ -1,3 +1,6 @@
+---
+uid: Navigation.Regions.NavigationExistingViews
+---
 # Navigating to Existing Views
 
 Frequently, it is more appropriate for the views in your application to be re-used, updated, or activated during navigation, instead of replaced by a new view. This is often the case where you are navigating to the same type of view but need to display different information or state to the user, or when the appropriate view is already available in the UI but needs to be activated (that is, selected or made top-most).

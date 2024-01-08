@@ -1,3 +1,6 @@
+---
+uid: Navigation.Regions.NavigationJournal
+---
 # Using the Navigation Journal
 
 The **NavigationContext** class provides access to the region navigation service, which is responsible for coordinating the sequence of operations during navigation within a region. It provides access to the region in which navigation is taking place, and to the navigation journal associated with that region. The region navigation service implements the **IRegionNavigationService**, which is defined as follows.

@@ -1,3 +1,6 @@
+---
+uid: Platforms.XamarinForms.PageLifecycle
+---
 # Page Lifecycle
 
 There are times in your application where you may want to invoke code in your ViewModel based on when the Page Appears or Disappears without Navigation specific consideration. For these times you can utilize the `IPageLifecycleAware` interface to properly respond to the Appearing and Disappearing events from the Page.

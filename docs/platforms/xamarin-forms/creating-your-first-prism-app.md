@@ -96,7 +96,7 @@ The `App.xaml.cs` file contains the logic required to configure a Prism applicat
 
 ```
 
-The `RegisterTypes` method is used to register any services that you will be using in your ViewModels throughout your applications and any of its modules. Any page you wish to navigate to using the `NavigationService` should be registered with the Prism navigation system using the `IContainerRegistry.RegisterForNavigation` method in the `RegisterTypes` method. See the [Navigation topic](navigation/navigation-basics.md) for more information.
+The `RegisterTypes` method is used to register any services that you will be using in your ViewModels throughout your applications and any of its modules. Any page you wish to navigate to using the `NavigationService` should be registered with the Prism navigation system using the `IContainerRegistry.RegisterForNavigation` method in the `RegisterTypes` method. See the [Navigation topic](xref:Platforms.XamarinForms.Navigation.Basics) for more information.
 
 You define which View you want to navigate to when the app loads in the `OnInitialized` method using the `NavigationService` property. In this example, we are setting the root page to a `NavigationPage` and immediately pushing the `MainPage` onto the navigation stack.  Basically, we are wrapping our `MainPage` in a `NavigationPage` and setting it as the root page of the application when it launches.
 
@@ -195,7 +195,7 @@ public abstract class ViewModelBase : BindableBase, INavigationAware, IDestructi
 
 The `BindableBase` class implements the [INotifyPropertyChanged](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.inotifypropertychanged?redirectedfrom=MSDN&view=netframework-4.8) interface which allows for the view to be able to data bind to properties defined in a ViewModel. `BindableBase` also provides a protected `SetProperty` method to simplify creating these properties.
 
-The `INavigationAware` interface provides the `OnNavigatedFrom`, `OnNavigatingTo`, and `OnNavigatedTo` methods and allows for the ViewModel to be notified when it is being navigated from or being navigated to. See the [Navigation topic](navigation/passing-parameters.md) for more information.
+The `INavigationAware` interface provides the `OnNavigatedFrom`, `OnNavigatingTo`, and `OnNavigatedTo` methods and allows for the ViewModel to be notified when it is being navigated from or being navigated to. See the [Navigation topic](xref:Platforms.XamarinForms.Navigation.PassingParameters) for more information.
 
 The `MainPageViewModel` has a public property named `Title` (inherited from `ViewModelBase`) that triggers the `INotifyPropertyChanged.OnPropertyChanged` event when the value is set.
 
@@ -208,7 +208,7 @@ public string Title
 }
 ```
 
-The `MainPageViewModel` is asking for an instance of the `INavigationService` in it's constructor, and passing it down to the derived `ViewModelBase` class so that navigation can be performed when required. See the [Navigation topic](navigation/navigation-basics.md) for more information.
+The `MainPageViewModel` is asking for an instance of the `INavigationService` in it's constructor, and passing it down to the derived `ViewModelBase` class so that navigation can be performed when required. See the [Navigation topic](xref:Platforms.XamarinForms.Navigation.Basics) for more information.
 
 
 The `IDestructible` interface provides the `Destroy` method and allows for the ViewModel to clean up any resource when the view it popped off the navigation stack and is ready for garbage collection.

@@ -245,7 +245,7 @@ For more details on DelegateCommand, see [Commanding](xref:Commands.Commanding).
 
 ### Using the ViewModelLocator
 
-Now there is a view and a view model, but how are they linked together? Out of the box, Prism has a ```ViewModelLocator``` that uses convention to determine the correct class for the view model, instantiate it with its dependencies and attach it to the ```DataContext``` of the view.
+Now there is a View and a ViewModel, but how are they linked together? Out of the box, Prism has a ```ViewModelLocator``` that uses convention to determine the correct class for the view model, instantiate it with its dependencies and attach it to the ```DataContext``` of the view.
 
 The default convention is to place all the views in the ```Views``` folder and the view models in the ```ViewModels``` folder.
 
@@ -254,7 +254,7 @@ The default convention is to place all the views in the ```Views``` folder and t
 
 This is configurable and different resolution logic can be added.
 
-For this to work, views and viewmodels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:
+For this to work, Views and ViewModels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:
 
 ![Viewmodel Locator Project Structure](images/viewmodellocator.png)
 

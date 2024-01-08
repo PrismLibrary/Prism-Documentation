@@ -4,9 +4,9 @@ uid: Commands.CompositeCommands
 
 # Composite Commands
 
-In many cases, a command defined by a view model will be bound to controls in the associated view so that the user can directly invoke the command from within the view. However, in some cases, you may want to be able to invoke commands on one or more view models from a control in a parent view in the application's UI.
+In many cases, a command defined by a ViewModel will be bound to controls in the associated view so that the user can directly invoke the command from within the view. However, in some cases, you may want to be able to invoke commands on one or more ViewModels from a control in a parent view in the application's UI.
 
-For example, if your application allows the user to edit multiple items at the same time, you may want to allow the user to save all the items using a single command represented by a button in the application's toolbar or ribbon. In this case, the Save All command will invoke each of the Save commands implemented by the view model instance for each item as shown in the following illustration.
+For example, if your application allows the user to edit multiple items at the same time, you may want to allow the user to save all the items using a single command represented by a button in the application's toolbar or ribbon. In this case, the Save All command will invoke each of the Save commands implemented by the ViewModel instance for each item as shown in the following illustration.
 
 ![SaveAll composite command](../images/composite-commands-1.png)
 

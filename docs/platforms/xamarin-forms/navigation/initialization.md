@@ -1,3 +1,6 @@
+---
+uid: Platforms.XamarinForms.Navigation.ViewModelInitialization
+---
 # Initializing your ViewModels
 
 Initializing your ViewModels is considered a ONE TIME task. This is only done after the ViewModel Page has been created. You should never place logic inside of the Initialization methods which you expect to execute each time the View is navigated to such as when you Navigate back from another Page.
@@ -17,5 +20,5 @@ TODO
 
 ## Additional References
 
-- [Confirm Navigation](confirming-navigation.md)
+- [Confirm Navigation](xref:Platforms.XamarinForms.Navigation.Confirming)
 - [Sample App - ViewModel Initialization](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/13-ViewModelInitialization)

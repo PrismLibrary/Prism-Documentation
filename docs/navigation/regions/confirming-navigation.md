@@ -1,8 +1,11 @@
+---
+uid: Navigation.Regions.ConfirmingNavigation
+---
 # Confirming Navigation
 
 You will often find that you will need to interact with the user during a navigation operation, so that the user can confirm or cancel it. In many applications, for example, the user may try to navigate while in the middle of entering or editing data. In these situations, you may want to ask the user whether he or she wants to save or discard the data that has been entered before continuing to navigate away from the page, or whether the user wants to cancel the navigation operation altogether. Prism supports these scenarios via the **IConfirmNavigationRequest** interface.
 
-The **IConfirmNavigationRequest** interface derives from the **INavigationAware** interface and adds the **ConfirmNavigationRequest** method. By implementing this interface on your view or view model class, you allow them to participate in the navigation sequence in a way that allows them to interact with the user so that the user can confirm or cancel the navigation. One way of displaying a confirmation is to use a simple windows message box. For something more complex, the **Dialog Service**, as described in [Dialog Service](../dialog-service.md) could be used.
+The **IConfirmNavigationRequest** interface derives from the **INavigationAware** interface and adds the **ConfirmNavigationRequest** method. By implementing this interface on your view or view model class, you allow them to participate in the navigation sequence in a way that allows them to interact with the user so that the user can confirm or cancel the navigation. One way of displaying a confirmation is to use a simple windows message box. For something more complex, the **Dialog Service**, as described in [Dialog Service](xref:Dialogs.GettingStarted) could be used.
 
 The **ConfirmNavigationRequest** method provides two parameters, a reference to the current navigation context as described earlier, and a callback method that you can call when you want navigation to continue.
 
