@@ -23,4 +23,4 @@ Be sure to install `Prism.Plugin.Essentials.Uno.WinUI`
 ---
 
 > [!NOTE]
-> Prism.Plugins including Prism.Plugin.Essentials is only available for those with an active Commercial Plus license, and is available on the private Prism NuGet server.
+> Prism.Plugins including Prism.Plugin.Essentials is only available for those with an active Commercial Plus license, and is available on the private Prism NuGet server. Prism.Essentials does NOT support Prism.Forms as Xamarin.Forms is considered to be End of Life and the Prism 9.0 release for Xamarin.Forms is provided only to better assist developers to first update to the Prism 9.0 API prior to migrating to .NET MAUI.

@@ -51,3 +51,17 @@ As mentioned you will need to be sure to have the platform specific package when
 ```cs
 containerRegistry.RegisterStore<IMyStore>();
 ```
+
+## Providing Default Values
+
+You may want to provide a default value for your properties. You can do this with the DefaultValue attribute from System.ComponentModel.
+
+```cs
+[SettingsStore]
+public partial interface IMyStore
+{
+    [DefaultValue(true)]
+    bool RememberMe { get; set; }
+}
+```
+
