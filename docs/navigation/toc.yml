@@ -1,4 +1,6 @@
 - name: INavigationParameters
   href: navigation-parameters.md
+- name: Page Navigation
+  href: page-navigation.md
 - name: Regions
   href: regions/toc.yml

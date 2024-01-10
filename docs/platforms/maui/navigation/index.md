@@ -1,3 +1,7 @@
+---
+uid: Platforms.Maui.Navigation.GettingStarted
+---
+
 # Getting Started
 
 When we talk about Navigation for Prism.Maui we are specifically referring to Page based Navigation. Prism.Maui actually provides 2 distinct forms of Navigation, Page based Navigation and Region based Navigation.
