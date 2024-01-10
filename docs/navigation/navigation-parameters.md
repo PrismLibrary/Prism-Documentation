@@ -29,3 +29,34 @@ new NavigationParameters
 ```
 
 While at first it may appear that `INavigationParameters` is just an `IDictionary<string, object>`, it is in fact an `IEnumerable<KeyValuePair<string, object>>`. This means that you have the ability to overload the keys adding multiple values to the NavigationParameters with a single key.
+
+## Accessing Navigation Parameters
+
+Depending on what you need to get from the Navigation Parameters you may want to call one of the following APIs.
+
+### Getting a Single Value
+
+To access a single value from the Navigation Parameters you should use the `GetValue` method like:
+
+```cs
+Title = parameters.GetValue<string>("Title");
+```
+
+### Get a value if the key exists
+
+To access a value only if the key exists you can use the `TryGetValue` method like:
+
+```cs
+if (parameters.TryGetValue<string>("Title", out var title))
+{
+    Title = title;
+}
+```
+
+### Getting multiple values
+
+To access multiple values you can use the `GetValues` method. This will return an empty list if no values were provided.
+
+```cs
+var colors = parameters.GetValues<Color>("SelectedColors");
+```
