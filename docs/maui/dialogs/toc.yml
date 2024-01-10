@@ -1,6 +1,0 @@
-- name: Getting Started
-  href: index.md
-- name: IPageDialogService
-  href: pagedialogs.md
-- name: IDialogService
-  href: mvvm-dialogs.md

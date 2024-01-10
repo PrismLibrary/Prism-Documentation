@@ -1,4 +1,8 @@
-## Handling Resolution Errors
+---
+uid: DependencyInjection.HandlingResolutionErrors
+---
+
+# Handling Resolution Errors
 
 > [!NOTE]
 > This feature was introduced in Prism 8 and does not apply if your app is targeting an earlier version
@@ -62,7 +66,7 @@ protected virtual void LoadModuleCompleted(IModuleInfo moduleInfo, Exception err
 
 When we run this we should see something like the following output:
 
-```
+```text
 Error with: MyProject.Services.IServiceIForgotToRegister
 ContainerResolutionException: No Registration was found in the container for the specified type
 ```

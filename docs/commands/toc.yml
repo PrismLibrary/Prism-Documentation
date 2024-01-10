@@ -2,3 +2,7 @@
   href: commanding.md
 - name: Composite Commands
   href: composite-commands.md
+- name: Async Commands
+  href: async-commands.md
+- name: Error Handling
+  href: error-handling.md

@@ -1,0 +1,4 @@
+- name: BindableBase
+  href: bindablebase.md
+- name: ViewModelLocator
+  href: viewmodel-locator.md

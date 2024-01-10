@@ -1,0 +1,14 @@
+- name: Getting Started
+  href: index.md
+- name: Migrating from Prism.Forms
+  href: migrating.md
+- name: PrismAppBuilder
+  href: appbuilder.md
+- name: AppModel
+  href: appmodel/toc.yml
+- name: Behaviors
+  href: behaviors/toc.yml
+- name: Dialogs
+  href: dialogs/toc.yml
+- name: Navigation
+  href: navigation/toc.yml

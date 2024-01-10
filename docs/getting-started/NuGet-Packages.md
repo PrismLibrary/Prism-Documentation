@@ -1,4 +1,7 @@
-﻿# NuGet Packages
+﻿---
+uid: GettingStarted.NuGetPackages
+---
+# NuGet Packages
 
 Official Prism releases are available on NuGet.
 

@@ -1,20 +1,24 @@
 - name: Introduction
   href: index.md
-- name: Getting Started
-  href: getting-started/toc.yml
+# - name: Getting Started
+#   href: getting-started/toc.yml
 - name: Commands
   href: commands/toc.yml
 - name: Dependency Injection
   href: dependency-injection/toc.yml
+- name: Dialog Service
+  href: dialogs/toc.yml
 - name: Event Aggregator
   href: event-aggregator.md
-- name: ViewModelLocator
-  href: viewmodel-locator.md
-- name: Modules
-  href: modules.md
-- name: 'WPF / Uno'
-  href: wpf/toc.yml
-- name: .NET MAUI
-  href: maui/toc.yml
-- name: Xamarin.Forms
-  href: xamarin-forms/toc.yml
+- name: Mvvm
+  href: mvvm/toc.yml
+- name: Modularity
+  href: modularity/toc.yml
+- name: Navigation
+  href: navigation/toc.yml
+- name: Platforms
+  href: platforms/toc.yml
+- name: Magician
+  href: magician/toc.yml
+- name: Plugins
+  href: plugins/toc.yml

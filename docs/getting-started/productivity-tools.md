@@ -7,9 +7,11 @@ Available Tools:
 - Prism Extensibility Pack
 
 # Prism Template Pack
+
 The Prism Template Pack contains a collection of snippets, item templates, and project templates for use with building WPF, and Xamarin.Forms applications using Prism.
 
 ### Snippets
+
 - propp - Property, with a backing field, that depends on BindableBase
 ```cs
     private string _fieldName;
@@ -19,6 +21,7 @@ The Prism Template Pack contains a collection of snippets, item templates, and p
         set { SetProperty(ref _fieldName, value); }
     }
 ```
+
 - cmd - Creates a DelegateCommand property with Execute method
 ```cs
     private DelegateCommand _fieldName;
@@ -75,6 +78,7 @@ The Prism Template Pack contains a collection of snippets, item templates, and p
 ```
 
 ### Item Templates
+
 **Cross Platform**
 - Prism ViewModel - A ViewModel that derives from BindableBase and has a default constructor.
 
@@ -90,6 +94,7 @@ The Prism Template Pack contains a collection of snippets, item templates, and p
 - Prism CarouselPage - CarouselPage with ViewModel & Auto-registration
 
 ### Project Templates
+
 **WPF**
 - Prism Blank App - this is a project template that essentially creates a new WPF shell application.  It will have a basic bootstrapper that is responsible for initializing the app, and showing the shell.  It will have a MainWindow and a MainWindowViewModel located in the Views and ViewModels folders respectively.
 - Prism Module - this project template will add a new project to your solution that will act as a Prism module.  It will have a class defined that implements IModule with two empty folders for your Views and ViewModels.

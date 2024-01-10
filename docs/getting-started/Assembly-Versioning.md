@@ -1,15 +1,19 @@
+---
+uid: GettingStarted.AssemblyVersioning
+---
 # Prism Assembly Versioning
 
 Assembly versioning is an important, and often ignored, aspect of a project.  There are three assembly attributes defined in the AssemblyInfo.cs file of each project of Prism.  These attribute are the **AssemblyAttribute**, the **AssemblyFileAttribute**, and the **AssemblyInformationAttribute**.
 
-```
+```cs
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: AssemblyInformationalVersion("1.0.0.0")]
 ```
+
 By convention, the four parts of each version are referred to as the **Major** Version, **Minor** Version, **Build**, and **Revision**.
 
-This document decribes how Prism unitilizes each of these attributes to version its assemblies, and what numbering convention each attribute follows.
+This document describes how Prism utilizes each of these attributes to version its assemblies, and what numbering convention each attribute follows.
 
 ## AssemblyVersion
 

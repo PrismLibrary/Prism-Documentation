@@ -1,3 +1,7 @@
+---
+uid: DependencyInjection.ContainerLocator
+---
+
 # The ContainerLocator
 
 The ContainerLocator is new in Prism 8.0. This was introduced to help Prism get rid of a dependency on the CommonServiceLocator, and solve a number of internal issues where we must fallback to a ServiceLocator pattern such as within XAML Extensions.
@@ -30,7 +34,7 @@ In the event that you need to access the raw IContainerExtension you can do so b
 While not entirely an uncommon issue, while unit testing it is commonly recommended that you reset the ContainerLocator. This ensures container is disposed and that the container instance is cleared along with the delegate to create a new instance.
 
 ```csharp
-public class SomeTests : IDisposible
+public class SomeTests : IDisposable
 {
     public void Dispose()
     {

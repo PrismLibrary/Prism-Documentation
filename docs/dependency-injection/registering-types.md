@@ -1,6 +1,19 @@
+---
+uid: DependencyInjection.RegisterServices
+---
+
 # Registering Types with Prism
 
-For those who may be familiar with ASP.NET Core you may be familiar with 3 basic types of dependency registrations: Transients, Singletons, and Scoped Services. It is important to understand that Prism has no use, and no implementations for Scoped Services. Unlike the web environment in which many of your services are scoped around the User Request, for Desktop and Mobile applications we are dealing with a single user. As a result, we must instead decide whether for memory management and other business requirements our services are best suited as a single instance that will be reused throughout our application or whether we will create a new instance each time it is requested and then allow the Garbage Collector to free up the memory when we are done with it.
+Similar to most Dependency Injection models, Prism provides abstractions around 3 service lifetimes:
+
+1) Transient (Get a new instance every time the service or type is requested)
+2) Singleton (Get the same instance every time the service or type is requested)
+3) Scoped (Get a new instance on each container scope, but the same instance within a specific container scope)
+
+> [!NOTE]
+> By default Prism does not use scoping except within Prism.Maui which creates a scope around each Page. This is used for services such as the `INavigationService`, `IPageDialogService`, and `IDialogService`.
+
+For those who may be familiar with ASP.NET Core you may be familiar with 3 basic types of dependency registrations: Transients, Singletons, and Scoped Services. Unlike the web environment in which many of your services are scoped around the User Request, for Desktop and Mobile applications we are dealing with a single user. As a result, we must instead decide whether for memory management and other business requirements our services are best suited as a single instance that will be reused throughout our application or whether we will create a new instance each time it is requested and then allow the Garbage Collector to free up the memory when we are done with it.
 
 It is also important to consider that Prism has a hard requirement on the use of named service registrations. This is what allows Prism to register your Page for navigation and then resolve it later based on the Uri segment like `MyMasterDetailPage/NavigationPage/ViewA`. Any Dependency Injection container which does not support named services out of the box therefore cannot and will not be implemented officially by the Prism team.
 
