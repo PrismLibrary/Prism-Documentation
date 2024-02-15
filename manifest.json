@@ -1,5 +1,6 @@
 {
-  "source_base_path": "/Users/dansiegel/repos/PrismLibrary/Prism-Documentation",
+  "homepages": [],
+  "source_base_path": "/github/workspace",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -7,9 +8,11 @@
       "source_relative_path": "README.md",
       "output": {
         ".html": {
-          "relative_path": "README.html"
+          "relative_path": "README.html",
+          "hash": "REGrYapldgNmZUaZ7cvADQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -17,9 +20,11 @@
       "source_relative_path": "docs/commands/async-commands.md",
       "output": {
         ".html": {
-          "relative_path": "docs/commands/async-commands.html"
+          "relative_path": "docs/commands/async-commands.html",
+          "hash": "TnpL9kcwlcsLueO2hoPVQw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -27,19 +32,26 @@
       "source_relative_path": "docs/commands/commanding.md",
       "output": {
         ".html": {
-          "relative_path": "docs/commands/commanding.html"
+          "relative_path": "docs/commands/commanding.html",
+          "hash": "K6s1rFfvo0874wafDj6xZQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "docs/commands/composite-commands.md",
       "output": {
         ".html": {
-          "relative_path": "docs/commands/composite-commands.html"
+          "relative_path": "docs/commands/composite-commands.html",
+          "hash": "pAkCuW/EDS/hPOe3CWviuA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -47,9 +59,11 @@
       "source_relative_path": "docs/commands/error-handling.md",
       "output": {
         ".html": {
-          "relative_path": "docs/commands/error-handling.html"
+          "relative_path": "docs/commands/error-handling.html",
+          "hash": "0y138F70Mj448YXKz2xCpg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -57,9 +71,11 @@
       "source_relative_path": "docs/dependency-injection/add-custom-container.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/add-custom-container.html"
+          "relative_path": "docs/dependency-injection/add-custom-container.html",
+          "hash": "4uzOQzZMDKAxLQZqPwd8Ug=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -67,9 +83,11 @@
       "source_relative_path": "docs/dependency-injection/appendix.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/appendix.html"
+          "relative_path": "docs/dependency-injection/appendix.html",
+          "hash": "O8sXOQW/VK1GblCQGBk/qQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -77,9 +95,11 @@
       "source_relative_path": "docs/dependency-injection/container-locator.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/container-locator.html"
+          "relative_path": "docs/dependency-injection/container-locator.html",
+          "hash": "RwgBieJrwRegOj2vrsbk9A=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -87,9 +107,11 @@
       "source_relative_path": "docs/dependency-injection/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/index.html"
+          "relative_path": "docs/dependency-injection/index.html",
+          "hash": "0DO1S5+eG0pT4Ex3rtu9AA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -97,9 +119,11 @@
       "source_relative_path": "docs/dependency-injection/platform-specific-services.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/platform-specific-services.html"
+          "relative_path": "docs/dependency-injection/platform-specific-services.html",
+          "hash": "o5Juy6/GbDBXqq+MJHw6AQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -107,9 +131,11 @@
       "source_relative_path": "docs/dependency-injection/registering-types.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/registering-types.html"
+          "relative_path": "docs/dependency-injection/registering-types.html",
+          "hash": "Czh/QjaAPRgKXEMeYClS3w=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -117,9 +143,11 @@
       "source_relative_path": "docs/dependency-injection/resolution-errors.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/resolution-errors.html"
+          "relative_path": "docs/dependency-injection/resolution-errors.html",
+          "hash": "cSe5xu5qoeOL4k8WRnv0ZA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -127,9 +155,11 @@
       "source_relative_path": "docs/dependency-injection/servicecollection-supplement.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dependency-injection/servicecollection-supplement.html"
+          "relative_path": "docs/dependency-injection/servicecollection-supplement.html",
+          "hash": "57wfV92NlkuUDBP27/SHjw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -137,9 +167,11 @@
       "source_relative_path": "docs/dialogs/dialog-aware.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dialogs/dialog-aware.html"
+          "relative_path": "docs/dialogs/dialog-aware.html",
+          "hash": "SsdxbSSFJTkZtClEv/M67g=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -147,9 +179,11 @@
       "source_relative_path": "docs/dialogs/dialog-window.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dialogs/dialog-window.html"
+          "relative_path": "docs/dialogs/dialog-window.html",
+          "hash": "gwBGjIee7VFjyggTaBHnPQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -157,19 +191,26 @@
       "source_relative_path": "docs/dialogs/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/dialogs/index.html"
+          "relative_path": "docs/dialogs/index.html",
+          "hash": "UEMEFI1hpcZ9VwWe2AmkqQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "docs/event-aggregator.md",
       "output": {
         ".html": {
-          "relative_path": "docs/event-aggregator.html"
+          "relative_path": "docs/event-aggregator.html",
+          "hash": "uxs1+UK80/gg2hx6oBnSCw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -177,9 +218,11 @@
       "source_relative_path": "docs/getting-started/Assembly-Versioning.md",
       "output": {
         ".html": {
-          "relative_path": "docs/getting-started/Assembly-Versioning.html"
+          "relative_path": "docs/getting-started/Assembly-Versioning.html",
+          "hash": "PeC2bc8zDO+Hu7+uBaYlVA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -187,9 +230,11 @@
       "source_relative_path": "docs/getting-started/Download-and-Setup-Prism.md",
       "output": {
         ".html": {
-          "relative_path": "docs/getting-started/Download-and-Setup-Prism.html"
+          "relative_path": "docs/getting-started/Download-and-Setup-Prism.html",
+          "hash": "aWkf/6uB+GGdLOtkQu0YaA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -197,9 +242,11 @@
       "source_relative_path": "docs/getting-started/NuGet-Packages.md",
       "output": {
         ".html": {
-          "relative_path": "docs/getting-started/NuGet-Packages.html"
+          "relative_path": "docs/getting-started/NuGet-Packages.html",
+          "hash": "wcyUwoa7VlEeqDspJJCbVw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -210,6 +257,7 @@
           "relative_path": "docs/getting-started/images/NuGetPackageTree.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -220,6 +268,7 @@
           "relative_path": "docs/getting-started/images/prism-template-pack-win.jpg"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -230,6 +279,7 @@
           "relative_path": "docs/getting-started/images/vsmac-prism-ext.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -240,6 +290,7 @@
           "relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-app.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -250,6 +301,7 @@
           "relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-module.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -260,6 +312,7 @@
           "relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-test.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -270,6 +323,7 @@
           "relative_path": "docs/getting-started/images/vsmac-prism-template-01.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -280,6 +334,7 @@
           "relative_path": "docs/getting-started/images/vsmac-prism-template-official.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -290,6 +345,7 @@
           "relative_path": "docs/getting-started/images/vsmac-prism-template-pack.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -300,6 +356,7 @@
           "relative_path": "docs/getting-started/images/vsmac-qs-prism-app-01.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -310,6 +367,7 @@
           "relative_path": "docs/getting-started/images/vsmac-qs-prism-app-blank.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -320,6 +378,7 @@
           "relative_path": "docs/getting-started/images/vsmac-qs-prism-app-setup.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -330,6 +389,7 @@
           "relative_path": "docs/getting-started/images/wpf-project-wizard.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -340,6 +400,7 @@
           "relative_path": "docs/getting-started/images/xf-project-wizard.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -347,9 +408,11 @@
       "source_relative_path": "docs/getting-started/productivity-tools.md",
       "output": {
         ".html": {
-          "relative_path": "docs/getting-started/productivity-tools.html"
+          "relative_path": "docs/getting-started/productivity-tools.html",
+          "hash": "xCURB4zEzNteY6amsHPiwg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -357,9 +420,11 @@
       "source_relative_path": "docs/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/index.html"
+          "relative_path": "docs/index.html",
+          "hash": "e7UoZAKlNEJmzdOI2yIRdw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -367,19 +432,26 @@
       "source_relative_path": "docs/magician/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/magician/index.html"
+          "relative_path": "docs/magician/index.html",
+          "hash": "7YIPsOBq0U22PFpLwd05VQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "docs/modularity/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/modularity/index.html"
+          "relative_path": "docs/modularity/index.html",
+          "hash": "KhqG5aAcORfpKkj+iKwcHw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -387,9 +459,11 @@
       "source_relative_path": "docs/modularity/module-catalog.md",
       "output": {
         ".html": {
-          "relative_path": "docs/modularity/module-catalog.html"
+          "relative_path": "docs/modularity/module-catalog.html",
+          "hash": "oP3l+sJddB3cTqGvVNyexg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -397,9 +471,11 @@
       "source_relative_path": "docs/modularity/module-initialization.md",
       "output": {
         ".html": {
-          "relative_path": "docs/modularity/module-initialization.html"
+          "relative_path": "docs/modularity/module-initialization.html",
+          "hash": "jLu3Vi2dFXpQxRA/kAE5uA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -407,9 +483,11 @@
       "source_relative_path": "docs/mvvm/bindablebase.md",
       "output": {
         ".html": {
-          "relative_path": "docs/mvvm/bindablebase.html"
+          "relative_path": "docs/mvvm/bindablebase.html",
+          "hash": "OzJz2hAaZTrk5LIBTQYc7g=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -417,9 +495,11 @@
       "source_relative_path": "docs/mvvm/viewmodel-locator.md",
       "output": {
         ".html": {
-          "relative_path": "docs/mvvm/viewmodel-locator.html"
+          "relative_path": "docs/mvvm/viewmodel-locator.html",
+          "hash": "NYHKyDdfnaQibG2JESASsQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -427,9 +507,11 @@
       "source_relative_path": "docs/navigation/navigation-parameters.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/navigation-parameters.html"
+          "relative_path": "docs/navigation/navigation-parameters.html",
+          "hash": "cQcU6OvkLBiTSgoiSfcrYQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -437,9 +519,11 @@
       "source_relative_path": "docs/navigation/page-navigation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/page-navigation.html"
+          "relative_path": "docs/navigation/page-navigation.html",
+          "hash": "2HfvD1ioPATNGLxhNR1yUw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -447,9 +531,11 @@
       "source_relative_path": "docs/navigation/regions/basic-region-navigation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/basic-region-navigation.html"
+          "relative_path": "docs/navigation/regions/basic-region-navigation.html",
+          "hash": "OC1M4cDNfP+siLLVcknxFw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -457,9 +543,11 @@
       "source_relative_path": "docs/navigation/regions/confirming-navigation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/confirming-navigation.html"
+          "relative_path": "docs/navigation/regions/confirming-navigation.html",
+          "hash": "/wzJJ7sEOVG+DUI2G51Paw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -467,9 +555,11 @@
       "source_relative_path": "docs/navigation/regions/controlling-view-lifetime.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/controlling-view-lifetime.html"
+          "relative_path": "docs/navigation/regions/controlling-view-lifetime.html",
+          "hash": "NFsZALfKV2B9qklalewhhQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -477,9 +567,11 @@
       "source_relative_path": "docs/navigation/regions/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/index.html"
+          "relative_path": "docs/navigation/regions/index.html",
+          "hash": "kq4gvZcnDdqwUdYTCAx0Vg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -487,9 +579,11 @@
       "source_relative_path": "docs/navigation/regions/navigation-existing-views.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/navigation-existing-views.html"
+          "relative_path": "docs/navigation/regions/navigation-existing-views.html",
+          "hash": "PLNz0ZyaUCzjAsoDG/Ub/A=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -497,9 +591,11 @@
       "source_relative_path": "docs/navigation/regions/navigation-journal.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/navigation-journal.html"
+          "relative_path": "docs/navigation/regions/navigation-journal.html",
+          "hash": "U5TfhAAYZ/jlFjFdfe4BSQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -507,9 +603,11 @@
       "source_relative_path": "docs/navigation/regions/passing-parameters.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/passing-parameters.html"
+          "relative_path": "docs/navigation/regions/passing-parameters.html",
+          "hash": "vwwvcA9SKgnRxtzVpjNkDw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -517,9 +615,11 @@
       "source_relative_path": "docs/navigation/regions/region-adapters.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/region-adapters.html"
+          "relative_path": "docs/navigation/regions/region-adapters.html",
+          "hash": "/iugtit18SA2wv3lLv/QBg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -527,9 +627,11 @@
       "source_relative_path": "docs/navigation/regions/region-behaviors.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/region-behaviors.html"
+          "relative_path": "docs/navigation/regions/region-behaviors.html",
+          "hash": "QOlJCmWLcwjwxgaRi94odQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -537,9 +639,11 @@
       "source_relative_path": "docs/navigation/regions/region-manager.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/region-manager.html"
+          "relative_path": "docs/navigation/regions/region-manager.html",
+          "hash": "rr3fGc2560BJ3hlQyUxD9w=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -547,9 +651,11 @@
       "source_relative_path": "docs/navigation/regions/view-viewmodel-participation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/navigation/regions/view-viewmodel-participation.html"
+          "relative_path": "docs/navigation/regions/view-viewmodel-participation.html",
+          "hash": "9S65+1m0LDQkz8YbEb1d3Q=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -557,9 +663,11 @@
       "source_relative_path": "docs/platforms/maui/appbuilder.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/appbuilder.html"
+          "relative_path": "docs/platforms/maui/appbuilder.html",
+          "hash": "Q5wsZ7s6SijZ7g5R/cmSmA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -567,9 +675,11 @@
       "source_relative_path": "docs/platforms/maui/appmodel/pagelifecycleaware.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/appmodel/pagelifecycleaware.html"
+          "relative_path": "docs/platforms/maui/appmodel/pagelifecycleaware.html",
+          "hash": "bg/FhfT6BsiEndOtKMaWWQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -577,9 +687,11 @@
       "source_relative_path": "docs/platforms/maui/behaviors/behaviorbase.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/behaviors/behaviorbase.html"
+          "relative_path": "docs/platforms/maui/behaviors/behaviorbase.html",
+          "hash": "NCn/nro62bESUeRvlGN8Yw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -587,9 +699,11 @@
       "source_relative_path": "docs/platforms/maui/behaviors/eventtocommandbehavior.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/behaviors/eventtocommandbehavior.html"
+          "relative_path": "docs/platforms/maui/behaviors/eventtocommandbehavior.html",
+          "hash": "HkclG2P22iyHn3HMYR5YkA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -597,9 +711,11 @@
       "source_relative_path": "docs/platforms/maui/behaviors/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/behaviors/index.html"
+          "relative_path": "docs/platforms/maui/behaviors/index.html",
+          "hash": "7Snbaqdj8CInj7xKkehaKA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -607,9 +723,11 @@
       "source_relative_path": "docs/platforms/maui/behaviors/pagebehaviorfactory.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/behaviors/pagebehaviorfactory.html"
+          "relative_path": "docs/platforms/maui/behaviors/pagebehaviorfactory.html",
+          "hash": "O7zpmtEaKMu6md4W/sLISQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -617,9 +735,11 @@
       "source_relative_path": "docs/platforms/maui/dialogs/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/dialogs/index.html"
+          "relative_path": "docs/platforms/maui/dialogs/index.html",
+          "hash": "26RNDRFX1irNs1tNtbCCWg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -627,9 +747,11 @@
       "source_relative_path": "docs/platforms/maui/dialogs/pagedialogs.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/dialogs/pagedialogs.html"
+          "relative_path": "docs/platforms/maui/dialogs/pagedialogs.html",
+          "hash": "n1xpheDwtxGbHdr4JoDmZA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -640,6 +762,7 @@
           "relative_path": "docs/platforms/maui/images/pagedialogservice_01.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -650,6 +773,7 @@
           "relative_path": "docs/platforms/maui/images/pagedialogservice_02.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -660,6 +784,7 @@
           "relative_path": "docs/platforms/maui/images/pagedialogservice_03.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -670,6 +795,7 @@
           "relative_path": "docs/platforms/maui/images/pagedialogservice_04.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -677,9 +803,11 @@
       "source_relative_path": "docs/platforms/maui/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/index.html"
+          "relative_path": "docs/platforms/maui/index.html",
+          "hash": "888aLwGtx53ApD9oTkwkWA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -687,9 +815,11 @@
       "source_relative_path": "docs/platforms/maui/migrating.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/migrating.html"
+          "relative_path": "docs/platforms/maui/migrating.html",
+          "hash": "1pCvYygLMV65faXAgjmdpg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -697,9 +827,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/global-navigation-observer.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/global-navigation-observer.html"
+          "relative_path": "docs/platforms/maui/navigation/global-navigation-observer.html",
+          "hash": "H9kf6uZQ0vZ2BqGyA2c0qw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -707,9 +839,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/index.html"
+          "relative_path": "docs/platforms/maui/navigation/index.html",
+          "hash": "EZxqSKeCbYFnFsfFgTVrCw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -717,9 +851,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/navigation-builder.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/navigation-builder.html"
+          "relative_path": "docs/platforms/maui/navigation/navigation-builder.html",
+          "hash": "+aNRjO6C/IVQ5rkOjRJspw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -727,9 +863,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/navigation-exceptions.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/navigation-exceptions.html"
+          "relative_path": "docs/platforms/maui/navigation/navigation-exceptions.html",
+          "hash": "8PqUxga356bmDu92nW/9Wg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -737,9 +875,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/navigation-result.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/navigation-result.html"
+          "relative_path": "docs/platforms/maui/navigation/navigation-result.html",
+          "hash": "o8UdDGAoWp3qk9n+4MIqLw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -747,9 +887,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/page-navigation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/page-navigation.html"
+          "relative_path": "docs/platforms/maui/navigation/page-navigation.html",
+          "hash": "oQM0P/EBDowHU6nPphHelw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -757,9 +899,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/prismnavigationpage.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/prismnavigationpage.html"
+          "relative_path": "docs/platforms/maui/navigation/prismnavigationpage.html",
+          "hash": "o5xwktkn0F6Ru9CXGwFiSg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -767,9 +911,11 @@
       "source_relative_path": "docs/platforms/maui/navigation/xaml-navigation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/maui/navigation/xaml-navigation.html"
+          "relative_path": "docs/platforms/maui/navigation/xaml-navigation.html",
+          "hash": "wqdyEAnkfsiKoz9RDcEskg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -777,9 +923,11 @@
       "source_relative_path": "docs/platforms/uno/extensions.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/uno/extensions.html"
+          "relative_path": "docs/platforms/uno/extensions.html",
+          "hash": "YzQnrxF86IBk8OsRRKkVlA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -787,9 +935,11 @@
       "source_relative_path": "docs/platforms/uno/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/uno/index.html"
+          "relative_path": "docs/platforms/uno/index.html",
+          "hash": "BCfJLhF1/j1pd66uR0aLmQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -797,9 +947,11 @@
       "source_relative_path": "docs/platforms/wpf/dialog-service.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/wpf/dialog-service.html"
+          "relative_path": "docs/platforms/wpf/dialog-service.html",
+          "hash": "MXC2eeIhuaA47+WnsUgymA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -807,9 +959,11 @@
       "source_relative_path": "docs/platforms/wpf/getting-started.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/wpf/getting-started.html"
+          "relative_path": "docs/platforms/wpf/getting-started.html",
+          "hash": "IQcIrt257Jhk6F/6qGe40Q=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -820,6 +974,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig1.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -830,6 +985,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig10.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -840,6 +996,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig11.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -850,6 +1007,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig12.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -860,6 +1018,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig13.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -870,6 +1029,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig16.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -880,6 +1040,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig17.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -890,6 +1051,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig19.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -900,6 +1062,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig2.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -910,6 +1073,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig3.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -920,6 +1084,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig4.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -930,6 +1095,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig6.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -940,6 +1106,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig8.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -950,6 +1117,7 @@
           "relative_path": "docs/platforms/wpf/images/Ch7UIFig9.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -960,6 +1128,7 @@
           "relative_path": "docs/platforms/wpf/images/FirstRun.PNG"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -970,6 +1139,7 @@
           "relative_path": "docs/platforms/wpf/images/ProjectStructure.PNG"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -980,6 +1150,7 @@
           "relative_path": "docs/platforms/wpf/images/nuget-install.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -990,6 +1161,7 @@
           "relative_path": "docs/platforms/wpf/images/viewmodellocator.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -997,9 +1169,11 @@
       "source_relative_path": "docs/platforms/wpf/interactivity/event-to-command.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/wpf/interactivity/event-to-command.html"
+          "relative_path": "docs/platforms/wpf/interactivity/event-to-command.html",
+          "hash": "jcYjnrw9s3mnMaKx3SJ/bw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1007,9 +1181,11 @@
       "source_relative_path": "docs/platforms/wpf/introduction.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/wpf/introduction.html"
+          "relative_path": "docs/platforms/wpf/introduction.html",
+          "hash": "sMCT0Ef8ZGSL+X1gifL+bQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1017,9 +1193,11 @@
       "source_relative_path": "docs/platforms/wpf/view-composition.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/wpf/view-composition.html"
+          "relative_path": "docs/platforms/wpf/view-composition.html",
+          "hash": "uhLcVtMIqe5d7xn2AB4tpA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1027,9 +1205,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/Dependency-Service.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/Dependency-Service.html"
+          "relative_path": "docs/platforms/xamarin-forms/Dependency-Service.html",
+          "hash": "Lz2POaOfcgKlkf5rx5vKdw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1037,9 +1217,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/Getting-Started.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/Getting-Started.html"
+          "relative_path": "docs/platforms/xamarin-forms/Getting-Started.html",
+          "hash": "xMzEWL1pKyaTJjiBFaJihw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1047,9 +1229,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/application-lifecycle.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/application-lifecycle.html"
+          "relative_path": "docs/platforms/xamarin-forms/application-lifecycle.html",
+          "hash": "HGjqMNLOAU5sElFrMCOAgQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1057,9 +1241,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/behaviors/eventtocommandbehavior.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/behaviors/eventtocommandbehavior.html"
+          "relative_path": "docs/platforms/xamarin-forms/behaviors/eventtocommandbehavior.html",
+          "hash": "ILCTscC0auftLqUjGZnenw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1067,9 +1253,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/behaviors/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/behaviors/index.html"
+          "relative_path": "docs/platforms/xamarin-forms/behaviors/index.html",
+          "hash": "ef1Sbj7b0DeqAIVXye3xJQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1077,9 +1265,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/behaviors/page-behavior-factory.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/behaviors/page-behavior-factory.html"
+          "relative_path": "docs/platforms/xamarin-forms/behaviors/page-behavior-factory.html",
+          "hash": "D1sOIqU55QIvKbx1Pd6qRg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1087,9 +1277,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/converting-an-existing-app.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/converting-an-existing-app.html"
+          "relative_path": "docs/platforms/xamarin-forms/converting-an-existing-app.html",
+          "hash": "Nix7PaaUbma4fYKQrxe8AA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1097,9 +1289,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/creating-your-first-prism-app.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/creating-your-first-prism-app.html"
+          "relative_path": "docs/platforms/xamarin-forms/creating-your-first-prism-app.html",
+          "hash": "8zzZFVbd3mijiaVDHEj7rw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1107,9 +1301,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/dialogs/dialog-service.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/dialogs/dialog-service.html"
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/dialog-service.html",
+          "hash": "ZVN/XfpXY+Djt/24IHeiiw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1117,9 +1313,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/dialogs/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/dialogs/index.html"
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/index.html",
+          "hash": "ozA37LYmYtIvmXm+s5QGQg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1127,19 +1325,26 @@
       "source_relative_path": "docs/platforms/xamarin-forms/dialogs/page-dialog-service.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/dialogs/page-dialog-service.html"
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/page-dialog-service.html",
+          "hash": "pcop10p4TvHXmB5ypCUERg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "docs/platforms/xamarin-forms/dialogs/styling-dialogs.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/dialogs/styling-dialogs.html"
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/styling-dialogs.html",
+          "hash": "kihNHU09fswN26e0qUExFw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1150,6 +1355,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/GettingStarted_SolutionExplorer.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1160,6 +1366,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/GettingStarted_ViewSketch.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1170,6 +1377,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/dependencyservice_01.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1180,6 +1388,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/first-project-run-1.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1190,6 +1399,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/first-project-solution.jpg"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1200,6 +1410,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/new-project-dialog.jpg"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1210,6 +1421,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_01.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1220,6 +1432,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_02.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1230,6 +1443,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_03.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1240,6 +1454,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_04.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1250,6 +1465,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/xf-iapplicationlifecycleaware-debug-location.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1260,6 +1476,7 @@
           "relative_path": "docs/platforms/xamarin-forms/images/xf-project-wizard.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1267,9 +1484,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/confirming-navigation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/confirming-navigation.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/confirming-navigation.html",
+          "hash": "D/Sc3rtdACE52uEC7VMrgw=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1277,9 +1496,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/deep-linking.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/deep-linking.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/deep-linking.html",
+          "hash": "HGbSBrsLkg6Sl8wGV2fcLQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1287,9 +1508,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/initialization.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/initialization.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/initialization.html",
+          "hash": "HOdayfHEhq1fuqA+3R1PGg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1297,9 +1520,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/navigation-basics.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/navigation-basics.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/navigation-basics.html",
+          "hash": "LW940Ht4IgkHQUqvk21CbQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1307,9 +1532,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/passing-parameters.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/passing-parameters.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/passing-parameters.html",
+          "hash": "ILwvbtTEBqwjvKQ/AhpX1Q=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1317,9 +1544,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/working-with-masterdetailpages.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-masterdetailpages.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-masterdetailpages.html",
+          "hash": "HfSwloZg6xRrO0QNDtHHIA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1327,9 +1556,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/working-with-navigationpages.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-navigationpages.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-navigationpages.html",
+          "hash": "6bZPYzOspS8oBfYaO3tW7w=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1337,9 +1568,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/working-with-tabbedpages.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-tabbedpages.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-tabbedpages.html",
+          "hash": "q/o6x42D5GcQqW1xeNc09w=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1347,9 +1580,11 @@
       "source_relative_path": "docs/platforms/xamarin-forms/navigation/xaml-navigation.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/navigation/xaml-navigation.html"
+          "relative_path": "docs/platforms/xamarin-forms/navigation/xaml-navigation.html",
+          "hash": "Ux3Om6N5tob5kYMGHK1kiA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1357,19 +1592,26 @@
       "source_relative_path": "docs/platforms/xamarin-forms/page-lifecycle.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/page-lifecycle.html"
+          "relative_path": "docs/platforms/xamarin-forms/page-lifecycle.html",
+          "hash": "U6uQ8Lq07ju9+fkYVU1MNg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
       "type": "Conceptual",
       "source_relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.md",
       "output": {
         ".html": {
-          "relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.html"
+          "relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.html",
+          "hash": "3wS0fFG7wXiw0H10L0RN1w=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1377,9 +1619,11 @@
       "source_relative_path": "docs/plugins/essentials/appcontext.md",
       "output": {
         ".html": {
-          "relative_path": "docs/plugins/essentials/appcontext.html"
+          "relative_path": "docs/plugins/essentials/appcontext.html",
+          "hash": "9ZGgRmS1fuVmtxOpRuv2Yg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1387,9 +1631,11 @@
       "source_relative_path": "docs/plugins/essentials/connectivity.md",
       "output": {
         ".html": {
-          "relative_path": "docs/plugins/essentials/connectivity.html"
+          "relative_path": "docs/plugins/essentials/connectivity.html",
+          "hash": "srihu/LTSBwAWck3GlVlqQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1397,9 +1643,11 @@
       "source_relative_path": "docs/plugins/essentials/filesystem.md",
       "output": {
         ".html": {
-          "relative_path": "docs/plugins/essentials/filesystem.html"
+          "relative_path": "docs/plugins/essentials/filesystem.html",
+          "hash": "LIidUF7LFcxyYSubKeouFA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1407,9 +1655,11 @@
       "source_relative_path": "docs/plugins/essentials/index.md",
       "output": {
         ".html": {
-          "relative_path": "docs/plugins/essentials/index.html"
+          "relative_path": "docs/plugins/essentials/index.html",
+          "hash": "DMdfhtUtVZUxpA+vcxUwfA=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1417,9 +1667,11 @@
       "source_relative_path": "docs/plugins/essentials/mainthread.md",
       "output": {
         ".html": {
-          "relative_path": "docs/plugins/essentials/mainthread.html"
+          "relative_path": "docs/plugins/essentials/mainthread.html",
+          "hash": "s7SfVLtiMTiYARwLi0yOVg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1427,9 +1679,11 @@
       "source_relative_path": "docs/plugins/essentials/stores.md",
       "output": {
         ".html": {
-          "relative_path": "docs/plugins/essentials/stores.html"
+          "relative_path": "docs/plugins/essentials/stores.html",
+          "hash": "AycMrw2Za+NpVWKfavOFbg=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1437,9 +1691,11 @@
       "source_relative_path": "docs/plugins/popups.md",
       "output": {
         ".html": {
-          "relative_path": "docs/plugins/popups.html"
+          "relative_path": "docs/plugins/popups.html",
+          "hash": "cmc3ifzCV35zBe3mAmOxTQ=="
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1450,6 +1706,7 @@
           "relative_path": "images/connect-widget-sprite.svg"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1460,6 +1717,7 @@
           "relative_path": "images/docs-home.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1470,6 +1728,7 @@
           "relative_path": "images/logo-prism-symbol@2x.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1480,6 +1739,7 @@
           "relative_path": "images/prism-logo.png"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1490,6 +1750,7 @@
           "relative_path": "images/prism-logo.svg"
         }
       },
+      "is_incremental": false,
       "version": ""
     },
     {
@@ -1500,9 +1761,55 @@
           "relative_path": "index.html"
         }
       },
+      "is_incremental": false,
       "version": ""
     }
   ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 96,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
   "groups": [
     {
       "xrefmap": "xrefmap.yml"

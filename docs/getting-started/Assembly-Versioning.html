@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html>
 <!--[if IE]><![endif]-->
 <html>
-
+  
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Prism Assembly Versioning | Prism </title>
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Prism Assembly Versioning | Prism ">
-    <meta name="generator" content="docfx ">
-  
+    <meta name="generator" content="docfx 2.56.7.0">
+    
     <link rel="shortcut icon" href="../../favicon.ico">
     <link rel="stylesheet" href="../../styles/docfx.vendor.css">
     <link rel="stylesheet" href="../../styles/docfx.css">
@@ -17,14 +17,14 @@
     <link rel="stylesheet" href="../../styles/affix.css">
     <meta property="docfx:navrel" content="../../toc">
     <meta property="docfx:tocrel" content="toc">
-  
-  
-  
+    
+    
+    
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
     <div id="wrapper">
       <header>
-
+        
         <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
           <div class="container">
             <div class="navbar-header">
@@ -34,7 +34,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-
+              
               <a class="navbar-brand" href="../../index.html">
                 <img id="logo" class="svg" src="../../images/prism-logo.png" alt="">
               </a>
@@ -56,7 +56,7 @@
             </div>
           </div>
         </nav>
-
+        
         <div class="subnav navbar navbar-default">
           <div class="container hide-when-search" id="breadcrumb">
             <ul class="breadcrumb">
@@ -78,7 +78,7 @@
               </div>
               <div class="sidetoc">
                 <div class="toc" id="toc">
-
+                  
                   <ul class="nav level1">
                     <li class="">
                       <a href="Download-and-Setup-Prism.html" title="Download and Setup Prism" class="">Download and Setup Prism</a>
@@ -89,7 +89,7 @@
                     <li class="">
                       <a href="productivity-tools.html" title="Productivity Tools" class="">Productivity Tools</a>
                     </li>
-                  </ul>                </div>
+                  </ul>        </div>
               </div>
             </div>
           </div>
@@ -103,8 +103,7 @@
 <pre><code class="lang-cs">[assembly: AssemblyVersion(&quot;1.0.0.0&quot;)]
 [assembly: AssemblyFileVersion(&quot;1.0.0.0&quot;)]
 [assembly: AssemblyInformationalVersion(&quot;1.0.0.0&quot;)]
-</code></pre>
-<p>By convention, the four parts of each version are referred to as the <strong>Major</strong> Version, <strong>Minor</strong> Version, <strong>Build</strong>, and <strong>Revision</strong>.</p>
+</code></pre><p>By convention, the four parts of each version are referred to as the <strong>Major</strong> Version, <strong>Minor</strong> Version, <strong>Build</strong>, and <strong>Revision</strong>.</p>
 <p>This document describes how Prism utilizes each of these attributes to version its assemblies, and what numbering convention each attribute follows.</p>
 <h2 id="assemblyversion">AssemblyVersion</h2>
 <p>The <strong>AssemblyVersion</strong> is used by the CLR to bind to strongly named assemblies. It is stored in the AssemblyDef manifest metadata table of the built assembly, and in the AssemblyRef table of any assembly that references it. When you reference a strongly named assembly, which Prism is strongly named, you are tightly bound to that specific AssemblyVersion of that assembly.</p>
@@ -119,14 +118,14 @@
 <p>This will allow Prism to release bug fixes and updates without having to increment the <strong>AssemblyVersion</strong>.  This enables you as a developer to patch your applications without having to re-reference Prism assemblies or recompile and re-release your application.</p>
 <h2 id="assemblyinformationversion">AssemblyInformationVersion</h2>
 <p>The <strong>AssemblyInformationalVersion</strong> is intended to allow coherent versioning of the entire product, which may consist of many assemblies that are independently versioned, and potentially developed by disparate teams. The <strong>AssemblyInformationAttribute</strong> is used to communicate to the community, or customers, what version of Prism is the current release.</p>
-<p>For example; Assume we release a product with an <strong>AssemblyInformationAttribute</strong> of 2.0.0.0.  This product may be made up of many assemblies with their <strong>AssemblyVersion</strong> ranging from 1.0.0.0 to 1.9.9.9.  Although the individual assemblies are not versioned at 2.0.0.0, the product itself is a 2.0 release.</p>
+<p>For example; Assume we release a product with an <strong>AssemblyInformationAttribute</strong> of 2.0.0.0.  This product may be made up of many assemblies with their <strong>AssemblyVersion</strong> ranging from 1.0.0.0 to 1.9.9.9.  Although the individual assemblies are not versioned at 2.0.0.0, the product itself is a 2.0 release.  </p>
 <p>The <strong>AssemblyInformationAttribute</strong> lets us market Prism as an overall product made up of several related assemblies that have different assembly versions.</p>
 <p>Prism has standardize on the following format for <strong>AssemblyInformationVersioning</strong>:</p>
 <p><strong>[Major].[Minor].[Revision]</strong></p>
 <p><em>Note: This is the version that the Prism NuGet packages will match</em></p>
 </article>
           </div>
-
+          
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix" style="margin-top: 0px;">
               <div class="connect-widget">
@@ -165,7 +164,7 @@
           </div>
         </div>
       </div>
-
+      
       <footer>
         <div class="grad-bottom"></div>
         <div class="footer">
@@ -173,13 +172,13 @@
             <span class="pull-right">
               <a href="#top">Back to top</a>
             </span>
-      Copyright 2015-2024 Prism Software, LLC
-      
+            Copyright 2015-2024 Prism Software, LLC
+            
           </div>
         </div>
       </footer>
     </div>
-
+    
     <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
     <script type="text/javascript" src="../../styles/docfx.js"></script>
     <script type="text/javascript" src="../../styles/main.js"></script>
