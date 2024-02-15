@@ -1,5 +1,5 @@
 ---
-uid: Navigation.INavigationParameters
+uid: Navigation.PageNavigation
 ---
 
 # Page Navigation
