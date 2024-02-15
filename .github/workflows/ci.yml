@@ -27,13 +27,13 @@ jobs:
       with:
         ref: 'gh-pages'
 
+    - name: Delete old docs
+      run: rm -rf *
+
     - name: Download artifact
       uses: actions/download-artifact@v2
       with:
         name: docs
-
-    - name: Delete old docs
-      run: rm -rf *
 
     - name: Unpack new docs
       run: tar -xzf docs.tar.gz
