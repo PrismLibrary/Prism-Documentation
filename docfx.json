@@ -5,8 +5,8 @@
     "content": [
       {
         "files": [
-          "docs/**.md",
-          "docs/**/toc.yml",
+          "**/*.md",
+          "**/toc.yml",
           "toc.yml",
           "*.md"
         ],
@@ -19,17 +19,16 @@
     "resource": [
       {
         "files": [
+          "index.html",
           "images/**",
-          "docs/images/**",
           "docs/getting-started/images/**",
-          "docs/maui/images/**",
-          "docs/wpf/legacy/images/**",
-          "docs/wpf/images/**",
-          "docs/xamarin-forms/images/**",
-          "docs/xamarin-forms/getting-started/images/**",
-          "docs/xamarin-forms/platform-reference/images/**"
+          "docs/platforms/maui/images/**",
+          "docs/platforms/wpf/images/**",
+          "docs/platforms/xamarin-forms/images/**"
         ],
         "exclude": [
+          ".github/**",
+          ".vscode/**",
           "obj/**",
           "_site/**"
         ]

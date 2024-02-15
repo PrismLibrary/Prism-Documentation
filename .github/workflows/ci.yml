@@ -1,0 +1,52 @@
+name: Build Docs
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nikeee/docfx-action@v1.0.0
+        name: Build Documentation
+        with:
+          args: docfx.json
+      - uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: _site
+
+  publish-docs:
+    needs: build-docs
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: 'gh-pages'
+
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: docs
+
+    - name: Delete old docs
+      run: rm -rf *
+
+    - name: Unpack new docs
+      run: tar -xzf docs.tar.gz
+
+    - name: Commit and push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        if git diff --quiet --cached; then
+          echo 'No changes to commit'
+        else
+          git commit -m "Update docs"
+          git push
+        fi
+
