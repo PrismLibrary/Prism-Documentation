@@ -1,0 +1,1511 @@
+{
+  "source_base_path": "/Users/dansiegel/repos/PrismLibrary/Prism-Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/commands/async-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/commands/async-commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/commands/commanding.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/commands/commanding.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/commands/composite-commands.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/commands/composite-commands.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/commands/error-handling.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/commands/error-handling.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/add-custom-container.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/add-custom-container.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/appendix.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/appendix.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/container-locator.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/container-locator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/platform-specific-services.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/platform-specific-services.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/registering-types.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/registering-types.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/resolution-errors.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/resolution-errors.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dependency-injection/servicecollection-supplement.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dependency-injection/servicecollection-supplement.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dialogs/dialog-aware.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dialogs/dialog-aware.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dialogs/dialog-window.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dialogs/dialog-window.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/dialogs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/dialogs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/event-aggregator.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/event-aggregator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started/Assembly-Versioning.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started/Assembly-Versioning.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started/Download-and-Setup-Prism.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started/Download-and-Setup-Prism.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started/NuGet-Packages.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started/NuGet-Packages.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/NuGetPackageTree.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/NuGetPackageTree.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/prism-template-pack-win.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/prism-template-pack-win.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-prism-ext.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-prism-ext.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-app.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-app.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-module.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-module.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-test.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-prism-proj-temp-test.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-prism-template-01.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-prism-template-01.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-prism-template-official.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-prism-template-official.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-prism-template-pack.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-prism-template-pack.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-qs-prism-app-01.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-qs-prism-app-01.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-qs-prism-app-blank.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-qs-prism-app-blank.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/vsmac-qs-prism-app-setup.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/vsmac-qs-prism-app-setup.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/wpf-project-wizard.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/wpf-project-wizard.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/getting-started/images/xf-project-wizard.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/getting-started/images/xf-project-wizard.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/getting-started/productivity-tools.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/getting-started/productivity-tools.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/magician/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/magician/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/modularity/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/modularity/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/modularity/module-catalog.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/modularity/module-catalog.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/modularity/module-initialization.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/modularity/module-initialization.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/mvvm/bindablebase.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/mvvm/bindablebase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/mvvm/viewmodel-locator.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/mvvm/viewmodel-locator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/navigation-parameters.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/navigation-parameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/page-navigation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/page-navigation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/basic-region-navigation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/basic-region-navigation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/confirming-navigation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/confirming-navigation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/controlling-view-lifetime.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/controlling-view-lifetime.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/navigation-existing-views.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/navigation-existing-views.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/navigation-journal.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/navigation-journal.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/passing-parameters.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/passing-parameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/region-adapters.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/region-adapters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/region-behaviors.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/region-behaviors.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/region-manager.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/region-manager.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/navigation/regions/view-viewmodel-participation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/navigation/regions/view-viewmodel-participation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/appbuilder.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/appbuilder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/appmodel/pagelifecycleaware.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/appmodel/pagelifecycleaware.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/behaviors/behaviorbase.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/behaviors/behaviorbase.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/behaviors/eventtocommandbehavior.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/behaviors/eventtocommandbehavior.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/behaviors/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/behaviors/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/behaviors/pagebehaviorfactory.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/behaviors/pagebehaviorfactory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/dialogs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/dialogs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/dialogs/pagedialogs.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/dialogs/pagedialogs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/maui/images/pagedialogservice_01.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/maui/images/pagedialogservice_01.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/maui/images/pagedialogservice_02.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/maui/images/pagedialogservice_02.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/maui/images/pagedialogservice_03.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/maui/images/pagedialogservice_03.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/maui/images/pagedialogservice_04.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/maui/images/pagedialogservice_04.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/migrating.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/migrating.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/global-navigation-observer.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/global-navigation-observer.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/navigation-builder.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/navigation-builder.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/navigation-exceptions.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/navigation-exceptions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/navigation-result.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/navigation-result.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/page-navigation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/page-navigation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/prismnavigationpage.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/prismnavigationpage.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/maui/navigation/xaml-navigation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/maui/navigation/xaml-navigation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/uno/extensions.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/uno/extensions.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/uno/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/uno/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/wpf/dialog-service.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/wpf/dialog-service.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/wpf/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/wpf/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig10.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig10.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig11.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig11.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig12.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig12.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig13.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig13.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig16.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig16.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig17.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig17.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig19.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig19.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig2.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig2.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig3.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig3.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig4.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig4.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig6.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig6.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig8.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig8.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/Ch7UIFig9.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/Ch7UIFig9.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/FirstRun.PNG",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/FirstRun.PNG"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/ProjectStructure.PNG",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/ProjectStructure.PNG"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/nuget-install.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/nuget-install.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/wpf/images/viewmodellocator.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/wpf/images/viewmodellocator.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/wpf/interactivity/event-to-command.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/wpf/interactivity/event-to-command.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/wpf/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/wpf/introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/wpf/view-composition.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/wpf/view-composition.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/Dependency-Service.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/Dependency-Service.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/Getting-Started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/Getting-Started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/application-lifecycle.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/application-lifecycle.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/behaviors/eventtocommandbehavior.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/behaviors/eventtocommandbehavior.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/behaviors/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/behaviors/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/behaviors/page-behavior-factory.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/behaviors/page-behavior-factory.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/converting-an-existing-app.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/converting-an-existing-app.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/creating-your-first-prism-app.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/creating-your-first-prism-app.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/dialogs/dialog-service.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/dialog-service.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/dialogs/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/dialogs/page-dialog-service.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/page-dialog-service.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/dialogs/styling-dialogs.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/dialogs/styling-dialogs.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/GettingStarted_SolutionExplorer.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/GettingStarted_SolutionExplorer.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/GettingStarted_ViewSketch.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/GettingStarted_ViewSketch.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/dependencyservice_01.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/dependencyservice_01.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/first-project-run-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/first-project-run-1.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/first-project-solution.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/first-project-solution.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/new-project-dialog.jpg",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/new-project-dialog.jpg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_01.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_01.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_02.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_02.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_03.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_03.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_04.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/pagedialogservice_04.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/xf-iapplicationlifecycleaware-debug-location.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/xf-iapplicationlifecycleaware-debug-location.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/images/xf-project-wizard.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/images/xf-project-wizard.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/confirming-navigation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/confirming-navigation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/deep-linking.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/deep-linking.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/initialization.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/initialization.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/navigation-basics.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/navigation-basics.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/passing-parameters.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/passing-parameters.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/working-with-masterdetailpages.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-masterdetailpages.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/working-with-navigationpages.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-navigationpages.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/working-with-tabbedpages.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-tabbedpages.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/navigation/xaml-navigation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/navigation/xaml-navigation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/page-lifecycle.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/page-lifecycle.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/essentials/appcontext.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/essentials/appcontext.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/essentials/connectivity.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/essentials/connectivity.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/essentials/filesystem.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/essentials/filesystem.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/essentials/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/essentials/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/essentials/mainthread.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/essentials/mainthread.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/essentials/stores.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/essentials/stores.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/popups.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/popups.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/connect-widget-sprite.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/connect-widget-sprite.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/docs-home.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/docs-home.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo-prism-symbol@2x.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo-prism-symbol@2x.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/prism-logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/prism-logo.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/prism-logo.svg",
+      "output": {
+        "resource": {
+          "relative_path": "images/prism-logo.svg"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "index.html",
+      "output": {
+        "resource": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Productivity Tools | Prism </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Productivity Tools | Prism ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/affix.css">
+    <meta property="docfx:navrel" content="../../toc">
+    <meta property="docfx:tocrel" content="toc">
+  
+  
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../images/prism-logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="">
+                    <a href="//prismlibrary.com/" title="Home" class="">Home</a>
+                  </li>
+                  <li class="">
+                    <a href="../../docs/index.html" title="Documentation" class="">Documentation</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="Download-and-Setup-Prism.html" title="Download and Setup Prism" class="">Download and Setup Prism</a>
+                    </li>
+                    <li class="">
+                      <a href="NuGet-Packages.html" title="NuGet Packages" class="">NuGet Packages</a>
+                    </li>
+                    <li class="active">
+                      <a href="productivity-tools.html" title="Productivity Tools" class="active">Productivity Tools</a>
+                    </li>
+                  </ul>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="productivity-tools">Productivity Tools</h1>
+
+<p>Prism now integrates with Visual Studio and Visual Studio for Mac to enable a highly productive developer workflow for creating WPF, UWP, and native iOS and Android applications using Xamarin.Forms. Jump start your Prism apps with code snippets, item templates, and project templates for your IDE of choice.</p>
+<p>Available Tools:</p>
+<ul>
+<li>Prism Template Pack</li>
+<li>Prism Template Studio</li>
+<li>Prism Extensibility Pack</li>
+</ul>
+<h1 id="prism-template-pack">Prism Template Pack</h1>
+<p>The Prism Template Pack contains a collection of snippets, item templates, and project templates for use with building WPF, and Xamarin.Forms applications using Prism.</p>
+<h3 id="snippets">Snippets</h3>
+<ul>
+<li>propp - Property, with a backing field, that depends on BindableBase</li>
+</ul>
+<pre><code class="lang-cs">    private string _fieldName;
+    public string PropertyName
+    {
+        get { return _fieldName; }
+        set { SetProperty(ref _fieldName, value); }
+    }
+</code></pre>
+<ul>
+<li>cmd - Creates a DelegateCommand property with Execute method</li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand _fieldName;
+    public DelegateCommand CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand(ExecuteCommandName));
+
+    void ExecuteCommandName()
+    {
+
+    }
+</code></pre>
+<ul>
+<li>cmdfull - Creates a DelegateCommand property with Execute and CanExecute methods</li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand _fieldName;
+    public DelegateCommand CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand(ExecuteCommandName, CanExecuteCommandName));
+
+    void ExecuteCommandName()
+    {
+
+    }
+
+    bool CanExecuteCommandName()
+    {
+        return true;
+    }
+</code></pre>
+<ul>
+<li>cmdg - Creates a generic DelegateCommand<t> property</t></li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand&lt;string&gt; _fieldName;
+    public DelegateCommand&lt;string&gt; CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand&lt;string&gt;(ExecuteCommandName));
+
+    void ExecuteCommandName(string parameter)
+    {
+
+    }
+</code></pre>
+<ul>
+<li>cmdgfull - Creates a generic DelegateCommand<t> property with Execute and CanExecute methods</t></li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand&lt;string&gt; _fieldName;
+    public DelegateCommand&lt;string&gt; CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand&lt;string&gt;(ExecuteCommandName, CanExecuteCommandName));
+
+    void ExecuteCommandName(string parameter)
+    {
+
+    }
+
+    bool CanExecuteCommandName(string parameter)
+    {
+        return true;
+    }
+</code></pre>
+<h3 id="item-templates">Item Templates</h3>
+<p><strong>Cross Platform</strong></p>
+<ul>
+<li>Prism ViewModel - A ViewModel that derives from BindableBase and has a default constructor.</li>
+</ul>
+<p><strong>WPF</strong></p>
+<ul>
+<li>Prism UserControl - UserControl with ViewModel</li>
+<li>Prism Window - Window with ViewModel</li>
+</ul>
+<p><strong>Xamarin.Forms</strong></p>
+<ul>
+<li>Prism ContentPage - ContentPage with ViewModel &amp; Auto-registration</li>
+<li>Prism NavigationPage - NavigationPage with ViewModel &amp; Auto-registration</li>
+<li>Prism MasterDetailPage - MasterDetailPage with ViewModel &amp; Auto-registration</li>
+<li>Prism TabbedPage - TabbedPage with ViewModel &amp; Auto-registration</li>
+<li>Prism CarouselPage - CarouselPage with ViewModel &amp; Auto-registration</li>
+</ul>
+<h3 id="project-templates">Project Templates</h3>
+<p><strong>WPF</strong></p>
+<ul>
+<li>Prism Blank App - this is a project template that essentially creates a new WPF shell application.  It will have a basic bootstrapper that is responsible for initializing the app, and showing the shell.  It will have a MainWindow and a MainWindowViewModel located in the Views and ViewModels folders respectively.</li>
+<li>Prism Module - this project template will add a new project to your solution that will act as a Prism module.  It will have a class defined that implements IModule with two empty folders for your Views and ViewModels.</li>
+</ul>
+<p>Use the new WPF project wizard to choose your container and no longer have to worry about bringing in the correct Nuget packages.</p>
+<p><img src="images/wpf-project-wizard.png" alt="WPF Project Wizard"></p>
+<p><strong>Xamarin.Forms</strong></p>
+<ul>
+<li>Prism Blank App - this project template will create a .NET Standard Xamarin.Forms application with four projects; .NET Standard project for the shared code, an iOS app, an Android app, and a UWP app.</li>
+<li>Prism Module - this project template will add a new project to your solution that will act as a Prism module.  It will have a class defined that implements IModule with two folders for your Views and ViewModels.  There will be a default view called ViewA and a class named ViewAViewModel that has already been registered with the container in the IModule class.</li>
+</ul>
+<p>Tired of creating every Xamarin.Forms platform project available? Now you can chose only the projects you care about with the new Xamarin.Forms Project Wizard.</p>
+<p><img src="images/xf-project-wizard.png" alt="Xamarin.Forms Project Wizard"></p>
+<h2 id="visual-studio-installation">Visual Studio Installation</h2>
+<p>The Prism Template Pack is available on the <a href="https://marketplace.visualstudio.com/items?itemName=BrianLagunas.PrismTemplatePack">Visual Studio Gallery</a>. To install in Visual Studio 2019, just go to <code>Visual Studio -&gt; Extensions -&gt; ManageExtensions -&gt; Online -&gt; Visual Studio Marketplace</code> then search for &quot;Prism Template Pack&quot; in the online gallery:</p>
+<p><img src="images/prism-template-pack-win.jpg" alt="Prism Template Pack"></p>
+<h1 id="prism-template-studio">Prism Template Studio</h1>
+<p>The Prism Template Studio contains a collection of snippets, item templates, and project templates for use with Xamarin.Forms applications using Prism with Visual Studio for Mac.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>The Prism Template Studio for Visual Studio Mac is not compatibile with Visual Studio Mac 8.X. Work is currently being done to bring this up to date and provide the full functionality in Visual Studio on Windows, however it will only be available for those <a href="https://xam.dev/sponsordan">sponsoring Dan on GitHub</a>.</p>
+</div>
+<h3 id="snippets-1">Snippets</h3>
+<ul>
+<li>propp - Property, with a backing field, that depends on BindableBase</li>
+</ul>
+<pre><code class="lang-cs">    private string _fieldName;
+    public string PropertyName
+    {
+        get { return _fieldName; }
+        set { SetProperty(ref _fieldName, value); }
+    }
+</code></pre>
+<ul>
+<li>cmd - Creates a DelegateCommand property with Execute method</li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand _fieldName;
+    public DelegateCommand CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand(ExecuteCommandName));
+
+    void ExecuteCommandName()
+    {
+
+    }
+</code></pre>
+<ul>
+<li>cmdfull - Creates a DelegateCommand property with Execute and CanExecute methods</li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand _fieldName;
+    public DelegateCommand CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand(ExecuteCommandName, CanExecuteCommandName));
+
+    void ExecuteCommandName()
+    {
+
+    }
+
+    bool CanExecuteCommandName()
+    {
+        return true;
+    }
+</code></pre>
+<ul>
+<li>cmdg - Creates a generic DelegateCommand<t> property</t></li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand&lt;string&gt; _fieldName;
+    public DelegateCommand&lt;string&gt; CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand&lt;string&gt;(ExecuteCommandName));
+
+    void ExecuteCommandName(string parameter)
+    {
+
+    }
+</code></pre>
+<ul>
+<li>cmdgfull - Creates a generic DelegateCommand<t> property with Execute and CanExecute methods</t></li>
+</ul>
+<pre><code class="lang-cs">    private DelegateCommand&lt;string&gt; _fieldName;
+    public DelegateCommand&lt;string&gt; CommandName =&gt;
+        _fieldName ?? (_fieldName = new DelegateCommand&lt;string&gt;(ExecuteCommandName, CanExecuteCommandName));
+
+    void ExecuteCommandName(string parameter)
+    {
+
+    }
+
+    bool CanExecuteCommandName(string parameter)
+    {
+        return true;
+    }
+</code></pre>
+<h3 id="item-templates-1">Item Templates</h3>
+<p>TODO</p>
+<h3 id="project-templates-1">Project Templates</h3>
+<ul>
+<li><p>Blank Prism Application - This project template will create a .NET Standard Xamarin.Forms application with three projects; a .NET Standard project for the shared code, an iOS app, and an Android app.
+<img src="images/vsmac-prism-template-official.png" alt="Blank Prism Application"></p>
+</li>
+<li><p>QuickStart Blank Prism Application - This template lets you create a Xamarin.Forms app for iOS and Android much like the Visual Studio for Windows template, but adds PropertyChanged.Fody, started icon assets, IDE configurations and option to incude UI tests.
+<img src="images/vsmac-qs-prism-app-blank.png" alt="QuickStart Prism Application"></p>
+</li>
+<li><p>QuickStart Prism Application - This template provides a customizable template for creating Prism application with many common tools already installed e.g. MVVM helpers like Fody, localization, barcode scanner, and data provider backends (Azure, Realm, etc.)
+<img src="images/vsmac-qs-prism-app-01.png" alt="QuickStart Prism Application"></p>
+</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+</div>
+<p>This template requires CI/CD setup for <strong>AppCenter</strong> and <strong>Azure Devops (VSTS)</strong>. To get started, go to <a href="https://docs.microsoft.com/en-us/appcenter/">App Center</a> and <a href="https://visualstudio.microsoft.com/vso/">Azure DevOps</a> to setup your app. Then create connection to your app in Visual Studio for Mac by going to <code>Help -&gt; AppCenter Configurations</code>.
+<img src="images/vsmac-qs-prism-app-setup.png" alt="QuickStart Prism Application">
+Tutorial for this QuickStart can be found <a href="https://dansiegel.net/post/2018/06/21/developer-toolkit-for-visual-studio-mac">here</a>.</p>
+<ul>
+<li>Module - this project template will add a new project to your solution that will act as a Prism module.  It will have a class defined that implements IModule with two empty folders for your Views and ViewModels.</li>
+<li>Test - contains templates for Appium and Xamarin UI test, and Unit tests in MS Test, NUnit, and Xunit.</li>
+</ul>
+<h2 id="visual-studio-for-mac-installation">Visual Studio for Mac Installation</h2>
+<p>The Prism Template Studio and Developer Toolkit is available from the Visual Studio Mac Extensions Gallery. Prism makes it easier to get Prism Template Studio and Developer Toolkit all in a single extension. Go to <code>Visual Studio -&gt; Extensions...</code> and search for &quot;Prism&quot; in the Gallery tab.</p>
+<p><img src="images/vsmac-prism-ext.png" alt="VS4Mac Prism Extension"></p>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix" style="margin-top: 0px;">
+              <div class="connect-widget">
+                <ul class="connect-links">
+          		<li id="connect-github">
+          			<a href="https://github.com/PrismLibrary/Prism-Documentation/blob/master/docs/getting-started/productivity-tools.md/#L1" target="_blank">
+          				<div class="image github"></div>Edit on GitHub
+          			</a>
+                  </li>
+                  <li id="connect-stack-overflow">
+                      <a href="https://stackoverflow.com/questions/tagged/prism" target="_blank">
+                          <div class="image stackoverflow"></div>Ask questions
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/prismlib" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @PrismLib
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/brianlagunas" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @BrianLagunas
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/danjsiegel" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @DanJSiegel
+                      </a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      Copyright 2015-2024 Prism Software, LLC
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

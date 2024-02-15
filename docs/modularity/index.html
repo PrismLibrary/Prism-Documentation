@@ -1,0 +1,897 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Modular Application Development Using Prism Library | Prism </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Modular Application Development Using Prism Library | Prism ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/affix.css">
+    <meta property="docfx:navrel" content="../../toc">
+    <meta property="docfx:tocrel" content="../toc">
+  
+  
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../images/prism-logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="">
+                    <a href="//prismlibrary.com/" title="Home" class="">Home</a>
+                  </li>
+                  <li class="active">
+                    <a href="../../docs/index.html" title="Documentation" class="active">Documentation</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="../index.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Commands</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../commands/commanding.html" title="Commanding" class="">Commanding</a>
+                          </li>
+                          <li class="">
+                            <a href="../commands/composite-commands.html" title="Composite Commands" class="">Composite Commands</a>
+                          </li>
+                          <li class="">
+                            <a href="../commands/async-commands.html" title="Async Commands" class="">Async Commands</a>
+                          </li>
+                          <li class="">
+                            <a href="../commands/error-handling.html" title="Error Handling" class="">Error Handling</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Dependency Injection</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../dependency-injection/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                          <li class="">
+                            <a href="../dependency-injection/registering-types.html" title="Registering Types" class="">Registering Types</a>
+                          </li>
+                          <li class="">
+                            <a href="../dependency-injection/servicecollection-supplement.html" title="Microsoft Extensions (Supplement)" class="">Microsoft Extensions (Supplement)</a>
+                          </li>
+                          <li class="">
+                            <a href="../dependency-injection/platform-specific-services.html" title="Platform Specific Services" class="">Platform Specific Services</a>
+                          </li>
+                          <li class="">
+                            <a href="../dependency-injection/resolution-errors.html" title="Exception Handling" class="">Exception Handling</a>
+                          </li>
+                          <li class="">
+                            <a href="../dependency-injection/container-locator.html" title="ContainerLocator" class="">ContainerLocator</a>
+                          </li>
+                          <li class="">
+                            <a href="../dependency-injection/appendix.html" title="Appendix" class="">Appendix</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Dialog Service</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../dialogs/index.html" title="Dialog Service" class="">Dialog Service</a>
+                          </li>
+                          <li class="">
+                            <a href="../dialogs/dialog-aware.html" title="IDialogAware ViewModels" class="">IDialogAware ViewModels</a>
+                          </li>
+                          <li class="">
+                            <a href="../dialogs/dialog-window.html" title="IDialogWindow (WPF &amp; Uno Platform)" class="">IDialogWindow (WPF &amp; Uno Platform)</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <a href="../event-aggregator.html" title="Event Aggregator" class="">Event Aggregator</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Mvvm</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../mvvm/bindablebase.html" title="BindableBase" class="">BindableBase</a>
+                          </li>
+                          <li class="">
+                            <a href="../mvvm/viewmodel-locator.html" title="ViewModelLocator" class="">ViewModelLocator</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Modularity</a>
+
+                        <ul class="nav level2">
+                          <li class="active">
+                            <a href="../modularity/index.html" title="Getting Started" class="active">Getting Started</a>
+                          </li>
+                          <li class="">
+                            <a href="../modularity/module-catalog.html" title="Module Catalog" class="">Module Catalog</a>
+                          </li>
+                          <li class="">
+                            <a href="../modularity/module-initialization.html" title="Module Initialization" class="">Module Initialization</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Navigation</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../navigation/navigation-parameters.html" title="INavigationParameters" class="">INavigationParameters</a>
+                          </li>
+                          <li class="">
+                            <a href="../navigation/page-navigation.html" title="Page Navigation" class="">Page Navigation</a>
+                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Regions</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../navigation/regions/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/region-manager.html" title="Region Manager" class="">Region Manager</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/region-adapters.html" title="Region Adapters" class="">Region Adapters</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/region-behaviors.html" title="Region Behaviors" class="">Region Behaviors</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/index.html" title="About Navigation in Prism" class="">About Navigation in Prism</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/basic-region-navigation.html" title="Basic Region Navigation" class="">Basic Region Navigation</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/view-viewmodel-participation.html" title="View/ViewModel Participation" class="">View/ViewModel Participation</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/navigation-existing-views.html" title="Navigating to Existing Views" class="">Navigating to Existing Views</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/passing-parameters.html" title="Passing Parameters" class="">Passing Parameters</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/confirming-navigation.html" title="Confirming Navigation" class="">Confirming Navigation</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/controlling-view-lifetime.html" title="Controlling View Lifetime" class="">Controlling View Lifetime</a>
+                                </li>
+                                <li class="">
+                                  <a href="../navigation/regions/navigation-journal.html" title="Navigation Journal" class="">Navigation Journal</a>
+                                </li>
+                              </ul>                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Platforms</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Maui</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../platforms/maui/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../platforms/maui/migrating.html" title="Migrating from Prism.Forms" class="">Migrating from Prism.Forms</a>
+                                </li>
+                                <li class="">
+                                  <a href="../platforms/maui/appbuilder.html" title="PrismAppBuilder" class="">PrismAppBuilder</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">AppModel</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/maui/appmodel/pagelifecycleaware.html" title="IPageLifecycleAware" class="">IPageLifecycleAware</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Behaviors</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/maui/behaviors/index.html" title="Introduction" class="">Introduction</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/behaviors/behaviorbase.html" title="BehaviorBase&lt;T&gt;" class="">BehaviorBase&lt;T&gt;</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/behaviors/eventtocommandbehavior.html" title="EventToCommandBehavior" class="">EventToCommandBehavior</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/behaviors/pagebehaviorfactory.html" title="PageBehaviorFactory" class="">PageBehaviorFactory</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Dialogs</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/maui/dialogs/index.html" title="Getting Started" class="">Getting Started</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/dialogs/pagedialogs.html" title="IPageDialogService" class="">IPageDialogService</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Navigation</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/index.html" title="Introduction" class="">Introduction</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/page-navigation.html" title="Page Navigation" class="">Page Navigation</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/navigation-builder.html" title="NavigationBuilder" class="">NavigationBuilder</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/navigation-result.html" title="Understanding the INavigationResult" class="">Understanding the INavigationResult</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/navigation-exceptions.html" title="NavigationExceptions" class="">NavigationExceptions</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/global-navigation-observer.html" title="Global Navigation Observer" class="">Global Navigation Observer</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/xaml-navigation.html" title="XAML Navigation" class="">XAML Navigation</a>
+                                      </li>
+                                    </ul>                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Uno Platform</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../platforms/uno/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../platforms/uno/extensions.html" title="Uno.Extensions" class="">Uno.Extensions</a>
+                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Wpf</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../platforms/wpf/introduction.html" title="Introduction" class="">Introduction</a>
+                                </li>
+                                <li class="">
+                                  <a href="../platforms/wpf/getting-started.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../platforms/wpf/view-composition.html" title="View Composition" class="">View Composition</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Interactivity</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/wpf/interactivity/event-to-command.html" title="Event To Command" class="">Event To Command</a>
+                                      </li>
+                                    </ul>                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Xamarin.Forms</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../platforms/xamarin-forms/creating-your-first-prism-app.html" title="Create Your First App" class="">Create Your First App</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Behaviors</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/behaviors/index.html" title="Working with Behaviors" class="">Working with Behaviors</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/behaviors/eventtocommandbehavior.html" title="EventToCommand Behavior" class="">EventToCommand Behavior</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/behaviors/page-behavior-factory.html" title="PageBehaviorFactory" class="">PageBehaviorFactory</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Dialogs</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/dialogs/index.html" title="Dialogs" class="">Dialogs</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/dialogs/page-dialog-service.html" title="Page Dialog Service" class="">Page Dialog Service</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/dialogs/dialog-service.html" title="Dialog Service" class="">Dialog Service</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/dialogs/styling-dialogs.html" title="Styling Dialogs" class="">Styling Dialogs</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Navigation</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/navigation-basics.html" title="Navigation Basics" class="">Navigation Basics</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/passing-parameters.html" title="Passing Parameters" class="">Passing Parameters</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/confirming-navigation.html" title="Confirming Navigation" class="">Confirming Navigation</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/deep-linking.html" title="Deep Linking" class="">Deep Linking</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/working-with-masterdetailpages.html" title="Working w/ MasterDetailPages" class="">Working w/ MasterDetailPages</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/working-with-navigationpages.html" title="Working w/ NavigationPages" class="">Working w/ NavigationPages</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/working-with-tabbedpages.html" title="Working w/ TabbedPages" class="">Working w/ TabbedPages</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/navigation/xaml-navigation.html" title="XAML Navigation" class="">XAML Navigation</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <a href="../platforms/xamarin-forms/application-lifecycle.html" title="Application Lifecycle" class="">Application Lifecycle</a>
+                                </li>
+                                <li class="">
+                                  <a href="../platforms/xamarin-forms/page-lifecycle.html" title="Page Lifecycle" class="">Page Lifecycle</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Additional Platforms</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../platforms/xamarin-forms/platform-reference/gtk.html" title="GTK" class="">GTK</a>
+                                      </li>
+                                    </ul>                                </li>
+                              </ul>                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Magician</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../magician/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Plugins</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Essentials</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../plugins/essentials/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/essentials/appcontext.html" title="App Context" class="">App Context</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/essentials/connectivity.html" title="Connectivity" class="">Connectivity</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/essentials/filesystem.html" title="File System" class="">File System</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/essentials/mainthread.html" title="Main Thread" class="">Main Thread</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/essentials/stores.html" title="Stores" class="">Stores</a>
+                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <a href="../plugins/popups.html" title="Popups" class="">Popups</a>
+                          </li>
+                        </ul>                    </li>
+                  </ul>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Modularity.GettingStarted">
+<h1 id="modular-application-development-using-prism-library">Modular Application Development Using Prism Library</h1>
+
+<p>A modular application is an application that is divided into a set of loosely coupled functional units (named modules) that can be integrated into a larger application. A client module encapsulates a portion of the application's overall functionality and typically represents a set of related concerns. It can include a collection of related components, such as application features, including user interface and business logic, or pieces of application infrastructure, such as application-level services for logging or authenticating users. Modules are independent of one another but can communicate with each other in a loosely coupled fashion. Using a modular application design makes it easier for you to develop, test, deploy, and maintain your application.</p>
+<p>For example, consider a personal banking application. The user can access a variety of functions, such as transferring money between accounts, paying bills, and updating personal information from a single user interface (UI). However, behind the scenes, each of these functions is encapsulated within a discrete module. These modules communicate with each other and with back-end systems such as database servers and web services. Application services integrate the various components within each of the different modules and handle the communication with the user. The user sees an integrated view that looks like a single application.</p>
+<p>The following illustration shows a design of a modular application with multiple modules.</p>
+<p><img src="../images/ModularityAppArchitecture.png" alt="Module composition"></p>
+<h2 id="benefits-of-building-modular-applications">Benefits of Building Modular Applications</h2>
+<p>You are probably already building a well-architected application using assemblies, interfaces, and classes, and employing good object-oriented design principles. Even so, unless great care is taken, your application design may still be &quot;monolithic&quot; (where all the functionality is implemented in a tightly coupled way within the application), which can make the application difficult to develop, test, extend, and maintain.</p>
+<p>The modular application approach, on the other hand, can help you to identify the large scale functional areas of your application and allow you to develop and test that functionality independently. This can make development and testing easier, but it can also make your application more flexible and easier to extend in the future. The benefit of the modular approach is that it can make your overall application architecture more flexible and maintainable because it allows you to break your application into manageable pieces. Each piece encapsulates specific functionality, and each piece is integrated through clear but loosely coupled communication channels.</p>
+<h2 id="prisms-support-for-modular-application-development">Prism's Support for Modular Application Development</h2>
+<p>Prism provides support for modular application development and for run-time module management within your application. Using Prism's modular development functionality can save you time because you don't have to implement and test your own modularity framework. Prism supports the following modular application development features:</p>
+<ul>
+<li>A module catalog for registering named modules and each module's location; you can create the module catalog in the following ways:
+<ul>
+<li>By defining modules in code or Extensible Application Markup Language (XAML)</li>
+<li>By discovering modules in a directory so you can load all your modules without explicitly defining in a centralized catalog</li>
+<li>By defining modules in a configuration file</li>
+<li>Declarative metadata attributes for modules to support initialization mode and dependencies</li>
+</ul>
+</li>
+<li>For module loading:
+<ul>
+<li>Dependency management, including duplicate and cycle detection to ensure modules are loaded in the correct order and only loaded and initialized once</li>
+<li>On-demand and background downloading of modules to minimize application start-up time; the rest of the modules can be loaded and initialized in the background or when they are required</li>
+</ul>
+</li>
+<li>Integration with dependency injection containers to support loose coupling between modules</li>
+</ul>
+<h2 id="core-concepts">Core Concepts</h2>
+<p>This section introduces the core concepts related to modularity in Prism, including the <code>IModule</code> interface, the module loading process, the module catalog, communicating between modules, and dependency injection containers.</p>
+<h3 id="imodule-the-building-block-of-modular-applications">IModule: The Building Block of Modular Applications</h3>
+<p>A module is a logical collection of functionality and resources that is packaged in a way that can be separately developed, tested, deployed, and integrated into an application. A package can be one or more assemblies. Each module has a central class that is responsible for initializing the module and integrating its functionality into the application. That class implements the <code>IModule</code> interface.</p>
+<p><em><strong>Note:</strong> The presence of a class that implements the <code>IModule</code> interface is enough to identify the package as a module.</em></p>
+<p>The <code>IModule</code> interface has two methods, named <code>OnInitialized</code> and <code>RegisterTypes</code>. Both take a reference to the dependency injection container as a parameter. When a module is loaded into the application, <code>RegisterTypes</code> is called first and should be used to register any services or functionality that the module implements. Next the <code>OnInitialized</code> method is called. It is here that things like view registrations or any other module initialization code should be performed.</p>
+<pre><code class="lang-cs">public class MyModule : IModule
+{
+    public void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+        // register with the container that SomeService implements ISomeService
+        // ISomeService is defined in the Infrastructure module, see app architecture diagram
+        containerRegistry.Register&lt;MyApplication.Infrastructure.ISomeService, SomeService&gt;();
+    }
+
+    public void OnInitialized(IContainerProvider containerProvider)
+    {
+        // use the containerProvider to retrieve the instance of the Prism RegionManager
+        // and register the view in this module with a specific region in the app
+        var regionManager = containerProvider.Resolve&lt;IRegionManager&gt;();
+        regionManager.RegisterViewWithRegion(&quot;MyModuleView&quot;, typeof(Views.ThisModuleView));
+    }
+}
+</code></pre>
+<h3 id="module-lifecycle">Module Lifecycle</h3>
+<p>The module loading process in Prism includes the following sequence:</p>
+<ul>
+<li><strong>Registering</strong> Modules are created by implementing the IModule interface inside of a class.</li>
+<li><strong>Discovering modules</strong>. The modules to be loaded at run-time for a particular application are defined in a Module catalog. The catalog contains information about the modules to be loaded, such as their location, and the order in which they are to be loaded.</li>
+<li><strong>Loading modules</strong>. The assemblies that contain the modules are loaded into memory.</li>
+<li><strong>Initializing modules</strong>. The modules are then initialized. This means creating instances of the module class and calling the <code>RegisterTypes</code> and <code>OnInitialized</code> methods on them via the <code>IModule</code> interface.</li>
+</ul>
+<h3 id="module-catalog">Module Catalog</h3>
+<p>The <code>ModuleCatalog</code> holds information about the modules that can be used by the application. The catalog is essentially a collection of <code>ModuleInfo</code> classes. Each module is described in a <code>ModuleInfo</code> class that records the name, type, and location, among other attributes of the module. There are several typical approaches to filling the <strong>ModuleCatalog</strong> with <strong>ModuleInfo</strong> instances:</p>
+<ul>
+<li>Registering modules in code</li>
+<li>Registering modules in XAML</li>
+<li>Registering modules in a configuration file</li>
+<li>Discovering modules in a local directory on disk</li>
+</ul>
+<p>The registration and discovery mechanism you should use depends on what your application needs. Using a configuration file or XAML file allows your application to not require references to the modules. Using a directory can allow an application to discover modules without having to specify them in a file.</p>
+<h3 id="controlling-when-to-load-a-module">Controlling When to Load a Module</h3>
+<p>Prism applications can initialize modules as soon as possible, known as &quot;when available,&quot; or when the application needs them, known as &quot;on-demand.&quot; Consider the following guidelines for loading modules:</p>
+<ul>
+<li>Modules required for the application to run must be loaded with the application and initialized when the application runs.</li>
+<li>Modules containing features that are rarely used (or are support modules that other modules optionally depend upon) can be loaded and initialized on-demand.</li>
+</ul>
+<p>Consider how you are partitioning your application, common usage scenarios and application start-up time for determining how to configure your app for initialization.</p>
+<h3 id="integrate-modules-with-the-application">Integrate Modules With The Application</h3>
+<p>Each of the <code>Prism.DryIoc.[Platform]</code> and <code>Prism.Unity.[Platform]</code> assemblies provide an <code>Application</code> based class that is used as the base class for the App class. Override the virtual method <code>CreateModuleCatalog</code> to create the desired type of module catalog.</p>
+<p>For each of the modules in the app, implement the <code>IModuleInfo</code> interface to register module types and services. The following are common things to do to when integrating a module into the app:</p>
+<ul>
+<li>Add the module's views to the application's navigation structure. This is common when building composite UI applications using view discovery or view injection.</li>
+<li>Subscribe to application level events or services.</li>
+<li>Register shared services with the application's dependency injection container.</li>
+</ul>
+<h3 id="communicate-between-modules">Communicate Between Modules</h3>
+<p>Even though modules should have low coupling between each other, it is common for modules to communicate with each other. There are several loosely coupled communication patterns, each with their own strengths. Typically, combinations of these patterns are used to create the resulting solution. The following are some of these patterns:</p>
+<ul>
+<li><strong>Loosely coupled events</strong>. A module can broadcast that a certain event has occurred. Other modules can subscribe to those events so they will be notified when the event occurs. Loosely coupled events are a lightweight manner of setting up communication between two modules; therefore, they are easily implemented. However, a design that relies too heavily on events can become hard to maintain, especially if many events have to be orchestrated together to fulfill a single task. In that case, it might be better to consider a shared service.</li>
+<li><strong>Shared services</strong>. A shared service is a class that can be accessed through a common interface. Typically, shared services are found in a shared assembly and provide system-wide services, such as authentication, logging, or configuration.</li>
+<li><strong>Shared resources</strong>. If you do not want modules to directly communicate with each other, you can also have them communicate indirectly through a shared resource, such as a database or a set of web services.</li>
+</ul>
+<h3 id="dependency-injection-and-modular-applications">Dependency Injection and Modular Applications</h3>
+<p>Containers like <strong>Unity</strong> and <strong>DryIoc</strong> allow you to easily use Inversion of Control (IoC) and Dependency Injection, which are powerful design patterns that help to compose components in a loosely-coupled fashion. It allows components to obtain references to the other components that they depend on without having to hard code those references, thereby promoting better code re-use and improved flexibility. Dependency injection is very useful when building a loosely coupled, modular application. Prism is designed to be agnostic about the dependency injection container used to compose components within an application.</p>
+<p>Regardless of which of the three containers is chosen, Prism will use the container to construct and initialize each of the modules so that they remain loosely coupled.</p>
+<h2 id="key-decisions">Key Decisions</h2>
+<p>The first decision you will make is whether you want to develop a modular solution. There are numerous benefits of building modular applications as discussed in the previous section, but there is a commitment in terms of time and effort that you need to make to reap these benefits. If you decide to develop a modular solution, there are several more things to consider:</p>
+<ul>
+<li><strong>Determine the framework you will use</strong>. You can create your own modularity framework, use Prism, or another framework.</li>
+<li><strong>Determine how to organize your solution</strong>. Approach a modular architecture by defining the boundaries of each module, including what assemblies are part of each module. You can decide to use modularity to ease the development, as well as to have control over how the application will be deployed or if it will support a plug-in or extensible architecture.</li>
+<li><strong>Determine how to partition your modules</strong>. Modules can be partitioned differently based on requirements, for example, by functional areas, provider modules, development teams and deployment requirements.</li>
+<li><strong>Determine the core services that the application will provide to all modules</strong>. An example is that core services could be an error reporting service or an authentication and authorization service.</li>
+<li><strong>If you are using Prism, determine what approach you are using to register modules in the module catalog</strong>. For WPF, you can register modules in code, XAML, in a configuration file, or discovering modules in a local directory on disk.</li>
+<li><strong>Determine your module communication and dependency strategy</strong>. Modules will need to communicate with each other, and you will need to deal with dependencies between modules.</li>
+<li><strong>Determine your dependency injection container</strong>. Typically, modular systems require dependency injection, inversion of control, or service locator to allow the loose coupling and dynamic loading and creating of modules. Prism allows a choice between using Unity or DryIoc and provides libraries for Unity and DryIoc based applications.</li>
+<li><strong>Minimize application startup time</strong>. Think about on-demand and background downloading of modules to minimize application startup time.</li>
+<li><strong>Determine deployment requirements</strong>. You will need to think about how you intend to deploy your application.</li>
+</ul>
+<p>The next sections provide details about some of these decisions.</p>
+<h2 id="partition-your-application-into-modules">Partition Your Application into Modules</h2>
+<p>When you develop your application in a modularized fashion, you structure the application into separate client modules that can be individually developed, tested, and deployed. Each module will encapsulate a portion of your application's overall functionality. One of the first design decisions you will have to make is to decide how to partition your application's functionality into discrete modules.</p>
+<p>A module should encapsulate a set of related concerns and have a distinct set of responsibilities. A module can represent a vertical slice of the application or a horizontal service layer.</p>
+<p><img src="../images/ModularityVertical.png" alt="A vertical sliced application"></p>
+<p>An application with modules organized around vertical slices</p>
+<p><img src="../images/ModularityHor.png" alt="A horizontal layered application"></p>
+<p>An application with modules organized around horizontal layers</p>
+<p>A larger application may have modules organized with vertical slices and horizontal layers. Some examples of modules include the following:</p>
+<ul>
+<li>A module that contains a specific application feature, such as a module that serves news and/or announcements</li>
+<li>A module that contains a specific sub-system or functionality for a set of related use cases, such as purchasing, invoicing, or general ledger</li>
+<li>A module that contains infrastructure services, such as logging, caching, and authorization services, or web services</li>
+<li>A module that contains services that invoke line-of-business (LOB) systems, such as Siebel CRM and SAP, in addition to other internal systems</li>
+</ul>
+<p>A module should have a minimal set of dependencies on other modules. When a module has a dependency on another module, it should be loosely coupled by using interfaces defined in a shared library instead of concrete types, or by using the <strong>EventAggregator</strong> to communicate with other modules via <strong>EventAggregator</strong> event types.</p>
+<p>The goal of modularity is to partition the application in such a way that it remains flexible, maintainable, and stable even as features and technologies are added and removed. The best way to accomplish this is to design your application so that modules are as independent as possible, have well defined interfaces, and are as isolated as possible.</p>
+<h3 id="determine-ratio-of-projects-to-modules">Determine Ratio of Projects to Modules</h3>
+<p>There are several ways to create and package modules. The recommended and most common way is to create a single assembly per module. This helps keep logical modules separate and promotes proper encapsulation. It also makes it easier to talk about the assembly as the module boundary as well as the packaging of how you deploy the module. However, nothing prevents a single assembly from containing multiple modules, and in some cases this may be preferred to minimize the number of projects in your solution. For a large application, it is not uncommon to have 10–50 modules. Separating each module into its own project adds a lot of complexity to the solution and can slow down Visual Studio performance. Sometimes it makes sense to break a module or set of modules into their own solution to manage this if you choose to stick to one module per assembly/Visual Studio project.</p>
+<h2 id="use-dependency-injection-for-loose-coupling">Use Dependency Injection for Loose Coupling</h2>
+<p>A module may depend on components and services provided by the host application or by other modules. Prism supports the ability to register dependencies between modules so that they are loaded and initialized in the right order. Prism also supports the initialization of modules when they are loaded into the application. During module initialization, the module can retrieve references to the additional components and services it requires, and/or register any components and services that it contains in order to make them available to other modules.</p>
+<p>A module should use an independent mechanism to get instances of external interfaces instead of directly instantiating a concrete type, for example by using a dependency injection container or factory service. Dependency injection containers such as Unity or DryIoc allow a type to automatically acquire instances of the interfaces and types it needs through dependency injection. Prism integrates with Unity and DryIoc to allow a module to easily use dependency injection.</p>
+<p>The following diagram shows the typical sequence of operations when modules are loaded that need to acquire or register references to the components and services.</p>
+<p><img src="../images/ModularityDi.png" alt="Example of dependency injection"></p>
+<p>In this example, the <code>OrdersModule</code> assembly defines an <code>OrdersRepository</code> class (along with other views and classes that implement order functionality). The <code>CustomerModule</code> assembly defines a <code>CustomersViewModel</code> class which depends on the <code>OrdersRepository</code>, typically based on an interface exposed by the service. The application startup and bootstrapping process contains the following steps:</p>
+<ol>
+<li>The <code>App</code> class that is derived from <code>PrismApplication</code> starts the module initialization process, and the module loader loads and initializes the <code>OrdersModule</code>.</li>
+<li>In the initialization of the <code>OrdersModule</code>, it registers the <code>OrdersRepository</code> with the container.</li>
+<li>The module loader then loads the <code>CustomersModule</code>. The order of module loading can be specified by the dependencies in the module metadata.</li>
+<li>The <code>CustomersModule</code> constructs an instance of the <code>CustomerViewModel</code> by resolving it through the container. The <code>CustomerViewModel</code> has a dependency on the <code>OrdersRepository</code> (typically based on its interface) and indicates it through constructor or property injection. The container injects that dependency in the construction of the view model based on the type registered by the <code>OrdersModule</code>. The net result is an interface reference from the <code>CustomerViewModel</code> to the <code>OrderRepository</code> without tight coupling between those classes.</li>
+</ol>
+<p><strong>Note:</strong> The interface used to expose the <code>OrderRepository</code> (<code>IOrderRepository</code>) could reside in a separate &quot;shared services&quot; assembly or an &quot;orders services&quot; assembly that only contains the service interfaces and types required to expose those services. This way, there is no hard dependency between the <code>CustomersModule</code> and the <code>OrdersModule</code>.</p>
+<blockquote>
+<p>Note that both modules have an implicit dependency on the dependency injection container. This dependency is injected during module construction in the module loader.</p>
+</blockquote>
+<h2 id="core-scenarios">Core Scenarios</h2>
+<p>This section describes the common scenarios you will encounter when working with modules in your application. These scenarios include defining a module, registering and discovering modules, loading modules, initializing modules, specifying module dependencies, loading modules on demand, downloading remote modules in the background, and detecting when a module has already been loaded. You can register and discover modules in code, in a XAML or application configuration file, or by scanning a local directory.</p>
+<h3 id="defining-a-module">Defining a Module</h3>
+<p>A module is a logical collection of functionality and resources that is packaged in a way that can be separately developed, tested, deployed, and integrated into an application. Each module has a central class that is responsible for initializing the module and integrating its functionality into the application. That class implements the <code>IModule</code> interface, as shown here.</p>
+<pre><code class="lang-cs">public class MyModule : IModule
+{
+    public void RegisterTypes(IContainerRegistry containerRegistry)
+    {
+    }
+
+    public void OnInitialized(IContainerProvider containerProvider)
+    {
+    }
+}
+</code></pre>
+<p>Implement <code>RegisterTypes</code> to handle the registration with the dependency injection container all of the services that this module implements.</p>
+<p>How <code>OnInitialized</code> method is implemented will depend on the requirements of your application. Here is where you can register your views and do any other module level initialize that may be required.</p>
+<h3 id="registering-and-discovering-modules">Registering and Discovering Modules</h3>
+<p>The modules that an application can load are defined in a module catalog. The Prism Module Loader uses the module catalog to determine which modules are available to be loaded into the application, when to load them, and in which order they are to be loaded.</p>
+<p>The module catalog is represented by a class that implements the <code>IModuleCatalog</code> interface. The module catalog class is created by the <code>PrismApplication</code> base class during application initialization. Prism provides different implementations of module catalog for you to choose from. You can also populate a module catalog from another data source by calling the <code>AddModule</code> method or by deriving from <code>ModuleCatalog</code> to create a module catalog with customized behavior.</p>
+<p>By default, the <code>App</code> class, derived from <code>PrismApplication</code>, creates a <code>ModuleCatalog</code> in the <code>CreateModuleCatalog</code> method. In WPF and UNO, you can override this method to use different types of <code>ModuleCatalog</code>.</p>
+<h4 id="registering-modules-in-code">Registering Modules in Code</h4>
+<p>The most basic module catalog, and default, is provided by the <code>ModuleCatalog</code> class. You can use this module catalog to programmatically register modules by specifying the module class type. You can also programmatically specify the module name and initialization mode. To register the module directly with the <code>ModuleCatalog</code> class, call the <code>AddModule</code> method in your application's <code>PrismApplication</code> derived <code>App</code> class. Override <code>ConfigureModuleCatalog</code> to add your modules. An example is shown in the following code.</p>
+<pre><code class="lang-cs">protected override void ConfigureModuleCatalog()
+{
+    Type moduleCType = typeof(ModuleC);
+    ModuleCatalog.AddModule(new ModuleInfo()
+    {
+        ModuleName = moduleCType.Name,
+        ModuleType = moduleCType.AssemblyQualifiedName,
+    });
+}
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> If your application has a direct reference to the module type, you can add it by type as shown above; otherwise you need to provide the fully qualified type name and the location of the assembly.</p>
+</blockquote>
+<p>To specify dependencies in code, use Prism supplied declarative attributes.</p>
+<pre><code class="lang-cs">[Module(ModuleName = &quot;ModuleA&quot;)]
+[ModuleDependency(&quot;ModuleD&quot;)]
+public class ModuleA : IModule
+{
+    ...
+}
+</code></pre>
+<p>To specify on-demand loading in code, add the <code>InitializationMode</code> property to your new instance of ModuleInfo. Using the code below:</p>
+<pre><code class="lang-cs">Type moduleCType = typeof(ModuleC);
+ModuleCatalog.AddModule(new ModuleInfo()
+{
+    ModuleName = moduleCType.Name,
+    ModuleType = moduleCType.AssemblyQualifiedName,
+    InitializationMode = InitializationMode.OnDemand,
+});
+</code></pre>
+<h4 id="registering-modules-using-a-xaml-file">Registering Modules Using a XAML File</h4>
+<p>You can define a module catalog declaratively by specifying it in a XAML file. The XAML file specifies what kind of module catalog class to create and which modules to add to it. Usually, the .xaml file is added as a resource to your shell project. The module catalog is created by the App with a call to the <code>CreateFromXaml</code> method. From a technical perspective, this approach is very similar to defining the <code>ModuleCatalog</code> in code because the XAML file simply defines a hierarchy of objects to be instantiated.</p>
+<p>The following code example shows a XAML file specifying a module catalog.</p>
+<pre><code class="lang-xml">&lt;--! ModulesCatalog.xaml --&gt;
+&lt;Modularity:ModuleCatalog xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:sys=&quot;clr-namespace:System;assembly=mscorlib&quot;
+    xmlns:Modularity=&quot;clr-namespace:Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practices.Prism&quot;&gt;
+
+    &lt;Modularity:ModuleInfoGroup Ref=&quot;file://DirectoryModules/ModularityWithMef.Desktop.ModuleB.dll&quot; InitializationMode=&quot;WhenAvailable&quot;&gt;
+        &lt;Modularity:ModuleInfo ModuleName=&quot;ModuleB&quot; ModuleType=&quot;ModularityWithMef.Desktop.ModuleB, ModularityWithMef.Desktop.ModuleB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; /&gt;
+    &lt;/Modularity:ModuleInfoGroup&gt;
+
+    &lt;Modularity:ModuleInfoGroup InitializationMode=&quot;OnDemand&quot;&gt;
+        &lt;Modularity:ModuleInfo Ref=&quot;file://ModularityWithMef.Desktop.ModuleE.dll&quot; ModuleName=&quot;ModuleE&quot; ModuleType=&quot;ModularityWithMef.Desktop.ModuleE, ModularityWithMef.Desktop.ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; /&gt;
+        &lt;Modularity:ModuleInfo Ref=&quot;file://ModularityWithMef.Desktop.ModuleF.dll&quot; ModuleName=&quot;ModuleF&quot; ModuleType=&quot;ModularityWithMef.Desktop.ModuleF, ModularityWithMef.Desktop.ModuleF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot;&gt;
+            &lt;Modularity:ModuleInfo.DependsOn&gt;
+                &lt;sys:String&gt;ModuleE&lt;/sys:String&gt;
+            &lt;/Modularity:ModuleInfo.DependsOn&gt;
+        &lt;/Modularity:ModuleInfo&gt;
+    &lt;/Modularity:ModuleInfoGroup&gt;
+
+    &lt;!-- Module info without a group --&gt;
+    &lt;Modularity:ModuleInfo Ref=&quot;file://DirectoryModules/ModularityWithMef.Desktop.ModuleD.dll&quot; ModuleName=&quot;ModuleD&quot; ModuleType=&quot;ModularityWithMef.Desktop.ModuleD, ModularityWithMef.Desktop.ModuleD, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; /&gt;
+&lt;/Modularity:ModuleCatalog&gt;
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> <code>ModuleInfoGroups</code> provide a convenient way to group modules that are in the same assembly, are initialized in the same way, or only have dependencies on modules in the same group. Dependencies between modules can be defined within modules in the same <code>ModuleInfoGroup</code>; however, you cannot define dependencies between modules in different <code>ModuleInfoGroups</code>. Putting modules inside module groups is optional. The properties that are set for a group will be applied to all its contained modules. Note that modules can also be registered without being inside a group._</p>
+</blockquote>
+<p>Example on creating the catalog from a XAML file is below:</p>
+<pre><code class="lang-cs">protected override IModuleCatalog CreateModuleCatalog()
+{
+    return ModuleCatalog.CreateFromXaml(new Uri(&quot;/MyProject;component/ModulesCatalog.xaml&quot;, UriKind.Relative));
+}
+</code></pre>
+<p>To specify dependencies in XAML, follow the example below:</p>
+<pre><code class="lang-xml">&lt;-- ModulesCatalog.xaml --&gt;
+&lt;Modularity:ModuleInfo Ref=&quot;file://ModuleE.dll&quot; moduleName=&quot;ModuleE&quot; moduleType=&quot;ModuleE.Module, ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; /&gt;
+&lt;Modularity:ModuleInfo Ref=&quot;file://ModuleF.dll&quot; moduleName=&quot;ModuleF&quot; moduleType=&quot;ModuleF.Module, ModuleF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot;&gt;
+    &lt;Modularity:ModuleInfo.DependsOn&gt;
+        &lt;sys:String&gt;ModuleE&lt;/sys:String&gt;
+    &lt;/Modularity:ModuleInfo.DependsOn&gt;
+&lt;/Modularity:ModuleInfo&gt;
+</code></pre>
+<p>To specify on-demand loading of your module, add the <code>startupLoaded</code> attribute to the <code>Modularity:ModuleInfo</code> element.</p>
+<pre><code class="lang-xml">&lt;Modularity:ModuleInfo Ref=&quot;file://ModuleE.dll&quot; moduleName=&quot;ModuleE&quot; moduleType=&quot;ModuleE.Module, ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; startupLoaded=&quot;false&quot; /&gt;
+</code></pre>
+<h4 id="registering-modules-using-a-configuration-file">Registering Modules Using a Configuration File</h4>
+<p>In WPF, it is possible to specify the module information in the App.config file. The advantage of this approach is that this file is not compiled into the application. This makes it very easy to add or remove modules at run time without recompiling the application.</p>
+<p>The following code example shows a configuration file specifying a module catalog.</p>
+<pre><code class="lang-xml">&lt;!-- ModularityWithUnity.Desktop\\app.config --&gt;
+&lt;xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+    &lt;configSections&gt;
+        &lt;section name=&quot;modules&quot; type=&quot;Prism.Modularity.ModulesConfigurationSection, Prism.Wpf&quot;/&gt;
+    &lt;/configSections&gt;
+
+    &lt;modules&gt;
+        &lt;module assemblyFile=&quot;ModularityWithUnity.Desktop.ModuleE.dll&quot; moduleType=&quot;ModularityWithUnity.Desktop.ModuleE, ModularityWithUnity.Desktop.ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; moduleName=&quot;ModuleE&quot; startupLoaded=&quot;false&quot; /&gt;
+        &lt;module assemblyFile=&quot;ModularityWithUnity.Desktop.ModuleF.dll&quot; moduleType=&quot;ModularityWithUnity.Desktop.ModuleF, ModularityWithUnity.Desktop.ModuleF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; moduleName=&quot;ModuleF&quot; startupLoaded=&quot;false&quot;&gt;
+            &lt;dependencies&gt;
+                &lt;dependency moduleName=&quot;ModuleE&quot;/&gt;
+            &lt;/dependencies&gt;
+        &lt;/module&gt;
+    &lt;/modules&gt;
+&lt;/configuration&gt;
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> Even if your assemblies are in the global assembly cache or in the same folder as the application, the <code>assemblyFile</code> attribute is required. The attribute is used to map the <code>moduleType</code> to the correct <code>IModuleTypeLoader</code> to use.</p>
+</blockquote>
+<p>In your application's <code>App</code> class, you need to specify that the configuration file is the source for your <code>ModuleCatalog</code>. To do this, override the <code>CreateModuleCatalog</code> method and return an instance of the <code>ConfigurationModuleCatalog</code> class.</p>
+<pre><code class="lang-cs">protected override IModuleCatalog CreateModuleCatalog()
+{
+    return new ConfigurationModuleCatalog();
+}
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> You can still add modules to a <code>ConfigurationModuleCatalog</code> in code. You can use this, for example, to make sure that the modules that your application absolutely needs to function are defined in the catalog.</p>
+</blockquote>
+<p>To specify dependencies in the app.config file:</p>
+<pre><code class="lang-xml">&lt;-- app.config --&gt;
+&lt;modules&gt;
+    &lt;module assemblyFile=&quot;ModuleE.dll&quot; moduleType=&quot;ModuleE.Module, ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; moduleName=&quot;moduleE&quot; /&gt;
+    &lt;module assemblyFile=&quot;ModuleF.dll&quot; moduleType=&quot;ModuleF.Module, ModuleF, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; moduleName=&quot;moduleF&quot;&gt;
+        &lt;dependencies&gt;
+            &lt;dependency moduleName=&quot;moduleE&quot; /&gt;
+        &lt;/dependencies&gt;
+    &lt;/module&gt;
+&lt;/modules&gt;
+</code></pre>
+<p>To specify on-demand loading using a configuration file, set the <code>startupLoaded</code> attribute of the <code>module</code> element to <code>false</code>.</p>
+<pre><code class="lang-xml">&lt;module assemblyFile=&quot;ModularityWithUnity.Desktop.ModuleE.dll&quot; moduleType=&quot;ModularityWithUnity.Desktop.ModuleE, ModularityWithUnity.Desktop.ModuleE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null&quot; moduleName=&quot;ModuleE&quot; startupLoaded=&quot;false&quot; /&gt;
+</code></pre>
+<h4 id="discovering-modules-in-a-directory">Discovering Modules in a Directory</h4>
+<p>The Prism <code>DirectoryModuleCatalog</code> class allows you to specify a local directory as a module catalog in WPF. This module catalog will scan the specified folder and search for assemblies that define the modules for your application. To use this approach, you will need to use declarative attributes on your module classes to specify the module name and any dependencies that they have. The following code example shows a module catalog that is populated by discovering assemblies in a directory.</p>
+<pre><code class="lang-cs">protected override IModuleCatalog CreateModuleCatalog()
+{
+    return new DirectoryModuleCatalog() {ModulePath = @&quot;.\\Modules&quot;};
+}
+</code></pre>
+<p>To specify dependencies, use the same method as if you were using code.</p>
+<p>To handle loading on demand or at startup, update the <code>Module</code> attribute as follows:</p>
+<pre><code class="lang-cs">[Module(ModuleName = &quot;ModuleA&quot;, OnDemand = true)]
+[ModuleDependency(&quot;ModuleD&quot;)]
+public class ModuleA : IModule
+{
+    ...
+}
+</code></pre>
+<h2 id="other-modularity-items-of-note">Other Modularity Items of Note</h2>
+<h3 id="requesting-on-demand-loading-of-module">Requesting On-Demand loading of Module</h3>
+<p>After a module is specified as on-demand, the application can ask the module to be loaded. The code that wants to initiate the loading needs to obtain a reference to the <code>IModuleManager</code> service registered with the container in the <code>App</code> class.</p>
+<p>An explicit load of a module can be performed by the following code:</p>
+<pre><code class="lang-cs">public class SomeViewModel : BindableBase
+{
+    private IModuleManager _moduleManager = null;
+
+    public SomeViewModel(IModuleManager moduleManager)
+    {
+        // use dependency injection to get the module manager
+        _moduleManager = moduleManager;
+    }
+
+    private void LoadSomeModule(string moduleName)
+    {
+        _moduleManager.LoadModule(moduleName);
+    }
+}
+</code></pre>
+<h3 id="detecting-when-a-module-is-loaded">Detecting When a Module is Loaded</h3>
+<p>The <code>ModuleManager</code> service provides an event for applications to track when a module loads or fails to load.</p>
+<pre><code class="lang-cs">public class SomeViewModel : BindableBase
+{
+    private IModuleManager _moduleManager = null;
+
+    public SomeViewModel(IModuleManager moduleManager)
+    {
+        _moduleManager = moduleManager;
+        _moduleManager.LoadModuleCompleted += _moduleManager_LoadModuleCompleted;
+    }
+
+    private void _moduleManager_LoadModuleCompleted(object sender, LoadModuleCompletedEventArgs e)
+    {
+        // ...
+    }
+}
+</code></pre>
+<p>To keep the application and modules loosely coupled, the application should avoid using this event to integrate the module with the application. Instead, the module's <code>RegisterTypes</code> and <code>OnInitialized</code> should handle integrating with the application.</p>
+<p>The <code>LoadModuleCompletedEventArgs</code> contains an <code>IsErrorHandled</code> property. If a module fails to load and the application wants to prevent the <code>ModuleManager</code> from logging the error and throwing an exception, it can set this property to <strong>true</strong>.</p>
+<blockquote>
+<p><strong>Note</strong>: After a module is loaded and initialized, the module assembly cannot be unloaded. The module instance reference will not be held by the Prism libraries, so the module class instance may be garbage collected after initialization is complete.</p>
+</blockquote>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix" style="margin-top: 0px;">
+              <div class="connect-widget">
+                <ul class="connect-links">
+          		<li id="connect-github">
+          			<a href="https://github.com/PrismLibrary/Prism-Documentation/blob/master/docs/modularity/index.md/#L1" target="_blank">
+          				<div class="image github"></div>Edit on GitHub
+          			</a>
+                  </li>
+                  <li id="connect-stack-overflow">
+                      <a href="https://stackoverflow.com/questions/tagged/prism" target="_blank">
+                          <div class="image stackoverflow"></div>Ask questions
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/prismlib" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @PrismLib
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/brianlagunas" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @BrianLagunas
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/danjsiegel" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @DanJSiegel
+                      </a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      Copyright 2015-2024 Prism Software, LLC
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: Commands.AsyncDelegateCommand
+  name: Async Command's
+  href: docs/commands/async-commands.html
+- uid: Commands.Commanding
+  name: Commanding
+  href: docs/commands/commanding.html
+- uid: Commands.CompositeCommands
+  name: Composite Commands
+  href: docs/commands/composite-commands.html
+- uid: Commands.ErrorHandling
+  name: Error Handling
+  href: docs/commands/error-handling.html
+- uid: DependencyInjection.AddCustomContainer
+  name: Custom Containers
+  href: docs/dependency-injection/add-custom-container.html
+- uid: DependencyInjection.Appendix
+  name: Prism Container Extensions
+  href: docs/dependency-injection/appendix.html
+- uid: DependencyInjection.ContainerLocator
+  name: The ContainerLocator
+  href: docs/dependency-injection/container-locator.html
+- uid: DependencyInjection.GettingStarted
+  name: Dependency Injection with Prism
+  href: docs/dependency-injection/index.html
+- uid: DependencyInjection.HandlingResolutionErrors
+  name: Handling Resolution Errors
+  href: docs/dependency-injection/resolution-errors.html
+- uid: DependencyInjection.IPlatformInitializer
+  name: Using IPlatformInitializer
+  href: docs/dependency-injection/platform-specific-services.html
+- uid: DependencyInjection.RegisterServices
+  name: Registering Types with Prism
+  href: docs/dependency-injection/registering-types.html
+- uid: DependencyInjection.Supplement
+  name: Dependency Injection - Supplement
+  href: docs/dependency-injection/servicecollection-supplement.html
+- uid: Dialogs.DialogWindow
+  name: Dialog Window
+  href: docs/dialogs/dialog-window.html
+- uid: Dialogs.GettingStarted
+  name: Getting Started
+  href: docs/dialogs/index.html
+- uid: Dialogs.IDialogAware
+  name: IDialogAware
+  href: docs/dialogs/dialog-aware.html
+- uid: Events.EventAggregator
+  name: Event Aggregator
+  href: docs/event-aggregator.html
+- uid: GettingStarted.AssemblyVersioning
+  name: Prism Assembly Versioning
+  href: docs/getting-started/Assembly-Versioning.html
+- uid: GettingStarted.NuGetPackages
+  name: NuGet Packages
+  href: docs/getting-started/NuGet-Packages.html
+- uid: Modularity.GettingStarted
+  name: Modular Application Development Using Prism Library
+  href: docs/modularity/index.html
+- uid: Modularity.ModuleCatalog
+  name: Module Catalog
+  href: docs/modularity/module-catalog.html
+- uid: Modularity.ModuleInitialization
+  name: Module Initialization
+  href: docs/modularity/module-initialization.html
+- uid: Mvvm.BindableBase
+  name: BindableBase
+  href: docs/mvvm/bindablebase.html
+- uid: Mvvm.ViewModelLocator
+  name: Using the ViewModelLocator
+  href: docs/mvvm/viewmodel-locator.html
+- uid: Navigation.INavigationParameters
+  name: INavigationParameters
+  href: docs/navigation/navigation-parameters.html
+- uid: Navigation.PageNavigation
+  name: Page Navigation
+  href: docs/navigation/page-navigation.html
+- uid: Navigation.Regions.BasicRegionNavigation
+  name: Basic Region Navigation
+  href: docs/navigation/regions/basic-region-navigation.html
+- uid: Navigation.Regions.ConfirmingNavigation
+  name: Confirming Navigation
+  href: docs/navigation/regions/confirming-navigation.html
+- uid: Navigation.Regions.ControllingViewLifetime
+  name: Controlling View Lifetime
+  href: docs/navigation/regions/controlling-view-lifetime.html
+- uid: Navigation.Regions.GettingStarted
+  name: Getting Started
+  href: docs/navigation/regions/index.html
+- uid: Navigation.Regions.NavigationExistingViews
+  name: Navigating to Existing Views
+  href: docs/navigation/regions/navigation-existing-views.html
+- uid: Navigation.Regions.NavigationJournal
+  name: Using the Navigation Journal
+  href: docs/navigation/regions/navigation-journal.html
+- uid: Navigation.Regions.PassingParameters
+  name: Passing Parameters During Navigation
+  href: docs/navigation/regions/passing-parameters.html
+- uid: Navigation.Regions.RegionAdapter
+  name: Region Adapter
+  href: docs/navigation/regions/region-adapters.html
+- uid: Navigation.Regions.RegionBehaviors
+  name: Region Behaviors
+  href: docs/navigation/regions/region-behaviors.html
+- uid: Navigation.Regions.RegionManager
+  name: Region Manager
+  href: docs/navigation/regions/region-manager.html
+- uid: Navigation.Regions.ViewViewModelParticipation
+  name: View and View Model Participation in Navigation
+  href: docs/navigation/regions/view-viewmodel-participation.html
+- uid: Platforms.Maui.AppBuilder
+  name: App Builder
+  href: docs/platforms/maui/appbuilder.html
+- uid: Platforms.Maui.AppModel.PageLifecycleAware
+  name: IPageLifecycleAware
+  href: docs/platforms/maui/appmodel/pagelifecycleaware.html
+- uid: Platforms.Maui.Behaviors.BehaviorBase
+  name: BehaviorBase<T>
+  href: docs/platforms/maui/behaviors/behaviorbase.html
+- uid: Platforms.Maui.Behaviors.EventToCommandBehavior
+  name: Using the EventToCommandBehavior
+  href: docs/platforms/maui/behaviors/eventtocommandbehavior.html
+- uid: Platforms.Maui.Behaviors.PageBehaviorFactory
+  name: PageBehaviorFactory
+  href: docs/platforms/maui/behaviors/pagebehaviorfactory.html
+- uid: Platforms.Maui.Dialogs.PageDialogs
+  name: Using the Page Dialog Service
+  href: docs/platforms/maui/dialogs/pagedialogs.html
+- uid: Platforms.Maui.GettingStarted
+  name: Getting Started
+  href: docs/platforms/maui/index.html
+- uid: Platforms.Maui.Migrating
+  name: Migrating from Prism.Forms
+  href: docs/platforms/maui/migrating.html
+- uid: Platforms.Maui.Navigation.GettingStarted
+  name: Getting Started
+  href: docs/platforms/maui/navigation/index.html
+- uid: Platforms.Maui.Navigation.GlobalNavigationRequest
+  name: Global NavigationRequest Event
+  href: docs/platforms/maui/navigation/global-navigation-observer.html
+- uid: Platforms.Maui.Navigation.NavigationBuilder
+  name: Navigation Builder
+  href: docs/platforms/maui/navigation/navigation-builder.html
+- uid: Platforms.Maui.Navigation.NavigationExceptions
+  name: Navigation Exceptions
+  href: docs/platforms/maui/navigation/navigation-exceptions.html
+- uid: Platforms.Maui.Navigation.NavigationResult
+  name: Navigation Results
+  href: docs/platforms/maui/navigation/navigation-result.html
+- uid: Platforms.Maui.Navigation.PageNavigation
+  name: Page Navigation
+  href: docs/platforms/maui/navigation/page-navigation.html
+- uid: Platforms.Maui.Navigation.PrismNavigationPage
+  name: PrismNavigationPage
+  href: docs/platforms/maui/navigation/prismnavigationpage.html
+- uid: Platforms.Maui.Navigation.XamlNavigation
+  name: XAML Navigation
+  href: docs/platforms/maui/navigation/xaml-navigation.html
+- uid: Platforms.Uno.Extensions
+  name: Uno.Extensions Support
+  href: docs/platforms/uno/extensions.html
+- uid: Platforms.UnoPlatform.GettingStarted
+  name: Getting Started
+  href: docs/platforms/uno/index.html
+- uid: Platforms.Wpf.GettingStarted
+  name: Getting Started
+  href: docs/platforms/wpf/getting-started.html
+- uid: Platforms.Wpf.Interactivity.EventToCommand
+  name: Binding Events to Commands
+  href: docs/platforms/wpf/interactivity/event-to-command.html
+- uid: Platforms.Wpf.Introduction
+  name: Introduction
+  href: docs/platforms/wpf/introduction.html
+- uid: Platforms.XamarinForms.Behaviors.EventToCommand
+  name: Using the EventToCommandBehavior
+  href: docs/platforms/xamarin-forms/behaviors/eventtocommandbehavior.html
+- uid: Platforms.XamarinForms.Behaviors.GettingStarted
+  name: Behaviors
+  href: docs/platforms/xamarin-forms/behaviors/index.html
+- uid: Platforms.XamarinForms.Behaviors.PageBehaviorFactory
+  name: Page Behavior Factory
+  href: docs/platforms/xamarin-forms/behaviors/page-behavior-factory.html
+- uid: Platforms.XamarinForms.Navigation.Basics
+  name: Navigation Basics
+  href: docs/platforms/xamarin-forms/navigation/navigation-basics.html
+- uid: Platforms.XamarinForms.Navigation.Confirming
+  name: Confirming Navigation
+  href: docs/platforms/xamarin-forms/navigation/confirming-navigation.html
+- uid: Platforms.XamarinForms.Navigation.DeepLinking
+  name: Deep Linking
+  href: docs/platforms/xamarin-forms/navigation/deep-linking.html
+- uid: Platforms.XamarinForms.Navigation.PassingParameters
+  name: Passing parameters
+  href: docs/platforms/xamarin-forms/navigation/passing-parameters.html
+- uid: Platforms.XamarinForms.Navigation.ViewModelInitialization
+  name: Initializing your ViewModels
+  href: docs/platforms/xamarin-forms/navigation/initialization.html
+- uid: Platforms.XamarinForms.PageLifecycle
+  name: Page Lifecycle
+  href: docs/platforms/xamarin-forms/page-lifecycle.html
+- uid: Plugins.Essentials.AppContext
+  name: AppContext
+  href: docs/plugins/essentials/appcontext.html
+- uid: Plugins.Essentials.Connectivity
+  name: Connectivity
+  href: docs/plugins/essentials/connectivity.html
+- uid: Plugins.Essentials.FileSystem
+  name: File System
+  href: docs/plugins/essentials/filesystem.html
+- uid: Plugins.Essentials.GettingStarted
+  name: Getting Started
+  href: docs/plugins/essentials/index.html
+- uid: Plugins.Essentials.MainThread
+  name: Main Thread
+  href: docs/plugins/essentials/mainthread.html
+- uid: Plugins.Essentials.Stores
+  name: Stores
+  href: docs/plugins/essentials/stores.html
+- uid: Plugins.Popups
+  name: Getting Started
+  href: docs/plugins/popups.html

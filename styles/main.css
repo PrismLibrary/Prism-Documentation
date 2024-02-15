@@ -1,0 +1,110 @@
+::-moz-selection {
+    color: #fff;
+    background: #0099ff; }
+  
+::selection {
+    color: #fff;
+    background: #0099ff; }
+  
+html, .root {
+    font-size: 16px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased; }
+
+html, body {
+    font-family: 'aktiv-grotesk', sans-serif;
+    height: 100%;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #585858;
+  }
+
+/******************* NavBar *******************/
+
+.navbar-brand {
+    font-size: inherit;
+    padding: 5px;
+    padding: 0;
+    float: left;
+    height: 65px;
+    font-size: 18px;
+    line-height: 20px
+  }
+
+.navbar-brand > img {
+    display: block;
+    height: 57px;
+}
+
+.navbar-nav {
+    margin: 7.5px -5px;
+    float: left;
+}
+
+.navbar-inverse {
+    background-color: #fff;
+    border-color: #101010
+}
+
+.navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
+    color: #00a5f2;
+    background-color: transparent
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+    color: #fff;
+    background-color: #00a5f2
+}
+
+/******************* TOC *******************/
+
+.toc {
+    overflow-x: hidden;
+    padding-left: 10px;
+}
+
+.toc .nav > li > a {
+    color: #585858;
+    display: block;
+    position: relative;
+    padding: 0;
+}
+
+.toc .nav .level3 > li > a {
+    font-size: 14px
+}
+
+.toc .nav > li > a:hover,
+.toc .nav > li > a:focus {
+    color: #0099ff;
+    background: none;
+    text-decoration: inherit;
+}
+
+.toc .nav > li.active > a {
+    color: #337ab7;
+}
+
+.toc .nav > li.active > a:hover,
+.toc .nav > li.active > a:focus {
+    color: #23527c;
+}
+
+.toc .nav .nav {
+    margin: 0;
+    padding-left: 10px;
+}
+
+.sidetoc.shiftup {
+    bottom: 0px;
+}
+
+.sidefilter{
+ padding-top: 30px;   
+}
+
+/******************* Affix *******************/
+
+.sideaffix {
+    overflow: visible;
+}

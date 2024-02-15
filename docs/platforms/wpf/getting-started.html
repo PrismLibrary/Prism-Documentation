@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started | Prism </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started | Prism ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <link rel="stylesheet" href="../../../styles/affix.css">
+    <meta property="docfx:navrel" content="../../../toc">
+    <meta property="docfx:tocrel" content="../../toc">
+  
+  
+  
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../images/prism-logo.png" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                <ul class="nav level1 navbar-nav">
+                  <li class="">
+                    <a href="//prismlibrary.com/" title="Home" class="">Home</a>
+                  </li>
+                  <li class="active">
+                    <a href="../../../docs/index.html" title="Documentation" class="active">Documentation</a>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+
+                  <ul class="nav level1">
+                    <li class="">
+                      <a href="../../index.html" title="Introduction" class="">Introduction</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Commands</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../../commands/commanding.html" title="Commanding" class="">Commanding</a>
+                          </li>
+                          <li class="">
+                            <a href="../../commands/composite-commands.html" title="Composite Commands" class="">Composite Commands</a>
+                          </li>
+                          <li class="">
+                            <a href="../../commands/async-commands.html" title="Async Commands" class="">Async Commands</a>
+                          </li>
+                          <li class="">
+                            <a href="../../commands/error-handling.html" title="Error Handling" class="">Error Handling</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Dependency Injection</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../../dependency-injection/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dependency-injection/registering-types.html" title="Registering Types" class="">Registering Types</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dependency-injection/servicecollection-supplement.html" title="Microsoft Extensions (Supplement)" class="">Microsoft Extensions (Supplement)</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dependency-injection/platform-specific-services.html" title="Platform Specific Services" class="">Platform Specific Services</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dependency-injection/resolution-errors.html" title="Exception Handling" class="">Exception Handling</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dependency-injection/container-locator.html" title="ContainerLocator" class="">ContainerLocator</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dependency-injection/appendix.html" title="Appendix" class="">Appendix</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Dialog Service</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../../dialogs/index.html" title="Dialog Service" class="">Dialog Service</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dialogs/dialog-aware.html" title="IDialogAware ViewModels" class="">IDialogAware ViewModels</a>
+                          </li>
+                          <li class="">
+                            <a href="../../dialogs/dialog-window.html" title="IDialogWindow (WPF &amp; Uno Platform)" class="">IDialogWindow (WPF &amp; Uno Platform)</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <a href="../../event-aggregator.html" title="Event Aggregator" class="">Event Aggregator</a>
+                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Mvvm</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../../mvvm/bindablebase.html" title="BindableBase" class="">BindableBase</a>
+                          </li>
+                          <li class="">
+                            <a href="../../mvvm/viewmodel-locator.html" title="ViewModelLocator" class="">ViewModelLocator</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Modularity</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../../modularity/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                          <li class="">
+                            <a href="../../modularity/module-catalog.html" title="Module Catalog" class="">Module Catalog</a>
+                          </li>
+                          <li class="">
+                            <a href="../../modularity/module-initialization.html" title="Module Initialization" class="">Module Initialization</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Navigation</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../../navigation/navigation-parameters.html" title="INavigationParameters" class="">INavigationParameters</a>
+                          </li>
+                          <li class="">
+                            <a href="../../navigation/page-navigation.html" title="Page Navigation" class="">Page Navigation</a>
+                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Regions</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../navigation/regions/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/region-manager.html" title="Region Manager" class="">Region Manager</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/region-adapters.html" title="Region Adapters" class="">Region Adapters</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/region-behaviors.html" title="Region Behaviors" class="">Region Behaviors</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/index.html" title="About Navigation in Prism" class="">About Navigation in Prism</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/basic-region-navigation.html" title="Basic Region Navigation" class="">Basic Region Navigation</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/view-viewmodel-participation.html" title="View/ViewModel Participation" class="">View/ViewModel Participation</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/navigation-existing-views.html" title="Navigating to Existing Views" class="">Navigating to Existing Views</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/passing-parameters.html" title="Passing Parameters" class="">Passing Parameters</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/confirming-navigation.html" title="Confirming Navigation" class="">Confirming Navigation</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/controlling-view-lifetime.html" title="Controlling View Lifetime" class="">Controlling View Lifetime</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../navigation/regions/navigation-journal.html" title="Navigation Journal" class="">Navigation Journal</a>
+                                </li>
+                              </ul>                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Platforms</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Maui</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../platforms/maui/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../platforms/maui/migrating.html" title="Migrating from Prism.Forms" class="">Migrating from Prism.Forms</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../platforms/maui/appbuilder.html" title="PrismAppBuilder" class="">PrismAppBuilder</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">AppModel</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/maui/appmodel/pagelifecycleaware.html" title="IPageLifecycleAware" class="">IPageLifecycleAware</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Behaviors</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/maui/behaviors/index.html" title="Introduction" class="">Introduction</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/behaviors/behaviorbase.html" title="BehaviorBase&lt;T&gt;" class="">BehaviorBase&lt;T&gt;</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/behaviors/eventtocommandbehavior.html" title="EventToCommandBehavior" class="">EventToCommandBehavior</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/behaviors/pagebehaviorfactory.html" title="PageBehaviorFactory" class="">PageBehaviorFactory</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Dialogs</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/maui/dialogs/index.html" title="Getting Started" class="">Getting Started</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/dialogs/pagedialogs.html" title="IPageDialogService" class="">IPageDialogService</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Navigation</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/index.html" title="Introduction" class="">Introduction</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/page-navigation.html" title="Page Navigation" class="">Page Navigation</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/navigation-builder.html" title="NavigationBuilder" class="">NavigationBuilder</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/navigation-result.html" title="Understanding the INavigationResult" class="">Understanding the INavigationResult</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/navigation-exceptions.html" title="NavigationExceptions" class="">NavigationExceptions</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/global-navigation-observer.html" title="Global Navigation Observer" class="">Global Navigation Observer</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/xaml-navigation.html" title="XAML Navigation" class="">XAML Navigation</a>
+                                      </li>
+                                    </ul>                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Uno Platform</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../platforms/uno/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../platforms/uno/extensions.html" title="Uno.Extensions" class="">Uno.Extensions</a>
+                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Wpf</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../platforms/wpf/introduction.html" title="Introduction" class="">Introduction</a>
+                                </li>
+                                <li class="active">
+                                  <a href="../../platforms/wpf/getting-started.html" title="Getting Started" class="active">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../platforms/wpf/view-composition.html" title="View Composition" class="">View Composition</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Interactivity</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/wpf/interactivity/event-to-command.html" title="Event To Command" class="">Event To Command</a>
+                                      </li>
+                                    </ul>                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Xamarin.Forms</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../platforms/xamarin-forms/creating-your-first-prism-app.html" title="Create Your First App" class="">Create Your First App</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Behaviors</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/behaviors/index.html" title="Working with Behaviors" class="">Working with Behaviors</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/behaviors/eventtocommandbehavior.html" title="EventToCommand Behavior" class="">EventToCommand Behavior</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/behaviors/page-behavior-factory.html" title="PageBehaviorFactory" class="">PageBehaviorFactory</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Dialogs</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/dialogs/index.html" title="Dialogs" class="">Dialogs</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/dialogs/page-dialog-service.html" title="Page Dialog Service" class="">Page Dialog Service</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/dialogs/dialog-service.html" title="Dialog Service" class="">Dialog Service</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/dialogs/styling-dialogs.html" title="Styling Dialogs" class="">Styling Dialogs</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Navigation</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/navigation-basics.html" title="Navigation Basics" class="">Navigation Basics</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/passing-parameters.html" title="Passing Parameters" class="">Passing Parameters</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/confirming-navigation.html" title="Confirming Navigation" class="">Confirming Navigation</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/deep-linking.html" title="Deep Linking" class="">Deep Linking</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/working-with-masterdetailpages.html" title="Working w/ MasterDetailPages" class="">Working w/ MasterDetailPages</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/working-with-navigationpages.html" title="Working w/ NavigationPages" class="">Working w/ NavigationPages</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/working-with-tabbedpages.html" title="Working w/ TabbedPages" class="">Working w/ TabbedPages</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/navigation/xaml-navigation.html" title="XAML Navigation" class="">XAML Navigation</a>
+                                      </li>
+                                    </ul>                                </li>
+                                <li class="">
+                                  <a href="../../platforms/xamarin-forms/application-lifecycle.html" title="Application Lifecycle" class="">Application Lifecycle</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../platforms/xamarin-forms/page-lifecycle.html" title="Page Lifecycle" class="">Page Lifecycle</a>
+                                </li>
+                                <li class="">
+                                  <span class="expand-stub"></span>
+                                  <a class="">Additional Platforms</a>
+
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../platforms/xamarin-forms/platform-reference/gtk.html" title="GTK" class="">GTK</a>
+                                      </li>
+                                    </ul>                                </li>
+                              </ul>                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Magician</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="../../magician/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                        </ul>                    </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a class="">Plugins</a>
+
+                        <ul class="nav level2">
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Essentials</a>
+
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../plugins/essentials/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/essentials/appcontext.html" title="App Context" class="">App Context</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/essentials/connectivity.html" title="Connectivity" class="">Connectivity</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/essentials/filesystem.html" title="File System" class="">File System</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/essentials/mainthread.html" title="Main Thread" class="">Main Thread</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/essentials/stores.html" title="Stores" class="">Stores</a>
+                                </li>
+                              </ul>                          </li>
+                          <li class="">
+                            <a href="../../plugins/popups.html" title="Popups" class="">Popups</a>
+                          </li>
+                        </ul>                    </li>
+                  </ul>                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Platforms.Wpf.GettingStarted">
+<h1 id="getting-started">Getting Started</h1>
+
+<p>Getting started with Prism is pretty easy. Follow the steps below and you will be up and running quickly with the start of a modular and easy to maintain app.</p>
+<blockquote>
+<p>This guide assumes that you have some knowledge of the structure of a WPF application project and some comfort with C#. An understanding of the Model-View-ViewModel (MVVM) pattern is helpful as well as WPF lends to that pattern very easily. If you aren't, consider taking a moment to do a bit of research on it first.</p>
+</blockquote>
+<h2 id="install-the-nuget-packages">Install the Nuget Packages</h2>
+<p>Create a brand new WPF application in Visual Studio. Next up is to install the appropriate nuget packages. At this point, a choice needs to be made, and that is which container to use for managing dependencies. For the purposes of this documentation, Unity will be the container of choice. See the list below of what is available.</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Container</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prism.Unity</td>
+<td><a href="https://github.com/unitycontainer/unity">Unity</a></td>
+<td>5.11.1</td>
+</tr>
+<tr>
+<td>Prism.DryIoc</td>
+<td><a href="https://github.com/dadhi/DryIoc">DryIoc</a></td>
+<td>4.0.7</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: There is no need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism packages.</p>
+</blockquote>
+<p><img src="images/nuget-install.png" alt="Install Nuget"></p>
+<h2 id="override-the-existing-application-object">Override the Existing Application Object</h2>
+<p>The next step in getting started is to subclass the Application object contained in the newly created WPF project. Navigate to the <code>App.xaml</code> and  replace the standard WPF Application class with the Prism <code>PrismApplication</code> class.</p>
+<pre><code class="lang-xml">&lt;prism:PrismApplication
+    x:Class=&quot;WpfApp1.App&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:local=&quot;clr-namespace:WpfApp1&quot;
+    xmlns:prism=&quot;http://prismlibrary.com/&quot;&gt;
+    &lt;Application.Resources&gt;
+    &lt;/Application.Resources&gt;
+&lt;/prism:PrismApplication&gt;
+</code></pre>
+<p>In the snippet above, notice that line 6 has been added to define the namespace and that the App object has been updated to derive from <code>PrismApplication</code>. Next, navigate to the <code>app.xaml.cs</code> code-behind file and update the class definition.</p>
+<blockquote>
+<p>Don't forget to remove the <code>StartupUri</code> property from the <code>PrismApplication</code> tag. Otherwise, you will end up with two window instances.</p>
+</blockquote>
+<pre><code class="lang-cs">using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using Prism.Unity;
+
+namespace WpfApp1
+{
+    public partial class App : PrismApplication
+    {
+    }
+}
+</code></pre>
+<p>There are a pair of abstract methods defined in <code>PrismApplication</code> that must be implemented first: RegisterTypes and CreateShell.</p>
+<h3 id="registertypes">RegisterTypes</h3>
+<p>This function is used to register any app dependencies. For example, there might be an interface to read customer data from a persistent store of some kind and the implementation of it is to use a database of some kind. It might look something like this:</p>
+<pre><code class="lang-cs">public interface ICustomerStore
+{
+    List&lt;string&gt; GetAll();
+}
+
+public class DbCustomerStore : ICustomerStore
+{
+    public List&lt;string&gt; GetAll()
+    {
+        // return list from db
+    }
+}
+</code></pre>
+<p>Objects in the app, such as view models, that have a dependency on the customer data would require an <code>ICustomerStore</code> object. In the <code>App.RegisterTypes</code> function, a registration would be made to create a <code>DbCustomerStore</code> every time an object takes a dependency on <code>ICustomerStore</code>.</p>
+<pre><code class="lang-cs">protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.Register&lt;Services.ICustomerStore, Services.DbCustomerStore&gt;();
+    // register other needed services here
+}
+</code></pre>
+<blockquote>
+<p>IContainerRegistry has other functions for registering against interfaces as well. <code>RegisterInstance</code> will register a created instance of an object against an interface. In effect the implementation of the registered interface is a singleton. A similar method is <code>RegisterSingleton</code> that will create a single instance at the time the dependency is made and not before. It should be noted that the <code>Container</code> can also resolve concrete types without a prior registration.</p>
+</blockquote>
+<h3 id="createshell">CreateShell</h3>
+<p>The second method that has to be implemented is the CreateShell method. This is the method that will create the main window of the application. The Container property of the App class should be used to create the window as it takes care of any dependencies.</p>
+<pre><code class="lang-cs">public partial class App : PrismApplication
+{
+    // RegisterTypes function is here
+
+    protected override Window CreateShell()
+    {
+        var w = Container.Resolve&lt;MainWindow&gt;();
+        return w;
+    }
+}
+</code></pre>
+<p>At this point, the app can be built and run and should look like the following:</p>
+<p><img src="images/FirstRun.PNG" alt="First Run of App"></p>
+<p>This is now a Prism app. There isn't much here yet, but there are lots of things that Prism can help out with, such as breaking up the app into manageable chunks, navigation and implementing the MVVM patterns.</p>
+<h2 id="view-models">View Models</h2>
+<p>WPF is well setup to use an MVVM pattern and Prism helps a lot with this. It has a base class that handles the INotifyPropertyChanged infrastructure that publishes changes from the view model to the view. There are some other classes that make it simple to handle buttons from within the view model as opposed to writing an event handler in your code behind.</p>
+<p>First there needs to be some controls added to the view. Go to <code>MainWindow.xaml</code> and add the following <code>&lt;Grid&gt;</code> markup as the content for the <code>&lt;MainWindow&gt;</code>.</p>
+<pre><code class="lang-xml">    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height=&quot;*&quot; /&gt;
+            &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        &lt;ListView
+            ItemsSource=&quot;{Binding Customers}&quot;
+            SelectedItem=&quot;{Binding SelectedCustomer}&quot;
+        /&gt;
+        &lt;Button
+            Grid.Row=&quot;1&quot; Width=&quot;80&quot; Height=&quot;40&quot;
+            Command=&quot;{Binding CommandLoad}&quot;
+            Content=&quot;LOAD&quot;
+        /&gt;
+    &lt;/Grid&gt;
+</code></pre>
+<p>The above will add a new listview that will display a list of customer names and a button to load the list.</p>
+<blockquote>
+<p>The important thing to remember is that every time there is a <code>Binding</code>, there is a linkage to the view model for this view.</p>
+</blockquote>
+<p>To help out with this part of the Getting Started Guide, the service that was shown above needs to be setup in the project. In the root of the project, create a <code>Services</code> folder. In that folder, create the <code>CustomerStore.cs</code> file and add the following code:</p>
+<pre><code class="lang-cs">    public interface ICustomerStore
+    {
+        List&lt;string&gt; GetAll();
+    }
+
+    public class DbCustomerStore : ICustomerStore
+    {
+        public List&lt;string&gt; GetAll()
+        {
+            return new List&lt;string&gt;()
+            {
+                &quot;cust 1&quot;,
+                &quot;cust 2&quot;,
+                &quot;cust 3&quot;,
+            };
+        }
+    }
+
+</code></pre>
+<p>Inside the <code>App.xaml.cs</code> file, ensure that <code>RegisterTypes</code> has the following line:</p>
+<pre><code class="lang-cs">    containerRegistry.Register&lt;Services.ICustomerStore, Services.DbCustomerStore&gt;();
+</code></pre>
+<h2 id="creating-the-view-model">Creating the View Model</h2>
+<p>First, at the root level of your project, create a folder called <code>ViewModels</code>. Use that exact name because that will be needed later when view model resolution is discussed.</p>
+<p><img src="images/ProjectStructure.PNG" alt="Project Folder Structure"></p>
+<p>Inside the <code>ViewModels</code> folder, a class is created called <code>MainWindowViewModel</code>. Use that exact name for reasons to be shown later. Prism has a class called <code>BindableBase</code> that is used as a base for all view models and <code>MainWindowViewModel</code> will be subclassed from it.</p>
+<pre><code class="lang-cs">using Prism.Commands;
+using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WpfApp1.ViewModels
+{
+    public class MainWindowViewModel : BindableBase
+    {
+        private Services.ICustomerStore _customerStore = null;
+
+        public MainWindowViewModel(Services.ICustomerStore customerStore)
+        {
+            _customerStore = customerStore;
+        }
+
+
+        public ObservableCollection&lt;string&gt; Customers { get; private set; } =
+            new ObservableCollection&lt;string&gt;();
+
+
+        private string _selectedCustomer = null;
+        public string SelectedCustomer
+        {
+            get =&gt; _selectedCustomer;
+            set
+            {
+                if (SetProperty&lt;string&gt;(ref _selectedCustomer, value))
+                {
+                    Debug.WriteLine(_selectedCustomer ?? &quot;no customer selected&quot;);
+                }
+            }
+        }
+
+        private DelegateCommand _commandLoad = null;
+        public DelegateCommand CommandLoad =&gt;
+            _commandLoad ?? (_commandLoad = new DelegateCommand(CommandLoadExecute));
+
+        private void CommandLoadExecute()
+        {
+            Customers.Clear();
+            List&lt;string&gt; list = _customerStore.GetAll();
+            foreach (string item in list)
+                Customers.Add(item);
+        }
+    }
+}
+</code></pre>
+<p>A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the <code>ICustomerStore</code> interface, so that interface has to be registered in the <code>App.RegisterTypes</code> so that its implementation can be handled by the dependency container. There is a <code>Customers</code> property that is bound to the listview in the user interface and a <code>SelectedCustomer</code> that is bound to the currently selected item in the list view.</p>
+<p>There is also CommandLoad object that implements the <code>ICommand</code> interface. This has an <code>Execute</code> method that is called when the user clicks on the button. Prism implements the <code>ICommand</code> interface with <code>DelegateCommand</code> class that allows delegates to be passed in to handle implementing the <code>ICommand</code> interface. In the case of <code>CommandLoad</code>, the <code>CommandLoadExecute</code> function is passed in as the delegate and now, whenever the WPF binding system tries to execute <code>ICommand.Execute</code>, <code>CommandLoadExecute</code> is invoked.</p>
+<p>For more details on DelegateCommand, see <a class="xref" href="../../commands/commanding.html">Commanding</a>.</p>
+<h3 id="using-the-viewmodellocator">Using the ViewModelLocator</h3>
+<p>Now there is a View and a ViewModel, but how are they linked together? Out of the box, Prism has a <code>ViewModelLocator</code> that uses convention to determine the correct class for the view model, instantiate it with its dependencies and attach it to the <code>DataContext</code> of the view.</p>
+<p>The default convention is to place all the views in the <code>Views</code> folder and the view models in the <code>ViewModels</code> folder.</p>
+<ul>
+<li><code>WpfApp1.Views.MainWindow</code> =&gt; <code>WpfApp1.ViewModels.MainWindowViewModel</code></li>
+<li><code>WpfApp1.Views.OtherView</code> =&gt; <code>WpfApp1.ViewModels.OtherViewModel</code></li>
+</ul>
+<p>This is configurable and different resolution logic can be added.</p>
+<p>For this to work, Views and ViewModels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:</p>
+<p><img src="images/viewmodellocator.png" alt="Viewmodel Locator Project Structure"></p>
+<p>Click <a class="xref" href="../../mvvm/viewmodel-locator.html">here</a> for detailed information on the <code>ViewModelLocator</code>.</p>
+<p>If you don't want to use this capability for some reason, you will have to opt out in your view. You can manage this in your XAML as follows:</p>
+<pre><code class="lang-xml">&lt;Window
+    ...
+    xmlns:prism=&quot;http://prismlibrary.com/&quot;
+    prism:ViewModelLocator.AutoWireViewModel=&quot;False&quot;
+    &gt;
+
+	&lt;!-- ui controls here --&gt;
+&lt;/Window&gt;
+</code></pre>
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix" style="margin-top: 0px;">
+              <div class="connect-widget">
+                <ul class="connect-links">
+          		<li id="connect-github">
+          			<a href="https://github.com/PrismLibrary/Prism-Documentation/blob/master/docs/platforms/wpf/getting-started.md/#L1" target="_blank">
+          				<div class="image github"></div>Edit on GitHub
+          			</a>
+                  </li>
+                  <li id="connect-stack-overflow">
+                      <a href="https://stackoverflow.com/questions/tagged/prism" target="_blank">
+                          <div class="image stackoverflow"></div>Ask questions
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/prismlib" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @PrismLib
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/brianlagunas" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @BrianLagunas
+                      </a>
+                  </li>
+                  <li id="connect-twitter">
+                      <a href="https://twitter.com/danjsiegel" target="_blank">
+                          <div class="image twitterhandle"></div>Follow @DanJSiegel
+                      </a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      Copyright 2015-2024 Prism Software, LLC
+      
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>
