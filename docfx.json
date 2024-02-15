@@ -19,6 +19,7 @@
     "resource": [
       {
         "files": [
+          "index.html",
           "images/**",
           "docs/getting-started/images/**",
           "docs/platforms/maui/images/**",
