@@ -6,7 +6,7 @@ The Dialog Service has several extensibility points to help your provide richly 
 
 There may be times in which you want to ensure that your Dialog is sized relative to the size of your user's screen.
 
-![Dialog Demo](../../images/demodialog-small.png)
+![Dialog Demo](../../../images/demodialog-small.png)
 
 You'll notice from this screenshot that the Dialog is sized slightly larger than the content of view. In order to achieve a consistent size for your dialog you may want to set the Relative Height or Width properties on the DialogLayout.
 
@@ -35,7 +35,7 @@ Under the covers, the Dialog Service uses an Absolute Layout to position the con
       x:Class="HelloWorld.Views.DemoDialog">
 ```
 
-![Custom Layout](../../Images/useralert-small.png)
+![Custom Layout](../../../Images/useralert-small.png)
 
 ## Background Mask
 

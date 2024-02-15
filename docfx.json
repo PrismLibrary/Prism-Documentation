@@ -11,6 +11,7 @@
           "*.md"
         ],
         "exclude": [
+          "README.md",
           "obj/**",
           "_site/**"
         ]
@@ -20,11 +21,7 @@
       {
         "files": [
           "index.html",
-          "images/**",
-          "docs/getting-started/images/**",
-          "docs/platforms/maui/images/**",
-          "docs/platforms/wpf/images/**",
-          "docs/platforms/xamarin-forms/images/**"
+          "**/images/**"
         ],
         "exclude": [
           ".github/**",
