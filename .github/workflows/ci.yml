@@ -35,8 +35,8 @@ jobs:
       with:
         name: docs
 
-    - name: Unpack new docs
-      run: ls -a
+    - name: Set CNAME
+      run: echo 'docs.prismlibrary.com' > CNAME
 
     - name: Commit and push
       run: |
