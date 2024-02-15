@@ -1,0 +1,20 @@
+name: Build Docs
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: nikeee/docfx-action@v1.0.0
+        name: Build Documentation
+        with:
+          args: docfx.json
+      - uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: _site
+
+      
