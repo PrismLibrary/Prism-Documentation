@@ -36,7 +36,7 @@ jobs:
         name: docs
 
     - name: Unpack new docs
-      run: tar -xzf docs.tar.gz
+      run: ls -a
 
     - name: Commit and push
       run: |
