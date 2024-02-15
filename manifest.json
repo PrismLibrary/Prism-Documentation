@@ -5,18 +5,6 @@
   "files": [
     {
       "type": "Conceptual",
-      "source_relative_path": "README.md",
-      "output": {
-        ".html": {
-          "relative_path": "README.html",
-          "hash": "REGrYapldgNmZUaZ7cvADQ=="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "docs/commands/async-commands.md",
       "output": {
         ".html": {
@@ -40,9 +28,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "docs/commands/composite-commands.md",
       "output": {
@@ -199,9 +184,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "docs/event-aggregator.md",
       "output": {
@@ -416,6 +398,105 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "docs/images/ModularityAppArchitecture.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/ModularityAppArchitecture.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/ModularityDi.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/ModularityDi.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/ModularityHor.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/ModularityHor.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/ModularityVertical.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/ModularityVertical.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/composite-commands-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/composite-commands-1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/composite-commands-2.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/composite-commands-2.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/demodialog-small.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/demodialog-small.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/event-aggregator-1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/event-aggregator-1.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/useralert-small.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/useralert-small.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "docs/index.md",
       "output": {
@@ -440,9 +521,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "docs/modularity/index.md",
       "output": {
@@ -1341,7 +1419,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/dialogs/styling-dialogs.html",
-          "hash": "kihNHU09fswN26e0qUExFw=="
+          "hash": "FILyqcfN7TIuty0HXz++Ww=="
         }
       },
       "is_incremental": false,
@@ -1600,15 +1678,56 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "InvalidFileLink"
-      ],
       "type": "Conceptual",
       "source_relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.md",
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.html",
           "hash": "3wS0fFG7wXiw0H10L0RN1w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/platform-reference/images/AddClassLibraryProject.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/platform-reference/images/AddClassLibraryProject.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/platform-reference/images/AddGtkReferences.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/platform-reference/images/AddGtkReferences.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/platform-reference/images/RunningScreen.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/platform-reference/images/RunningScreen.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/platforms/xamarin-forms/platform-reference/images/TypeLoadException.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/platforms/xamarin-forms/platform-reference/images/TypeLoadException.png"
         }
       },
       "is_incremental": false,
@@ -1779,7 +1898,7 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 96,
+          "total_file_count": 95,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
