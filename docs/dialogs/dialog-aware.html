@@ -511,7 +511,39 @@
     public bool CanCloseDialog() =&gt; !string.IsNullOrEmpty(Name);
 }
 </code></pre><h2 id="dialogcloselistener">DialogCloseListener</h2>
-<p>The DialogCloseListener is new in Prism 9 and replaces the event that was in the original API. The DialogCloseListener allows you more flexibility and is part of the Dialog Service&#39;s enhanced API that accepts both </p>
+<p>The DialogCloseListener is new in Prism 9 and replaces the event that was in the original API. The DialogCloseListener allows you more flexibility and is part of the Dialog Service&#39;s enhanced API.</p>
+<div class="NOTE"><h5>Note</h5><p>The RequestClose property should be implemented as shown below. This property is set by DialogService itself and should not be set by your code.</p>
+</div>
+<pre><code class="lang-cs">public class MyDialogViewModel : IDialogAware
+{
+    public DialogCloseListener RequestClose { get; }
+}
+</code></pre><h3 id="using-the-dialogcloselistener">Using the DialogCloseListener</h3>
+<p>One of the benefits of the DialogCloseListener is that it allows you more flexibility when invoking it.</p>
+<pre><code class="lang-cs">private void OnMyCommandExecuted()
+{
+    // Option 1.
+    RequestClose.Invoke();
+
+    // Option 2.
+    RequestClose.Invoke(new DialogParameters{ { &quot;MyParameter&quot;, SomeValue } });
+
+    // Option 3.
+    RequestClose.Invoke(ButtonResult.OK);
+
+    // Option 4.
+    RequestClose.Invoke(new DialogParameters{ { &quot;MyParameter&quot;, SomeValue } }, ButtonResult.OK);
+
+    // Option 5.
+    var result = new DialogResult
+    {
+        Parameters = new DialogParameters{ { &quot;MyParameter&quot;, SomeValue } },
+        Result = ButtonResult.OK
+    };
+    RequestClose.Invoke(result);
+}
+</code></pre><h2 id="additional-considerations">Additional Considerations</h2>
+<p>When building apps with .NET MAUI you may want to consider using Popup Pages. With the Commercial Plus license you can take advantage of the <a class="xref" href="../plugins/popups.html"><code>Prism.Plugin.Popups</code> package for .NET MAUI</a>.</p>
 </article>
           </div>
           
