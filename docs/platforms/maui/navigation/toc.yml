@@ -4,6 +4,8 @@
   href: page-navigation.md
 - name: NavigationBuilder
   href: navigation-builder.md
+- name: TabbedPages
+  href: tabbed-navigation.md
 - name: Understanding the INavigationResult
   href: navigation-result.md
 - name: NavigationExceptions
