@@ -12,13 +12,32 @@ The API is generally inspired by a combination of Xamarin/.NET MAUI Essentials a
 
 Be sure to install `Prism.Plugin.Essentials.Maui`
 
+```cs
+builder.UseMauiApp<App>()
+    .UsePrism(prism => prism.UsePrismEssentials())
+```
+
 # [WPF](#tab/wpf)
 
 Be sure to install `Prism.Plugin.Essentials.Wpf`
 
+```cs
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.UsePrismEssentials();
+}
+```
+
 # [Uno Platform](#tab/uno-platform)
 
 Be sure to install `Prism.Plugin.Essentials.Uno.WinUI`
+
+```cs
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.UsePrismEssentials();
+}
+```
 
 ---
 
