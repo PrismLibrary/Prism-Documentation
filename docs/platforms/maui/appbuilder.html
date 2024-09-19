@@ -179,6 +179,9 @@
                         
                         <ul class="nav level2">
                           <li class="">
+                            <a href="../../navigation/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                          <li class="">
                             <a href="../../navigation/navigation-parameters.html" title="INavigationParameters" class="">INavigationParameters</a>
                           </li>
                           <li class="">
@@ -298,6 +301,9 @@
                                       </li>
                                       <li class="">
                                         <a href="../../platforms/maui/navigation/navigation-builder.html" title="NavigationBuilder" class="">NavigationBuilder</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/tabbed-navigation.html" title="TabbedPages" class="">TabbedPages</a>
                                       </li>
                                       <li class="">
                                         <a href="../../platforms/maui/navigation/navigation-result.html" title="Understanding the INavigationResult" class="">Understanding the INavigationResult</a>
@@ -476,6 +482,24 @@
                                 </li>
                               </ul>  </li>
                           <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Logging</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../plugins/logging/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/logging/gelf.html" title="Graylog" class="">Graylog</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/logging/unit-testing.md" title="Unit Testing" class="">Unit Testing</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
                             <a href="../../plugins/popups.html" title="Popups" class="">Popups</a>
                           </li>
                         </ul>  </li>
@@ -508,14 +532,16 @@ builder.UsePrism(prism =&gt;
 <h3 id="registering-services-with-prisms-icontainerregistry">Registering Services with Prism&#39;s IContainerRegistry</h3>
 <p>If you are coming to Prism.Maui from Prism.Forms, Prism.Wpf, or Prism.Uno you may be familiar with the RegisterTypes on the PrismApplication. In Prism.Maui this has moved to the <code>PrismAppBuilder</code>.</p>
 <pre><code class="lang-cs">var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp&lt;App&gt;()
+builder.UseMauiApp&lt;App&gt;();
 builder.UsePrism(prism =&gt;
 {
     prism.RegisterTypes(container =&gt; {
         // Register platform agnostic types
     });
-}
-</code></pre><h4 id="platform-specific-registrations">Platform Specific Registrations</h4>
+});
+</code></pre><div class="NOTE"><h5>Note</h5><p>In the case where you only see the variant of <code>UsePrism</code> which requires an instance of the <code>IContainerProvider</code> this means that you are missing <code>Prism.DryIoc.Maui</code>. For most cases you will want this installed. Commercial Plus users may optionally install a different container package from the Prism NuGet feed such as Microsoft Extensions DependencyInjection or Grace Ioc. In these cases you would not need the <code>Prism.DryIoc.Maui</code> package as you have another container to provide. All other users should use make sure <code>Prism.DryIoc.Maui</code> is installed.</p>
+</div>
+<h4 id="platform-specific-registrations">Platform Specific Registrations</h4>
 <p>MAUI Single Project eliminates the need for the goofy IPlatformInitializer that was required for Prism.Forms. Registering Platform Specific services is as simple as including a compiler directive in your project.</p>
 <pre><code class="lang-cs">prism.RegisterTypes(container =&gt;
 {

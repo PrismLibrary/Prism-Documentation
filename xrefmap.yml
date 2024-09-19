@@ -70,6 +70,9 @@ references:
 - uid: Mvvm.ViewModelLocator
   name: Using the ViewModelLocator
   href: docs/mvvm/viewmodel-locator.html
+- uid: Navigation.Home
+  name: Navigation
+  href: docs/navigation/index.html
 - uid: Navigation.INavigationParameters
   name: INavigationParameters
   href: docs/navigation/navigation-parameters.html
@@ -154,6 +157,9 @@ references:
 - uid: Platforms.Maui.Navigation.PrismNavigationPage
   name: PrismNavigationPage
   href: docs/platforms/maui/navigation/prismnavigationpage.html
+- uid: Platforms.Maui.Navigation.TabbedNavigation
+  name: TabbedPages
+  href: docs/platforms/maui/navigation/tabbed-navigation.html
 - uid: Platforms.Maui.Navigation.XamlNavigation
   name: XAML Navigation
   href: docs/platforms/maui/navigation/xaml-navigation.html
@@ -217,6 +223,12 @@ references:
 - uid: Plugins.Essentials.Stores
   name: Stores
   href: docs/plugins/essentials/stores.html
+- uid: Plugins.Logging.Gelf
+  name: Logging with Graylog (GELF)
+  href: docs/plugins/logging/gelf.html
+- uid: Plugins.Logging.Testing
+  name: Prism.Plugin.Logging.Testing
+  href: docs/plugins/logging/testing.html
 - uid: Plugins.Popups
   name: Getting Started
   href: docs/plugins/popups.html

@@ -179,6 +179,9 @@
                         
                         <ul class="nav level2">
                           <li class="">
+                            <a href="../navigation/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                          <li class="">
                             <a href="../navigation/navigation-parameters.html" title="INavigationParameters" class="">INavigationParameters</a>
                           </li>
                           <li class="">
@@ -298,6 +301,9 @@
                                       </li>
                                       <li class="">
                                         <a href="../platforms/maui/navigation/navigation-builder.html" title="NavigationBuilder" class="">NavigationBuilder</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../platforms/maui/navigation/tabbed-navigation.html" title="TabbedPages" class="">TabbedPages</a>
                                       </li>
                                       <li class="">
                                         <a href="../platforms/maui/navigation/navigation-result.html" title="Understanding the INavigationResult" class="">Understanding the INavigationResult</a>
@@ -475,6 +481,24 @@
                                   <a href="../plugins/essentials/stores.html" title="Stores" class="">Stores</a>
                                 </li>
                               </ul>  </li>
+                          <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Logging</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../plugins/logging/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/logging/gelf.html" title="Graylog" class="">Graylog</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
+                                </li>
+                                <li class="">
+                                  <a href="../plugins/logging/unit-testing.md" title="Unit Testing" class="">Unit Testing</a>
+                                </li>
+                              </ul>  </li>
                           <li class="active">
                             <a href="../plugins/popups.html" title="Popups" class="active">Popups</a>
                           </li>
@@ -496,7 +520,9 @@
 <p><code>Rg.Plugins.Popup</code> does not support .NET MAUI applications, however the project has been forked and is now called <code>Mopups</code>. To use the Popup Plugin, you must be a Commercial Plus subscriber and have added the private Prism NuGet feed. You can then install <code>Prism.Plugin.Popups.Maui</code>. Once you have installed the package you simply need to call <code>ConfigureMopupDialogs</code> on the PrismAppBuilder.</p>
 <pre><code class="lang-cs">builder.UseMauiApp&lt;App&gt;()
     .UsePrism(prism =&gt; prism.ConfigureMopupDialogs())
-</code></pre></article>
+</code></pre><div class="NOTE"><h5>Note</h5><p>Using PopupPage&#39;s directly with Prism Navigation is no longer supported. PopupPage&#39;s are best used and make the most sense to be used as a Dialog. For this reason you should migrate your code to use the DialogService. Note that Prism.Plugin.Popups for .NET MAUI does expose a number of additional attached properties that you can use to configure the PopupPage that is created by the DialogService.</p>
+</div>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

@@ -179,6 +179,9 @@
                         
                         <ul class="nav level2">
                           <li class="">
+                            <a href="../../navigation/index.html" title="Getting Started" class="">Getting Started</a>
+                          </li>
+                          <li class="">
                             <a href="../../navigation/navigation-parameters.html" title="INavigationParameters" class="">INavigationParameters</a>
                           </li>
                           <li class="">
@@ -298,6 +301,9 @@
                                       </li>
                                       <li class="">
                                         <a href="../../platforms/maui/navigation/navigation-builder.html" title="NavigationBuilder" class="">NavigationBuilder</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../platforms/maui/navigation/tabbed-navigation.html" title="TabbedPages" class="">TabbedPages</a>
                                       </li>
                                       <li class="">
                                         <a href="../../platforms/maui/navigation/navigation-result.html" title="Understanding the INavigationResult" class="">Understanding the INavigationResult</a>
@@ -476,6 +482,24 @@
                                 </li>
                               </ul>  </li>
                           <li class="">
+                            <span class="expand-stub"></span>
+                            <a class="">Logging</a>
+                              
+                              <ul class="nav level3">
+                                <li class="">
+                                  <a href="../../plugins/logging/index.html" title="Getting Started" class="">Getting Started</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/logging/gelf.html" title="Graylog" class="">Graylog</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
+                                </li>
+                                <li class="">
+                                  <a href="../../plugins/logging/unit-testing.md" title="Unit Testing" class="">Unit Testing</a>
+                                </li>
+                              </ul>  </li>
+                          <li class="">
                             <a href="../../plugins/popups.html" title="Popups" class="">Popups</a>
                           </li>
                         </ul>  </li>
@@ -505,13 +529,23 @@
 </ul>
 <section id="tabpanel_1Q2uMcnV6A_maui" role="tabpanel" data-tab="maui">
 <p>Be sure to install <code>Prism.Plugin.Essentials.Maui</code></p>
-</section>
+<pre><code class="lang-cs">builder.UseMauiApp&lt;App&gt;()
+    .UsePrism(prism =&gt; prism.UsePrismEssentials())
+</code></pre></section>
 <section id="tabpanel_1Q2uMcnV6A_wpf" role="tabpanel" data-tab="wpf" aria-hidden="true" hidden="hidden">
 <p>Be sure to install <code>Prism.Plugin.Essentials.Wpf</code></p>
-</section>
+<pre><code class="lang-cs">protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.UsePrismEssentials();
+}
+</code></pre></section>
 <section id="tabpanel_1Q2uMcnV6A_uno-platform" role="tabpanel" data-tab="uno-platform" aria-hidden="true" hidden="hidden">
 <p>Be sure to install <code>Prism.Plugin.Essentials.Uno.WinUI</code></p>
-</section>
+<pre><code class="lang-cs">protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.UsePrismEssentials();
+}
+</code></pre></section>
 </div>
 <div class="NOTE"><h5>Note</h5><p>Prism.Plugins including Prism.Plugin.Essentials is only available for those with an active Commercial Plus license, and is available on the private Prism NuGet server. Prism.Essentials does NOT support Prism.Forms as Xamarin.Forms is considered to be End of Life and the Prism 9.0 release for Xamarin.Forms is provided only to better assist developers to first update to the Prism 9.0 API prior to migrating to .NET MAUI.</p>
 </div>
