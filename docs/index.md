@@ -35,3 +35,7 @@ The Commercial Plus license offers a number of additional packages to help devel
   - Grace Ioc
 
 Additionally Commercial Plus license holders have access to a private Discord group where they can ask questions, help one another and get help directly from the Prism team.
+
+## Migrating from Xamarin.Forms
+
+Xamarin.Forms is End of Life and as such 9.0 will be the last version that supports Xamarin.Forms apps. The Prism team has support for you in your journey whether you are migrating to .NET MAUI or Uno Platform. We have additionally invested time in providing support for your Xamarin.Forms apps with our new Prism Essentials and Prism Logging libraries. This will help to ensure that you have the maximum support while upgrading your Xamarin.Forms app to Prism 9.0 while working to migrate to .NET MAUI or Uno Platform.
