@@ -33,6 +33,11 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 Be sure to install `Prism.Plugin.Essentials.Uno.WinUI`
 
 ```cs
+protected override void ConfigureApp(IApplicationBuilder builder)
+{
+    builder.ConfigurePrismEssentials();
+}
+
 protected override void RegisterTypes(IContainerRegistry containerRegistry)
 {
     containerRegistry.UsePrismEssentials();
