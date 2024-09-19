@@ -33,14 +33,17 @@ If you are coming to Prism.Maui from Prism.Forms, Prism.Wpf, or Prism.Uno you ma
 
 ```cs
 var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
+builder.UseMauiApp<App>();
 builder.UsePrism(prism =>
 {
     prism.RegisterTypes(container => {
         // Register platform agnostic types
     });
-}
+});
 ```
+
+> [!NOTE]
+> In the case where you only see the variant of `UsePrism` which requires an instance of the `IContainerProvider` this means that you are missing `Prism.DryIoc.Maui`. For most cases you will want this installed. Commercial Plus users may optionally install a different container package from the Prism NuGet feed such as Microsoft Extensions DependencyInjection or Grace Ioc. In these cases you would not need the `Prism.DryIoc.Maui` package as you have another container to provide. All other users should use make sure `Prism.DryIoc.Maui` is installed.
 
 #### Platform Specific Registrations
 
