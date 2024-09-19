@@ -18,3 +18,6 @@ If updating your Xamarin.Forms app, particularly from older version of the Popup
 builder.UseMauiApp<App>()
     .UsePrism(prism => prism.ConfigureMopupDialogs())
 ```
+
+> [!NOTE]
+> Using PopupPage's directly with Prism Navigation is no longer supported. PopupPage's are best used and make the most sense to be used as a Dialog. For this reason you should migrate your code to use the DialogService. Note that Prism.Plugin.Popups for .NET MAUI does expose a number of additional attached properties that you can use to configure the PopupPage that is created by the DialogService.
