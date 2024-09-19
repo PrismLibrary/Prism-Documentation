@@ -541,7 +541,12 @@
 </code></pre></section>
 <section id="tabpanel_1Q2uMcnV6A_uno-platform" role="tabpanel" data-tab="uno-platform" aria-hidden="true" hidden="hidden">
 <p>Be sure to install <code>Prism.Plugin.Essentials.Uno.WinUI</code></p>
-<pre><code class="lang-cs">protected override void RegisterTypes(IContainerRegistry containerRegistry)
+<pre><code class="lang-cs">protected override void ConfigureApp(IApplicationBuilder builder)
+{
+    builder.ConfigurePrismEssentials();
+}
+
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
 {
     containerRegistry.UsePrismEssentials();
 }
