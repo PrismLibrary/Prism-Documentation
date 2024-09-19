@@ -1,3 +1,5 @@
+- name: Getting Started
+  href: index.md
 - name: INavigationParameters
   href: navigation-parameters.md
 - name: Page Navigation
