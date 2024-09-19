@@ -1,4 +1,6 @@
 - name: Essentials
   href: essentials/toc.yml
+- name: Logging
+  href: logging/toc.yml
 - name: Popups
   href: popups.md
