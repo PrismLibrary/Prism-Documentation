@@ -208,6 +208,9 @@ references:
 - uid: Plugins.Essentials.AppContext
   name: AppContext
   href: docs/plugins/essentials/appcontext.html
+- uid: Plugins.Essentials.Battery
+  name: Battery
+  href: docs/plugins/essentials/battery.html
 - uid: Plugins.Essentials.Connectivity
   name: Connectivity
   href: docs/plugins/essentials/connectivity.html
@@ -220,12 +223,24 @@ references:
 - uid: Plugins.Essentials.MainThread
   name: Main Thread
   href: docs/plugins/essentials/mainthread.html
+- uid: Plugins.Essentials.Permissions
+  name: App Permissions
+  href: docs/plugins/essentials/permissions.html
 - uid: Plugins.Essentials.Stores
   name: Stores
   href: docs/plugins/essentials/stores.html
+- uid: Plugins.Logging
+  name: Prism.Plugin.Logging
+  href: docs/plugins/logging/index.html
 - uid: Plugins.Logging.Gelf
   name: Logging with Graylog (GELF)
   href: docs/plugins/logging/gelf.html
+- uid: Plugins.Logging.Microsoft
+  name: Microsoft.Extensions.Logging Interop
+  href: docs/plugins/logging/microsoft.html
+- uid: Plugins.Logging.Raygun
+  name: Prism Logging with Raygun
+  href: docs/plugins/logging/raygun.html
 - uid: Plugins.Logging.Testing
   name: Prism.Plugin.Logging.Testing
   href: docs/plugins/logging/testing.html

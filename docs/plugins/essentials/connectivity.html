@@ -496,7 +496,7 @@
                                   <a href="../../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
                                 </li>
                                 <li class="">
-                                  <a href="../../plugins/logging/unit-testing.md" title="Unit Testing" class="">Unit Testing</a>
+                                  <a href="../../plugins/logging/testing.html" title="Unit Testing" class="">Unit Testing</a>
                                 </li>
                               </ul>  </li>
                           <li class="">
@@ -513,7 +513,16 @@
             <article class="content wrap" id="_content" data-uid="Plugins.Essentials.Connectivity">
 <h1 id="connectivity">Connectivity</h1>
 
-</article>
+<h2 id="api">API</h2>
+<pre><code class="lang-cs">public interface IConnectivity
+{
+    IEnumerable&lt;ConnectionProfile&gt; ConnectionProfiles { get; }
+
+    NetworkAccess NetworkAccess { get; }
+
+    IObservable&lt;ConnectionState&gt; State();
+}
+</code></pre></article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

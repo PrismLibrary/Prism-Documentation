@@ -496,7 +496,7 @@
                                   <a href="../../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
                                 </li>
                                 <li class="">
-                                  <a href="../../plugins/logging/unit-testing.md" title="Unit Testing" class="">Unit Testing</a>
+                                  <a href="../../plugins/logging/testing.html" title="Unit Testing" class="">Unit Testing</a>
                                 </li>
                               </ul>  </li>
                           <li class="">
@@ -510,7 +510,7 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="">
+            <article class="content wrap" id="_content" data-uid="Plugins.Logging">
 <h1 id="prismpluginlogging">Prism.Plugin.Logging</h1>
 
 <p>Available now to Commercial Plus license holders on the Prism NuGet feed.</p>
@@ -603,12 +603,10 @@ containerRegistry.RegisterAppCenterLogger(&quot;appSecret&quot;, typeof(Analytic
 </code></pre><h3 id="graylog-gelf">Graylog (GELF)</h3>
 <p>For more information see the <a class="xref" href="gelf.html">Gelf docs</a>.</p>
 <h3 id="microsoftextensionslogging-interoperability">Microsoft.Extensions.Logging Interoperability</h3>
-<p>For more information see the <a href="xref:Plugins.Logging.Microsoft">Microsoft.Extensions.Logging Interoperability docs</a>.</p>
+<p>For more information see the <a class="xref" href="microsoft.html">Microsoft.Extensions.Logging Interoperability docs</a>.</p>
 <h3 id="raygun">Raygun</h3>
-<pre><code class="lang-cs">containerRegistry.UsePrismLogging(logging =&gt; {
-    logging.AddRaygun(&quot;RaygunApiKey&quot;);
-});
-</code></pre><h3 id="sentry">Sentry</h3>
+<p>For more information see the <a class="xref" href="raygun.html">Prism Logging docs for Raygun</a>.</p>
+<h3 id="sentry">Sentry</h3>
 <pre><code class="lang-cs">containerRegistry.UsePrismLogging(logging =&gt; {
     logging.AddSentry(&quot;sentryDsn&quot;);
 });

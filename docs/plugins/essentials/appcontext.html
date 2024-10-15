@@ -496,7 +496,7 @@
                                   <a href="../../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
                                 </li>
                                 <li class="">
-                                  <a href="../../plugins/logging/unit-testing.md" title="Unit Testing" class="">Unit Testing</a>
+                                  <a href="../../plugins/logging/testing.html" title="Unit Testing" class="">Unit Testing</a>
                                 </li>
                               </ul>  </li>
                           <li class="">
@@ -513,6 +513,44 @@
             <article class="content wrap" id="_content" data-uid="Plugins.Essentials.AppContext">
 <h1 id="appcontext">AppContext</h1>
 
+<p>The default implementation of the <code>IAppContext</code> interface is available by registering Prism Essentials or by specifically Registering the AppContext.</p>
+<pre><code class="lang-cs">containerRegistry.UsePrismEssentials();
+
+// OR Specifically
+containerRegistry.RegisterAppContext();
+</code></pre><h2 id="api">API</h2>
+<pre><code class="lang-cs">public interface IAppContext
+{
+    string PackageName { get; }
+
+    string Name { get; }
+
+    string VersionString { get; }
+
+    Version Version { get; }
+
+    string BuildString { get; }
+
+    void ShowSettingsUI();
+
+    AppTheme RequestedTheme { get; }
+
+    AppPackagingModel PackagingModel { get; }
+
+    LayoutDirection RequestedLayoutDirection { get; }
+}
+</code></pre><h2 id="read-the-app-information">Read the app information</h2>
+<p>The IAppContext interface exposes the following properties:</p>
+<ul>
+<li>Name — The application name.</li>
+<li>PackageName — The package name or application identifier, such as com.prismlibrary.myapp.</li>
+<li>VersionString — The application version, such as 1.0.0.</li>
+<li>Version — The application version, as a Version object.</li>
+<li>BuildString — The build number of the version, such as 1000.</li>
+<li>RequestedTheme — The detected theme of the system or application.</li>
+<li>PackagingModel — The packaging model of the application.</li>
+<li>RequestedLayoutDirection — The requested layout direction of the system or application.</li>
+</ul>
 </article>
           </div>
           

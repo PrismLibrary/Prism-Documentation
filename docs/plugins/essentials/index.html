@@ -496,7 +496,7 @@
                                   <a href="../../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
                                 </li>
                                 <li class="">
-                                  <a href="../../plugins/logging/unit-testing.md" title="Unit Testing" class="">Unit Testing</a>
+                                  <a href="../../plugins/logging/testing.html" title="Unit Testing" class="">Unit Testing</a>
                                 </li>
                               </ul>  </li>
                           <li class="">
@@ -518,7 +518,10 @@
 <div class="tabGroup" id="tabgroup_1Q2uMcnV6A">
 <ul role="tablist">
 <li role="presentation">
-<a href="#tabpanel_1Q2uMcnV6A_maui" role="tab" aria-controls="tabpanel_1Q2uMcnV6A_maui" data-tab="maui" tabindex="0" aria-selected="true">.NET MAUI</a>
+<a href="#tabpanel_1Q2uMcnV6A_forms" role="tab" aria-controls="tabpanel_1Q2uMcnV6A_forms" data-tab="forms" tabindex="0" aria-selected="true">Xamarin.Forms</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1Q2uMcnV6A_maui" role="tab" aria-controls="tabpanel_1Q2uMcnV6A_maui" data-tab="maui" tabindex="-1">.NET MAUI</a>
 </li>
 <li role="presentation">
 <a href="#tabpanel_1Q2uMcnV6A_wpf" role="tab" aria-controls="tabpanel_1Q2uMcnV6A_wpf" data-tab="wpf" tabindex="-1">WPF</a>
@@ -527,7 +530,17 @@
 <a href="#tabpanel_1Q2uMcnV6A_uno-platform" role="tab" aria-controls="tabpanel_1Q2uMcnV6A_uno-platform" data-tab="uno-platform" tabindex="-1">Uno Platform</a>
 </li>
 </ul>
-<section id="tabpanel_1Q2uMcnV6A_maui" role="tabpanel" data-tab="maui">
+<section id="tabpanel_1Q2uMcnV6A_forms" role="tabpanel" data-tab="forms">
+<p>Be sure to install <code>Prism.Plugin.Essentials.Forms</code></p>
+<p>In PrismApplication be sure to add the following registration.</p>
+<pre><code class="lang-cs">protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.UsePrismEssentials();
+}
+</code></pre><p>For Android be sure to add the following to the native Android Application</p>
+<pre><code class="lang-cs">Prism.Plugin.Essentials.Platform.CurrentActivity.Init(this);
+</code></pre></section>
+<section id="tabpanel_1Q2uMcnV6A_maui" role="tabpanel" data-tab="maui" aria-hidden="true" hidden="hidden">
 <p>Be sure to install <code>Prism.Plugin.Essentials.Maui</code></p>
 <pre><code class="lang-cs">builder.UseMauiApp&lt;App&gt;()
     .UsePrism(prism =&gt; prism.UsePrismEssentials())
