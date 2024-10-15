@@ -1,5 +1,5 @@
 ---
-uid: Plugins.Essentials.MainThread
+uid: Plugins.Essentials.Permissions
 ---
 
 # App Permissions

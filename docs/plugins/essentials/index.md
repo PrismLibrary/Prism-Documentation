@@ -8,7 +8,26 @@ Prism.Plugin.Essentials is built around the idea that you should be able to have
 
 The API is generally inspired by a combination of Xamarin/.NET MAUI Essentials and in the case of the [Stores](xref:Plugins.Essentials.Stores) is inspired by one of our favorite libraries [Shiny.NET](https://shinylib.net).
 
-# [.NET MAUI](#tab/maui)
+## [Xamarin.Forms](#tab/forms)
+
+Be sure to install `Prism.Plugin.Essentials.Forms`
+
+In PrismApplication be sure to add the following registration.
+
+```cs
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.UsePrismEssentials();
+}
+```
+
+For Android be sure to add the following to the native Android Application
+
+```cs
+Prism.Plugin.Essentials.Platform.CurrentActivity.Init(this);
+```
+
+## [.NET MAUI](#tab/maui)
 
 Be sure to install `Prism.Plugin.Essentials.Maui`
 
@@ -17,7 +36,7 @@ builder.UseMauiApp<App>()
     .UsePrism(prism => prism.UsePrismEssentials())
 ```
 
-# [WPF](#tab/wpf)
+## [WPF](#tab/wpf)
 
 Be sure to install `Prism.Plugin.Essentials.Wpf`
 
@@ -28,7 +47,7 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
-# [Uno Platform](#tab/uno-platform)
+## [Uno Platform](#tab/uno-platform)
 
 Be sure to install `Prism.Plugin.Essentials.Uno.WinUI`
 

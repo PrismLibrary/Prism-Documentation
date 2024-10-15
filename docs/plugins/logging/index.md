@@ -1,3 +1,7 @@
+---
+uid: Plugins.Logging
+---
+
 # Prism.Plugin.Logging
 
 Available now to Commercial Plus license holders on the Prism NuGet feed.
@@ -160,11 +164,7 @@ For more information see the [Microsoft.Extensions.Logging Interoperability docs
 
 ### Raygun
 
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    logging.AddRaygun("RaygunApiKey");
-});
-```
+For more information see the [Prism Logging docs for Raygun](xref:Plugins.Logging.Raygun).
 
 ### Sentry
 
