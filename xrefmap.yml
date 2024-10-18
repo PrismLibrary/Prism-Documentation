@@ -220,12 +220,18 @@ references:
 - uid: Plugins.Essentials.GettingStarted
   name: Getting Started
   href: docs/plugins/essentials/index.html
+- uid: Plugins.Essentials.LatestVersion
+  name: Latest Version
+  href: docs/plugins/essentials/latestversion.html
 - uid: Plugins.Essentials.MainThread
   name: Main Thread
   href: docs/plugins/essentials/mainthread.html
 - uid: Plugins.Essentials.Permissions
   name: App Permissions
   href: docs/plugins/essentials/permissions.html
+- uid: Plugins.Essentials.PhoneDialer
+  name: Phone Dialer
+  href: docs/plugins/essentials/phonedialer.html
 - uid: Plugins.Essentials.Stores
   name: Stores
   href: docs/plugins/essentials/stores.html
