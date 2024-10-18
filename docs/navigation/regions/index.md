@@ -35,3 +35,4 @@ Prism provides guidance on implementing both styles of navigation, focusing on t
 | [Navigation Journal](xref:Navigation.Regions.NavigationJournal) | Use the navigation journal to allow the user to navigate from within the view. |
 | [Passing Parameters](xref:Navigation.Regions.PassingParameters) | Pass data to the view being navigated to. |
 | [View and View Model Participation](xref:Navigation.Regions.ViewViewModelParticipation) | Link your views and view models to the navigation system. |
+| [Global Region Observer](xref:Plugins.ObservableRegions) | Observe and react to Navigation Events globally. |

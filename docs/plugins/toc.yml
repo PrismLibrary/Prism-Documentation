@@ -2,5 +2,7 @@
   href: essentials/toc.yml
 - name: Logging
   href: logging/toc.yml
+- name: Observable Regions
+  href: regions.md
 - name: Popups
   href: popups.md
