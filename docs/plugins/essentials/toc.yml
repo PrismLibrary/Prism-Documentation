@@ -6,7 +6,13 @@
   href: connectivity.md
 - name: File System
   href: filesystem.md
+- name: LatestVersion
+  href: latestversion.md
 - name: Main Thread
   href: mainthread.md
+- name: Permissions
+  href: permissions.md
+- name: Phone Dialer
+  href: phonedialer.md
 - name: Stores
   href: stores.md
