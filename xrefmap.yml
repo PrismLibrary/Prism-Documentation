@@ -244,6 +244,9 @@ references:
 - uid: Plugins.Logging.Testing
   name: Prism.Plugin.Logging.Testing
   href: docs/plugins/logging/testing.html
+- uid: Plugins.ObservableRegions
+  name: Getting Started
+  href: docs/plugins/regions.html
 - uid: Plugins.Popups
   name: Getting Started
   href: docs/plugins/popups.html

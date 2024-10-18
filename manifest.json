@@ -9,7 +9,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/commands/async-commands.html",
-          "hash": "5TJbA4HR3PuXNTYecWqzqQ=="
+          "hash": "ekEXngqA5n3ivbjDUVvXyg=="
         }
       },
       "is_incremental": false,
@@ -21,7 +21,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/commands/commanding.html",
-          "hash": "ZXTWufR/uUYEg+kQ2A2OKg=="
+          "hash": "VX165BXcIZsrgdkHxoPAGA=="
         }
       },
       "is_incremental": false,
@@ -33,7 +33,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/commands/composite-commands.html",
-          "hash": "ykMDYpOHlxletp2CSrvtVA=="
+          "hash": "jzjQJXapLd5wbxE+3gLJFw=="
         }
       },
       "is_incremental": false,
@@ -45,7 +45,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/commands/error-handling.html",
-          "hash": "0kBZlMqDSquEChmG2EXmLg=="
+          "hash": "l5JxSXM7IinGIlLYxTlIOg=="
         }
       },
       "is_incremental": false,
@@ -57,7 +57,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/add-custom-container.html",
-          "hash": "ENUWAGALEiaPmUF0rhPLdg=="
+          "hash": "mu8rjocnVZyqLQw2QqDtvQ=="
         }
       },
       "is_incremental": false,
@@ -69,7 +69,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/appendix.html",
-          "hash": "KLNlcXMqkup0qtMVSXVO2A=="
+          "hash": "WROdo6dHLIf/OrG8coJ3yw=="
         }
       },
       "is_incremental": false,
@@ -81,7 +81,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/container-locator.html",
-          "hash": "/xwvBxP6SGvk9thsN7DIfg=="
+          "hash": "yy3inJ4MVM1iAsJUDgxKcg=="
         }
       },
       "is_incremental": false,
@@ -93,7 +93,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/index.html",
-          "hash": "EfHv1+XchDl/FsaTpuOWnw=="
+          "hash": "D1IT+TUq35oFp+5C77/j5Q=="
         }
       },
       "is_incremental": false,
@@ -105,7 +105,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/platform-specific-services.html",
-          "hash": "jt1karWP95CKe1ywyzkDVA=="
+          "hash": "ipRzCkaLIyDLTmV+1RU/JQ=="
         }
       },
       "is_incremental": false,
@@ -117,7 +117,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/registering-types.html",
-          "hash": "7Syn08cUtokNlrKW282JJw=="
+          "hash": "22JA8UMM7FReaHQFDZ7OGg=="
         }
       },
       "is_incremental": false,
@@ -129,7 +129,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/resolution-errors.html",
-          "hash": "LReK+GmzyqtAuvz1USY+Wg=="
+          "hash": "B0P5oN6X3XELSdwPBNgZJg=="
         }
       },
       "is_incremental": false,
@@ -141,7 +141,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dependency-injection/servicecollection-supplement.html",
-          "hash": "scv866mW/fAzZvYBdA0REA=="
+          "hash": "nbyVqCF+6jqHeymNTLDLFQ=="
         }
       },
       "is_incremental": false,
@@ -153,7 +153,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dialogs/dialog-aware.html",
-          "hash": "98lbO7otdpA9edCMVFg7Ag=="
+          "hash": "aYzddPV0sxwyVv/Ape4kfw=="
         }
       },
       "is_incremental": false,
@@ -165,7 +165,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dialogs/dialog-window.html",
-          "hash": "XM4SYpKpmdieSIFHk2QcwA=="
+          "hash": "SHahamKF0J2h1J7k7ji05g=="
         }
       },
       "is_incremental": false,
@@ -177,7 +177,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/dialogs/index.html",
-          "hash": "/amAZoGPNZoHL0h14HMAFg=="
+          "hash": "DZ3pGE8jmBUa1KY/wo8HWg=="
         }
       },
       "is_incremental": false,
@@ -189,7 +189,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/event-aggregator.html",
-          "hash": "WSsxmgxUf8fysn/kVGLNIg=="
+          "hash": "mWNKHI3AoBQLV9GIG/BAKg=="
         }
       },
       "is_incremental": false,
@@ -524,7 +524,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/index.html",
-          "hash": "5QpUz8T6triZad17gjOnQg=="
+          "hash": "Y1o5cWLFiJ7elnXMzsJwrA=="
         }
       },
       "is_incremental": false,
@@ -536,7 +536,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/magician/index.html",
-          "hash": "ym8ovAvw7RZlJOFxIU1x0w=="
+          "hash": "T9u4My5hrITnWMoOB1WfSQ=="
         }
       },
       "is_incremental": false,
@@ -548,7 +548,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/modularity/index.html",
-          "hash": "w8jRAdOyOil/Gt0wIuLstA=="
+          "hash": "5cSmjGardHSHVP4ISW3qhQ=="
         }
       },
       "is_incremental": false,
@@ -560,7 +560,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/modularity/module-catalog.html",
-          "hash": "cQVRGNEGwuizkQCxcadwcw=="
+          "hash": "jMpd5JJixKD/AvRhuzwWQA=="
         }
       },
       "is_incremental": false,
@@ -572,7 +572,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/modularity/module-initialization.html",
-          "hash": "iNb3eQTL/WLoczob34lEDw=="
+          "hash": "ZnkIfiJg7A3b6XR6Csa2tg=="
         }
       },
       "is_incremental": false,
@@ -584,7 +584,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/mvvm/bindablebase.html",
-          "hash": "JxdtcRHNbnNPzIFwPcvDyg=="
+          "hash": "exYjOWJWSH5aDi8C/U69ZQ=="
         }
       },
       "is_incremental": false,
@@ -596,7 +596,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/mvvm/viewmodel-locator.html",
-          "hash": "BJdTRMwmarBvqgFw51du1Q=="
+          "hash": "HozUoGUvp1PtL+xUvPQvHg=="
         }
       },
       "is_incremental": false,
@@ -608,7 +608,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/index.html",
-          "hash": "atNUbbhqAmj5YGxBWykGFQ=="
+          "hash": "WZmFFxv60UAW52xw0uGPpQ=="
         }
       },
       "is_incremental": false,
@@ -620,7 +620,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/navigation-parameters.html",
-          "hash": "YA/Gv/O07X4Nt6VZ6ig/bg=="
+          "hash": "/sNTlU+jSlJ5+PTvhDnzrQ=="
         }
       },
       "is_incremental": false,
@@ -632,7 +632,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/page-navigation.html",
-          "hash": "aj2VRet+HCbUPf/bhcPZvQ=="
+          "hash": "Mo2HsvV7/dg//CMiWaYhDw=="
         }
       },
       "is_incremental": false,
@@ -644,7 +644,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/basic-region-navigation.html",
-          "hash": "DLPPqFL7kOX7crhFEbBNBg=="
+          "hash": "82bWs18HIu5czjD5KHhlrg=="
         }
       },
       "is_incremental": false,
@@ -656,7 +656,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/confirming-navigation.html",
-          "hash": "TFn6/gEaoJ4mn+kEGAtd9w=="
+          "hash": "AzyinM9Yc2ZsXWZg/MtjTw=="
         }
       },
       "is_incremental": false,
@@ -668,7 +668,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/controlling-view-lifetime.html",
-          "hash": "hVjeVqC1aGq+L9CKFt+dVA=="
+          "hash": "0y8ExFMpsht1sttvzCGYog=="
         }
       },
       "is_incremental": false,
@@ -680,7 +680,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/index.html",
-          "hash": "WhMdvdVO4IXDfdWAnkU8KQ=="
+          "hash": "rv45abLG3LL912DRCtXYqQ=="
         }
       },
       "is_incremental": false,
@@ -692,7 +692,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/navigation-existing-views.html",
-          "hash": "9XBgq/nVs/PTD7TxuZFVrA=="
+          "hash": "1RKqzSRPpeZGtG1Nz28Ing=="
         }
       },
       "is_incremental": false,
@@ -704,7 +704,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/navigation-journal.html",
-          "hash": "rx9shU27a9CR4wPhG6zHOg=="
+          "hash": "DuteCrgRz0snj1fQK3gX4g=="
         }
       },
       "is_incremental": false,
@@ -716,7 +716,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/passing-parameters.html",
-          "hash": "XFL5BladdUdPYCt+CPYsIw=="
+          "hash": "Y6GdV9nUX7fZKUMR8WUV6Q=="
         }
       },
       "is_incremental": false,
@@ -728,7 +728,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/region-adapters.html",
-          "hash": "M4Pde6HXa8oBABSlPSl+Dg=="
+          "hash": "v514z8CE1yJEWTcPug1v7Q=="
         }
       },
       "is_incremental": false,
@@ -740,7 +740,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/region-behaviors.html",
-          "hash": "9Kt6Ed+LvajUGXc/P52OWg=="
+          "hash": "I6g4r/H4vPbZln2iyk674A=="
         }
       },
       "is_incremental": false,
@@ -752,7 +752,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/region-manager.html",
-          "hash": "452rLd9n3+Sr5kifhBLs+Q=="
+          "hash": "eXVt/DtUWN84hlft6kd6ZA=="
         }
       },
       "is_incremental": false,
@@ -764,7 +764,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/navigation/regions/view-viewmodel-participation.html",
-          "hash": "v4PZZD29Y5uy2tKiMSXkmg=="
+          "hash": "NbfELmxOotJT4+nI1EzEyw=="
         }
       },
       "is_incremental": false,
@@ -776,7 +776,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/appbuilder.html",
-          "hash": "FFRESinRWT0MSnS5oLeS5w=="
+          "hash": "8U6yPhaJIvO3dEGXMSx56g=="
         }
       },
       "is_incremental": false,
@@ -788,7 +788,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/appmodel/pagelifecycleaware.html",
-          "hash": "KRZt719ZslCVbxuv/KJHjg=="
+          "hash": "yRbO3vb7ugG8UylCphYMAw=="
         }
       },
       "is_incremental": false,
@@ -800,7 +800,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/behaviors/behaviorbase.html",
-          "hash": "lR/FbedOOQRsZel24e/6uA=="
+          "hash": "u4lsOnjtpDAi9Tfb1ZRW7w=="
         }
       },
       "is_incremental": false,
@@ -812,7 +812,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/behaviors/eventtocommandbehavior.html",
-          "hash": "BK0LnNOE+M8KGuwsK2aSOw=="
+          "hash": "MJUW1V2HLRu3NjUMJMdw2A=="
         }
       },
       "is_incremental": false,
@@ -824,7 +824,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/behaviors/index.html",
-          "hash": "o2vsKPEd+QXgBVjORYax3A=="
+          "hash": "koVEYoA/XnQ8LkKt+h8MjQ=="
         }
       },
       "is_incremental": false,
@@ -836,7 +836,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/behaviors/pagebehaviorfactory.html",
-          "hash": "Yt+JaZZDdDGegdJnrXwIkw=="
+          "hash": "qsdXEJr7fmX07nq30wCphw=="
         }
       },
       "is_incremental": false,
@@ -848,7 +848,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/dialogs/index.html",
-          "hash": "uLdGrvj3+Wkskd1NTGwlbg=="
+          "hash": "FI/FNwYcNQsxczJwjsFSgQ=="
         }
       },
       "is_incremental": false,
@@ -860,7 +860,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/dialogs/pagedialogs.html",
-          "hash": "N0rQJyqDu24ffMahb7r0MQ=="
+          "hash": "Du4YIaia+WwkG/pzwGEIxw=="
         }
       },
       "is_incremental": false,
@@ -916,7 +916,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/index.html",
-          "hash": "+iOwQU8Fj/F+hX3Lqh4w7Q=="
+          "hash": "bZLRwXGveBPTp+wxgB4Adw=="
         }
       },
       "is_incremental": false,
@@ -928,7 +928,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/migrating.html",
-          "hash": "ea9Hf3UjCRsvXR8rBC5rbw=="
+          "hash": "u1EJ/cnrYtH8cY4a2xIb/g=="
         }
       },
       "is_incremental": false,
@@ -940,7 +940,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/global-navigation-observer.html",
-          "hash": "P97faouRbnR9tewLIY+iEA=="
+          "hash": "X/IoZWMDbzOVS1/mSS2bjg=="
         }
       },
       "is_incremental": false,
@@ -952,7 +952,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/index.html",
-          "hash": "4ayswZhExKyUlz1xqaI2Qg=="
+          "hash": "QuJbHIBuajbVK/igveSdMw=="
         }
       },
       "is_incremental": false,
@@ -964,7 +964,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/navigation-builder.html",
-          "hash": "06Eje1TTkKOwLX1DLHU0gQ=="
+          "hash": "xJgG5iBSoZaQgQGjZEEWNg=="
         }
       },
       "is_incremental": false,
@@ -976,7 +976,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/navigation-exceptions.html",
-          "hash": "Nn/kWS5Rf/OfmnUt8QNlIg=="
+          "hash": "R8X1hQjtxrglV/kkWL3jiQ=="
         }
       },
       "is_incremental": false,
@@ -988,7 +988,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/navigation-result.html",
-          "hash": "0q9Cl3aL8+H7lJAsjDLmBA=="
+          "hash": "9aM3qTS2p+iPrA1ig3mqGw=="
         }
       },
       "is_incremental": false,
@@ -1000,7 +1000,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/page-navigation.html",
-          "hash": "eF+O1gFoDCUss55UltvxoQ=="
+          "hash": "URrJrSUe1hRCj2cC7JMdMQ=="
         }
       },
       "is_incremental": false,
@@ -1012,7 +1012,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/prismnavigationpage.html",
-          "hash": "4PECWeqQ6BS4Vdzyurk6YQ=="
+          "hash": "Um6EV9dyCvPNqZBPnMRLOA=="
         }
       },
       "is_incremental": false,
@@ -1024,7 +1024,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/tabbed-navigation.html",
-          "hash": "YuGud8Jf+RJ7BrjxZ00UAg=="
+          "hash": "FxGMLjkiaJvU7DUDIUxk6Q=="
         }
       },
       "is_incremental": false,
@@ -1036,7 +1036,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/maui/navigation/xaml-navigation.html",
-          "hash": "tVGJv3XU4PZLgd+7oG+QyQ=="
+          "hash": "OEDsvJuqon9+/BXScoFTQA=="
         }
       },
       "is_incremental": false,
@@ -1048,7 +1048,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/uno/extensions.html",
-          "hash": "MJ7K7jyIWcGAbnCqzpifvA=="
+          "hash": "5LLJrkdE2of586TQyODFcg=="
         }
       },
       "is_incremental": false,
@@ -1060,7 +1060,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/uno/index.html",
-          "hash": "guTbxWph1AnkzPBtyGAX0Q=="
+          "hash": "OoFvDq31/mGSKz1uFfm6nA=="
         }
       },
       "is_incremental": false,
@@ -1072,7 +1072,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/wpf/dialog-service.html",
-          "hash": "jNvR3m8QEnUmz6dlDCd91g=="
+          "hash": "zL30ZcuDYzc2Exop71ykdw=="
         }
       },
       "is_incremental": false,
@@ -1084,7 +1084,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/wpf/getting-started.html",
-          "hash": "8/O+cksO0FCC6GUL2qvHvA=="
+          "hash": "qNxoOxoQmHJfce6zL2NHrg=="
         }
       },
       "is_incremental": false,
@@ -1294,7 +1294,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/wpf/interactivity/event-to-command.html",
-          "hash": "JJe220eLXiTsrNypr9tYWw=="
+          "hash": "catquv5HB+LVWqnj4AIRpw=="
         }
       },
       "is_incremental": false,
@@ -1306,7 +1306,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/wpf/introduction.html",
-          "hash": "ZK92qpjfK1jncpnWQdiCsw=="
+          "hash": "m+PQfracfUhGcL0qucAkcw=="
         }
       },
       "is_incremental": false,
@@ -1318,7 +1318,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/wpf/view-composition.html",
-          "hash": "TIFTLuwUUjXtUBWt+6lD4Q=="
+          "hash": "/79qaNADqei/Q3g1h2OEDg=="
         }
       },
       "is_incremental": false,
@@ -1330,7 +1330,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/Dependency-Service.html",
-          "hash": "mD6XF/u3MdV2yczrf4VPHA=="
+          "hash": "BM30wXu1IQjKuzpH639SuQ=="
         }
       },
       "is_incremental": false,
@@ -1342,7 +1342,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/Getting-Started.html",
-          "hash": "GqPXwH40GR0rXzm3GXKLcw=="
+          "hash": "TOl5e6or/kuxrEcQ6OSX4Q=="
         }
       },
       "is_incremental": false,
@@ -1354,7 +1354,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/application-lifecycle.html",
-          "hash": "0jqSKNViiAXzchoi1ezU5w=="
+          "hash": "wf2xfYBx/qwf0UVm5FDuTg=="
         }
       },
       "is_incremental": false,
@@ -1366,7 +1366,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/behaviors/eventtocommandbehavior.html",
-          "hash": "lFLl1YN3TBhbemco9IOOgw=="
+          "hash": "aMoYhZt8uV63EbOaKsu/Pg=="
         }
       },
       "is_incremental": false,
@@ -1378,7 +1378,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/behaviors/index.html",
-          "hash": "PFjCgN5TQSa5BslTL3lT1w=="
+          "hash": "TTNktnsplhE17ImdIxJmQg=="
         }
       },
       "is_incremental": false,
@@ -1390,7 +1390,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/behaviors/page-behavior-factory.html",
-          "hash": "odgVwXJoEAWw0N88+mvyWA=="
+          "hash": "bkbdFVeLyMdkU91LAGf/uA=="
         }
       },
       "is_incremental": false,
@@ -1402,7 +1402,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/converting-an-existing-app.html",
-          "hash": "vCaCiOD8UsljharNhinpng=="
+          "hash": "65fG21t1MhW2/9spE/8QWA=="
         }
       },
       "is_incremental": false,
@@ -1414,7 +1414,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/creating-your-first-prism-app.html",
-          "hash": "dWUTnHpfUBIYbSBc0SC9qQ=="
+          "hash": "/mD/HXrRfPWKvlBd1JCm0g=="
         }
       },
       "is_incremental": false,
@@ -1426,7 +1426,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/dialogs/dialog-service.html",
-          "hash": "1BE+lPzyH7Sd1vFg/CM5jg=="
+          "hash": "5nlKZ1+CscNkdzB/NjKIaw=="
         }
       },
       "is_incremental": false,
@@ -1438,7 +1438,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/dialogs/index.html",
-          "hash": "5i3q51Jw4nXfpUpKdE5EBw=="
+          "hash": "wcePsaWlCI8pGO+sARbl8Q=="
         }
       },
       "is_incremental": false,
@@ -1450,7 +1450,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/dialogs/page-dialog-service.html",
-          "hash": "TC/WfI5IPBQNm5eQRdTUPA=="
+          "hash": "hc4tDp2FltHU1LIGLyXAFA=="
         }
       },
       "is_incremental": false,
@@ -1465,7 +1465,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/dialogs/styling-dialogs.html",
-          "hash": "EAuvGISIXDdizViD6ntbvQ=="
+          "hash": "sWM86smDNIJCk5bCd9yE+g=="
         }
       },
       "is_incremental": false,
@@ -1609,7 +1609,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/confirming-navigation.html",
-          "hash": "/Y39g6zwgoCwCMho8TY7Mg=="
+          "hash": "aGoZwXtWNZfqVz67zm0uWw=="
         }
       },
       "is_incremental": false,
@@ -1621,7 +1621,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/deep-linking.html",
-          "hash": "BPLtuuotjGixK960iMjRvw=="
+          "hash": "xXvRi7rPp8uycbDMVovohw=="
         }
       },
       "is_incremental": false,
@@ -1633,7 +1633,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/initialization.html",
-          "hash": "eZHVS3mIXOqSIQK/uzc8lA=="
+          "hash": "NKHXX0z7KqjML6k7Tf52bw=="
         }
       },
       "is_incremental": false,
@@ -1645,7 +1645,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/navigation-basics.html",
-          "hash": "apnHAqT26Y5Culeu1Vrzyw=="
+          "hash": "o4818nSgrqeF/Uln6WqM+g=="
         }
       },
       "is_incremental": false,
@@ -1657,7 +1657,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/passing-parameters.html",
-          "hash": "0YBosloNJcOPK4BbbIKPgw=="
+          "hash": "MW3JHmmGGewJyrUgqRj8jg=="
         }
       },
       "is_incremental": false,
@@ -1669,7 +1669,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-masterdetailpages.html",
-          "hash": "IODOm6AY/G67g85onw1Vtw=="
+          "hash": "cu6iPpZ5ZO+P1HDy/a/uLg=="
         }
       },
       "is_incremental": false,
@@ -1681,7 +1681,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-navigationpages.html",
-          "hash": "n+JlAIF+aRYM70H2Q9Eovg=="
+          "hash": "g1WmtEJymeAH+vpQDWqmgw=="
         }
       },
       "is_incremental": false,
@@ -1693,7 +1693,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/working-with-tabbedpages.html",
-          "hash": "OQn8FN6UrF8VH64F5lFEtA=="
+          "hash": "Lukqe7IXH08pLO9B0IIQuQ=="
         }
       },
       "is_incremental": false,
@@ -1705,7 +1705,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/navigation/xaml-navigation.html",
-          "hash": "kGBndmVPWi2Dc5ZWTif1YA=="
+          "hash": "BnLVqVmMnRsqTGtAPuHFYA=="
         }
       },
       "is_incremental": false,
@@ -1717,7 +1717,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/page-lifecycle.html",
-          "hash": "dtp6OpOtj+4N/W32azfGfw=="
+          "hash": "zKVTBeY0KE+6MNzbtuOHrw=="
         }
       },
       "is_incremental": false,
@@ -1729,7 +1729,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/platforms/xamarin-forms/platform-reference/gtk.html",
-          "hash": "tHDrbZenhSGBdIDkGwGGVA=="
+          "hash": "K2NAPue8y4PARtdYyTk8bQ=="
         }
       },
       "is_incremental": false,
@@ -1785,7 +1785,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/appcontext.html",
-          "hash": "yJBdxz5dnIcWf+L86gM9jA=="
+          "hash": "bGZPd1i49L+DEXMZpccAEw=="
         }
       },
       "is_incremental": false,
@@ -1797,7 +1797,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/battery.html",
-          "hash": "1sJbc1Y/s6eG0ccwj6ytXg=="
+          "hash": "xwGP7Uyg4XO73pRfa7uDzw=="
         }
       },
       "is_incremental": false,
@@ -1809,7 +1809,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/connectivity.html",
-          "hash": "5N/PSZODamF+yENTQCFBxQ=="
+          "hash": "QCa5aqNPXfcKjEFbZp+psg=="
         }
       },
       "is_incremental": false,
@@ -1821,7 +1821,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/filesystem.html",
-          "hash": "jBjigqNuD2cK5ancnOxj6A=="
+          "hash": "9r1htMvtWy0w3jlxCV9ioQ=="
         }
       },
       "is_incremental": false,
@@ -1833,7 +1833,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/index.html",
-          "hash": "8YnTZMpp5ES1zFOy1YlIqA=="
+          "hash": "QrMVN756g5D7HPjQslSQmA=="
         }
       },
       "is_incremental": false,
@@ -1845,7 +1845,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/mainthread.html",
-          "hash": "OgpEooC18/UcT+zlhcA1VQ=="
+          "hash": "KJGbWvaTliAQU6+C4XrqiQ=="
         }
       },
       "is_incremental": false,
@@ -1857,7 +1857,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/permissions.html",
-          "hash": "usYYqdtUQCxge2lqVs867A=="
+          "hash": "nPtkP316j/ea7Lkl0WZikw=="
         }
       },
       "is_incremental": false,
@@ -1869,7 +1869,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/essentials/stores.html",
-          "hash": "Q4MNcI+6IEYVdvQKipLmoA=="
+          "hash": "rxDfvV4P0Ag1/1jpWNNnFw=="
         }
       },
       "is_incremental": false,
@@ -1881,7 +1881,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/logging/gelf.html",
-          "hash": "qJT3cLRn7l/gD6PM9pMRtw=="
+          "hash": "JazP+94Gpu+LQWJQMRRodA=="
         }
       },
       "is_incremental": false,
@@ -1893,7 +1893,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/logging/index.html",
-          "hash": "eSDRY8eVS7b++K+lfnbr2w=="
+          "hash": "yqQbnQ1122ZGMCkkydjN3g=="
         }
       },
       "is_incremental": false,
@@ -1905,7 +1905,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/logging/microsoft.html",
-          "hash": "8+eDRPJuJykbA2rgLHQGfA=="
+          "hash": "PiOKNbqk/EDBhZYCrx0mcQ=="
         }
       },
       "is_incremental": false,
@@ -1917,7 +1917,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/logging/raygun.html",
-          "hash": "0edRlNP+pC6+gPC1SM+jfA=="
+          "hash": "SXu9m+cd8/1R9xgqxcCOeA=="
         }
       },
       "is_incremental": false,
@@ -1929,7 +1929,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/logging/testing.html",
-          "hash": "8X24KkCb9bGLsNPEDlcGsA=="
+          "hash": "epLmHajjJ3YAxYk3UC0xAw=="
         }
       },
       "is_incremental": false,
@@ -1941,7 +1941,19 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/popups.html",
-          "hash": "UKTpRQiNVroT1rrqGor3Jg=="
+          "hash": "V8HAmC0gfiG+VX13d1DYjA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/plugins/regions.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/plugins/regions.html",
+          "hash": "iViTkSwOKxL47XASmKILaw=="
         }
       },
       "is_incremental": false,
@@ -2028,7 +2040,7 @@
         "ConceptualDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 104,
+          "total_file_count": 105,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
