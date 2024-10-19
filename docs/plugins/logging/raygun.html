@@ -535,9 +535,7 @@
 </code></pre><h2 id="local-development-amp-debugging">Local Development &amp; Debugging</h2>
 <p>Raygun offers a free Open Source version for Crash Detection that can be run in a local environment. For more information see the <a href="https://raygun.com/documentation/product-guides/crash-reporting/local-docker-setup/">Raygun Documentation</a>.</p>
 <p>To get started you can copy the following docker compose sample. You can set the localpath for the volumes to persist the crash data over time and ensure that the downloaded Ollama models are persisted and do not need to be downloaded again.</p>
-<pre><code class="lang-docker">version: &#39;3.8&#39; 
-
-services:
+<pre><code class="lang-docker">services:
   raygun-aspire-portal:
     image: raygunowner/raygun-aspire-portal:latest
     container_name: raygun_local_dev
@@ -547,7 +545,7 @@ services:
       - &quot;8080:8080&quot;
     restart: always
     volumes:
-      - /localpath/raygun/errors:/app/raygun/errors
+      - /docker/raygun/data/errors:/app/raygun/errors
     depends_on:
       - ollama-service  # Ensure Ollama service starts before this container
 
@@ -556,12 +554,12 @@ services:
     container_name: ollama_local_aier
     restart: always
     volumes:
-      - /localpath/ollama:/root/.ollama  # Mount local directory to container for data persistence
+      - /docker/raygun/data/ollama:/root/.ollama  # Mount local directory to container for data persistence
 </code></pre><p>To use Raygun for local development with your Docker image, you can use the special extension as shown below:</p>
 <pre><code class="lang-cs">container.UsePrismLogging(logging =&gt;
     logging.AddLocalRaygun(&quot;http://192.168.1.11:8080/Ingestion/Entries&quot;));
 </code></pre><h2 id="prismessentials-integration">Prism.Essentials Integration</h2>
-<p>The Raygun Implementation of the Logger makes reference to the <a class="xref" href="../essentials/index.html">Prism.Plugin.Essentials</a> library. This allows us to dynamically check if various Essentials interfaces have been registered. If they have we automatically tailor the Logger to include offline support with request caching. Additionally we will automatically update the configuration to make use of the <a class="xref" href="../essentials/appcontext.html">Application Context</a> from Essentials.</p>
+<p>The Raygun Implementation of the Logger makes reference to the <a class="xref" href="../essentials/index.html">Prism.Plugin.Essentials</a> library. This allows us to dynamically check if various Essentials interfaces have been registered. If they have we automatically tailor the Logger to include offline support with request caching. Additionally we will automatically update the configuration to make use of the <a class="xref" href="../essentials/appcontext.html">Application Context</a> from Essentials. In order to enable sending logs in the background with the offline store, be sure to Register Prism.Plugin.Essentials first.</p>
 </article>
           </div>
           

@@ -1905,7 +1905,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/logging/gelf.html",
-          "hash": "lHw0Q2rN8k6uHl1opepg9g=="
+          "hash": "1XJC4Qc8M8KRgGBB3ljBbw=="
         }
       },
       "is_incremental": false,
@@ -1941,7 +1941,7 @@
       "output": {
         ".html": {
           "relative_path": "docs/plugins/logging/raygun.html",
-          "hash": "pxG1xBUX/6gIR9ERFZPcjg=="
+          "hash": "nrNAHlMDhgKpAAm9RwmrOg=="
         }
       },
       "is_incremental": false,
