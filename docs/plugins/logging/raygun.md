@@ -19,8 +19,6 @@ Raygun offers a free Open Source version for Crash Detection that can be run in 
 To get started you can copy the following docker compose sample. You can set the localpath for the volumes to persist the crash data over time and ensure that the downloaded Ollama models are persisted and do not need to be downloaded again.
 
 ```docker
-version: '3.8' 
-
 services:
   raygun-aspire-portal:
     image: raygunowner/raygun-aspire-portal:latest
@@ -31,7 +29,7 @@ services:
       - "8080:8080"
     restart: always
     volumes:
-      - /localpath/raygun/errors:/app/raygun/errors
+      - /docker/raygun/data/errors:/app/raygun/errors
     depends_on:
       - ollama-service  # Ensure Ollama service starts before this container
 
@@ -40,7 +38,7 @@ services:
     container_name: ollama_local_aier
     restart: always
     volumes:
-      - /localpath/ollama:/root/.ollama  # Mount local directory to container for data persistence
+      - /docker/raygun/data/ollama:/root/.ollama  # Mount local directory to container for data persistence
 ```
 
 To use Raygun for local development with your Docker image, you can use the special extension as shown below:
@@ -52,4 +50,4 @@ container.UsePrismLogging(logging =>
 
 ## Prism.Essentials Integration
 
-The Raygun Implementation of the Logger makes reference to the [Prism.Plugin.Essentials](xref:Plugins.Essentials.GettingStarted) library. This allows us to dynamically check if various Essentials interfaces have been registered. If they have we automatically tailor the Logger to include offline support with request caching. Additionally we will automatically update the configuration to make use of the [Application Context](xref:Plugins.Essentials.AppContext) from Essentials.
+The Raygun Implementation of the Logger makes reference to the [Prism.Plugin.Essentials](xref:Plugins.Essentials.GettingStarted) library. This allows us to dynamically check if various Essentials interfaces have been registered. If they have we automatically tailor the Logger to include offline support with request caching. Additionally we will automatically update the configuration to make use of the [Application Context](xref:Plugins.Essentials.AppContext) from Essentials. In order to enable sending logs in the background with the offline store, be sure to Register Prism.Plugin.Essentials first.
