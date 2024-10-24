@@ -226,6 +226,15 @@ references:
 - uid: Plugins.Essentials.MainThread
   name: Main Thread
   href: docs/plugins/essentials/mainthread.html
+- uid: Plugins.Essentials.Notifications
+  name: Notifications
+  href: docs/plugins/essentials/notifications/index.html
+- uid: Plugins.Essentials.Notifications.ActionSheets
+  name: ActionSheets
+  href: docs/plugins/essentials/notifications/actionsheets.html
+- uid: Plugins.Essentials.Notifications.Alerts
+  name: Alerts
+  href: docs/plugins/essentials/notifications/alerts.html
 - uid: Plugins.Essentials.Permissions
   name: App Permissions
   href: docs/plugins/essentials/permissions.html
