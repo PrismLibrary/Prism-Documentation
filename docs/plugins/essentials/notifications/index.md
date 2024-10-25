@@ -16,9 +16,9 @@ public class MyViewModel(INotifications notifications)
 
 ## Next Steps
 
-- [ActionSheets](xref:Prism.Essentials.Notifications.ActionSheets)
-- [Alerts](xref:Prism.Essentials.Notifications.Alerts)
-- [Prompts](xref:Prism.Essentials.Notifications.Prompts)
+- [ActionSheets](xref:Plugins.Essentials.Notifications.ActionSheets)
+- [Alerts](xref:Plugins.Essentials.Notifications.Alerts)
+- [Prompts](xref:Plugins.Essentials.Notifications.Prompts)
 
 > [!NOTE]
 > This is currently only supported on Android, iOS, MacCatalyst, & WinUI for .NET MAUI and Uno Platform. This feature is planned for future expansion to all Uno Platform platforms and WPF.

@@ -1,5 +1,5 @@
 ---
-uid: Plugins.Essentials.Connectivity
+uid: Plugins.Essentials.Networking.Connectivity
 ---
 
 # Connectivity

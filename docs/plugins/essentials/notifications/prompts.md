@@ -1,5 +1,5 @@
 ---
-uid: Plugins.Essentials.Notifications.ActionSheets
+uid: Plugins.Essentials.Notifications.Prompts
 ---
 
 # Prompts

@@ -1,0 +1,8 @@
+- name: Biometrics
+  href: biometrics.md
+- name: Geocoding
+  href: geocoding.md
+- name: Geofencing
+  href: geofencing.md
+- name: Geolocation
+  href: geolocation.md

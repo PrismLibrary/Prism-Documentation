@@ -1,5 +1,5 @@
 ---
-uid: Plugins.Essentials.LatestVersion
+uid: Plugins.Essentials.ApplicationModel.LatestVersion
 ---
 
 # Latest Version

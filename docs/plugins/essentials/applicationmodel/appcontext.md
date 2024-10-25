@@ -1,5 +1,5 @@
 ---
-uid: Plugins.Essentials.AppContext
+uid: Plugins.Essentials.ApplicationModel.AppContext
 ---
 
 # AppContext

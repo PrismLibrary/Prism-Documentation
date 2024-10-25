@@ -1,5 +1,5 @@
 ---
-uid: Plugins.Essentials.PhoneDialer
+uid: Plugins.Essentials.ApplicationModel.Communication.PhoneDialer
 ---
 
 # Phone Dialer

@@ -1,5 +1,5 @@
 ---
-uid: Plugins.Essentials.MainThread
+uid: Plugins.Essentials.Threading.MainThread
 ---
 
 # Main Thread
