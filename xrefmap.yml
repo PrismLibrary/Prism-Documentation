@@ -112,6 +112,9 @@ references:
 - uid: Navigation.Regions.ViewViewModelParticipation
   name: View and View Model Participation in Navigation
   href: docs/navigation/regions/view-viewmodel-participation.html
+- uid: Pipelines.CommercialPlus
+  name: Setting up the Commercial Plus private NuGet Feed
+  href: docs/pipelines/commercial-plus.html
 - uid: Platforms.Maui.AppBuilder
   name: App Builder
   href: docs/platforms/maui/appbuilder.html
