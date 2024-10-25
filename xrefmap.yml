@@ -205,27 +205,57 @@ references:
 - uid: Platforms.XamarinForms.PageLifecycle
   name: Page Lifecycle
   href: docs/platforms/xamarin-forms/page-lifecycle.html
-- uid: Plugins.Essentials.AppContext
+- uid: Plugins.Essentials.ApplicationModel.AppContext
   name: AppContext
-  href: docs/plugins/essentials/appcontext.html
-- uid: Plugins.Essentials.Battery
+  href: docs/plugins/essentials/applicationmodel/appcontext.html
+- uid: Plugins.Essentials.ApplicationModel.Browser
+  name: Browser
+  href: docs/plugins/essentials/applicationmodel/browser.html
+- uid: Plugins.Essentials.ApplicationModel.Communication.Email
+  name: Email
+  href: docs/plugins/essentials/applicationmodel/communication/email.html
+- uid: Plugins.Essentials.ApplicationModel.Communication.PhoneDialer
+  name: Phone Dialer
+  href: docs/plugins/essentials/applicationmodel/communication/phonedialer.html
+- uid: Plugins.Essentials.ApplicationModel.DataTransfer.Clipboard
+  name: Clipboard
+  href: docs/plugins/essentials/applicationmodel/datatransfer/clipboard.html
+- uid: Plugins.Essentials.ApplicationModel.LatestVersion
+  name: Latest Version
+  href: docs/plugins/essentials/applicationmodel/latestversion.html
+- uid: Plugins.Essentials.ApplicationModel.Launcher
+  name: Launcher
+  href: docs/plugins/essentials/applicationmodel/launcher.html
+- uid: Plugins.Essentials.ApplicationModel.VersionTracking
+  name: Version Tracking
+  href: docs/plugins/essentials/applicationmodel/versiontracking.html
+- uid: Plugins.Essentials.Devices.Battery
   name: Battery
-  href: docs/plugins/essentials/battery.html
-- uid: Plugins.Essentials.Connectivity
-  name: Connectivity
-  href: docs/plugins/essentials/connectivity.html
+  href: docs/plugins/essentials/devices/battery.html
+- uid: Plugins.Essentials.Devices.DeviceInfo
+  name: DeviceInfo
+  href: docs/plugins/essentials/devices/deviceinfo.html
+- uid: Plugins.Essentials.Devices.Senors.Geolocation
+  name: Geolocation
+  href: docs/plugins/essentials/devices/sensors/geolocation.html
+- uid: Plugins.Essentials.Devices.Sensors.Biometrics
+  name: Biometrics
+  href: docs/plugins/essentials/devices/sensors/biometrics.html
+- uid: Plugins.Essentials.Devices.Sensors.Geocoding
+  name: Geocoding
+  href: docs/plugins/essentials/devices/sensors/geocoding.html
+- uid: Plugins.Essentials.Devices.Sensors.Geofencing
+  name: Geofencing
+  href: docs/plugins/essentials/devices/sensors/geofencing.html
 - uid: Plugins.Essentials.FileSystem
   name: File System
-  href: docs/plugins/essentials/filesystem.html
+  href: docs/plugins/essentials/io/filesystem.html
 - uid: Plugins.Essentials.GettingStarted
   name: Getting Started
   href: docs/plugins/essentials/index.html
-- uid: Plugins.Essentials.LatestVersion
-  name: Latest Version
-  href: docs/plugins/essentials/latestversion.html
-- uid: Plugins.Essentials.MainThread
-  name: Main Thread
-  href: docs/plugins/essentials/mainthread.html
+- uid: Plugins.Essentials.Networking.Connectivity
+  name: Connectivity
+  href: docs/plugins/essentials/networking/connectivity.html
 - uid: Plugins.Essentials.Notifications
   name: Notifications
   href: docs/plugins/essentials/notifications/index.html
@@ -235,15 +265,18 @@ references:
 - uid: Plugins.Essentials.Notifications.Alerts
   name: Alerts
   href: docs/plugins/essentials/notifications/alerts.html
+- uid: Plugins.Essentials.Notifications.Prompts
+  name: Prompts
+  href: docs/plugins/essentials/notifications/prompts.html
 - uid: Plugins.Essentials.Permissions
   name: App Permissions
   href: docs/plugins/essentials/permissions.html
-- uid: Plugins.Essentials.PhoneDialer
-  name: Phone Dialer
-  href: docs/plugins/essentials/phonedialer.html
 - uid: Plugins.Essentials.Stores
   name: Stores
-  href: docs/plugins/essentials/stores.html
+  href: docs/plugins/essentials/io/stores.html
+- uid: Plugins.Essentials.Threading.MainThread
+  name: Main Thread
+  href: docs/plugins/essentials/threading/mainthread.html
 - uid: Plugins.Logging
   name: Prism.Plugin.Logging
   href: docs/plugins/logging/index.html
