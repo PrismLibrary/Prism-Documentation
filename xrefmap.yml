@@ -270,7 +270,7 @@ references:
   href: docs/plugins/essentials/notifications/prompts.html
 - uid: Plugins.Essentials.Permissions
   name: App Permissions
-  href: docs/plugins/essentials/permissions.html
+  href: docs/plugins/essentials/permissions/permissions-manager.html
 - uid: Plugins.Essentials.Stores
   name: Stores
   href: docs/plugins/essentials/io/stores.html
@@ -280,18 +280,36 @@ references:
 - uid: Plugins.Logging
   name: Prism.Plugin.Logging
   href: docs/plugins/logging/index.html
+- uid: Plugins.Logging.AppCenter
+  name: AppCenter
+  href: docs/plugins/logging/providers/appcenter.html
+- uid: Plugins.Logging.Console
+  name: Console
+  href: docs/plugins/logging/providers/console.html
+- uid: Plugins.Logging.Debug
+  name: Debug
+  href: docs/plugins/logging/providers/debug.html
+- uid: Plugins.Logging.Essentials
+  name: Logging Interop with Prism.Plugin.Essentials
+  href: docs/plugins/logging/interop/essentials.html
 - uid: Plugins.Logging.Gelf
   name: Logging with Graylog (GELF)
-  href: docs/plugins/logging/gelf.html
+  href: docs/plugins/logging/providers/gelf.html
 - uid: Plugins.Logging.Microsoft
   name: Microsoft.Extensions.Logging Interop
-  href: docs/plugins/logging/microsoft.html
+  href: docs/plugins/logging/interop/microsoft.html
 - uid: Plugins.Logging.Raygun
   name: Prism Logging with Raygun
-  href: docs/plugins/logging/raygun.html
+  href: docs/plugins/logging/providers/raygun.html
+- uid: Plugins.Logging.Sentry
+  name: Sentry
+  href: docs/plugins/logging/providers/sentry.html
 - uid: Plugins.Logging.Testing
   name: Prism.Plugin.Logging.Testing
-  href: docs/plugins/logging/testing.html
+  href: docs/plugins/logging/providers/testing.html
+- uid: Plugins.Logging.Xunit
+  name: Xunit
+  href: docs/plugins/logging/providers/xunit.html
 - uid: Plugins.ObservableRegions
   name: Getting Started
   href: docs/plugins/regions.html

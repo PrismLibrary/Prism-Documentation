@@ -574,8 +574,14 @@
                                       </li>
                                     </ul>  </li>
                                 <li class="">
-                                  <a href="../../plugins/essentials/permissions.html" title="Permissions" class="">Permissions</a>
-                                </li>
+                                  <span class="expand-stub"></span>
+                                  <a class="">Permissions</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../plugins/essentials/permissions/permissions-manager.html" title="Permissions Manager" class="">Permissions Manager</a>
+                                      </li>
+                                    </ul>  </li>
                                 <li class="">
                                   <span class="expand-stub"></span>
                                   <a class="">Threading</a>
@@ -595,17 +601,44 @@
                                   <a href="../../plugins/logging/index.html" title="Getting Started" class="active">Getting Started</a>
                                 </li>
                                 <li class="">
-                                  <a href="../../plugins/logging/gelf.html" title="Graylog" class="">Graylog</a>
-                                </li>
+                                  <span class="expand-stub"></span>
+                                  <a class="">Interop</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../plugins/logging/interop/essentials.html" title="Essentials" class="">Essentials</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../plugins/logging/interop/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
+                                      </li>
+                                    </ul>  </li>
                                 <li class="">
-                                  <a href="../../plugins/logging/microsoft.html" title="Microsoft Extensions" class="">Microsoft Extensions</a>
-                                </li>
-                                <li class="">
-                                  <a href="../../plugins/logging/raygun.html" title="Raygun" class="">Raygun</a>
-                                </li>
-                                <li class="">
-                                  <a href="../../plugins/logging/testing.html" title="Unit Testing" class="">Unit Testing</a>
-                                </li>
+                                  <span class="expand-stub"></span>
+                                  <a class="">Providers</a>
+                                    
+                                    <ul class="nav level4">
+                                      <li class="">
+                                        <a href="../../plugins/logging/providers/appcenter.html" title="AppCenter" class="">AppCenter</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../plugins/logging/providers/console.html" title="Console" class="">Console</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../plugins/logging/providers/debug.html" title="Debug" class="">Debug</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../plugins/logging/providers/gelf.html" title="Graylog" class="">Graylog</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../plugins/logging/providers/raygun.html" title="Raygun" class="">Raygun</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../plugins/logging/providers/testing.html" title="Unit Testing" class="">Unit Testing</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="../../plugins/logging/providers/xunit.html" title="Xunit" class="">Xunit</a>
+                                      </li>
+                                    </ul>  </li>
                               </ul>  </li>
                           <li class="">
                             <a href="../../plugins/regions.html" title="Observable Regions" class="">Observable Regions</a>
@@ -692,43 +725,22 @@ public sealed class ViewAViewModel(ILogger&lt;ViewAViewModel&gt; logger, IRegion
 </code></pre><p>In the above example we can see that we have a single Debug log generated which has a simple message. However due to the Implicit and Explicit scopes we can expect to see the Service type, the Command name, and the Method name all added automatically as properties to our logged message.</p>
 <h2 id="logging-providers">Logging Providers</h2>
 <p>Prism provides a number of logging providers available out of the box for you with additional providers currently under consideration. If we do not have integration for a provider that you would like please let us know on Discord.</p>
-<h3 id="appcenter">AppCenter</h3>
-<p>As previously mentioned, Prism.Plugin.Logging has a couple of interfaces which help users better map to the sort of calls that you might be used to with the AppCenter SDK. This can really help you in 2 critical ways.</p>
-<p>1) By removing the static references to the AppCenter SDK from your codebase, your code becomes easier to manage over time as you have the ability to swap out providers or inject a mock for Unit Testing.
-2) Since AppCenter is nearing EOL, it will be critical for businesses to continue using App Center while they evaluate other options. Prism.Plugin.Logging will help you to do just that by combining the AppCenter provider with the AggregateLogger as you evaluate other providers.</p>
-<pre><code class="lang-cs">// By Default this registers Analytics and Crashes
-containerRegistry.RegisterAppCenterLogger(&quot;appSecret&quot;);
-
-// If you need to customize the list with other providers
-containerRegistry.RegisterAppCenterLogger(&quot;appSecret&quot;, typeof(Analytics), typeof(Crashes), typeof(Distribution));
-</code></pre><h3 id="console-logger">Console Logger</h3>
-<p>By installing the <code>Prism.Plugin.Logging.Console</code> package you get access to the generic Console Logger. This will literally call <code>System.Console.WriteLine</code> to write logging messages.</p>
-<pre><code class="lang-cs">containerRegistry.UsePrismLogging(logging =&gt; {
-    logging.AddConsole();
-});
-</code></pre><h3 id="debug-logger">Debug Logger</h3>
-<p>Similar to the Console Logger is the Debug Logger. This will use <code>System.Diagnostics.Debug.WriteLine</code>, and will only write to <code>Debug.WriteLine</code> when the Debugger is currently attached. This is a great logger to use for debugging in your IDE and will not produce any logs in the device console if you forget to remove it for production.</p>
-<pre><code class="lang-cs">containerRegistry.UsePrismLogging(logging =&gt; {
-    logging.AddDebug();
-});
-</code></pre><h3 id="graylog-gelf">Graylog (GELF)</h3>
-<p>For more information see the <a class="xref" href="gelf.html">Gelf docs</a>.</p>
-<h3 id="microsoftextensionslogging-interoperability">Microsoft.Extensions.Logging Interoperability</h3>
-<p>For more information see the <a class="xref" href="microsoft.html">Microsoft.Extensions.Logging Interoperability docs</a>.</p>
-<h3 id="raygun">Raygun</h3>
-<p>For more information see the <a class="xref" href="raygun.html">Prism Logging docs for Raygun</a>.</p>
-<h3 id="sentry">Sentry</h3>
-<pre><code class="lang-cs">containerRegistry.UsePrismLogging(logging =&gt; {
-    logging.AddSentry(&quot;sentryDsn&quot;);
-});
-</code></pre><h3 id="testing">Testing</h3>
-<p>For more information on Unit Testing support see the <a class="xref" href="testing.html">Prism.Plugin.Logging.Testing docs</a>.</p>
-<h3 id="xunit">Xunit</h3>
-<p>Unit testing is critical to catching bugs early. But the logging that you might have in your application you probably don&#39;t want to have used in your unit tests. For this reason we have an Xunit provider that enables logging using the ITestOutputHelper. This will help to ensure that logs collected during a unit test are associated with the test and makes it easier to view the logged output from your tests.</p>
-<pre><code class="lang-cs">containerRegistry.UsePrismLogging(logging =&gt; {
-    logging.AddXunit(testOutputHelper);
-});
-</code></pre></article>
+<ul>
+<li><a class="xref" href="providers/appcenter.html">AppCenter</a></li>
+<li><a class="xref" href="providers/console.html">Console</a></li>
+<li><a class="xref" href="providers/debug.html">Debug</a></li>
+<li><a class="xref" href="providers/gelf.html">Graylog (GELF)</a></li>
+<li><a class="xref" href="providers/raygun.html">Raygun</a></li>
+<li><a class="xref" href="providers/sentry.html">Sentry</a></li>
+<li><a class="xref" href="providers/testing.html">Testing</a></li>
+<li><a class="xref" href="providers/xunit.html">Xunit</a></li>
+</ul>
+<h2 id="interop-extensions">Interop Extensions</h2>
+<ul>
+<li><a class="xref" href="interop/microsoft.html">Microsoft.Extensions.Logging Interoperability</a></li>
+<li><a class="xref" href="interop/essentials.html">Prism.Plugins.Essentials</a></li>
+</ul>
+</article>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
