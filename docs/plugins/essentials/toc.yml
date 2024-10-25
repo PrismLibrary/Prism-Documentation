@@ -11,6 +11,6 @@
 - name: Notifications
   href: notifications/toc.yml
 - name: Permissions
-  href: permissions.md
+  href: permissions/toc.yml
 - name: Threading
   href: threading/toc.yml

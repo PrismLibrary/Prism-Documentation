@@ -119,71 +119,16 @@ In the above example we can see that we have a single Debug log generated which 
 
 Prism provides a number of logging providers available out of the box for you with additional providers currently under consideration. If we do not have integration for a provider that you would like please let us know on Discord.
 
-### AppCenter
+- [AppCenter](xref:Plugins.Logging.AppCenter)
+- [Console](xref:Plugins.Logging.Console)
+- [Debug](xref:Plugins.Logging.Debug)
+- [Graylog (GELF)](xref:Plugins.Logging.Gelf)
+- [Raygun](xref:Plugins.Logging.Raygun)
+- [Sentry](xref:Plugins.Logging.Sentry)
+- [Testing](xref:Plugins.Logging.Testing)
+- [Xunit](xref:Plugins.Logging.Xunit)
 
-As previously mentioned, Prism.Plugin.Logging has a couple of interfaces which help users better map to the sort of calls that you might be used to with the AppCenter SDK. This can really help you in 2 critical ways.
+## Interop Extensions
 
-1) By removing the static references to the AppCenter SDK from your codebase, your code becomes easier to manage over time as you have the ability to swap out providers or inject a mock for Unit Testing.
-2) Since AppCenter is nearing EOL, it will be critical for businesses to continue using App Center while they evaluate other options. Prism.Plugin.Logging will help you to do just that by combining the AppCenter provider with the AggregateLogger as you evaluate other providers.
-
-```cs
-// By Default this registers Analytics and Crashes
-containerRegistry.RegisterAppCenterLogger("appSecret");
-
-// If you need to customize the list with other providers
-containerRegistry.RegisterAppCenterLogger("appSecret", typeof(Analytics), typeof(Crashes), typeof(Distribution));
-```
-
-### Console Logger
-
-By installing the `Prism.Plugin.Logging.Console` package you get access to the generic Console Logger. This will literally call `System.Console.WriteLine` to write logging messages.
-
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    logging.AddConsole();
-});
-```
-
-### Debug Logger
-
-Similar to the Console Logger is the Debug Logger. This will use `System.Diagnostics.Debug.WriteLine`, and will only write to `Debug.WriteLine` when the Debugger is currently attached. This is a great logger to use for debugging in your IDE and will not produce any logs in the device console if you forget to remove it for production.
-
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    logging.AddDebug();
-});
-```
-
-### Graylog (GELF)
-
-For more information see the [Gelf docs](xref:Plugins.Logging.Gelf).
-
-### Microsoft.Extensions.Logging Interoperability
-
-For more information see the [Microsoft.Extensions.Logging Interoperability docs](xref:Plugins.Logging.Microsoft).
-
-### Raygun
-
-For more information see the [Prism Logging docs for Raygun](xref:Plugins.Logging.Raygun).
-
-### Sentry
-
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    logging.AddSentry("sentryDsn");
-});
-```
-
-### Testing
-
-For more information on Unit Testing support see the [Prism.Plugin.Logging.Testing docs](xref:Plugins.Logging.Testing).
-
-### Xunit
-
-Unit testing is critical to catching bugs early. But the logging that you might have in your application you probably don't want to have used in your unit tests. For this reason we have an Xunit provider that enables logging using the ITestOutputHelper. This will help to ensure that logs collected during a unit test are associated with the test and makes it easier to view the logged output from your tests.
-
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    logging.AddXunit(testOutputHelper);
-});
-```
+- [Microsoft.Extensions.Logging Interoperability](xref:Plugins.Logging.Microsoft)
+- [Prism.Plugins.Essentials](xref:Plugins.Logging.Essentials)

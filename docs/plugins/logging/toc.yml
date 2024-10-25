@@ -1,10 +1,6 @@
 - name: Getting Started
   href: index.md
-- name: Graylog
-  href: gelf.md
-- name: Microsoft Extensions
-  href: microsoft.md
-- name: Raygun
-  href: raygun.md
-- name: Unit Testing
-  href: testing.md
+- name: Interop
+  href: interop/toc.yml
+- name: Providers
+  href: providers/toc.yml
