@@ -22,3 +22,5 @@
   href: magician/toc.yml
 - name: Plugins
   href: plugins/toc.yml
+- name: Pipelines
+  href: pipelines/toc.yml
