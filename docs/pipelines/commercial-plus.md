@@ -23,7 +23,7 @@ PRISM_NUGET_API_KEY: The License Key you have generated on https://prismlibrary.
 
 Go to your project Settings -> Service connections. Then add a `New service connection` and select `NuGet` then click Next. Be sure to select `Basic Authentication`
 
-Feed URL: `https://nuget.prismlibrary.com`
+Feed URL: `https://nuget.prismlibrary.com/v3/index.json`
 Username: The email of the licensed user
 Password: The License Key you have generated on https://prismlibrary.com
 Service connection name: This can be anything. For the sample below you will see we have set this to `Prism`
