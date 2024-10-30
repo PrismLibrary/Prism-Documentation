@@ -307,9 +307,15 @@ references:
 - uid: Plugins.Logging.Essentials
   name: Logging Interop with Prism.Plugin.Essentials
   href: docs/plugins/logging/interop/essentials.html
+- uid: Plugins.Logging.Firebase
+  name: Firebase
+  href: docs/plugins/logging/providers/firebase.html
 - uid: Plugins.Logging.Gelf
   name: Logging with Graylog (GELF)
   href: docs/plugins/logging/providers/gelf.html
+- uid: Plugins.Logging.Kochava
+  name: Kochava
+  href: docs/plugins/logging/providers/kochava.html
 - uid: Plugins.Logging.Microsoft
   name: Microsoft.Extensions.Logging Interop
   href: docs/plugins/logging/interop/microsoft.html

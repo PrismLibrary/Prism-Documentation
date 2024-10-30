@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Initializing your ViewModels | Prism </title>
+    <title>Kochava | Prism </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Initializing your ViewModels | Prism ">
+    <meta name="title" content="Kochava | Prism ">
     <meta name="generator" content="docfx 2.56.7.0">
     
     <link rel="shortcut icon" href="../../../../favicon.ico">
@@ -650,8 +650,8 @@
                                       <li class="">
                                         <a href="../../../plugins/logging/providers/gelf.html" title="Graylog" class="">Graylog</a>
                                       </li>
-                                      <li class="">
-                                        <a href="../../../plugins/logging/providers/kochava.html" title="Kochava" class="">Kochava</a>
+                                      <li class="active">
+                                        <a href="../../../plugins/logging/providers/kochava.html" title="Kochava" class="active">Kochava</a>
                                       </li>
                                       <li class="">
                                         <a href="../../../plugins/logging/providers/raygun.html" title="Raygun" class="">Raygun</a>
@@ -690,22 +690,12 @@
         </div>
         <div class="article row grid-right">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="Platforms.XamarinForms.Navigation.ViewModelInitialization">
-<h1 id="initializing-your-viewmodels">Initializing your ViewModels</h1>
+            <article class="content wrap" id="_content" data-uid="Plugins.Logging.Kochava">
+<h1 id="kochava">Kochava</h1>
 
-<p>Initializing your ViewModels is considered a ONE TIME task. This is only done after the ViewModel Page has been created. You should never place logic inside of the Initialization methods which you expect to execute each time the View is navigated to such as when you Navigate back from another Page.</p>
-<div class="NOTE"><h5>Note</h5><p>If upgrading to Prism 7.2 from a previous version, you will need to change any references to OnNavigatingTo to <code>IInitialize.Initialize</code></p>
+<p>Coming Soon</p>
+<div class="NOTE"><h5>Note</h5><p>Due to the platform restrictions of Kochava this is only brought in for Android, iOS, &amp; MacCatalyst. The AddProvider method is perfectly safe to use across any platform as the Kochava dependency isn&#39;t referenced on outside of those runtimes and is not actually registered with the container.</p>
 </div>
-<h2 id="when-to-use-iinitialize">When to use IInitialize</h2>
-<p>TODO</p>
-<div class="embeddedvideo"><iframe src="https://www.youtube.com/embed/uGDflfthMeA" frameborder="0" allowfullscreen="true"></iframe></div>
-<h2 id="when-to-use-iinitializeasync">When to use IInitializeAsync</h2>
-<p>TODO</p>
-<h2 id="additional-references">Additional References</h2>
-<ul>
-<li><a class="xref" href="confirming-navigation.html">Confirm Navigation</a></li>
-<li><a href="https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/13-ViewModelInitialization">Sample App - ViewModel Initialization</a></li>
-</ul>
 </article>
           </div>
           
@@ -714,7 +704,7 @@
               <div class="connect-widget">
                 <ul class="connect-links">
           		<li id="connect-github">
-          			<a href="https://github.com/PrismLibrary/Prism-Documentation/blob/master/docs/platforms/xamarin-forms/navigation/initialization.md/#L1" target="_blank">
+          			<a href="https://github.com/PrismLibrary/Prism-Documentation/blob/master/docs/plugins/logging/providers/kochava.md/#L1" target="_blank">
           				<div class="image github"></div>Edit on GitHub
           			</a>
                   </li>
