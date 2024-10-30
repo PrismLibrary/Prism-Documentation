@@ -12,7 +12,7 @@
   href: kochava.md
 - name: Raygun
   href: raygun.md
-- naem: Sentry
+- name: Sentry
   href: sentry.md
 - name: Unit Testing
   href: testing.md
