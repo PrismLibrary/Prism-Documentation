@@ -4,10 +4,16 @@
   href: console.md
 - name: Debug
   href: debug.md
+- name: Firebase
+  href: firebase.md
 - name: Graylog
   href: gelf.md
+- name: Kochava
+  href: kochava.md
 - name: Raygun
   href: raygun.md
+- naem: Sentry
+  href: sentry.md
 - name: Unit Testing
   href: testing.md
 - name: Xunit
