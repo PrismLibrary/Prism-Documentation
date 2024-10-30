@@ -223,6 +223,9 @@ references:
 - uid: Plugins.Essentials.ApplicationModel.DataTransfer.Clipboard
   name: Clipboard
   href: docs/plugins/essentials/applicationmodel/datatransfer/clipboard.html
+- uid: Plugins.Essentials.ApplicationModel.DataTransfer.Share
+  name: Share
+  href: docs/plugins/essentials/applicationmodel/datatransfer/share.html
 - uid: Plugins.Essentials.ApplicationModel.LatestVersion
   name: Latest Version
   href: docs/plugins/essentials/applicationmodel/latestversion.html
@@ -256,6 +259,15 @@ references:
 - uid: Plugins.Essentials.GettingStarted
   name: Getting Started
   href: docs/plugins/essentials/index.html
+- uid: Plugins.Essentials.Media.Camera
+  name: Camera
+  href: docs/plugins/essentials/media/camera.html
+- uid: Plugins.Essentials.Media.GettingStarted
+  name: Getting Started
+  href: docs/plugins/essentials/media/index.html
+- uid: Plugins.Essentials.Media.Video
+  name: Video
+  href: docs/plugins/essentials/media/video.html
 - uid: Plugins.Essentials.Networking.Connectivity
   name: Connectivity
   href: docs/plugins/essentials/networking/connectivity.html
