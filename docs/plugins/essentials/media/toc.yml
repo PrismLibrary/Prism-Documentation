@@ -1,0 +1,6 @@
+- name: Getting Started
+  href: index.md
+- name: Camera
+  href: camera.md
+- name: Video
+  href: video.md

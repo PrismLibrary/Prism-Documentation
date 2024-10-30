@@ -6,6 +6,8 @@
   href: devices/toc.yml
 - name: IO
   href: io/toc.yml
+- name: Media
+  href: media/toc.yml
 - name: Networking
   href: networking/toc.yml
 - name: Notifications
