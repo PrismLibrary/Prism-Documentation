@@ -693,9 +693,16 @@
             <article class="content wrap" id="_content" data-uid="Plugins.Logging.Kochava">
 <h1 id="kochava">Kochava</h1>
 
-<p>Coming Soon</p>
-<div class="NOTE"><h5>Note</h5><p>Due to the platform restrictions of Kochava this is only brought in for Android, iOS, &amp; MacCatalyst. The AddProvider method is perfectly safe to use across any platform as the Kochava dependency isn&#39;t referenced on outside of those runtimes and is not actually registered with the container.</p>
-</div>
+<p>By installing the <code>Prism.Plugin.Logging.Kochava</code> package you get access to the Kochava Logging provider.</p>
+<pre><code class="lang-cs">containerRegistry.UsePrismLogging(logging =&gt; {
+    logging.AddKochava(&quot;{app secret}&quot;);
+});
+</code></pre><h2 id="limitations-amp-considerations">Limitations &amp; Considerations</h2>
+<p>Kochava is best utilized for application Analytics.</p>
+<h3 id="api">API</h3>
+<p>Only the <code>TrackEvent</code> API has been implemented for Kochava. As a result there is no need to try to disable the Error Tracking or generic Logging.</p>
+<h3 id="supported-platforms">Supported Platforms</h3>
+<p>Kochava is only available on Android, iOS, &amp; MacCatalyst. The <code>Prism.Plugin.Logging.Kochava</code> package can safely be used across any other targets you may have without the need to put a compiler directive around it. Adding the provider outside of the supported platforms will not result in any additional provider being added and you will not have a Kochava reference in your code.</p>
 </article>
           </div>
           
