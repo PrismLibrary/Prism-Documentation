@@ -716,9 +716,7 @@
 });
 </code></pre><h3 id="configuration">Configuration</h3>
 <p>Some logging providers such as the Null, Debug and Testing providers are intentionally not configurable as it makes sense to log all messages sent to them, or in the case of the Null logger nothing is logged anyway. The rest of the Logging providers provide some degree of configuration. This ensures that you can tailor the logging experience based on the provider. By default all features of the ILogger are enabled, however by optionally configuring the options, you can disable Event Tracking, Error Reporting, or you can disable or tune the generic logging.</p>
-<p>To disable Event Tracking we can simply set the <code>EnableEventTracking</code> property to false</p>
-<pre><code class="lang-cs">logging.AddConsole(o =&gt; o.EnableEventTracking = false);
-</code></pre><p>To disable the Error Tracking we can simply set the <code>EnableErrorTracking</code> property to false</p>
+<p>To disable the Error Tracking we can simply set the <code>EnableErrorTracking</code> property to false</p>
 <pre><code class="lang-cs">logging.AddConsole(o =&gt; o.EnableErrorTracking = false);
 </code></pre><p>To disable generic logging we can simply set the <code>EnableLogging</code> property to false</p>
 <pre><code class="lang-cs">logging.AddConsole(o =&gt; o.EnableLogging = false);
@@ -726,6 +724,33 @@
 <pre><code class="lang-cs">logging.AddConsole(o =&gt; o.ExcludedLoggingCategories = [LogCategory.Debug]);
 </code></pre><p>Similarly we could exclude logs which lack a category property.</p>
 <pre><code class="lang-cs">logging.AddConsole(o =&gt; o.ExcludedLoggingCategories = [LogCategory.Uncategorized]);
+</code></pre><h4 id="customizing-event-tracking">Customizing Event Tracking</h4>
+<p>Event Tracking is handled special in Prism Logging. This allows you to enable some very powerful scenarios that can include multiple providers working in concert with each provider determining what it can and cannot track. This is done through 2 properties which can be used independently. The first is the <code>CanLogEvent</code> delegate which passes the Event Name and the Properties and returns a boolean indicating whether or not the provider can track a given event.</p>
+<pre><code class="lang-cs">logging.AddConsole(o =&gt;
+{
+    // Disable Events for the provider
+    o.CanLogEvent = (name, properties) =&gt; false;
+
+    // Optionally we can also do the following
+    o.DisableEvents();
+});
+
+logging.AddDebug(o =&gt;
+{
+    // Conditionally Enable Event for the provider
+    o.CanLogEvent = (name, properties) =&gt; properties.TryGetValue(&quot;Debug&quot;, out var value) &amp;&amp; value == bool.TrueString;
+});
+</code></pre><p>The next delegate we have is the <code>FormatEventName</code> delegate. This again passes the provided event name and allows you to make any required modifications. If we put it all together you might have a situation where the Marketing team wants certain events and they want to use a platform like Kochava, while the development team might want some additional event tracking with App Center. In this case Prism Logging shines as it provides you the flexibility to customize the logger to your needs while only needing a single ILogger in your codebase.</p>
+<pre><code class="lang-cs">logging.AddAppCenter(&quot;appSecret&quot;, o =&gt;
+    {
+        o.CanLogEvent = (name, _) =&gt; name.StartsWith(&quot;Dev_&quot;);
+        o.FormatEventName = (name, _) = name[4..];
+    })
+    .AddKochava(&quot;{app secret}&quot;, o =&gt;{
+        o.EnableErrorTracking = false;
+        o.EnableLogging = false;
+        o.CanLogEvent = (name, _) =&gt; !name.StartsWith(&quot;Dev_&quot;);
+    });
 </code></pre><h3 id="logging-scopes">Logging Scopes</h3>
 <p>Scopes allow you to provide additional properties automatically on any logs, events or errors that you send to the ILogger. This means that you can define a property one time and it will automatically be added for you without the need to specify it again within the scope. An implicit Service Scope can be created by providing a generic type argument when resolving the ILogger.</p>
 <pre><code class="lang-cs">public class MyViewModel(ILogger&lt;MyViewModel&gt; logger) : BindableBase
