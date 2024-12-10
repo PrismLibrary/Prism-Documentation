@@ -38,12 +38,6 @@ containerRegistry.UsePrismLogging(logging => {
 
 Some logging providers such as the Null, Debug and Testing providers are intentionally not configurable as it makes sense to log all messages sent to them, or in the case of the Null logger nothing is logged anyway. The rest of the Logging providers provide some degree of configuration. This ensures that you can tailor the logging experience based on the provider. By default all features of the ILogger are enabled, however by optionally configuring the options, you can disable Event Tracking, Error Reporting, or you can disable or tune the generic logging.
 
-To disable Event Tracking we can simply set the `EnableEventTracking` property to false
-
-```cs
-logging.AddConsole(o => o.EnableEventTracking = false);
-```
-
 To disable the Error Tracking we can simply set the `EnableErrorTracking` property to false
 
 ```cs
@@ -66,6 +60,42 @@ Similarly we could exclude logs which lack a category property.
 
 ```cs
 logging.AddConsole(o => o.ExcludedLoggingCategories = [LogCategory.Uncategorized]);
+```
+
+#### Customizing Event Tracking
+
+Event Tracking is handled special in Prism Logging. This allows you to enable some very powerful scenarios that can include multiple providers working in concert with each provider determining what it can and cannot track. This is done through 2 properties which can be used independently. The first is the `CanLogEvent` delegate which passes the Event Name and the Properties and returns a boolean indicating whether or not the provider can track a given event.
+
+```cs
+logging.AddConsole(o =>
+{
+    // Disable Events for the provider
+    o.CanLogEvent = (name, properties) => false;
+
+    // Optionally we can also do the following
+    o.DisableEvents();
+});
+
+logging.AddDebug(o =>
+{
+    // Conditionally Enable Event for the provider
+    o.CanLogEvent = (name, properties) => properties.TryGetValue("Debug", out var value) && value == bool.TrueString;
+});
+```
+
+The next delegate we have is the `FormatEventName` delegate. This again passes the provided event name and allows you to make any required modifications. If we put it all together you might have a situation where the Marketing team wants certain events and they want to use a platform like Kochava, while the development team might want some additional event tracking with App Center. In this case Prism Logging shines as it provides you the flexibility to customize the logger to your needs while only needing a single ILogger in your codebase.
+
+```cs
+logging.AddAppCenter("appSecret", o =>
+    {
+        o.CanLogEvent = (name, _) => name.StartsWith("Dev_");
+        o.FormatEventName = (name, _) = name[4..];
+    })
+    .AddKochava("{app secret}", o =>{
+        o.EnableErrorTracking = false;
+        o.EnableLogging = false;
+        o.CanLogEvent = (name, _) => !name.StartsWith("Dev_");
+    });
 ```
 
 ### Logging Scopes

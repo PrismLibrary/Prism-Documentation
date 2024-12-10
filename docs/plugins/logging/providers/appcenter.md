@@ -14,9 +14,9 @@ As previously mentioned, Prism.Plugin.Logging has a couple of interfaces which h
 ```cs
 containerRegistry.UsePrismLogging(logging => {
     // By Default this registers Analytics and Crashes
-    logging.UseAppCenter("appSecret");
+    logging.AddAppCenter("appSecret");
 
     // If you need to customize the list with other providers
-    logging.UseAppCenter("appSecret", typeof(Analytics), typeof(Crashes), typeof(Distribution));
+    logging.AddAppCenter("appSecret", typeof(Analytics), typeof(Crashes), typeof(Distribution));
 });
 ```
