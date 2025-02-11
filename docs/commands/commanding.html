@@ -704,7 +704,7 @@
 <p>The Prism <code>DelegateCommand</code> class encapsulates two delegates that each reference a method implemented within your ViewModel class. It implements the <code>ICommand</code> interface&#39;s <code>Execute</code> and <code>CanExecute</code> methods by invoking these delegates. You specify the delegates to your ViewModel methods in the <code>DelegateCommand</code> class constructor. For example, the following code example shows how a <code>DelegateCommand</code> instance, which represents a Submit command, is constructed by specifying delegates to the OnSubmit and CanSubmit ViewModel methods. The command is then exposed to the view via a read-only property that returns a reference to the <code>DelegateCommand</code>.</p>
 <pre><code class="lang-cs">public class ArticleViewModel
 {
-    public DelegateCommand SubmitCommand { get; private set; }
+    public DelegateCommand&lt;object&gt; SubmitCommand { get; private set; }
 
     public ArticleViewModel()
     {
