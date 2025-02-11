@@ -24,7 +24,7 @@ The Prism `DelegateCommand` class encapsulates two delegates that each reference
 ```cs
 public class ArticleViewModel
 {
-    public DelegateCommand SubmitCommand { get; private set; }
+    public DelegateCommand<object> SubmitCommand { get; private set; }
 
     public ArticleViewModel()
     {
