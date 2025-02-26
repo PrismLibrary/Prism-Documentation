@@ -2328,12 +2328,15 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "InvalidYamlHeader"
+      ],
       "type": "Conceptual",
       "source_relative_path": "docs/plugins/popups.md",
       "output": {
         ".html": {
           "relative_path": "docs/plugins/popups.html",
-          "hash": "qg5KAgvhd82Hr6oI1E+vQg=="
+          "hash": "77NiEQg1vT0AD2Jz+3lcqw=="
         }
       },
       "is_incremental": false,

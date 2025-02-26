@@ -693,15 +693,151 @@
             <article class="content wrap" id="_content" data-uid="Plugins.Popups">
 <h1 id="getting-started">Getting Started</h1>
 
-<p>The Prism.Plugin.Popups package for Xamarin.Forms has been hugely popular enabling developers to leverage the PopupPage&#39;s from Rg.Plugins.Popup. Following the introduction of the <a class="xref" href="../dialogs/index.html">IDialogService</a>, the Popup Plugin was updated to migrate the use of Popup Page&#39;s as Dialogs and generally help developers avoid strong dependencies on libraries like Rg.Plugins.Popup as the DialogService could be implemented in other ways in the event that the community package were to fall out of maintenance.</p>
-<p>For .NET MAUI Developers, the Popup Plugin will no longer be publicly available on NuGet.org. It instead will only be provided to those with a Commercial Plus license. This is in large part due to the toxic nature of many developers using the plugin over the years who make demands for changes and updates but who never bother to contribute to any Open Source project, nor both to sponsor any Open Source Developers.</p>
-<p>If updating your Xamarin.Forms app, particularly from older version of the Popup Plugin where you may have been using the <code>INavigationService</code> to Navigate to your Popup Pages, you will need to take time to re-architect some of your code to instead make use of the <a class="xref" href="../dialogs/index.html">IDialogService</a>.</p>
-<h2 id="registering-the-popup-plugin">Registering the Popup Plugin</h2>
-<p><code>Rg.Plugins.Popup</code> does not support .NET MAUI applications, however the project has been forked and is now called <code>Mopups</code>. To use the Popup Plugin, you must be a Commercial Plus subscriber and have added the private Prism NuGet feed. You can then install <code>Prism.Plugin.Popups.Maui</code>. Once you have installed the package you simply need to call <code>ConfigureMopupDialogs</code> on the PrismAppBuilder.</p>
-<pre><code class="lang-cs">builder.UseMauiApp&lt;App&gt;()
-    .UsePrism(prism =&gt; prism.ConfigureMopupDialogs())
-</code></pre><div class="NOTE"><h5>Note</h5><p>Using PopupPage&#39;s directly with Prism Navigation is no longer supported. PopupPage&#39;s are best used and make the most sense to be used as a Dialog. For this reason you should migrate your code to use the DialogService. Note that Prism.Plugin.Popups for .NET MAUI does expose a number of additional attached properties that you can use to configure the PopupPage that is created by the DialogService.</p>
-</div>
+<p>The <code>Prism.Plugin.Popups</code> package for Xamarin.Forms has been hugely popular, enabling developers to leverage <code>PopupPage</code> from the Rg.Plugins.Popup library. Following the introduction of the <a class="xref" href="../dialogs/index.html">IDialogService</a>, the Popup Plugin was updated to transition <code>PopupPage</code> usage to dialogs. This change helps developers avoid strong dependencies on libraries like Rg.Plugins.Popup, as the <code>IDialogService</code> offers flexible implementation options should community packages become unmaintained.</p>
+<p>For .NET MAUI developers, the Popup Plugin will no longer be publicly available on NuGet.org. Instead, it will be exclusively provided to those with a Commercial Plus license. This decision supports the project’s long-term sustainability, as maintaining and enhancing the plugin demands significant resources. Restricting access to licensed users allows us to allocate these resources effectively, ensuring continued development and improved support for our customers.</p>
+<p>If you’re updating your Xamarin.Forms app—especially from older versions of the Popup Plugin where <code>INavigationService</code> was used to navigate to <code>PopupPage</code> instances—you’ll need to re-architect portions of your code to utilize the <a class="xref" href="../dialogs/index.html">IDialogService</a> instead.</p>
+<hr>
+<h2 id="setup">Setup</h2>
+<p>To integrate <code>Prism.Plugin.Popups.Maui</code> into your .NET MAUI project, follow these steps:</p>
+<ol>
+<li><p><strong>Install the NuGet Package</strong><br>Add the <code>Prism.Plugin.Popups.Maui</code> package to your .NET MAUI project using NuGet Package Manager or by running:</p>
+<pre><code>dotnet add package Prism.Plugin.Popups.Maui
+</code></pre></li>
+<li><p><strong>Register the Plugin</strong><br>In your <code>MauiProgram.cs</code>, configure Prism to use the plugin by adding the following code:</p>
+<pre><code class="lang-csharp">builder.UseMauiApp&lt;App&gt;()
+    .UsePrism(prism =&gt; prism.ConfigureMopupDialogs());
+</code></pre></li>
+<li><p><strong>Register Your Dialog Views</strong><br>Dialogs must be registered with Prism’s dialog service (not navigated to like regular pages). For example:</p>
+<pre><code class="lang-csharp">containerRegistry.RegisterDialog&lt;MyDialog&gt;();
+</code></pre><p>This registers a dialog view named <code>MyDialog</code> with the Prism container.</p>
+</li>
+</ol>
+<hr>
+<h2 id="creating-a-dialog-view">Creating a Dialog View</h2>
+<p>A dialog view typically inherits from <code>ContentView</code> or a similar base class. You can use XAML to define the content and customize its behavior with attached properties from the <code>PopupDialogLayout</code> class.</p>
+<p>Here’s a basic template:</p>
+<pre><code class="lang-xaml">&lt;ContentView xmlns=&quot;http://schemas.microsoft.com/dotnet/2021/maui&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot;
+             xmlns:prism=&quot;http://prismlibrary.com&quot;
+             x:Class=&quot;YourNamespace.YourDialog&quot;&gt;
+    &lt;!-- Your popup content here --&gt;
+&lt;/ContentView&gt;
+</code></pre><hr>
+<h2 id="attached-properties">Attached Properties</h2>
+<p>The <code>PopupDialogLayout</code> class provides several attached properties to customize popup dialogs. Below is a list of these properties, their purposes, and examples:</p>
+<h3 id="hassystempadding"><code>HasSystemPadding</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Default</strong>: <code>true</code></li>
+<li><strong>Description</strong>: Controls whether the popup respects system padding (e.g., status bar, navigation bar). Set to <code>false</code> for full-screen popups.</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">prism:PopupDialogLayout.HasSystemPadding=&quot;False&quot;
+</code></pre></li>
+</ul>
+<h3 id="systempadding"><code>SystemPadding</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>Thickness</code></li>
+<li><strong>Default</strong>: <code>0,0,0,0</code></li>
+<li><strong>Description</strong>: Specifies custom padding around the popup, overriding system padding if needed.</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">prism:PopupDialogLayout.SystemPadding=&quot;20,40,20,20&quot;
+</code></pre></li>
+</ul>
+<h3 id="animation"><code>Animation</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>IPopupAnimation</code></li>
+<li><strong>Default</strong>: <code>ScaleAnimation</code></li>
+<li><strong>Description</strong>: Defines the animation for popup appearance/disappearance. Use Mopups library animations (e.g., <code>MoveAnimation</code>) or custom ones.</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">&lt;prism:PopupDialogLayout.Animation&gt;
+    &lt;animation:MoveAnimation PositionIn=&quot;Top&quot; PositionOut=&quot;Bottom&quot; /&gt;
+&lt;/prism:PopupDialogLayout.Animation&gt;
+</code></pre></li>
+</ul>
+<h3 id="isanimationenabled"><code>IsAnimationEnabled</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Default</strong>: <code>true</code></li>
+<li><strong>Description</strong>: Enables/disables animations. Set to <code>false</code> for instant popup display.</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">prism:PopupDialogLayout.IsAnimationEnabled=&quot;False&quot;
+</code></pre></li>
+</ul>
+<h3 id="systempaddingsides"><code>SystemPaddingSides</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>PaddingSide</code></li>
+<li><strong>Default</strong>: <code>PaddingSide.All</code></li>
+<li><strong>Description</strong>: Specifies which sides receive system padding (e.g., <code>All</code>, <code>Top</code>, <code>Bottom</code>, <code>Left</code>, <code>Right</code>).</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">prism:PopupDialogLayout.SystemPaddingSides=&quot;Top,Bottom&quot;
+</code></pre></li>
+</ul>
+<h3 id="backgroundinputtransparent"><code>BackgroundInputTransparent</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+<li><strong>Description</strong>: If <code>true</code>, taps pass through to the background UI; if <code>false</code>, the background captures taps.</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">prism:PopupDialogLayout.BackgroundInputTransparent=&quot;True&quot;
+</code></pre></li>
+</ul>
+<h3 id="haskeyboardoffset"><code>HasKeyboardOffset</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Default</strong>: <code>true</code></li>
+<li><strong>Description</strong>: Adjusts the popup position when the keyboard appears. Set to <code>false</code> if no adjustment is needed.</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">prism:PopupDialogLayout.HasKeyboardOffset=&quot;False&quot;
+</code></pre></li>
+</ul>
+<h3 id="keyboardoffset"><code>KeyboardOffset</code></h3>
+<ul>
+<li><strong>Type</strong>: <code>double</code></li>
+<li><strong>Default</strong>: <code>0</code></li>
+<li><strong>Description</strong>: Adds an extra offset (in pixels) when the keyboard appears.</li>
+<li><strong>Example</strong>:<pre><code class="lang-xaml">prism:PopupDialogLayout.KeyboardOffset=&quot;10&quot;
+</code></pre></li>
+</ul>
+<hr>
+<h2 id="example-dialog-view">Example Dialog View</h2>
+<p>Here’s a complete example combining several attached properties:</p>
+<pre><code class="lang-xaml">&lt;ContentView xmlns=&quot;http://schemas.microsoft.com/dotnet/2021/maui&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot;
+             xmlns:prism=&quot;http://prismlibrary.com&quot;
+             xmlns:animation=&quot;clr-namespace:Mopups.Animations;assembly=Mopups&quot;
+             prism:PopupDialogLayout.HasSystemPadding=&quot;False&quot;
+             prism:PopupDialogLayout.IsAnimationEnabled=&quot;True&quot;
+             x:Class=&quot;MauiApp2.MyDialog&quot;&gt;
+    &lt;prism:PopupDialogLayout.Animation&gt;
+        &lt;animation:MoveAnimation PositionIn=&quot;Top&quot; PositionOut=&quot;Bottom&quot; /&gt;
+    &lt;/prism:PopupDialogLayout.Animation&gt;
+    &lt;VerticalStackLayout&gt;
+        &lt;Label Text=&quot;Welcome to .NET MAUI!&quot;
+               VerticalOptions=&quot;Center&quot;
+               HorizontalOptions=&quot;Center&quot; /&gt;
+    &lt;/VerticalStackLayout&gt;
+&lt;/ContentView&gt;
+</code></pre><p>In this example:</p>
+<ul>
+<li><code>HasSystemPadding=&quot;False&quot;</code> makes the popup full-screen.</li>
+<li><code>IsAnimationEnabled=&quot;True&quot;</code> activates animations.</li>
+<li><code>MoveAnimation</code> slides the popup from the top in and out to the bottom.</li>
+</ul>
+<hr>
+<h2 id="showing-the-dialog">Showing the Dialog</h2>
+<p>Use Prism’s <code>IDialogService</code> to display the dialog from a view model:</p>
+<pre><code class="lang-csharp">public class MyViewModel
+{
+    private readonly IDialogService _dialogService;
+
+    public MyViewModel(IDialogService dialogService)
+    {
+        _dialogService = dialogService;
+    }
+
+    public async Task ShowDialogAsync()
+    {
+        await _dialogService.ShowDialogAsync(&quot;MyDialog&quot;);
+    }
+}
+</code></pre><ul>
+<li>Inject <code>IDialogService</code> via constructor.</li>
+<li>Call <code>ShowDialogAsync</code> with the registered dialog name.</li>
+</ul>
+<hr>
 </article>
           </div>
           
