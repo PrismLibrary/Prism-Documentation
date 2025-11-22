@@ -1,12 +1,21 @@
 ---
+sidebar_position: 3
 uid: Plugins.ObservableRegions
+title: Observable Regions
+sidebar_label: Observable Regions
 ---
 
-# Getting Started
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Observable Regions
+
+## Getting Started
 
 While it has always been possible to respond to Region Navigation Events such as Navigating, Navigated and NavigationFailed through the IRegionNavigationService, this hasn't been something that is particularly easy to deal with from a global scope. This is in part due to the fact that each Region has it's own Navigation Service. `Prism.Plugin.ObservableRegions` is a new cross platform package from the Prism team exclusively available to Commercial Plus subscribers. For the first time you now have the ability to manage Region Navigation Events from a global context.
 
-## [.NET MAUI](#tab/maui)
+<Tabs groupId="platform">
+<TabItem value="maui" label=".NET MAUI">
 
 ```cs
 public static class PrismStartup
@@ -30,7 +39,8 @@ public static class PrismStartup
 }
 ```
 
-## [WPF](#tab/wpf)
+</TabItem>
+<TabItem value="wpf" label="WPF">
 
 ```cs
 public partial class App : Application
@@ -55,7 +65,8 @@ public partial class App : Application
 }
 ```
 
-## [Uno Platform](#tab/uno-platform)
+</TabItem>
+<TabItem value="uno-platform" label="Uno Platform">
 
 ```cs
 public partial class App : Application
@@ -80,7 +91,8 @@ public partial class App : Application
 }
 ```
 
----
+</TabItem>
+</Tabs>
 
 ## RegionNavigationEvent
 

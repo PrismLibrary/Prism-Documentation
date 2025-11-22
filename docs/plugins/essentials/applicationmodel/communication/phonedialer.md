@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Plugins.Essentials.ApplicationModel.Communication.PhoneDialer
 ---
 
@@ -14,3 +15,4 @@ public interface IPhoneDialer
     void Open(string number);
 }
 ```
+

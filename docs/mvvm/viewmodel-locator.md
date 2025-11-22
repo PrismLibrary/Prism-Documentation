@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Mvvm.ViewModelLocator
 ---
 
@@ -6,7 +7,7 @@ uid: Mvvm.ViewModelLocator
 
 The `ViewModelLocator` is used to wire the `DataContext` of a view to an instance of a ViewModel using a standard naming convention.
 
-The Prism `ViewModelLocator` has an `AutoWireViewModel` attached property, that when set to `true` calls the `AutoWireViewModelChanged` method in the `ViewModelLocationProvider` class to resolve the ViewModel for the view, and then set the view’s data context to an instance of that ViewModel. This behavior is on by default: if you don't want that for your view, you need to opt-out.
+The Prism `ViewModelLocator` has an `AutoWireViewModel` attached property, that when set to `true` calls the `AutoWireViewModelChanged` method in the `ViewModelLocationProvider` class to resolve the ViewModel for the view, and then set the view's data context to an instance of that ViewModel. This behavior is on by default: if you don't want that for your view, you need to opt-out.
 
 > In the case of **WPF**, this is only the default behavior when using **region navigation** and ```IDialogService```. If you are using **view injection**, your view will need to opt-in.
 
@@ -28,13 +29,15 @@ This convention assumes:
 - that views are in a `.Views` child namespace
 - that ViewModel names correspond with view names and end with "ViewModel."
 
-> [!Note]
-> The `ViewModelLocationProvider` can be found in the `Prism.Mvvm` namespace in the **Prism.Core** NuGet package. The `ViewModelLocator` can be found in the `Prism.Mvvm` namespace in the platform specific packages (**Prism.WPF**, **Prism.Forms**) NuGet package.
+:::note
+The `ViewModelLocationProvider` can be found in the `Prism.Mvvm` namespace in the **Prism.Core** NuGet package. The `ViewModelLocator` can be found in the `Prism.Mvvm` namespace in the platform specific packages (**Prism.WPF**, **Prism.Maui**) NuGet package.
+:::
 
-> [!Note]
-> The ViewModelLocator is required, and automatically applied to every View, when developing with Xamarin.Forms as it is responsible for providing the correct instance of the `INavigationService` to the ViewModel. When developing a Xamarin.Forms app, the `ViewModelLocator` is opt-out only.
+:::note
+The ViewModelLocator is required, and automatically applied to every View, when developing with .NET MAUI as it is responsible for providing the correct instance of the `INavigationService` to the ViewModel. When developing a .NET MAUI app, the `ViewModelLocator` is opt-out only.
+:::
 
-> [!Video https://www.youtube.com/embed/I_3LxBdvJi4]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I_3LxBdvJi4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Change the Naming Convention
 
@@ -57,7 +60,7 @@ protected override void ConfigureViewModelLocator()
 }
 ```
 
-> [!Video https://www.youtube.com/embed/o4ibaOFvfww]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/o4ibaOFvfww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Custom ViewModel Registrations
 
@@ -89,13 +92,15 @@ ViewModelLocationProvider.Register<MainWindow>(() => Container.Resolve<CustomVie
 ViewModelLocationProvider.Register<MainWindow, CustomViewModel>();
 ```
 
-> [!Note]
-> Registering your ViewModels directly with the `ViewModelLocator` is faster than relying on the default naming convention. This is because the naming convention requires the use of reflection, while a custom mapping provides the type directly to the `ViewModelLocator`.
+:::note
+Registering your ViewModels directly with the `ViewModelLocator` is faster than relying on the default naming convention. This is because the naming convention requires the use of reflection, while a custom mapping provides the type directly to the `ViewModelLocator`.
+:::
 
-> [!Important]
-> The `viewTypeName` parameter must be the fully qualifyied name of the view's Type (`Type.ToString()`). Otherwise the mapping will fail.
+:::warning
+The `viewTypeName` parameter must be the fully qualifyied name of the view's Type (`Type.ToString()`). Otherwise the mapping will fail.
+:::
 
-> [!Video https://www.youtube.com/embed/phMc4OuKs58]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/phMc4OuKs58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Control how ViewModels are Resolved
 
@@ -138,3 +143,4 @@ protected override void ConfigureViewModelLocator()
     });
 }
 ```
+

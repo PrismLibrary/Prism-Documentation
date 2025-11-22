@@ -1,6 +1,8 @@
 ---
+sidebar_position: 9
 uid: Navigation.Regions.ConfirmingNavigation
 ---
+
 # Confirming Navigation
 
 You will often find that you will need to interact with the user during a navigation operation, so that the user can confirm or cancel it. In many applications, for example, the user may try to navigate while in the middle of entering or editing data. In these situations, you may want to ask the user whether he or she wants to save or discard the data that has been entered before continuing to navigate away from the page, or whether the user wants to cancel the navigation operation altogether. Prism supports these scenarios via the **IConfirmNavigationRequest** interface.
@@ -59,3 +61,4 @@ In the above example, when the ConfirmNavigationRequest is called, a simple wind
 All of this happens on the UI thread. But it is still possible to call async methods (such as REST API calls) to help determine navigation status. In that case, depending on implementation, you may need to store a reference to the callback so that you can call it from another location.
 
 If there is a long running implementation, it may be possible for the user to call another navigation operation. If that were to happen, the previous navigation would be canceled and invoking the callback for the previous navigation will have no effect as it is no longer the current navigation.
+

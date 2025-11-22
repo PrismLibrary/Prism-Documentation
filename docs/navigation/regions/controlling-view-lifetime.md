@@ -1,6 +1,8 @@
 ---
+sidebar_position: 10
 uid: Navigation.Regions.ControllingViewLifetime
 ---
+
 # Controlling View Lifetime
 
 ## IRegionMemberLifetime
@@ -30,4 +32,7 @@ public class EmployeeDetailViewModel : BindableBase
 }
 ```
 
-**Note:** Regions that can display multiple views, such as those that use an **ItemsControl** or a **TabControl**, will display both non-active and active views. Removal of a non-active view from these types of regions will result in the view being removed from the UI.
+:::note
+Regions that can display multiple views, such as those that use an **ItemsControl** or a **TabControl**, will display both non-active and active views. Removal of a non-active view from these types of regions will result in the view being removed from the UI.
+:::
+

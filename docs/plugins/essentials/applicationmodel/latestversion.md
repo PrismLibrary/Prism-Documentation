@@ -1,4 +1,5 @@
 ---
+sidebar_position: 4
 uid: Plugins.Essentials.ApplicationModel.LatestVersion
 ---
 
@@ -22,3 +23,4 @@ public interface ILatestVersion
     Task OpenAppInStore();
 }
 ```
+

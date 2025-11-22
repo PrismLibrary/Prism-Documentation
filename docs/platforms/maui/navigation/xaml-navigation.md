@@ -1,4 +1,5 @@
 ---
+sidebar_position: 7
 uid: Platforms.Maui.Navigation.XamlNavigation
 ---
 
@@ -77,3 +78,4 @@ When we use XAML Navigation we can get rid of 100% of the C# code that we had to
   </FlyoutPage.Flyout>
 </FlyoutPage>
 ```
+

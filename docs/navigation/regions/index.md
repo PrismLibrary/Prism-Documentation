@@ -1,11 +1,13 @@
 ---
+sidebar_position: 1
 uid: Navigation.Regions.GettingStarted
 ---
 
 # Getting Started
 
-> [!NOTE}
-> As a part of the Prism 9.0 initiative, a lot of focus has been given to unifying the Prism API across all of the supported platforms. As a result the Region Abstractions are no longer platform specific. This greatly simplifies what you must learn as you transition from one platform to another. As an added benefit this means that you can now build applications that share ViewModels across WPF, .NET MAUI and Uno Platform and even port your Xamarin.Forms application code to these other platforms.
+:::note
+As a part of the Prism 9.0 initiative, a lot of focus has been given to unifying the Prism API across all of the supported platforms. As a result the Region Abstractions are no longer platform specific. This greatly simplifies what you must learn as you transition from one platform to another. As an added benefit this means that you can now build applications that share ViewModels across WPF, .NET MAUI and Uno Platform.
+:::
 
 As the user interacts with a rich client application, its user interface (UI) will be continuously updated to reflect the current task and data that the user is working on. The UI may undergo considerable changes over time as the user interacts with and completes various tasks within the application. The process by which the application coordinates these UI changes is often referred to as *navigation*. This topic describes how to implement navigation for composite Model-View-ViewModel (MVVM) applications using the Prism library.
 
@@ -36,3 +38,4 @@ Prism provides guidance on implementing both styles of navigation, focusing on t
 | [Passing Parameters](xref:Navigation.Regions.PassingParameters) | Pass data to the view being navigated to. |
 | [View and View Model Participation](xref:Navigation.Regions.ViewViewModelParticipation) | Link your views and view models to the navigation system. |
 | [Global Region Observer](xref:Plugins.ObservableRegions) | Observe and react to Navigation Events globally. |
+

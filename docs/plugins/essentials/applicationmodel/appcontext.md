@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Plugins.Essentials.ApplicationModel.AppContext
 ---
 
@@ -48,5 +49,4 @@ The IAppContext interface exposes the following properties:
 - Version — The application version, as a Version object.
 - BuildString — The build number of the version, such as 1000.
 - RequestedTheme — The detected theme of the system or application.
-- PackagingModel — The packaging model of the application.
-- RequestedLayoutDirection — The requested layout direction of the system or application.
+

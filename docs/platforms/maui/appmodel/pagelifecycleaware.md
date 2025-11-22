@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Platforms.Maui.AppModel.PageLifecycleAware
 ---
 
@@ -20,3 +21,4 @@ public class ViewAViewModel : BindableBase, IPageLifecycleAware
     }
 }
 ```
+

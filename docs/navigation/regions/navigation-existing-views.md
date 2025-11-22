@@ -1,6 +1,8 @@
 ---
+sidebar_position: 7
 uid: Navigation.Regions.NavigationExistingViews
 ---
+
 # Navigating to Existing Views
 
 Frequently, it is more appropriate for the views in your application to be re-used, updated, or activated during navigation, instead of replaced by a new view. This is often the case where you are navigating to the same type of view but need to display different information or state to the user, or when the appropriate view is already available in the UI but needs to be activated (that is, selected or made top-most).
@@ -13,7 +15,9 @@ The ability to navigate to an existing view is useful for a variety of reasons. 
 
 Prism supports the two scenarios described earlier via the **IsNavigationTarget** method on the **INavigationAware** interface. This method is called during navigation on all views in a region that are of the same type as the target view. In the preceding examples, the target type of the view is the **EditCustomer** view, so the **IsNavigationTarget** method will be called on all existing **EditCustomer** view instances currently in the region. Prism determines the target type from the view URI, which it assumes is the short type name of the target type.
 
-> **Note:** For Prism to determine the type of the target view, the view's name in the navigation URI should be the same as the actual target type's short type name. For example, if your view is implemented by the **MyApp.Views.EmployeeDetailsView** class, the view name specified in the navigation URI should be **EmployeeDetailsView**. This is the default behavior provided by Prism. You can customize this behavior by implementing a custom content loader class: do this by implementing the **IRegionNavigationContentLoader** interface or by deriving from the **RegionNavigationContentLoader** class.
+:::note
+For Prism to determine the type of the target view, the view's name in the navigation URI should be the same as the actual target type's short type name. For example, if your view is implemented by the **MyApp.Views.EmployeeDetailsView** class, the view name specified in the navigation URI should be **EmployeeDetailsView**. This is the default behavior provided by Prism. You can customize this behavior by implementing a custom content loader class: do this by implementing the **IRegionNavigationContentLoader** interface or by deriving from the **RegionNavigationContentLoader** class.
+:::
 
 The implementation of the **IsNavigationTarget** method can use the **NavigationContext** parameter to determine whether it can handle the navigation request. The **NavigationContext** object provides access to the navigation URI and the navigation parameters. In the preceding examples, the implementation of this method in the **EditCustomer** view model compares the current customer ID to the ID specified in the navigation request, and it returns **true** if they match.
 
@@ -32,3 +36,4 @@ public class EmployeeDetailsViewModel : BindableBase, INavigationAware
 ```
 
 If the **IsNavigationTarget** method always returns **true**, regardless of the navigation parameters, that view instance will always be re-used. This allows you to ensure that only one view of a particular type will be displayed in a particular region.
+

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Plugins.Logging.AppCenter
 ---
 
@@ -20,3 +21,4 @@ containerRegistry.UsePrismLogging(logging => {
     logging.AddAppCenter("appSecret", typeof(Analytics), typeof(Crashes), typeof(Distribution));
 });
 ```
+

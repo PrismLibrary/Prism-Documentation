@@ -1,4 +1,5 @@
 ---
+sidebar_position: 4
 uid: Commands.ErrorHandling
 ---
 
@@ -19,3 +20,4 @@ new DelegateCommand(() => { })
         // Handle any exception thrown
     })
 ```
+

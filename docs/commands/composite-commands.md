@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Commands.CompositeCommands
 ---
 
@@ -16,10 +17,11 @@ The `CompositeCommand` class represents a command that is composed from multiple
 
 The `CompositeCommand` class maintains a list of child commands (`DelegateCommand` instances). The `Execute` method of the `CompositeCommand` class simply calls the `Execute` method on each of the child commands in turn. The `CanExecute` method similarly calls the `CanExecute` method of each child command, but if any of the child commands cannot be executed, the `CanExecute` method will return `false`. In other words, by default, a `CompositeCommand` can only be executed when all the child commands can be executed.
 
-> [!NOTE]
-> `CompositeCommand` can be found in the Prism.Commands namespace which is located in the Prism.Core NuGet package.
+:::note
+`CompositeCommand` can be found in the Prism.Commands namespace which is located in the Prism.Core NuGet package.
+:::
 
-> [!Video https://www.youtube.com/embed/kssprOqdfME]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/kssprOqdfME" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Creating a Composite Command
 
@@ -111,8 +113,9 @@ In your ViewModel, associate child commands to the static `ApplicationCommands` 
     }
 ```
 
-> [!NOTE]
-> To increase the maintainability and testability of your code, it is recommended that you using the dependency injection approach.
+:::note
+To increase the maintainability and testability of your code, it is recommended that you using the dependency injection approach.
+:::
 
 ## Binding to a Globally Available Command
 
@@ -165,8 +168,9 @@ As seen in the previous examples, child commands are registered using the `Compo
     }
 ```
 
-> [!Important]
-> You MUST unregister your commands from a `CompositeCommand` when the View/ViewModel is no longer needed (ready for GC). Otherwise you will have introduced a memory leak.
+:::warning
+You MUST unregister your commands from a `CompositeCommand` when the View/ViewModel is no longer needed (ready for GC). Otherwise you will have introduced a memory leak.
+:::
 
 ## Executing Commands on Active Views
 
@@ -230,3 +234,4 @@ By implementing the `IActiveAware` interface on your ViewModels, you will be not
         }
     }
 ```
+

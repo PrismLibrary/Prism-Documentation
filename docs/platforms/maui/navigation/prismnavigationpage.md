@@ -1,10 +1,11 @@
 ---
+sidebar_position: 9
 uid: Platforms.Maui.Navigation.PrismNavigationPage
 ---
 
 # PrismNavigationPage
 
-The NavigationPage is a unique element in .NET MAUI (and Xamarin.Forms) as it is the single Page that is capable of independently Popping Pages off of the Navigation Stack thus bypassing the NavigationService. In Prism.Maui we have taken some lessons from Prism.Forms and made it easier to ensure that the NavigationService is used to navigate between Pages.
+The NavigationPage is a unique element in .NET MAUI as it is the single Page that is capable of independently Popping Pages off of the Navigation Stack thus bypassing the NavigationService. In Prism.Maui we have made it easier to ensure that the NavigationService is used to navigate between Pages.
 
 ## Automatic Registration
 
@@ -17,3 +18,4 @@ By default the PrismNavigationPage will intercept the request to Pop the Current
 ## Why do we need it?
 
 The `PrismNavigationPage` was added because there is simply no way with a Behavior that we could hook in and get access to be able to cancel the back navigation event. Without the PrismNavigationPage your app will be reactionary to the user pressing the back button which means they may navigate away before you have a chance to save state.
+

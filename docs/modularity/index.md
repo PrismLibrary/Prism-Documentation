@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Modularity.GettingStarted
 ---
 
@@ -451,3 +452,4 @@ To keep the application and modules loosely coupled, the application should avoi
 The ```LoadModuleCompletedEventArgs``` contains an ```IsErrorHandled``` property. If a module fails to load and the application wants to prevent the ```ModuleManager``` from logging the error and throwing an exception, it can set this property to **true**.
 
 > **Note**: After a module is loaded and initialized, the module assembly cannot be unloaded. The module instance reference will not be held by the Prism libraries, so the module class instance may be garbage collected after initialization is complete.
+

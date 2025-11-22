@@ -1,4 +1,5 @@
 ---
+sidebar_position: 9
 uid: Plugins.Logging.Testing
 ---
 
@@ -32,3 +33,4 @@ You can also use the Test logger with services that make use of the implicit typ
 var logger = TestLogger.Create();
 var service = new MyService(logger.AsGenericLogger<MyService>());
 ```
+

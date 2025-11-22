@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Plugins.Essentials.FileSystem
 ---
 
@@ -15,3 +16,4 @@ if (await fileSystem.FileExistsAsync("myFile.txt"))
     // Do something with the file stream.
 }
 ```
+

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 6
 uid: Plugins.Logging.Kochava
 ---
 
@@ -12,7 +13,7 @@ containerRegistry.UsePrismLogging(logging => {
 });
 ```
 
-## Limitations &amp; Considerations
+## Limitations & Considerations
 
 Kochava is best utilized for application Analytics.
 
@@ -22,4 +23,5 @@ Only the `TrackEvent` API has been implemented for Kochava. As a result there is
 
 ### Supported Platforms
 
-Kochava is only available on Android, iOS, &amp; MacCatalyst. The `Prism.Plugin.Logging.Kochava` package can safely be used across any other targets you may have without the need to put a compiler directive around it. Adding the provider outside of the supported platforms will not result in any additional provider being added and you will not have a Kochava reference in your code.
+Kochava is only available on Android, iOS, & MacCatalyst. The `Prism.Plugin.Logging.Kochava` package can safely be used across any other targets you may have without the need to put a compiler directive around it. Adding the provider outside of the supported platforms will not result in any additional provider being added and you will not have a Kochava reference in your code.
+

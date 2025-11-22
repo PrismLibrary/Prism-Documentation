@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Platforms.Maui.Behaviors.BehaviorBase
 ---
 
@@ -11,3 +12,4 @@ The Prism `BehaviorBase<T>` class is an opinionated base behavior that is built 
 ## Benefits to the BehaviorBase&lt;T&gt;
 
 The key benefit of the Prism `BehaviorBase<T>` is that you have immediate access to the Element (Page/View) that it was attached to from anywhere in your code, not just in the `OnAttachedTo` or `OnDetachedFrom` methods.
+

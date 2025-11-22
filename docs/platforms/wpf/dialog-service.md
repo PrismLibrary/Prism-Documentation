@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+uid: Platforms.Wpf.DialogService
+---
+
 # Dialog Service
 
 TODO: Intro
@@ -181,8 +186,10 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
-> [!NOTE]
-> In order to use a dialog window by name, you must provide the dialog window name in the `IDialogService.Show` or `IDialogService.ShowDialog` method as follows:
+:::note
+In order to use a dialog window by name, you must provide the dialog window name in the `IDialogService.Show` or `IDialogService.ShowDialog` method as follows:
+:::
+
 ```cs
  _dialogService.ShowDialog("DialogName", dialogParameters), r =>
     { ...  }, "notifyWindow");
@@ -234,3 +241,4 @@ _dialogService.ShowNotification(message, r =>
             Title = "I Don't know what you did!?";
 });
 ```
+

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: DependencyInjection.GettingStarted
 ---
 
@@ -26,16 +27,17 @@ The Prism team ships several DI container implementations for the Prism IoC abst
 | DryIoc | NuGet.org | Supported across all targets |
 | Grace | Commercial Plus | |
 | Microsoft | Commercial Plus | |
-| Unity | NuGet.org | Legacy support for Xamarin.Forms and WPF only |
+| Unity | NuGet.org | Legacy support for WPF only |
 
-> [!NOTE]
-> While the DryIoc and Unity Container's are available on NuGet.org they are still subject to the Prism License. You should have a valid license for Prism.
+:::note
+While the DryIoc and Unity Container's are available on NuGet.org they are still subject to the Prism License. You should have a valid license for Prism.
+:::
 
 ## Next Steps
 
 - Learn how to [Register Services](xref:DependencyInjection.RegisterServices)
-- Learn how to [Register Pages for Navigation](xref:Platforms.XamarinForms.Navigation.Basics) ***(Xamarin Specific)***
-- Learn how to [Register Platform Specific Services](xref:DependencyInjection.IPlatformInitializer) ***(Xamarin Specific - Legacy)***
+- Learn how to [Register Platform Specific Services](xref:DependencyInjection.IPlatformInitializer) ***(Legacy)***
 - [Microsoft.Extensions.DependencyInjection (Supplement)](xref:DependencyInjection.Supplement)
 <!-- - Learn how to [Add a Custom Container](xref:DependencyInjection.AddCustomContainer) -->
 - Learn more about the Prism Container Extensions and working with Shiny in the [Appendix](xref:DependencyInjection.Appendix)
+

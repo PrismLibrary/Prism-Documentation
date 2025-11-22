@@ -1,6 +1,8 @@
 ---
+sidebar_position: 8
 uid: Navigation.Regions.PassingParameters
 ---
+
 # Passing Parameters During Navigation
 
 To implement the required navigational behavior in your application, you will often need to specify additional data during navigation request than just the target view name. The **NavigationContext** object provides access to the navigation URI, and to any parameters that were specified within it or externally. You can access the **NavigationContext** from within the **IsNavigationTarget**, **OnNavigatedFrom**, and **OnNavigatedTo** methods.
@@ -53,3 +55,4 @@ public void OnNavigatedTo(NavigationContext navigationContext)
     ObjectParameter objectParameter = navigationContext.Parameters.GetValue<ObjectParameter>("myObjectParameter");
 }
 ```
+

@@ -1,6 +1,8 @@
 ---
+sidebar_position: 11
 uid: Navigation.Regions.NavigationJournal
 ---
+
 # Using the Navigation Journal
 
 The **NavigationContext** class provides access to the region navigation service, which is responsible for coordinating the sequence of operations during navigation within a region. It provides access to the region in which navigation is taking place, and to the navigation journal associated with that region. The region navigation service implements the **IRegionNavigationService**, which is defined as follows.
@@ -68,7 +70,9 @@ public class EmployeeDetailsViewModel : INavigationAware
 
 You can implement a custom journal for a region if you need to implement a specific workflow pattern within that region.
 
->**Note:** The navigation journal can only be used for region-based navigation operations that are coordinated by the region navigation service. If you use view discovery or view injection to implement navigation within a region, the navigation journal will not be updated during navigation and cannot be used to navigate forward or backward within that region.
+:::note
+The navigation journal can only be used for region-based navigation operations that are coordinated by the region navigation service. If you use view discovery or view injection to implement navigation within a region, the navigation journal will not be updated during navigation and cannot be used to navigate forward or backward within that region.
+:::
 
 ## Opting out of the Navigation Journal
 
@@ -89,3 +93,4 @@ public class IntermediaryPage : IJournalAware
     public bool PersistInHistory() => false;
 }
 ```
+

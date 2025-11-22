@@ -1,33 +1,23 @@
 ---
+sidebar_position: 1
 uid: Plugins.Essentials.GettingStarted
+title: Essentials
+sidebar_label: Getting Started
 ---
 
-# Getting Started
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Essentials
+
+## Getting Started
 
 Prism.Plugin.Essentials is built around the idea that you should be able to have an abstraction layer for your applications that makes your code more portable with the ability to adapt over time. Whether you want to take code from your legacy WPF application and bring it across to .NET MAUI or Uno Platform or migrate from one platform to another.
 
 The API is generally inspired by a combination of Xamarin/.NET MAUI Essentials and in the case of the [Stores](xref:Plugins.Essentials.Stores) is inspired by one of our favorite libraries [Shiny.NET](https://shinylib.net).
 
-## [Xamarin.Forms](#tab/forms)
-
-Be sure to install `Prism.Plugin.Essentials.Forms`
-
-In PrismApplication be sure to add the following registration.
-
-```cs
-protected override void RegisterTypes(IContainerRegistry containerRegistry)
-{
-    containerRegistry.UsePrismEssentials();
-}
-```
-
-For Android be sure to add the following to the native Android Application
-
-```cs
-Prism.Plugin.Essentials.Platform.CurrentActivity.Init(this);
-```
-
-## [.NET MAUI](#tab/maui)
+<Tabs groupId="platform">
+<TabItem value="maui" label=".NET MAUI">
 
 Be sure to install `Prism.Plugin.Essentials.Maui`
 
@@ -36,7 +26,8 @@ builder.UseMauiApp<App>()
     .UsePrism(prism => prism.UsePrismEssentials())
 ```
 
-## [WPF](#tab/wpf)
+</TabItem>
+<TabItem value="wpf" label="WPF">
 
 Be sure to install `Prism.Plugin.Essentials.Wpf`
 
@@ -47,7 +38,8 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
-## [Uno Platform](#tab/uno-platform)
+</TabItem>
+<TabItem value="uno-platform" label="Uno Platform">
 
 Be sure to install `Prism.Plugin.Essentials.Uno.WinUI`
 
@@ -63,7 +55,9 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
----
+</TabItem>
+</Tabs>
 
-> [!NOTE]
-> Prism.Plugins including Prism.Plugin.Essentials is only available for those with an active Commercial Plus license, and is available on the private Prism NuGet server. Prism.Essentials does NOT support Prism.Forms as Xamarin.Forms is considered to be End of Life and the Prism 9.0 release for Xamarin.Forms is provided only to better assist developers to first update to the Prism 9.0 API prior to migrating to .NET MAUI.
+:::note
+Prism.Plugins including Prism.Plugin.Essentials is only available for those with an active Commercial Plus license, and is available on the private Prism NuGet server.
+:::

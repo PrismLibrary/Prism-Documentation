@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Platforms.UnoPlatform.GettingStarted
 ---
 
@@ -17,3 +18,4 @@ public partial class App : PrismApplication
     }
 }
 ```
+

@@ -1,8 +1,0 @@
-- name: Maui
-  href: maui/toc.yml
-- name: Uno Platform
-  href: uno/toc.yml
-- name: Wpf
-  href: wpf/toc.yml
-- name: Xamarin.Forms
-  href: xamarin-forms/toc.yml

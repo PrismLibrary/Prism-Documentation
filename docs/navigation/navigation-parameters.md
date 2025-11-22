@@ -1,10 +1,11 @@
 ---
+sidebar_position: 2
 uid: Navigation.INavigationParameters
 ---
 
 # INavigationParameters
 
-The Navigation Parameters are a way that you can pass state, options, or other values during Navigation events. This includes both [Page based Navigation](xref:Navigation.INavigationParameters) as well as [Region based navigation](xref:Navigation.Regions.GettingStarted). The Navigation Parameters can be comprised entirely from the query string in your Navigation Uri, or from an instance of the `NavigationParameters`. It can even merge the two allowing you to combine query string parameters and parameters from an instance of the `NavigationParameters`. This will be done for you automatically by Prism in the Navigation Service.
+The Navigation Parameters are a way that you can pass state, options, or other values during Navigation events. This includes both [Page based Navigation](xref:Navigation.PageNavigation) as well as [Region based navigation](xref:Navigation.Regions.GettingStarted). The Navigation Parameters can be comprised entirely from the query string in your Navigation Uri, or from an instance of the `NavigationParameters`. It can even merge the two allowing you to combine query string parameters and parameters from an instance of the `NavigationParameters`. This will be done for you automatically by Prism in the Navigation Service.
 
 In Prism 9.0 the Navigation Parameters and interface are entirely shared from the Prism.Core across all Navigation paradigms and platforms.
 
@@ -60,3 +61,4 @@ To access multiple values you can use the `GetValues` method. This will return a
 ```cs
 var colors = parameters.GetValues<Color>("SelectedColors");
 ```
+

@@ -1,11 +1,16 @@
 ---
+sidebar_position: 6
 uid: Navigation.Regions.ViewViewModelParticipation
 ---
+
 # View and View Model Participation in Navigation
 
 Frequently, the views and view models in your application will want to participate in navigation. The **INavigationAware** interface enables this. You can implement this interface on the view or (more commonly) the view model. By implementing this interface, your view or view model can opt-in to participate in the navigation process.
 
->**Note:** In the description that follows, although a reference is made to calls to this interface during navigation between views, it should be noted that the **INavigationAware** interface will be called during navigation whether it is implemented by the view or by the view model.
+:::note
+In the description that follows, although a reference is made to calls to this interface during navigation between views, it should be noted that the **INavigationAware** interface will be called during navigation whether it is implemented by the view or by the view model.
+:::
+
 During navigation, Prism checks to see whether the view implements the **INavigationAware** interface; if it does, it calls the required methods during navigation. Prism also checks to see whether the object set as the view's **DataContext** implements this interface; if it does, it calls the required methods during navigation.
 
 This interface allows the view or view model to participate in a navigation operation. The **INavigationAware** interface defines three methods.
@@ -39,4 +44,7 @@ public class EmployeeDetailsViewModel : IRegionMemberLifetime
 
 The **IRegionMemberLifetime** interface defines a single read-only property, **KeepAlive**. If this property returns **false**, the view is removed from the region when it is deactivated. Because the region no longer has a reference to the view, it then becomes eligible for garbage collection (unless some other component in your application maintains a reference to it). You can implement this interface on your view or your view model classes. Although the **IRegionMemberLifetime** interface is primarily intended to allow you to manage the lifetime of views within regions during activation and deactivation, the **KeepAlive** property is also considered during navigation after the new view is activated in the target region.
 
->**Note:** Regions that can display multiple views, such as those that use an **ItemsControl** or a **TabControl**, will display both non-active and active views. Removal of a non-active view from these types of regions will result in the view being removed from the UI.
+:::note
+Regions that can display multiple views, such as those that use an **ItemsControl** or a **TabControl**, will display both non-active and active views. Removal of a non-active view from these types of regions will result in the view being removed from the UI.
+:::
+

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 uid: Platforms.Maui.Behaviors.EventToCommandBehavior
 ---
 
@@ -122,3 +123,4 @@ Setting `EventArgsParameterPath` to **Item** will extract the property value and
   </ListView>
 </ContentPage>
 ```
+

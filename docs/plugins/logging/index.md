@@ -1,5 +1,8 @@
 ---
+sidebar_position: 2
 uid: Plugins.Logging
+title: Logging
+sidebar_label: Prism.Plugin.Logging
 ---
 
 # Prism.Plugin.Logging
@@ -164,3 +167,4 @@ Prism provides a number of logging providers available out of the box for you wi
 
 - [Microsoft.Extensions.Logging Interoperability](xref:Plugins.Logging.Microsoft)
 - [Prism.Plugins.Essentials](xref:Plugins.Logging.Essentials)
+

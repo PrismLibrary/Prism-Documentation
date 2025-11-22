@@ -1,5 +1,7 @@
 ---
+sidebar_position: 2
 uid: Plugins.Essentials.Media.Video
 ---
 
 # Video
+

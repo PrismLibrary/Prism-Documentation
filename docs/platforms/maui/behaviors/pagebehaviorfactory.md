@@ -1,4 +1,5 @@
 ---
+sidebar_position: 4
 uid: Platforms.Maui.Behaviors.PageBehaviorFactory
 ---
 
@@ -35,3 +36,4 @@ private void ConfigureServices(IServiceCollection services)
     services.RegisterPageBehavior<NavigationPage, MyBehavior>();
 }
 ```
+

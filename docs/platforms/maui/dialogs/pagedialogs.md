@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Platforms.Maui.Dialogs.PageDialogs
 ---
 
@@ -87,10 +88,7 @@ void ShowActionSheet()
 }
 ```
 
-_Note: The order in which you pass in the IActionSheetButton parameters does not matter. The IPageDialogService will make sure the parameters are handled properly for you._
+:::note
+The order in which you pass in the IActionSheetButton parameters does not matter. The IPageDialogService will make sure the parameters are handled properly for you.
+:::
 
-<!-- ## Samples
-
-Want to see it all in action? Be sure to check out the following samples from the Prism Forms Samples repo!
-
-- [PageDialogService Sample](https://github.com/PrismLibrary/Prism-Samples-Forms/tree/master/06-PageDialogService) -->

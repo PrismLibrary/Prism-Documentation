@@ -1,5 +1,7 @@
 ---
+sidebar_position: 1
 uid: Plugins.Essentials.Notifications
+title: Notifications
 ---
 
 # Notifications
@@ -20,5 +22,7 @@ public class MyViewModel(INotifications notifications)
 - [Alerts](xref:Plugins.Essentials.Notifications.Alerts)
 - [Prompts](xref:Plugins.Essentials.Notifications.Prompts)
 
-> [!NOTE]
-> This is currently only supported on Android, iOS, MacCatalyst, & WinUI for .NET MAUI and Uno Platform. This feature is planned for future expansion to all Uno Platform platforms and WPF.
+:::note
+This is currently only supported on Android, iOS, MacCatalyst, & WinUI for .NET MAUI and Uno Platform. This feature is planned for future expansion to all Uno Platform platforms and WPF.
+:::
+

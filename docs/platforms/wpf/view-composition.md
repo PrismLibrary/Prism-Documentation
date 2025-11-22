@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+uid: Platforms.Wpf.ViewComposition
+---
+
 # Composing the User Interface Using the Prism Library for WPF
 
 A composite application user interface (UI) is composed from loosely coupled visual components known as **views** that are typically contained in the application modules, but they do not need to be. If you divide your application into modules, you need some way to loosely compose the UI, but you might choose to use this approach even if the views are not in modules. To the user, the application presents a seamless user experience and delivers a fully integrated application.
@@ -12,7 +17,7 @@ An application UI can be built by using one of the following paradigms:
 
 Below is a picture of an app. It is composed by loading multiple views that come from different modules into regions exposed by the shell, as shown in the following illustration.
 
-![Sample app with regions and views](images/Ch7UIFig1.png)
+![Sample app with regions and views](./images/Ch7UIFig1.png)
 
 ## UI Layout Concepts
 
@@ -48,7 +53,7 @@ Regions are enabled in the Prism Library through a region manager, regions, and 
 
 The ```RegionManager``` class is responsible for creating and maintaining a collection of regions for the host controls. The ```RegionManager``` uses a control-specific adapter that associates a new region with the host control. The following illustration shows the relationship between the region, control, and adapter set up by the ```RegionManager```.
 
-![Region, control, and adapter relationship](images/Ch7UIFig2.png)
+![Region, control, and adapter relationship](./images/Ch7UIFig2.png)
 
 The ```RegionManager``` can create regions in code or in XAML. The ```RegionManager.RegionName``` attached property is used to create a region in XAML by applying the attached property to the host control.
 
@@ -66,7 +71,7 @@ A region can contain zero or more items. Depending on the type of host control t
 
 In the following illustration, the sample app shell contains four regions: **MainRegion**, **MainToolbarRegion**, **ResearchRegion**, and **ActionRegion**. These regions are populated by the various modules in the application—the content can be changed at any time.
 
-![Sample app regions](images/Ch7UIFig3.png)
+![Sample app regions](./images/Ch7UIFig3.png)
 
 ##### Module User Control to Region Mapping
 
@@ -76,7 +81,7 @@ The **MainRegion** contains the ```WatchListView``` user control, which is conta
 
 In applications created with the Prism Library, mappings like this will be a part of the design process because designers and developers use them to determine what content is proposed to be in a specific region. This allows designers to determine the overall space needed and any additional items that must be added to ensure that the content will be viewable in the allowable space.
 
-![Module user control to region mapping](images/Ch7UIFig4.png)
+![Module user control to region mapping](./images/Ch7UIFig4.png)
 
 #### Default Region Functionality
 
@@ -195,7 +200,7 @@ You can also have more than one shell in your application. If your application i
 
 This sample has a shell as its main window. In the following illustration, the shell and views are highlighted. The shell is the main window that appears when the app starts and which contains all the views. It defines the regions into which modules add their views and a couple of top-level UI items, including the title and the Watch List tear-off banner.
 
-![Sample shell window, regions, and views](images/Ch7UIFig1.png)
+![Sample shell window, regions, and views](./images/Ch7UIFig1.png)
 
 The shell implementation in the app is provided by Shell.xaml, its code-behind file Shell.xaml.cs, and its view model ShellViewModel.cs. Shell.xaml includes the layout and UI elements that are part of the shell, including definitions of regions to which modules add their views.
 
@@ -271,7 +276,7 @@ Regions are defined by assigning a region name to a WPF control, either in XAML 
 
 The shell of the application defines the application layout at the highest level; for example, by specifying the locations for the main content and the navigation content, as shown in the following illustration. Layout within these high-level views is similarly defined, allowing the overall UI to be recursively composed.
 
-![A template shell](images/Ch7UIFig6.png)
+![A template shell](./images/Ch7UIFig6.png)
 
 Regions are sometimes used to define locations for multiple views that are logically related. In this scenario, the region control is typically an ```ItemsControl```-derived control that will display the views according to the layout strategy that it implements, such as in a stacked or tabbed layout arrangement.
 
@@ -279,11 +284,11 @@ Regions can also be used to define a location for a single view; for example, by
 
 #### Sample App Shell Regions
 
-![Sample app shell regions](images/Ch7UIFig3.png)
+![Sample app shell regions](./images/Ch7UIFig3.png)
 
 A multiple-view layout is also demonstrated in the example app ui when the application is buying or selling a stock. The Buy/Sell area is a list-style region that shows multiple buy/sell views (**OrderCompositeView**) as part of its list, as shown in the following illustration.
 
-![ItemsControl region](images/Ch7UIFig8.png)
+![ItemsControl region](./images/Ch7UIFig8.png)
 
 The shell's **ActionRegion** contains the **OrdersView**. The **OrdersView** contains the **Submit All** and **Cancel All** buttons as well as the **OrdersRegion**. The **OrdersRegion** is attached to a **ListBox** control which displays multiple **OrderCompositeViews**.
 
@@ -322,7 +327,7 @@ After the application is loaded, the composite view is notified to handle the pl
 
 The following illustration shows the view discovery approach.
 
-![View discovery](images/Ch7UIFig9.png)
+![View discovery](./images/Ch7UIFig9.png)
 
 The Prism Library defines a standard registry, ```RegionViewRegistry```, to register views for these named locations.
 
@@ -344,7 +349,7 @@ this.regionManager.RegisterViewWithRegion("MainRegion", () => this.container.Res
 
 In the view injection approach, views are programmatically added or removed from a named location by the modules that manage them. To enable this, the application contains a registry of named locations in the UI. A module can use the registry to look up one of the locations and then programmatically inject views into it. To make sure that locations in the registry can be accessed similarly, each of the named locations adheres to a common interface used to inject the view. The following illustration shows the view injection approach.
 
-![View injection](images/Ch7UIFig10.png)
+![View injection](./images/Ch7UIFig10.png)
 
 The Prism Library defines a standard registry, ```RegionManager```, and a standard interface, ```IRegion```, for access these locations.
 
@@ -377,7 +382,9 @@ The Prism Library provides multiple approaches to communicating between views, d
 
 ```RegionContext``` is useful when you want to share context between a parent view and child views that are hosted in a region. ```RegionContext``` is an attached property. You set the value of the context on the region control so that it can be made available to all child views that are displayed in that region control. The region context can be any simple or complex object and can be a data-bound value. The ```RegionContext``` can be used with either view discovery or view injection.
 
->**Note:** The ```DataContext``` property in WPF is used to set the local data context for the view. It allows the view to use data binding to communicate with a view model, local presenter, or model. ```RegionContext``` is used to share context between multiple views and is not local to a single view. It provides a simple mechanism for sharing context between multiple views.
+:::note
+The ```DataContext``` property in WPF is used to set the local data context for the view. It allows the view to use data binding to communicate with a view model, local presenter, or model. ```RegionContext``` is used to share context between multiple views and is not local to a single view. It provides a simple mechanism for sharing context between multiple views.
+:::
 
 The following code shows how the ```RegionContext``` attached property is used in XAML.
 
@@ -422,9 +429,11 @@ private void ViewRegionContext_OnPropertyChangedEvent(object sender,
 }
 ```
 
->**Note:** The ```RegionContext``` is set as an attached property on the content object hosted in the region. This means that the content object has to derive from ```DependencyObject```. In the preceding example, the view is a visual control, which ultimately derives from ```DependencyObject```.
+:::note
+The ```RegionContext``` is set as an attached property on the content object hosted in the region. This means that the content object has to derive from ```DependencyObject```. In the preceding example, the view is a visual control, which ultimately derives from ```DependencyObject```.
 
->If you choose to use WPF data templates to define your view, the content object will represent the ```ViewModel``` or ```PresentationModel```. If your view model or presentation model needs to retrieve the ```RegionContext```, it will need to derive from the ```DependencyObject``` base class.
+If you choose to use WPF data templates to define your view, the content object will represent the ```ViewModel``` or ```PresentationModel```. If your view model or presentation model needs to retrieve the ```RegionContext```, it will need to derive from the ```DependencyObject``` base class.
+:::
 
 ### Creating Multiple Instances of a Region
 
@@ -432,7 +441,7 @@ Scoped regions are available only with view injection. You should use them if yo
 
 Instead, use scoped regions so that each view will have its own ```RegionManager``` and its regions will be registered with that ```RegionManager``` rather than the parent ```RegionManager```, as shown in the following illustration.
 
-![Parent and scoped RegionManagers](images/Ch7UIFig11.png)
+![Parent and scoped RegionManagers](./images/Ch7UIFig11.png)
 
 To create a local ```RegionManager``` for a view, specify that a new ```RegionManager``` should be created when you add your view to a region, as illustrated in the following code example.
 
@@ -444,3 +453,4 @@ IRegionManager detailsRegionManager = detailsRegion.Add(view, null, createRegion
 ```
 
 The ```Add``` method will return the new ```RegionManager``` that the view can retain for further access to the local scope.
+

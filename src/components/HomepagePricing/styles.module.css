@@ -1,0 +1,158 @@
+.pricing {
+  padding: 4rem 0;
+  background: rgb(17 24 39);
+  margin-top: 4rem;
+}
+
+[data-theme='dark'] .pricing {
+  background: rgb(17 24 39);
+}
+
+.pricingSectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.pricingSectionSubtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.pricingCard {
+  margin-bottom: 2rem;
+}
+
+.pricingCardHighlight {
+  position: relative;
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.pricingCardHighlight .card {
+  border-color: #8764b8;
+  border-width: 3px;
+  box-shadow: 0 4px 16px rgba(135, 100, 184, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.pricingCardHighlight .card:hover {
+  box-shadow: 0 8px 32px rgba(135, 100, 184, 0.4);
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: #8764b8;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
+.pricingTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.pricingPrice {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.pricingBilling {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.pricingFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.pricingFeatures li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+}
+
+.checkmark {
+  color: #4caf50;
+  font-weight: bold;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+.buttonPrimary {
+  background: #8764b8;
+  color: white;
+  border: none;
+}
+
+.buttonPrimary:hover {
+  background: #6a4a9a;
+  color: white;
+}
+
+.buttonSecondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.buttonSecondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.pricingFooter {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 996px) {
+  .pricingSectionTitle {
+    font-size: 2rem;
+  }
+  
+  .pricingSectionSubtitle {
+    font-size: 1rem;
+  }
+  
+  .pricingCard {
+    margin-bottom: 2rem;
+  }
+}

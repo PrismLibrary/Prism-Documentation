@@ -1,12 +1,17 @@
 ---
+sidebar_position: 1
 uid: Plugins.Logging.Microsoft
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Microsoft.Extensions.Logging Interop
 
 We recognize that your apps (particularly .NET MAUI and Uno Platform), may have logging that occurs internally using Microsoft.Extensions.Logging. For this reason we've taken the time to put together a logging adapter that allows the logging output from the Microsoft.Extensions.Logging.ILogger to be passed through to the configured Prism Logging Providers that you have in your application. While the exact code may vary
 
-## [.NET MAUI](#tab/maui)
+<Tabs groupId="platform">
+<TabItem value="maui" label=".NET MAUI">
 
 You can use the Prism App Builder
 
@@ -33,7 +38,8 @@ public static class MauiProgram
 }
 ```
 
-## [Uno Platform](#tab/uno-platform)
+</TabItem>
+<TabItem value="uno-platform" label="Uno Platform">
 
 ```cs
 public class App : PrismApplication
@@ -47,4 +53,6 @@ public class App : PrismApplication
 }
 ```
 
----
+</TabItem>
+</Tabs>
+

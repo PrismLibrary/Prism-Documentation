@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Dialogs.IDialogAware
 ---
 
@@ -38,8 +39,9 @@ public class MyDialogViewModel : IDialogAware
 
 The DialogCloseListener is new in Prism 9 and replaces the event that was in the original API. The DialogCloseListener allows you more flexibility and is part of the Dialog Service's enhanced API.
 
-> [!NOTE]
-> The RequestClose property should be implemented as shown below. This property is set by DialogService itself and should not be set by your code.
+:::note
+The RequestClose property should be implemented as shown below. This property is set by DialogService itself and should not be set by your code.
+:::
 
 ```cs
 public class MyDialogViewModel : IDialogAware
@@ -80,3 +82,4 @@ private void OnMyCommandExecuted()
 ## Additional Considerations
 
 When building apps with .NET MAUI you may want to consider using Popup Pages. With the Commercial Plus license you can take advantage of the [`Prism.Plugin.Popups` package for .NET MAUI](xref:Plugins.Popups).
+

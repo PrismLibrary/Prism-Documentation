@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Plugins.Essentials.Permissions
 ---
 
@@ -33,30 +34,31 @@ A permission status of `NotSupported` may be returned when the underlying platfo
 
 | Permission | Android | iOS | MacCatalyst | WinUI |
 |------------|:-------:|:---:|:-----------:|:-----:|
-| Battery | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Bluetooth | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| CalendarRead | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| CalendarWrite | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Camera | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| ContactsRead | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) |
-| ContactsWrite | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) |
-| Flashlight | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| LaunchApp | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| LocationAlways | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) |
-| LocationWhenInUse | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) |
-| Maps | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Media | ![Not Supported](../../../images/cross_red_circle.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Microphone | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| NearbyWifiDevices | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| NetworkState | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Phone | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Photos | ![Not Supported](../../../images/cross_red_circle.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| PhotosAddOnly | ![Not Supported](../../../images/cross_red_circle.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| PostNotifications | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Reminders | ![Not Supported](../../../images/cross_red_circle.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Sensors | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) |
-| Sms | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Speech | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| StorageRead | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| StorageWrite | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
-| Vibrate | ![Supported](../../../images/circle_green_checkmark.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) | ![Not Supported](../../../images/cross_red_circle.png) |
+| Battery | ✅ | ❌ | ❌ | ❌ |
+| Bluetooth | ✅ | ❌ | ❌ | ❌ |
+| CalendarRead | ✅ | ✅ | ✅ | ❌ |
+| CalendarWrite | ✅ | ✅ | ✅ | ❌ |
+| Camera | ✅ | ✅ | ✅ | ❌ |
+| ContactsRead | ✅ | ✅ | ✅ | ✅ |
+| ContactsWrite | ✅ | ✅ | ✅ | ✅ |
+| Flashlight | ✅ | ❌ | ❌ | ❌ |
+| LaunchApp | ❌ | ❌ | ❌ | ❌ |
+| LocationAlways | ✅ | ✅ | ✅ | ✅ |
+| LocationWhenInUse | ✅ | ✅ | ✅ | ✅ |
+| Maps | ❌ | ❌ | ❌ | ❌ |
+| Media | ❌ | ✅ | ✅ | ❌ |
+| Microphone | ✅ | ✅ | ✅ | ❌ |
+| NearbyWifiDevices | ✅ | ❌ | ❌ | ❌ |
+| NetworkState | ✅ | ❌ | ❌ | ❌ |
+| Phone | ✅ | ❌ | ❌ | ❌ |
+| Photos | ❌ | ✅ | ✅ | ❌ |
+| PhotosAddOnly | ❌ | ✅ | ✅ | ❌ |
+| PostNotifications | ✅ | ❌ | ❌ | ❌ |
+| Reminders | ❌ | ✅ | ✅ | ❌ |
+| Sensors | ✅ | ✅ | ✅ | ✅ |
+| Sms | ✅ | ❌ | ❌ | ❌ |
+| Speech | ✅ | ✅ | ✅ | ❌ |
+| StorageRead | ✅ | ❌ | ❌ | ❌ |
+| StorageWrite | ✅ | ❌ | ❌ | ❌ |
+| Vibrate | ✅ | ❌ | ❌ | ❌ |
+

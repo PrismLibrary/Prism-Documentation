@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 uid: Commands.AsyncDelegateCommand
 ---
 
@@ -32,3 +33,4 @@ There are two ways to configure the CancellationTokenSource for the Command.
 
 1. Provide a `TimeSpan` to provide a default timeout for your Async Command.
 2. Provide a `Func<CancellationToken>` to provide the `CancellationToken` to be used by the Command.
+

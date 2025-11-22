@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Commands.Commanding
 ---
 
@@ -12,12 +13,13 @@ The ViewModel can implement commands as a **Command Object** (an object that imp
 
 Implementing the `ICommand` interface is straightforward. Prism provides the `DelegateCommand` implementation of this interface that you can readily use in your applications.
 
-> [!NOTE]
-> `DelegateCommand` can be found in the Prism.Commands namespace which is located in the Prism.Core NuGet package.
+:::note
+`DelegateCommand` can be found in the Prism.Commands namespace which is located in the Prism.Core NuGet package.
+:::
 
 ## Creating a DelegateCommand
 
-> [!Video https://www.youtube.com/embed/tYItSPv58Bo]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tYItSPv58Bo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The Prism `DelegateCommand` class encapsulates two delegates that each reference a method implemented within your ViewModel class. It implements the `ICommand` interface's `Execute` and `CanExecute` methods by invoking these delegates. You specify the delegates to your ViewModel methods in the `DelegateCommand` class constructor. For example, the following code example shows how a `DelegateCommand` instance, which represents a Submit command, is constructed by specifying delegates to the OnSubmit and CanSubmit ViewModel methods. The command is then exposed to the view via a read-only property that returns a reference to the `DelegateCommand`.
 
@@ -69,12 +71,13 @@ public class ArticleViewModel
 }
 ```
 
-> [!NOTE]
-> The `DelegateCommand` deliberately prevents the use of value types (int, double, bool, etc). Because `ICommand` takes an `object`, having a value type for `T` would cause unexpected behavior when `CanExecute(null)` is called during XAML initialization for command bindings. Using `default(T)` was considered and rejected as a solution because the implementor would not be able to distinguish between a valid and defaulted values. If you wish to use a value type as a parameter, you must make it nullable by using `DelegateCommand<Nullable<int>>` or the shorthand `?` syntax (`DelegateCommand<int?>`).
+:::note
+The `DelegateCommand` deliberately prevents the use of value types (int, double, bool, etc). Because `ICommand` takes an `object`, having a value type for `T` would cause unexpected behavior when `CanExecute(null)` is called during XAML initialization for command bindings. Using `default(T)` was considered and rejected as a solution because the implementor would not be able to distinguish between a valid and defaulted values. If you wish to use a value type as a parameter, you must make it nullable by using `DelegateCommand<Nullable<int>>` or the shorthand `?` syntax (`DelegateCommand<int?>`).
+:::
 
 ## Invoking DelegateCommands from the View
 
-There are a number of ways in which a control in the view can be associated with a command object provided by the ViewModel. Certain WPF, Xamarin.Forms, and UWP controls can be easily data bound to a command object through the `Command` property.
+There are a number of ways in which a control in the view can be associated with a command object provided by the ViewModel. Certain WPF, .NET MAUI, and Uno Platform controls can be easily data bound to a command object through the `Command` property.
 
 ```xml
 <Button Command="{Binding SubmitCommand}" CommandParameter="OrderId"/>
@@ -136,8 +139,9 @@ public class ArticleViewModel : BindableBase
 }
 ```
 
-> [!NOTE]
-> You can chain-register multiple properties for observation when using the `ObservesProperty` method. Example: `ObservesProperty(() => IsEnabled).ObservesProperty(() => CanSave)`.
+:::note
+You can chain-register multiple properties for observation when using the `ObservesProperty` method. Example: `ObservesProperty(() => IsEnabled).ObservesProperty(() => CanSave)`.
+:::
 
 ### ObservesCanExecute
 
@@ -167,8 +171,9 @@ public class ArticleViewModel : BindableBase
 }
 ```
 
-> [!WARNING]
-> Do not attempt to chain-register `ObservesCanExecute` methods. Only one property can be observed for the `CanExcute` delegate.
+:::warning
+Do not attempt to chain-register `ObservesCanExecute` methods. Only one property can be observed for the `CanExcute` delegate.
+:::
 
 ## Implementing a Task-Based DelegateCommand
 
@@ -211,3 +216,4 @@ public class ArticleViewModel
     }
 }
 ```
+

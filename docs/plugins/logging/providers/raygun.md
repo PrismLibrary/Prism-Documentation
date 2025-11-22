@@ -1,4 +1,5 @@
 ---
+sidebar_position: 7
 uid: Plugins.Logging.Raygun
 ---
 
@@ -12,7 +13,7 @@ containerRegistry.UsePrismLogging(logging => {
 });
 ```
 
-## Local Development &amp; Debugging
+## Local Development & Debugging
 
 Raygun offers a free Open Source version for Crash Detection that can be run in a local environment. For more information see the [Raygun Documentation](https://raygun.com/documentation/product-guides/crash-reporting/local-docker-setup/).
 
@@ -51,3 +52,4 @@ container.UsePrismLogging(logging =>
 ## Prism.Essentials Integration
 
 The Raygun Implementation of the Logger makes reference to the [Prism.Plugin.Essentials](xref:Plugins.Essentials.GettingStarted) library. This allows us to dynamically check if various Essentials interfaces have been registered. If they have we automatically tailor the Logger to include offline support with request caching. Additionally we will automatically update the configuration to make use of the [Application Context](xref:Plugins.Essentials.ApplicationModel.AppContext) from Essentials. In order to enable sending logs in the background with the offline store, be sure to Register Prism.Plugin.Essentials first.
+

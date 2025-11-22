@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 uid: Platforms.Maui.AppBuilder
 ---
 
@@ -24,8 +25,9 @@ builder.UsePrism(prism =>
 
 The `UsePrism` method expects a delegate that will configure the startup for Prism applications. This includes registering services, adding modules, and various other common tasks. While we have tried to keep this as simple as possible, we have also tried to provide a number of overloads to make it easier to get started for developers who may have different requirements as you will see as we go into depth into the `PrismAppBuilder`.
 
-> [!NOTE]
-> In the Prism Templates we use a static `PrismStartup` class. The class is no way required. This is provided out of the box for convenience as many medium to large apps may have hundreds of lines of code simply to register base services. We find that smaller/focused files are easier for many developers to maintain. By moving the configuration of Prism to another file we can more easily focus on thew lines that build the pipeline for the MauiApplicationBuilder.
+:::note
+In the Prism Templates we use a static `PrismStartup` class. The class is no way required. This is provided out of the box for convenience as many medium to large apps may have hundreds of lines of code simply to register base services. We find that smaller/focused files are easier for many developers to maintain. By moving the configuration of Prism to another file we can more easily focus on thew lines that build the pipeline for the MauiApplicationBuilder.
+:::
 
 ### Registering Services with Prism's IContainerRegistry
 
@@ -42,8 +44,9 @@ builder.UsePrism(prism =>
 });
 ```
 
-> [!NOTE]
-> In the case where you only see the variant of `UsePrism` which requires an instance of the `IContainerProvider` this means that you are missing `Prism.DryIoc.Maui`. For most cases you will want this installed. Commercial Plus users may optionally install a different container package from the Prism NuGet feed such as Microsoft Extensions DependencyInjection or Grace Ioc. In these cases you would not need the `Prism.DryIoc.Maui` package as you have another container to provide. All other users should use make sure `Prism.DryIoc.Maui` is installed.
+:::note
+In the case where you only see the variant of `UsePrism` which requires an instance of the `IContainerProvider` this means that you are missing `Prism.DryIoc.Maui`. For most cases you will want this installed. Commercial Plus users may optionally install a different container package from the Prism NuGet feed such as Microsoft Extensions DependencyInjection or Grace Ioc. In these cases you would not need the `Prism.DryIoc.Maui` package as you have another container to provide. All other users should use make sure `Prism.DryIoc.Maui` is installed.
+:::
 
 #### Platform Specific Registrations
 
@@ -96,8 +99,9 @@ builder.UsePrism(prism =>
 
 While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Services` property, it does not have an easy to use extension for registering services. To help make it even easier on developers using Prism, we have exposed an extension method on the `PrismAppBuilder` to give you the ability to easily register services with either `IContainerRegistry` or `IServiceCollection` on an as needed basis. As discussed in the [Dependency Injection - Supplement](xref:DependencyInjection.Supplement) topic, we do expose several additional extensions on the `IServiceCollection` to make it even easier on you to ensure you can register what you need to with Prism even when you're using the `IServiceCollection`.
 
-> [!NOTE]
-> It's important to remember that if you register a service with the `IServiceCollection` it will not be available from the `IContainerRegistry`. As a result if you call the `IsRegistered<T>` method on the `IContainerRegistry` it will return `false`.
+:::note
+It's important to remember that if you register a service with the `IServiceCollection` it will not be available from the `IContainerRegistry`. As a result if you call the `IsRegistered<T>` method on the `IContainerRegistry` it will return `false`.
+:::
 
 ```cs
 var builder = MauiApp.CreateBuilder();
@@ -160,8 +164,9 @@ builder.UsePrism(prism => {
 
 ### CreateWindow
 
-> [!NOTE]
-> If upgrading from previews of Prism.Maui CreateWindow has replaced the formerly available OnAppStart
+:::note
+If upgrading from previews of Prism.Maui CreateWindow has replaced the formerly available OnAppStart
+:::
 
 In .NET MAUI, the Application has been re-architected. While the `Application.MainPage` still technically exists for legacy compatibility purposes it is not used. .NET MAUI instead uses an API that focuses around the use of Windows. While the exact implementation of what a Window is may vary based on Desktop vs Mobile, the concept nonetheless is central to the design and application startup process.
 
@@ -212,3 +217,4 @@ builder.UsePrism(prism => {
     });
 });
 ```
+

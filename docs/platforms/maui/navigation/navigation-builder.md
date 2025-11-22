@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 uid: Platforms.Maui.Navigation.NavigationBuilder
 ---
 
@@ -81,8 +82,9 @@ NavigationService.CreateBuilder()
 
 Similar to the NavigationPage, Prism automatically registers the MAUI TabbedPage for Navigation. You can dynamically create your TabbedPages as follows. 
 
-> [!Note]
-> We strongly advise that you DO NOT create a TabbedPage and Manually Add Children.
+:::note
+We strongly advise that you DO NOT create a TabbedPage and Manually Add Children.
+:::
 
 ```cs
 NavigationService.CreateBuilder()
@@ -93,8 +95,9 @@ NavigationService.CreateBuilder()
 
 As you may have noticed the TabbedSegmentBuilder has special methods for Creating Tabs and Providing the Selected Tab. The CreateTab method additionally has its own builder that can help you to create Deep Links for individual tabs.
 
-> [!WARNING]
-> Deep Linked Tabs are planned for Prism.Maui but are not available in the Beta
+:::warning
+Deep Linked Tabs are planned for Prism.Maui but are not available in the Beta
+:::
 
 ### Relative or Absolute Navigation
 
@@ -125,8 +128,9 @@ NavigationService.CreateBuilder
     .AddSegment(NavigationKeys.ViewB, s => s.AddParameter(NavParameterKeys.Id, 6));
 ```
 
-> [!NOTE]
-> When using Segment parameters these will always append to the URI. These will be available in the NavigationParameters passed to the ViewModel for the Specific NavigationSegment they are added to. For instance if the ViewAViewModel implements IInitialize, you would expect the `id` key to have a value of 5.
+:::note
+When using Segment parameters these will always append to the URI. These will be available in the NavigationParameters passed to the ViewModel for the Specific NavigationSegment they are added to. For instance if the ViewAViewModel implements IInitialize, you would expect the `id` key to have a value of 5.
+:::
 
 ### Adding Navigation Parameters
 
@@ -175,3 +179,4 @@ await builder.NavigateAsync(ex => Console.WriteLine($"Navigation Error:\n{ex}"))
 builder.Navigate(ex => Console.WriteLine(() => Console.WriteLine("Navigation Successful"), $"Navigation Error:\n{ex}"));
 await builder.NavigateAsync(() => Console.WriteLine("Navigation Successful"), ex => Console.WriteLine($"Navigation Error:\n{ex}"));
 ```
+

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 uid: Plugins.Essentials.Notifications.ActionSheets
 ---
 
@@ -13,6 +14,7 @@ await notifications.ActionSheet.DisplayAsync("Send to:",
     ActionSheetButton.CreateButton("Facebook Messenger", SendFacebookMessage));
 ```
 
-![Simple ActionSheet](images/simple-actionsheet.png)
+![Simple ActionSheet](./images/simple-actionsheet.png)
 
 ActionSheets also provide the capability to provide an explicit Cancel or Destroy button.
+

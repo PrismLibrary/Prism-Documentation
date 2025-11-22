@@ -1,4 +1,5 @@
 ---
+sidebar_position: 7
 uid: DependencyInjection.Appendix
 ---
 
@@ -17,10 +18,11 @@ In addition to this you may want to take advantage of extended version of Prism.
 
 One of the best new libraries for Xamarin developers is without question the Shiny Library from Allan Ritchie. This provides a number of features from handling settings, determining whether you are connected to a network, background tasks, bluetooth and more. Shiny was built with Dependency Injection in mind from the start. This has a number of benefits including that it uses an interface based approach allowing you to mock any services from Shiny which you might inject into your ViewModels.
 
-The one downside with Shiny is that it requires initialization before Xamarin.Forms or Prism have had a chance to initialize. This fundamentally changes the source of truth for your Dependency Injection. In order to properly combine both Prism and Shiny you will need to properly provide the DI container as the IServiceProvider that Shiny will use. The easiest way to do this is to use a container implementation from [Prism.Container.Extensions](https://github.com/dansiegel/Prism.Container.Extensions) along with the [Shiny.Prism](https://www.nuget.org/packages/Shiny.Prism) NuGet from the same repo.
+The one downside with Shiny is that it requires initialization before the application or Prism have had a chance to initialize. This fundamentally changes the source of truth for your Dependency Injection. In order to properly combine both Prism and Shiny you will need to properly provide the DI container as the IServiceProvider that Shiny will use. The easiest way to do this is to use a container implementation from [Prism.Container.Extensions](https://github.com/dansiegel/Prism.Container.Extensions) along with the [Shiny.Prism](https://www.nuget.org/packages/Shiny.Prism) NuGet from the same repo.
 
-> [!NOTE]
-> If you use the Extended Forms packages (Prism.DryIoc.Forms.Extended or Prism.Unity.Forms.Extended) you should not use the Container specific packages from Prism (Prism.DryIoc.Forms or Prism.Unity.Forms) as the PrismApplication in those packages is already configured to use the proper PrismContainerExtension.
+:::note
+If you use the Extended Forms packages (Prism.DryIoc.Forms.Extended or Prism.Unity.Forms.Extended) you should not use the Container specific packages from Prism (Prism.DryIoc.Forms or Prism.Unity.Forms) as the PrismApplication in those packages is already configured to use the proper PrismContainerExtension.
+:::
 
 You may elect to use Prism.Forms directly with one of the Container Extensions packages. If you do so you will want to update your app as follows:
 
@@ -48,3 +50,4 @@ public class Startup : PrismStartup
     }
 }
 ```
+

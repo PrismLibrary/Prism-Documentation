@@ -1,6 +1,10 @@
 ---
+sidebar_position: 1
 uid: Plugins.Essentials.Threading.MainThread
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 # Main Thread
 
@@ -8,14 +12,16 @@ There are a variety of reasons why you may need to force the execution of a bloc
 
 Prism.Essentials provides an abstraction layer for the Main Thread which works across all of Prism's primary supported platforms. `IMainThread` is a core service within Prism.Essentials. As a result any service that you register within Prism.Essentials will also automatically register `IMainThread`. For simplicity here we will register all of the Prism.Essentials Services.
 
-# [.NET MAUI](#tab/maui)
+<Tabs groupId="platform">
+<TabItem value="maui" label=".NET MAUI">
 
 ```cs
 builder.UseMauiApp<App>()
     .UsePrism(prism => prism.UsePrismEssentials())
 ```
 
-# [WPF](#tab/wpf)
+</TabItem>
+<TabItem value="wpf" label="WPF">
 
 ```cs
 protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -24,7 +30,8 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
-# [Uno Platform](#tab/uno-platform)
+</TabItem>
+<TabItem value="uno-platform" label="Uno Platform">
 
 ```cs
 protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -33,7 +40,8 @@ protected override void RegisterTypes(IContainerRegistry containerRegistry)
 }
 ```
 
----
+</TabItem>
+</Tabs>
 
 ## Using IMainThread
 
@@ -64,3 +72,4 @@ public class ViewAViewModel : BindableBase
 ```
 
 Additionally `IMainThread` has a number of overloads which will let you execute a Function with a return type or even asynchronous code.
+

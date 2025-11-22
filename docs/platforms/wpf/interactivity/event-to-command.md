@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Platforms.Wpf.Interactivity.EventToCommand
 ---
 
@@ -32,7 +33,7 @@ And attach to the control with the desired event.
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -57,7 +58,7 @@ In the code below, the ```SelectionChanged``` event receives a  ```SelectionChan
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -83,7 +84,7 @@ The `AutoEnable` property specifies if the associated element should be automati
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -106,3 +107,4 @@ The `AutoEnable` property specifies if the associated element should be automati
 ## Full Code Sample
 
 For a complete code example, go to the ***Prism-Samples-Wpf*** repository in [GitHub](https://github.com/PrismLibrary/Prism-Samples-Wpf) and refer to [29-InvokeCommandAction](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/29-InvokeCommandAction).
+

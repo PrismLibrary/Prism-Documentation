@@ -1,4 +1,5 @@
 ---
+sidebar_position: 6
 uid: Platforms.Maui.Navigation.GlobalNavigationRequest
 ---
 
@@ -39,3 +40,4 @@ builder.UsePrism(prism => {
     }));
 });
 ```
+

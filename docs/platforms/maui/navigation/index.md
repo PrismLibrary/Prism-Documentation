@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Platforms.Maui.Navigation.GettingStarted
 ---
 
@@ -38,7 +39,7 @@ Q. Isn't the Shell URI Navigation the same as Prism Navigation?
 A. No. Shell is an extremely poorly designed API that among other things does not clearly understand the concept of URI's and specifically URI query parameters. While Prism has a rich understanding of URI's that allows you to insert query parameters on any single Navigation segment allowing you to inject parameters that will only be provided to a single page, Shell does not have this capability. Additionally Prism natively supports the concept that you may have a single key with multiple values such as `?color=Red&color=Blue` which is not supported by Shell.
 
 Q. I need to have tabs in my application, how can I do that without using Shell?
-A. Xamarin.Forms has always had, and .NET MAUI continues to have a TabbedPage. The TabbedPage is easy to use, and for the purposes of Prism.Maui it isn't even something you need to create anywhere in your app as Prism will automatically register it for you for Navigation, and you can dynamically create your tabs at Runtime! This is just another thing that Shell lacks the ability to do.
+A. .NET MAUI has a TabbedPage. The TabbedPage is easy to use, and for the purposes of Prism.Maui it isn't even something you need to create anywhere in your app as Prism will automatically register it for you for Navigation, and you can dynamically create your tabs at Runtime! This is just another thing that Shell lacks the ability to do.
 
 Q. Are there differences in routes between Shell and Prism?
 A. Shell is extremely declarative meaning that you must either create the Shell Items in your Shell or register a Route and help Shell understand what that "looks like". This is a pretty significant limitation since you must constantly know every possible URI route that will be used. Additionally any scenario in which you need to modally navigate to a page, is simply not supported by Shell. Prism, on the other hand has a much more robust API that allows you to simply register your Page's for Navigation while completely ignoring the concept of "routes". Instead Prism will parse whatever URI you pass and will attempt to find the Page that corresponds with each URI segment.
@@ -51,3 +52,4 @@ A. Shell is extremely declarative meaning that you must either create the Shell 
 - [Global Navigation Observer](xref:Platforms.Maui.Navigation.GlobalNavigationRequest)
 - [Navigation Exceptions](xref:Platforms.Maui.Navigation.NavigationExceptions)
 - [Navigation Result](xref:Platforms.Maui.Navigation.NavigationResult)
+

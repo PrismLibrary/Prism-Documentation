@@ -1,4 +1,5 @@
 ---
+sidebar_position: 8
 uid: DependencyInjection.AddCustomContainer
 ---
 
@@ -13,7 +14,7 @@ Prism imposes the following requirements in order to use a container:
 - The container must support registering a specified instance
 - The container must support keyed registrations / resolving by name
 - The container must support accessing its service registrations
-- The container must support all three Prism platforms (WPF, Uno/WinUI/UWP, Xamarin.Forms)
+- The container must support all Prism platforms (WPF, .NET MAUI, Uno Platform)
 
 In this topic we will be creating a container extension for the Grace DI container.
 
@@ -31,8 +32,9 @@ Next you'll want to add a Reference to the Prism.Core and your container of choi
 
 Next, add a new class to your project and implement the `IContainerExtension` interface.  The `IContainerExtension` interface is used to create a mapping for the most common registration and resolution methods.
 
-> [!NOTE]
-> The implementation shown here is not maintained. Note that there are differences in the Prism 8 Ioc abstractions from what is shown here, and there may additionally be changes in the GraceIoc API. This is provided only as an example.
+:::note
+The implementation shown here is not maintained. Note that there are differences in the Prism 8 Ioc abstractions from what is shown here, and there may additionally be changes in the GraceIoc API. This is provided only as an example.
+:::
 
 In the case of the Grace DI container we simply need to add this single class:
 
@@ -102,8 +104,9 @@ public class GraceContainerExtension : IContainerExtension<IInjectionScope>
 }
 ```
 
-> [!NOTE]
-> If using Prism 8+ you will need to additionally implement `IContainerInfo`, and your Resolve methods should catch any exception thrown by the container and rethrow using the Prism ContainerResolutionException.
+:::note
+If using Prism 8+ you will need to additionally implement `IContainerInfo`, and your Resolve methods should catch any exception thrown by the container and rethrow using the Prism ContainerResolutionException.
+:::
 
 ## Create the Application Class
 
@@ -128,3 +131,4 @@ public static class ContainerExtensions
         ((IContainerExtension<IInjectionScope>)containerRegistry).Instance;
 }
 ```
+

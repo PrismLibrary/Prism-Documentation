@@ -1,4 +1,5 @@
 ---
+sidebar_position: 5
 uid: Platforms.Maui.Navigation.NavigationExceptions
 ---
 
@@ -15,5 +16,7 @@ if(exception.Message == NavigationException.IConfirmNavigationReturnedFalse)
 }
 ```
 
-> [!Note]
-> When the NavigationException message is `IConfirmNavigationReturnedFalse` the [INavigationResult](xref:Platforms.Maui.Navigation.NavigationResult) will indicate both that the Navigation was not successful, and that it was cancelled.
+:::note
+When the NavigationException message is `IConfirmNavigationReturnedFalse` the [INavigationResult](xref:Platforms.Maui.Navigation.NavigationResult) will indicate both that the Navigation was not successful, and that it was cancelled.
+:::
+

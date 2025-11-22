@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Platforms.Wpf.GettingStarted
 ---
 
@@ -19,7 +20,7 @@ Create a brand new WPF application in Visual Studio. Next up is to install the a
 
 > Note: There is no need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism packages.
 
-![Install Nuget](images/nuget-install.png)
+![Install Nuget](./images/nuget-install.png)
 
 ## Override the Existing Application Object
 
@@ -112,7 +113,7 @@ public partial class App : PrismApplication
 
 At this point, the app can be built and run and should look like the following:
 
-![First Run of App](images/FirstRun.PNG)
+![First Run of App](./images/FirstRun.PNG)
 
 This is now a Prism app. There isn't much here yet, but there are lots of things that Prism can help out with, such as breaking up the app into manageable chunks, navigation and implementing the MVVM patterns.
 
@@ -178,7 +179,7 @@ Inside the ```App.xaml.cs``` file, ensure that ```RegisterTypes``` has the follo
 
 First, at the root level of your project, create a folder called ```ViewModels```. Use that exact name because that will be needed later when view model resolution is discussed.
 
-![Project Folder Structure](images/ProjectStructure.PNG)
+![Project Folder Structure](./images/ProjectStructure.PNG)
 
 Inside the ```ViewModels``` folder, a class is created called ```MainWindowViewModel```. Use that exact name for reasons to be shown later. Prism has a class called ```BindableBase``` that is used as a base for all view models and ```MainWindowViewModel``` will be subclassed from it.
 
@@ -256,7 +257,7 @@ This is configurable and different resolution logic can be added.
 
 For this to work, Views and ViewModels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:
 
-![Viewmodel Locator Project Structure](images/viewmodellocator.png)
+![Viewmodel Locator Project Structure](./images/viewmodellocator.png)
 
 Click [here](xref:Mvvm.ViewModelLocator) for detailed information on the ```ViewModelLocator```.
 
@@ -272,3 +273,4 @@ If you don't want to use this capability for some reason, you will have to opt o
 	<!-- ui controls here -->
 </Window>
 ```
+

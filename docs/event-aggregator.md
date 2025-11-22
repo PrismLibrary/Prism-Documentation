@@ -1,4 +1,5 @@
 ---
+sidebar_position: 5
 uid: Events.EventAggregator
 ---
 
@@ -10,9 +11,9 @@ The `EventAggregator` provides multicast publish/subscribe functionality. This m
 
 Events created with the Prism Library are typed events. This means you can take advantage of compile-time type checking to detect errors before you run the application. In the Prism Library, the `EventAggregator` allows subscribers or publishers to locate a specific `EventBase`. The event aggregator also allows for multiple publishers and multiple subscribers, as shown in the following illustration.
 
-![Using the event aggregator](images/event-aggregator-1.png)
+![Using the event aggregator](./images/event-aggregator-1.png)
 
-> [!Video https://www.youtube.com/embed/xTP9_hN_3xA]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xTP9_hN_3xA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## IEventAggregator
 
@@ -33,8 +34,9 @@ The real work of connecting publishers and subscribers is done by the `PubSubEve
 
 The `PubSubEvent` class is a generic class that requires the payload type to be defined as the generic type. This helps enforce, at compile time, that publishers and subscribers provide the correct methods for successful event connection. The following code shows a partial definition of the PubSubEvent class.
 
-> [!Note]
-> `PubSubEvent` can be found in the Prism.Events namespace which is located in the Prism.Core NuGet package.
+:::note
+`PubSubEvent` can be found in the Prism.Events namespace which is located in the Prism.Core NuGet package.
+:::
 
 ## Creating an Event
 
@@ -46,8 +48,9 @@ For example, the following code shows the `TickerSymbolSelectedEvent`. The paylo
 public class TickerSymbolSelectedEvent : PubSubEvent<string>{}
 ```
 
-> [!Note]
-> In a composite application, the events are frequently shared between multiple modules, so they are defined in a common place. It is common practice to define these events in a shared assembly such as a "Core" or "Infrastructure" project.
+:::note
+In a composite application, the events are frequently shared between multiple modules, so they are defined in a common place. It is common practice to define these events in a shared assembly such as a "Core" or "Infrastructure" project.
+:::
 
 ## Publishing an Event
 
@@ -127,8 +130,9 @@ The following options are available for `ThreadOption`:
 - `BackgroundThread`: Use this setting to asynchronously receive the event on a .NET Framework thread-pool thread.
 - `UIThread`: Use this setting to receive the event on the UI thread.
 
-> [!Note]
-> In order for `PubSubEvent` to publish to subscribers on the UI thread, the `EventAggregator` must initially be constructed on the UI thread.
+:::note
+In order for `PubSubEvent` to publish to subscribers on the UI thread, the `EventAggregator` must initially be constructed on the UI thread.
+:::
 
 ### Subscription Filtering
 
@@ -153,11 +157,13 @@ public class MainPageViewModel
 }
 ```
 
-> [!Note]
-> The `Subscribe` method returns a subscription token of type `Prism.Events.SubscriptionToken` that can be used to remove a subscription to the event later. This token is particularly useful when you are using anonymous delegates or lambda expressions as the callback delegate or when you are subscribing the same event handler with different filters.
+:::note
+The `Subscribe` method returns a subscription token of type `Prism.Events.SubscriptionToken` that can be used to remove a subscription to the event later. This token is particularly useful when you are using anonymous delegates or lambda expressions as the callback delegate or when you are subscribing the same event handler with different filters.
+:::
 
-> [!Note]
-> It is not recommended to modify the payload object from within a callback delegate because several threads could be accessing the payload object simultaneously. You could have the payload be immutable to avoid concurrency errors.
+:::note
+It is not recommended to modify the payload object from within a callback delegate because several threads could be accessing the payload object simultaneously. You could have the payload be immutable to avoid concurrency errors.
+:::
 
 ### Subscribing Using Strong References
 
@@ -244,3 +250,4 @@ public class MainPageViewModel
     }
 }
 ```
+

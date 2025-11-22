@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Plugins.Logging.Console
 ---
 
@@ -11,3 +12,4 @@ containerRegistry.UsePrismLogging(logging => {
     logging.AddConsole();
 });
 ```
+

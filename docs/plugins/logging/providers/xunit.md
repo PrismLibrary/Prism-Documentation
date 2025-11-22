@@ -1,4 +1,5 @@
 ---
+sidebar_position: 10
 uid: Plugins.Logging.Xunit
 ---
 
@@ -11,3 +12,4 @@ containerRegistry.UsePrismLogging(logging => {
     logging.AddXunit(testOutputHelper);
 });
 ```
+

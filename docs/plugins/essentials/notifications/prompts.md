@@ -1,4 +1,5 @@
 ---
+sidebar_position: 4
 uid: Plugins.Essentials.Notifications.Prompts
 ---
 
@@ -10,7 +11,7 @@ To display a prompt you can use the `IPrompts` interface directly or the aggrega
 var value = await notifications.Prompts.DisplayAsync("Question", "What's your name?");
 ```
 
-![Simple Prompt](images/simple-prompt.png)
+![Simple Prompt](./images/simple-prompt.png)
 
 The Display method also provides additional optional parameters:
 
@@ -20,3 +21,4 @@ The Display method also provides additional optional parameters:
 - `maxlength` - the max length of the user's response.
 - `keyboard` - the keyboard type to use. This is provided via an enum value.
 - `initialValue` - a predefined default value for the user to provide.
+

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 3
 uid: DependencyInjection.Supplement
 ---
 
@@ -22,4 +23,5 @@ A. Scoped Services can be a bit of an advanced topic. In short, they provide you
 
 If you have additional questions about Dependency Injection, please be sure to check out the full Dependency Injection Topic
 
-- [Dependency Injection](xref:DependencyInjection.GettingStarted)
+- [Dependency Injection](../dependency-injection/)
+

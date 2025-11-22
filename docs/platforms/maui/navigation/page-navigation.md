@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Platforms.Maui.Navigation.PageNavigation
 ---
 
@@ -6,8 +7,9 @@ uid: Platforms.Maui.Navigation.PageNavigation
 
 For those who may be familiar with Prism.Forms this is perhaps one of the most beloved features of Prism. Prism's INavigationService provides us the ability to easily navigate between pages with a powerful understanding of URI's. This allows us to inject parameters into the URI's that will be passed to specific Pages, overload query parameters, and even control the behavior of the navigation such as whether or not to animate the transition or navigate modally at a specific URI segment.
 
-> [!NOTE]
-> Page based navigation in .NET MAUI is specific to the individual page you want to navigate from. This is NOT a concept unique to Prism, but is actually a fundamental part of how navigation within .NET MAUI works. As a result, Prism relies on Dependency Injection Container Scoping around the creation of Each Page to ensure that we inject an instance of the Navigation Service that has the ability to navigate from the corresponding Page for the current scope.
+:::note
+Page based navigation in .NET MAUI is specific to the individual page you want to navigate from. This is NOT a concept unique to Prism, but is actually a fundamental part of how navigation within .NET MAUI works. As a result, Prism relies on Dependency Injection Container Scoping around the creation of Each Page to ensure that we inject an instance of the Navigation Service that has the ability to navigate from the corresponding Page for the current scope.
+:::
 
 ## What the heck is a Navigation Segment?
 
@@ -79,8 +81,9 @@ The Flyout itself may be a bit tricker for some to understand. The reality is th
 </FlyoutPage>
 ```
 
-> [!Note]
-> In some cases you may find that you do not even need a ViewModel for the FlyoutPage if simply have a static view with a Menu that uses the [Xaml Navigation Extensions](xref:Platforms.Maui.Navigation.XamlNavigation)
+:::note
+In some cases you may find that you do not even need a ViewModel for the FlyoutPage if simply have a static view with a Menu that uses the [Xaml Navigation Extensions](xref:Platforms.Maui.Navigation.XamlNavigation)
+:::
 
 If we were building a .NET MAUI application without the benefit of Prism, we would expect to set a NavigationPage as the Detail of the FlyoutPage, and then push our ContentPage into the NavigationPage. From code this might look something like:
 
@@ -137,3 +140,4 @@ Better yet when using the shorthand syntax `../` you can use this to both Naviga
 ### GoBackAsync
 
 ### GoBackToRootAsync
+

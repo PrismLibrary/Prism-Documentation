@@ -1,11 +1,13 @@
 ---
+sidebar_position: 5
 uid: DependencyInjection.HandlingResolutionErrors
 ---
 
 # Handling Resolution Errors
 
-> [!NOTE]
-> This feature was introduced in Prism 8 and does not apply if your app is targeting an earlier version
+:::note
+This feature was introduced in Prism 8 and does not apply if your app is targeting an earlier version
+:::
 
 Exceptions happen for a variety of reasons. Some common errors developers run into is a Service that was not registered or invalid XAML that generates an Exception when the View is resolved. The Prism Container Extensions now are very intentional about catching any underlying container exception and throwing a `ContainerResolutionException`. The goal of the ContainerResolutionException is simple... shorten the dev loop by giving you the information you need to diagnose and fix problems in your code.
 
@@ -70,3 +72,4 @@ When we run this we should see something like the following output:
 Error with: MyProject.Services.IServiceIForgotToRegister
 ContainerResolutionException: No Registration was found in the container for the specified type
 ```
+

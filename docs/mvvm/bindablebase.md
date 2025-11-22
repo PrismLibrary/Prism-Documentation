@@ -1,6 +1,8 @@
 ---
+sidebar_position: 1
 uid: Mvvm.BindableBase
 ---
+
 # BindableBase
 
 Like you would expect from any MVVM Library, Prism provides a base class implementing `INotifyPropertyChanged`. While it's important to understand how to use it, it's also important to note that features within Prism such as responding to lifecycle events, navigation, etc... are all interface driven. This means that while Prism provides the `BindableBase` as a base implementation of `INotifyPropertyChanged` to better assist you, Prism also has no strict requirement on you to use it. This means that you may use any base class you want for your ViewModels including no base class at all (though that isn't generally recommended).
@@ -42,8 +44,9 @@ public class ViewAViewModel : BindableBase
 }
 ```
 
-> [!TIP]
-> As we have reviewed code in production, we have commonly run into code like the above sample. This code is fundamentally flawed, overly verbose and will result in unnecessary PropertyChanged events being raised for the property. You should always base your code flow around SetProperty.
+:::tip
+As we have reviewed code in production, we have commonly run into code like the above sample. This code is fundamentally flawed, overly verbose and will result in unnecessary PropertyChanged events being raised for the property. You should always base your code flow around SetProperty.
+:::
 
 ### Executing a Delegate on PropertyChanges
 

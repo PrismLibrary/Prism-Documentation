@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: Platforms.Wpf.Introduction
 ---
 
@@ -27,3 +28,4 @@ In this document, learn how to get started with Prism by creating an application
 Learn how to use the Prism dialog service to present dialog windows in an MVVM friendly manner.
 
 [Prism IDialogService](xref:Dialogs.GettingStarted)
+

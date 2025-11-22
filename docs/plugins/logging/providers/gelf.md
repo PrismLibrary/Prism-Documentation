@@ -1,4 +1,5 @@
 ---
+sidebar_position: 5
 uid: Plugins.Logging.Gelf
 ---
 
@@ -20,8 +21,9 @@ Below is a sample docker file. You can use this to create a local Graylog stack 
 - Credentials: admin/admin
 - Create a UDP input on port 12201 and set `GelfLoggerOptions.Host` to `localhost`.
 
-> [!NOTE]
-> The username and password are both `admin`. This should only be used for local testing. If putting this into production be sure to update the password.
+:::note
+The username and password are both `admin`. This should only be used for local testing. If putting this into production be sure to update the password.
+:::
 
 ```docker
 services:
@@ -94,3 +96,4 @@ networks:
   graylog-network:
     driver: bridge
 ```
+

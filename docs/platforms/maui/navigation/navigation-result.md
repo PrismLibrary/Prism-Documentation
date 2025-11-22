@@ -1,4 +1,5 @@
 ---
+sidebar_position: 4
 uid: Platforms.Maui.Navigation.NavigationResult
 ---
 
@@ -17,3 +18,4 @@ else if(!result.Cancelled)
     // Navigation was not successful
 }
 ```
+

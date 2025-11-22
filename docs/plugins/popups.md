@@ -1,14 +1,17 @@
 ---
+sidebar_position: 4
 uid: Plugins.Popups
+title: Popups
+sidebar_label: Popups
 ---
 
-# Getting Started
+# Popups
 
-The `Prism.Plugin.Popups` package for Xamarin.Forms has been hugely popular, enabling developers to leverage `PopupPage` from the Rg.Plugins.Popup library. Following the introduction of the [IDialogService](xref:Dialogs.GettingStarted), the Popup Plugin was updated to transition `PopupPage` usage to dialogs. This change helps developers avoid strong dependencies on libraries like Rg.Plugins.Popup, as the `IDialogService` offers flexible implementation options should community packages become unmaintained.
+## Getting Started
 
-For .NET MAUI developers, the Popup Plugin will no longer be publicly available on NuGet.org. Instead, it will be exclusively provided to those with a Commercial Plus license. This decision supports the project’s long-term sustainability, as maintaining and enhancing the plugin demands significant resources. Restricting access to licensed users allows us to allocate these resources effectively, ensuring continued development and improved support for our customers.
+The `Prism.Plugin.Popups` package has been hugely popular, enabling developers to leverage popup dialogs in their applications. Following the introduction of the [IDialogService](xref:Dialogs.GettingStarted), the Popup Plugin was updated to transition popup usage to dialogs. This change helps developers avoid strong dependencies on third-party libraries, as the `IDialogService` offers flexible implementation options should community packages become unmaintained.
 
-If you’re updating your Xamarin.Forms app—especially from older versions of the Popup Plugin where `INavigationService` was used to navigate to `PopupPage` instances—you’ll need to re-architect portions of your code to utilize the [IDialogService](xref:Dialogs.GettingStarted) instead.
+For .NET MAUI developers, the Popup Plugin will no longer be publicly available on NuGet.org. Instead, it will be exclusively provided to those with a Commercial Plus license. This decision supports the project's long-term sustainability, as maintaining and enhancing the plugin demands significant resources. Restricting access to licensed users allows us to allocate these resources effectively, ensuring continued development and improved support for our customers.
 
 ---
 
@@ -30,7 +33,7 @@ To integrate `Prism.Plugin.Popups.Maui` into your .NET MAUI project, follow thes
    ```
 
 3. **Register Your Dialog Views**  
-   Dialogs must be registered with Prism’s dialog service (not navigated to like regular pages). For example:
+   Dialogs must be registered with Prism's dialog service (not navigated to like regular pages). For example:
    ```csharp
    containerRegistry.RegisterDialog<MyDialog>();
    ```
@@ -42,7 +45,7 @@ To integrate `Prism.Plugin.Popups.Maui` into your .NET MAUI project, follow thes
 
 A dialog view typically inherits from `ContentView` or a similar base class. You can use XAML to define the content and customize its behavior with attached properties from the `PopupDialogLayout` class.
 
-Here’s a basic template:
+Here's a basic template:
 ```xaml
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -136,7 +139,7 @@ The `PopupDialogLayout` class provides several attached properties to customize 
 
 ## Example Dialog View
 
-Here’s a complete example combining several attached properties:
+Here's a complete example combining several attached properties:
 ```xaml
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -165,7 +168,7 @@ In this example:
 
 ## Showing the Dialog
 
-Use Prism’s `IDialogService` to display the dialog from a view model:
+Use Prism's `IDialogService` to display the dialog from a view model:
 ```csharp
 public class MyViewModel
 {
@@ -186,3 +189,4 @@ public class MyViewModel
 - Call `ShowDialogAsync` with the registered dialog name.
 
 ---
+

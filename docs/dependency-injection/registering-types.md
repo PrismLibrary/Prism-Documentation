@@ -1,4 +1,5 @@
 ---
+sidebar_position: 2
 uid: DependencyInjection.RegisterServices
 ---
 
@@ -10,8 +11,9 @@ Similar to most Dependency Injection models, Prism provides abstractions around 
 2) Singleton (Get the same instance every time the service or type is requested)
 3) Scoped (Get a new instance on each container scope, but the same instance within a specific container scope)
 
-> [!NOTE]
-> By default Prism does not use scoping except within Prism.Maui which creates a scope around each Page. This is used for services such as the `INavigationService`, `IPageDialogService`, and `IDialogService`.
+:::note
+By default Prism does not use scoping except within Prism.Maui which creates a scope around each Page. This is used for services such as the `INavigationService`, `IPageDialogService`, and `IDialogService`.
+:::
 
 For those who may be familiar with ASP.NET Core you may be familiar with 3 basic types of dependency registrations: Transients, Singletons, and Scoped Services. Unlike the web environment in which many of your services are scoped around the User Request, for Desktop and Mobile applications we are dealing with a single user. As a result, we must instead decide whether for memory management and other business requirements our services are best suited as a single instance that will be reused throughout our application or whether we will create a new instance each time it is requested and then allow the Garbage Collector to free up the memory when we are done with it.
 
@@ -32,8 +34,9 @@ containerRegistry.Register<IBarService, BarService>();
 
 Many times you may have a service which is used throughout your application. As a result it would not be a good idea to create a new instance every time you need the service. In order to provide better memory management it is therefore a better practice to make such services a Singleton that can be used throughout the application. There are also many times in which you may need a service that retains it state throughout the lifecycle of your application. For either of these cases it makes far more sense to register your service as a Singleton.
 
-> [!NOTE]
-> Singleton Services are not actually created, and therefore do not start using memory until the first time the service is resolved by your application.
+:::note
+Singleton Services are not actually created, and therefore do not start using memory until the first time the service is resolved by your application.
+:::
 
 ```cs
 // Where it will be appropriate to use FooService as a concrete type
@@ -58,8 +61,9 @@ containerRegistry.RegisterInstance<IBarrel>(Barrel.Current);
 
 There are many times particularly when writing Prism Modules or Plugins in which you may want to check if a service has been registered and then do something based on whether it has or has not been registered.
 
-> [!NOTE]
-> When working with Prism Modules if you have a hard dependency on a given service it should be injected into the constructor so as to generate an exception when initializing the Module if the service type is missing. You should only use `IsRegistered` to check for it if your intent is to register a default implementation.
+:::note
+When working with Prism Modules if you have a hard dependency on a given service it should be injected into the constructor so as to generate an exception when initializing the Module if the service type is missing. You should only use `IsRegistered` to check for it if your intent is to register a default implementation.
+:::
 
 ```cs
 if (containerRegistry.IsRegistered<ISomeService>())
@@ -81,8 +85,9 @@ public class ViewAViewModel
 }
 ```
 
-> [!NOTE]
-> Take note of the service registration type. It generally does NOT make sense to use `Lazy<T>` or `Func<T>` resolutions when you are working with a Singleton Service. For instance the `IEventAggregator` is a singleton. This means that you get a single instance of the Event Aggregator that is used through the entire application. By using `Lazy<T>` or `Func<T>` you ultimately use more memory and may take performance hits instead of just requesting the service outright.
+:::note
+Take note of the service registration type. It generally does NOT make sense to use `Lazy<T>` or `Func<T>` resolutions when you are working with a Singleton Service. For instance the `IEventAggregator` is a singleton. This means that you get a single instance of the Event Aggregator that is used through the entire application. By using `Lazy<T>` or `Func<T>` you ultimately use more memory and may take performance hits instead of just requesting the service outright.
+:::
 
 ## Resolve All
 
@@ -97,5 +102,7 @@ public class SomeService
 }
 ```
 
-> [!NOTE]
-> This feature is only supported in DryIoc at this time. This may become available to those using Unity Container once version 6 releases.
+:::note
+This feature is only supported in DryIoc at this time. This may become available to those using Unity Container once version 6 releases.
+:::
+

@@ -1,4 +1,5 @@
 ---
+sidebar_position: 1
 uid: Dialogs.GettingStarted
 ---
 
@@ -56,10 +57,12 @@ new DialogCallback().OnError<NullReferenceException>((nre, result) =>
 });
 ```
 
-> [!NOTE]
-> Each of the `OnError` samples above also has an equivalent `OnErrorAsync` which accepts a delegate returning a Task as well.
+:::note
+Each of the `OnError` samples above also has an equivalent `OnErrorAsync` which accepts a delegate returning a Task as well.
+:::
 
 ## Next Steps
 
 - [IDialogAware ViewModels](xref:Dialogs.IDialogAware)
 - [IDialogWindow](xref:Dialogs.DialogWindow) (WPF & Uno Platform Only)
+
