@@ -26,7 +26,7 @@ First the binding needs to be hooked up in WPF by specifying an ```InteractionTr
 
 Add the `Prism` namespace to be able to declare `InvokeCommandAction` in the XAML.
 
-`xmlns:prism="http://prismlibrary.com"`
+`xmlns:prism="http://prismlibrary.com/"`
 
 And attach to the control with the desired event.
 
