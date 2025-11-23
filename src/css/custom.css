@@ -1,0 +1,683 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  /* Prism Library Blue Color Scheme - Vibrant tech blue */
+  --ifm-color-primary: #0078d4;
+  --ifm-color-primary-dark: #006cbe;
+  --ifm-color-primary-darker: #0066b3;
+  --ifm-color-primary-darkest: #005494;
+  --ifm-color-primary-light: #1a85db;
+  --ifm-color-primary-lighter: #268bde;
+  --ifm-color-primary-lightest: #4da0e6;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 120, 212, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  /* Lighter blue for dark mode */
+  --ifm-color-primary: #4da0e6;
+  --ifm-color-primary-dark: #3d90d6;
+  --ifm-color-primary-darker: #3688cf;
+  --ifm-color-primary-darkest: #2b70ab;
+  --ifm-color-primary-light: #5daaea;
+  --ifm-color-primary-lighter: #6ab2ec;
+  --ifm-color-primary-lightest: #84c0f0;
+  --docusaurus-highlighted-code-line-bg: rgba(77, 160, 230, 0.2);
+}
+
+/* Ensure navbar logo displays properly */
+.navbar__logo {
+  display: flex !important;
+  align-items: center !important;
+  margin-right: 1rem;
+  min-width: 150px;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.navbar__logo img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: 32px !important;
+  width: auto !important;
+  max-width: 150px !important;
+  object-fit: contain;
+}
+
+/* Ensure logo link is visible */
+.navbar__brand {
+  display: flex !important;
+  align-items: center !important;
+  visibility: visible !important;
+}
+
+.navbar__brand:hover .navbar__logo img {
+  opacity: 0.8 !important;
+}
+
+/* Hide title text but keep the structure */
+.navbar__title {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Ensure the navbar brand container shows the logo */
+.navbar__brand > .navbar__logo {
+  display: flex !important;
+}
+
+/* ============================================
+   Enhanced Admonition Styling (DocFX-inspired)
+   Professional, polished styling with better visual hierarchy
+   ============================================ */
+
+/* Base admonition styling - Target Docusaurus theme classes with high specificity */
+.theme-admonition,
+.admonition {
+  border-left: 5px solid !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  margin: 1.75rem 0 !important;
+  padding: 1.25rem 1.5rem !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.theme-admonition:hover,
+.admonition:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.06) !important;
+  transform: translateY(-1px);
+}
+
+/* Override Docusaurus default alert styling */
+.theme-admonition.alert,
+.admonition.alert {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+.theme-admonition.alert--secondary,
+.admonition.alert--secondary {
+  background-color: transparent !important;
+}
+
+/* Heading styling */
+.theme-admonition .admonitionHeading_Gvgb,
+.admonition-heading,
+.admonition .admonition-heading {
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 0.75rem !important;
+  margin-top: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.625rem !important;
+  letter-spacing: 0.01em !important;
+  text-transform: uppercase !important;
+}
+
+/* Icon styling */
+.theme-admonition .admonitionIcon_Rf37,
+.admonition-icon,
+.admonition .admonition-icon {
+  display: flex !important;
+  align-items: center !important;
+  font-size: 1.35rem !important;
+  flex-shrink: 0 !important;
+  opacity: 0.9 !important;
+}
+
+.theme-admonition .admonitionIcon_Rf37 svg,
+.admonition-icon svg,
+.admonition .admonition-icon svg {
+  width: 1.35rem !important;
+  height: 1.35rem !important;
+}
+
+/* Content styling */
+.theme-admonition .admonitionContent_BuS1,
+.admonition-content,
+.admonition .admonition-content {
+  margin-top: 0 !important;
+  line-height: 1.6 !important;
+}
+
+.theme-admonition .admonitionContent_BuS1 > :last-child,
+.admonition-content > :last-child,
+.admonition .admonition-content > :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Note - Blue (Prism primary color) */
+.theme-admonition-note,
+.admonition-note {
+  border-left-color: #0078d4 !important;
+  background: linear-gradient(to right, #e8f4fd 0%, #f0f8ff 100%) !important;
+  border-left-width: 5px !important;
+}
+
+[data-theme='dark'] .theme-admonition-note,
+[data-theme='dark'] .admonition-note {
+  background: linear-gradient(to right, rgba(0, 120, 212, 0.18) 0%, rgba(0, 120, 212, 0.08) 100%) !important;
+  border-left-color: #4da0e6 !important;
+}
+
+.theme-admonition-note .admonitionHeading_Gvgb,
+.theme-admonition-note .admonition-heading,
+.admonition-note .admonition-heading {
+  color: #005494 !important;
+}
+
+[data-theme='dark'] .theme-admonition-note .admonitionHeading_Gvgb,
+[data-theme='dark'] .theme-admonition-note .admonition-heading,
+[data-theme='dark'] .admonition-note .admonition-heading {
+  color: #84c0f0 !important;
+}
+
+.theme-admonition-note .admonitionIcon_Rf37,
+.theme-admonition-note .admonition-icon,
+.admonition-note .admonition-icon {
+  color: #0078d4 !important;
+}
+
+.theme-admonition-note .admonitionIcon_Rf37 svg,
+.theme-admonition-note .admonition-icon svg,
+.admonition-note .admonition-icon svg {
+  fill: #0078d4 !important;
+}
+
+[data-theme='dark'] .theme-admonition-note .admonitionIcon_Rf37,
+[data-theme='dark'] .theme-admonition-note .admonition-icon,
+[data-theme='dark'] .admonition-note .admonition-icon {
+  color: #4da0e6 !important;
+}
+
+[data-theme='dark'] .theme-admonition-note .admonitionIcon_Rf37 svg,
+[data-theme='dark'] .theme-admonition-note .admonition-icon svg,
+[data-theme='dark'] .admonition-note .admonition-icon svg {
+  fill: #4da0e6 !important;
+}
+
+/* Tip - Green (success/helpful) */
+.theme-admonition-tip,
+.admonition-tip {
+  border-left-color: #107c10 !important;
+  background: linear-gradient(to right, #e8f5e9 0%, #f1f8f4 100%) !important;
+  border-left-width: 5px !important;
+}
+
+[data-theme='dark'] .theme-admonition-tip,
+[data-theme='dark'] .admonition-tip {
+  background: linear-gradient(to right, rgba(16, 124, 16, 0.18) 0%, rgba(16, 124, 16, 0.08) 100%) !important;
+  border-left-color: #4caf50 !important;
+}
+
+.theme-admonition-tip .admonitionHeading_Gvgb,
+.theme-admonition-tip .admonition-heading,
+.admonition-tip .admonition-heading {
+  color: #0d5d0d !important;
+}
+
+[data-theme='dark'] .theme-admonition-tip .admonitionHeading_Gvgb,
+[data-theme='dark'] .theme-admonition-tip .admonition-heading,
+[data-theme='dark'] .admonition-tip .admonition-heading {
+  color: #81c784 !important;
+}
+
+.theme-admonition-tip .admonitionIcon_Rf37,
+.theme-admonition-tip .admonition-icon,
+.admonition-tip .admonition-icon {
+  color: #107c10 !important;
+}
+
+.theme-admonition-tip .admonitionIcon_Rf37 svg,
+.theme-admonition-tip .admonition-icon svg,
+.admonition-tip .admonition-icon svg {
+  fill: #107c10 !important;
+}
+
+[data-theme='dark'] .theme-admonition-tip .admonitionIcon_Rf37,
+[data-theme='dark'] .theme-admonition-tip .admonition-icon,
+[data-theme='dark'] .admonition-tip .admonition-icon {
+  color: #4caf50 !important;
+}
+
+[data-theme='dark'] .theme-admonition-tip .admonitionIcon_Rf37 svg,
+[data-theme='dark'] .theme-admonition-tip .admonition-icon svg,
+[data-theme='dark'] .admonition-tip .admonition-icon svg {
+  fill: #4caf50 !important;
+}
+
+/* Info - Cyan (informational) */
+.theme-admonition-info,
+.admonition-info {
+  border-left-color: #00b7c3 !important;
+  background: linear-gradient(to right, #e0f7fa 0%, #e8f9fc 100%) !important;
+  border-left-width: 5px !important;
+}
+
+[data-theme='dark'] .theme-admonition-info,
+[data-theme='dark'] .admonition-info {
+  background: linear-gradient(to right, rgba(0, 183, 195, 0.18) 0%, rgba(0, 183, 195, 0.08) 100%) !important;
+  border-left-color: #26c6da !important;
+}
+
+.theme-admonition-info .admonitionHeading_Gvgb,
+.theme-admonition-info .admonition-heading,
+.admonition-info .admonition-heading {
+  color: #00838f !important;
+}
+
+[data-theme='dark'] .theme-admonition-info .admonitionHeading_Gvgb,
+[data-theme='dark'] .theme-admonition-info .admonition-heading,
+[data-theme='dark'] .admonition-info .admonition-heading {
+  color: #80deea !important;
+}
+
+.theme-admonition-info .admonitionIcon_Rf37,
+.theme-admonition-info .admonition-icon,
+.admonition-info .admonition-icon {
+  color: #00b7c3 !important;
+}
+
+.theme-admonition-info .admonitionIcon_Rf37 svg,
+.theme-admonition-info .admonition-icon svg,
+.admonition-info .admonition-icon svg {
+  fill: #00b7c3 !important;
+}
+
+[data-theme='dark'] .theme-admonition-info .admonitionIcon_Rf37,
+[data-theme='dark'] .theme-admonition-info .admonition-icon,
+[data-theme='dark'] .admonition-info .admonition-icon {
+  color: #26c6da !important;
+}
+
+[data-theme='dark'] .theme-admonition-info .admonitionIcon_Rf37 svg,
+[data-theme='dark'] .theme-admonition-info .admonition-icon svg,
+[data-theme='dark'] .admonition-info .admonition-icon svg {
+  fill: #26c6da !important;
+}
+
+/* Warning - Orange/Amber (caution) */
+.theme-admonition-warning,
+.admonition-warning {
+  border-left-color: #ff8c00 !important;
+  background: linear-gradient(to right, #fff3e0 0%, #fff8f0 100%) !important;
+  border-left-width: 5px !important;
+}
+
+[data-theme='dark'] .theme-admonition-warning,
+[data-theme='dark'] .admonition-warning {
+  background: linear-gradient(to right, rgba(255, 140, 0, 0.18) 0%, rgba(255, 140, 0, 0.08) 100%) !important;
+  border-left-color: #ffb74d !important;
+}
+
+.theme-admonition-warning .admonitionHeading_Gvgb,
+.theme-admonition-warning .admonition-heading,
+.admonition-warning .admonition-heading {
+  color: #e65100 !important;
+}
+
+[data-theme='dark'] .theme-admonition-warning .admonitionHeading_Gvgb,
+[data-theme='dark'] .theme-admonition-warning .admonition-heading,
+[data-theme='dark'] .admonition-warning .admonition-heading {
+  color: #ffcc80 !important;
+}
+
+.theme-admonition-warning .admonitionIcon_Rf37,
+.theme-admonition-warning .admonition-icon,
+.admonition-warning .admonition-icon {
+  color: #ff8c00 !important;
+}
+
+.theme-admonition-warning .admonitionIcon_Rf37 svg,
+.theme-admonition-warning .admonition-icon svg,
+.admonition-warning .admonition-icon svg {
+  fill: #ff8c00 !important;
+}
+
+[data-theme='dark'] .theme-admonition-warning .admonitionIcon_Rf37,
+[data-theme='dark'] .theme-admonition-warning .admonition-icon,
+[data-theme='dark'] .admonition-warning .admonition-icon {
+  color: #ffb74d !important;
+}
+
+[data-theme='dark'] .theme-admonition-warning .admonitionIcon_Rf37 svg,
+[data-theme='dark'] .theme-admonition-warning .admonition-icon svg,
+[data-theme='dark'] .admonition-warning .admonition-icon svg {
+  fill: #ffb74d !important;
+}
+
+/* Danger - Red (critical/error) */
+.theme-admonition-danger,
+.admonition-danger {
+  border-left-color: #d13438 !important;
+  background: linear-gradient(to right, #ffebee 0%, #fff0f2 100%) !important;
+  border-left-width: 5px !important;
+}
+
+[data-theme='dark'] .theme-admonition-danger,
+[data-theme='dark'] .admonition-danger {
+  background: linear-gradient(to right, rgba(209, 52, 56, 0.18) 0%, rgba(209, 52, 56, 0.08) 100%) !important;
+  border-left-color: #ef5350 !important;
+}
+
+.theme-admonition-danger .admonitionHeading_Gvgb,
+.theme-admonition-danger .admonition-heading,
+.admonition-danger .admonition-heading {
+  color: #b71c1c !important;
+}
+
+[data-theme='dark'] .theme-admonition-danger .admonitionHeading_Gvgb,
+[data-theme='dark'] .theme-admonition-danger .admonition-heading,
+[data-theme='dark'] .admonition-danger .admonition-heading {
+  color: #e57373 !important;
+}
+
+.theme-admonition-danger .admonitionIcon_Rf37,
+.theme-admonition-danger .admonition-icon,
+.admonition-danger .admonition-icon {
+  color: #d13438 !important;
+}
+
+.theme-admonition-danger .admonitionIcon_Rf37 svg,
+.theme-admonition-danger .admonition-icon svg,
+.admonition-danger .admonition-icon svg {
+  fill: #d13438 !important;
+}
+
+[data-theme='dark'] .theme-admonition-danger .admonitionIcon_Rf37,
+[data-theme='dark'] .theme-admonition-danger .admonition-icon,
+[data-theme='dark'] .admonition-danger .admonition-icon {
+  color: #ef5350 !important;
+}
+
+[data-theme='dark'] .theme-admonition-danger .admonitionIcon_Rf37 svg,
+[data-theme='dark'] .theme-admonition-danger .admonition-icon svg,
+[data-theme='dark'] .admonition-danger .admonition-icon svg {
+  fill: #ef5350 !important;
+}
+
+/* Important - Purple (emphasis) */
+.theme-admonition-important,
+.admonition-important {
+  border-left-color: #8764b8 !important;
+  background: linear-gradient(to right, #f3e5f5 0%, #f8f0fa 100%) !important;
+  border-left-width: 5px !important;
+}
+
+[data-theme='dark'] .theme-admonition-important,
+[data-theme='dark'] .admonition-important {
+  background: linear-gradient(to right, rgba(135, 100, 184, 0.18) 0%, rgba(135, 100, 184, 0.08) 100%) !important;
+  border-left-color: #ba68c8 !important;
+}
+
+.theme-admonition-important .admonitionHeading_Gvgb,
+.theme-admonition-important .admonition-heading,
+.admonition-important .admonition-heading {
+  color: #6a1b9a !important;
+}
+
+[data-theme='dark'] .theme-admonition-important .admonitionHeading_Gvgb,
+[data-theme='dark'] .theme-admonition-important .admonition-heading,
+[data-theme='dark'] .admonition-important .admonition-heading {
+  color: #ce93d8 !important;
+}
+
+.theme-admonition-important .admonitionIcon_Rf37,
+.theme-admonition-important .admonition-icon,
+.admonition-important .admonition-icon {
+  color: #8764b8 !important;
+}
+
+.theme-admonition-important .admonitionIcon_Rf37 svg,
+.theme-admonition-important .admonition-icon svg,
+.admonition-important .admonition-icon svg {
+  fill: #8764b8 !important;
+}
+
+[data-theme='dark'] .theme-admonition-important .admonitionIcon_Rf37,
+[data-theme='dark'] .theme-admonition-important .admonition-icon,
+[data-theme='dark'] .admonition-important .admonition-icon {
+  color: #ba68c8 !important;
+}
+
+[data-theme='dark'] .theme-admonition-important .admonitionIcon_Rf37 svg,
+[data-theme='dark'] .theme-admonition-important .admonition-icon svg,
+[data-theme='dark'] .admonition-important .admonition-icon svg {
+  fill: #ba68c8 !important;
+}
+
+/* Caution - Yellow (alternative warning style) */
+.theme-admonition-caution,
+.admonition-caution {
+  border-left-color: #ffc107 !important;
+  background: linear-gradient(to right, #fffde7 0%, #fffef5 100%) !important;
+  border-left-width: 5px !important;
+}
+
+[data-theme='dark'] .theme-admonition-caution,
+[data-theme='dark'] .admonition-caution {
+  background: linear-gradient(to right, rgba(255, 193, 7, 0.18) 0%, rgba(255, 193, 7, 0.08) 100%) !important;
+  border-left-color: #ffd54f !important;
+}
+
+.theme-admonition-caution .admonitionHeading_Gvgb,
+.theme-admonition-caution .admonition-heading,
+.admonition-caution .admonition-heading {
+  color: #f57f17 !important;
+}
+
+[data-theme='dark'] .theme-admonition-caution .admonitionHeading_Gvgb,
+[data-theme='dark'] .theme-admonition-caution .admonition-heading,
+[data-theme='dark'] .admonition-caution .admonition-heading {
+  color: #fff176 !important;
+}
+
+.theme-admonition-caution .admonitionIcon_Rf37,
+.theme-admonition-caution .admonition-icon,
+.admonition-caution .admonition-icon {
+  color: #ffc107 !important;
+}
+
+.theme-admonition-caution .admonitionIcon_Rf37 svg,
+.theme-admonition-caution .admonition-icon svg,
+.admonition-caution .admonition-icon svg {
+  fill: #ffc107 !important;
+}
+
+[data-theme='dark'] .theme-admonition-caution .admonitionIcon_Rf37,
+[data-theme='dark'] .theme-admonition-caution .admonition-icon,
+[data-theme='dark'] .admonition-caution .admonition-icon {
+  color: #ffd54f !important;
+}
+
+[data-theme='dark'] .theme-admonition-caution .admonitionIcon_Rf37 svg,
+[data-theme='dark'] .theme-admonition-caution .admonition-icon svg,
+[data-theme='dark'] .admonition-caution .admonition-icon svg {
+  fill: #ffd54f !important;
+}
+
+/* ============================================
+   YouTube Video Embed Styling
+   Center videos horizontally and make responsive
+   ============================================ */
+
+/* Center YouTube iframes horizontally */
+iframe[src*="youtube.com"],
+iframe[src*="youtu.be"] {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive video container */
+@media (max-width: 768px) {
+  iframe[src*="youtube.com"],
+  iframe[src*="youtu.be"] {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* ============================================
+   Image Styling
+   Center images horizontally and make responsive
+   ============================================ */
+
+/* Center images horizontally */
+.markdown img,
+article img {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure images don't overflow on mobile */
+@media (max-width: 768px) {
+  .markdown img,
+  article img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* ============================================
+   Navbar Icon Links
+   Styling for GitHub and X (Twitter) icons
+   Order them to appear after the theme switcher
+   ============================================ */
+
+/* Ensure navbar items container uses flexbox */
+.navbar__items--right {
+  display: flex;
+  align-items: center;
+}
+
+/* Default order for all right-side items */
+.navbar__item--right {
+  order: 0;
+}
+
+/* Theme switcher - Docusaurus automatically adds this button */
+/* Target the button that toggles color mode (usually has aria-label or specific classes) */
+.navbar__item--right > button[aria-label*="theme"],
+.navbar__item--right > button[aria-label*="color"],
+.navbar__item--right > button[class*="toggle"],
+.navbar__item--right > button[class*="ColorMode"] {
+  order: 1;
+}
+
+/* Parent container of theme switcher button */
+.navbar__item--right:has(> button[aria-label*="theme"]),
+.navbar__item--right:has(> button[aria-label*="color"]),
+.navbar__item--right:has(> button[class*="toggle"]),
+.navbar__item--right:has(> button[class*="ColorMode"]) {
+  order: 1;
+}
+
+/* Our icon links come after theme switcher */
+.navbar-icon-x {
+  order: 2;
+}
+
+.navbar-icon-github {
+  order: 3;
+}
+
+.navbar-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  color: var(--ifm-navbar-link-color);
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.navbar-icon-link:hover {
+  opacity: 0.8;
+  color: var(--ifm-navbar-link-hover-color);
+}
+
+.navbar-icon-link svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+[data-theme='dark'] .navbar-icon-link {
+  color: var(--ifm-navbar-link-color);
+}
+
+[data-theme='dark'] .navbar-icon-link:hover {
+  color: var(--ifm-navbar-link-hover-color);
+}
+
+/* ============================================
+   Search Bar Styling
+   Make the search bar wider
+   ============================================ */
+
+/* Make the search bar wider */
+.navbar__search {
+  min-width: 200px;
+  max-width: 400px;
+  flex: 1 1 auto;
+}
+
+/* Target the search button/input container */
+.DocSearch-Button {
+  width: 100%;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+/* For the local search plugin */
+.navbar__item--search {
+  min-width: 200px;
+  max-width: 400px;
+  flex: 1 1 auto;
+}
+
+.navbar__item--search .navbar__search-input {
+  min-width: 200px;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* ============================================
+   License Section Word Wrapping
+   Ensure long text and URLs wrap properly
+   ============================================ */
+
+/* Ensure all text in markdown content wraps */
+.markdown p,
+.markdown li {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Ensure long URLs wrap */
+.markdown a {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}

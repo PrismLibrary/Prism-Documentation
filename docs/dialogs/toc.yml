@@ -1,6 +1,0 @@
-- name: Dialog Service
-  href: index.md
-- name: IDialogAware ViewModels
-  href: dialog-aware.md
-- name: IDialogWindow (WPF & Uno Platform)
-  href: dialog-window.md

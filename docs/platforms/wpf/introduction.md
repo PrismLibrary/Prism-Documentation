@@ -1,5 +1,5 @@
 ---
-uid: Platforms.Wpf.Introduction
+sidebar_position: 2
 ---
 
 # Introduction
@@ -8,11 +8,11 @@ This section contains all of the WPF specific portions of Prism. Unless there is
 
 | Topic | Description |
 |-------|-------------|
-| [Commanding](xref:Commands.Commanding) | Bind actions such as button clicks to your view model |
-| [Composite Commands](xref:Commands.CompositeCommands) | From parent view model, execute commands in child view models |
-| [View Model Injection](xref:Mvvm.ViewModelLocator) | Setup Prism to automatically inject your view model based on naming conventions |
-| [Event Aggregation](xref:Events.EventAggregator) | Send messages between components without components knowing about each other |
-| [Application Modularity](xref:Modularity.GettingStarted) | It can be very helpful for testing and maintainability to structure applications in separate pieces without each component being coupled with the others. Prism has some patterns to help with this problem. |
+| [Commanding](../../commands/commanding.md) | Bind actions such as button clicks to your view model |
+| [Composite Commands](../../commands/composite-commands.md) | From parent view model, execute commands in child view models |
+| [View Model Injection](../../mvvm/viewmodel-locator.md) | Setup Prism to automatically inject your view model based on naming conventions |
+| [Event Aggregation](../../event-aggregator.md) | Send messages between components without components knowing about each other |
+| [Application Modularity](../../modularity/index.md) | It can be very helpful for testing and maintainability to structure applications in separate pieces without each component being coupled with the others. Prism has some patterns to help with this problem. |
 
 ## WPF Specific Topics
 
@@ -20,10 +20,11 @@ This section contains all of the WPF specific portions of Prism. Unless there is
 
 In this document, learn how to get started with Prism by creating an application from scratch.
 
-[Get Started](xref:Platforms.Wpf.GettingStarted)
+[Get Started](getting-started.md)
 
 ### Presenting Child Windows in MVVM
 
 Learn how to use the Prism dialog service to present dialog windows in an MVVM friendly manner.
 
-[Prism IDialogService](xref:Dialogs.GettingStarted)
+[Prism IDialogService](../../dialogs/index.md)
+

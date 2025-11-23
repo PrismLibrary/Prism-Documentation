@@ -1,0 +1,716 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 6rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+}
+
+[data-theme='dark'] .heroBanner {
+  background: linear-gradient(to bottom, #1a1a1a 0%, #0d0d0d 100%);
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--ifm-heading-color);
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--ifm-color-content-secondary);
+  margin: 0;
+  max-width: 600px;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.appIndicators {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  justify-content: flex-start;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+[data-theme='dark'] .indicator {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.indicatorActive {
+  background: var(--ifm-color-primary);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.heroShowcase {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  min-height: 500px;
+}
+
+/* Laptop Frame */
+.laptopFrame {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  z-index: 2;
+}
+
+.laptopScreen {
+  background: #1a1a1a;
+  border-radius: 8px 8px 0 0;
+  padding: 0.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.laptopBezel {
+  background: #0a0a0a;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.laptopCamera {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #333;
+}
+
+.laptopContent {
+  background: #0f1419;
+  border-radius: 4px;
+  padding: 1.5rem;
+  min-height: 350px;
+  transition: opacity 0.5s ease;
+}
+
+.laptopBase {
+  background: #2a2a2a;
+  height: 20px;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.laptopKeyboard {
+  width: 60%;
+  height: 4px;
+  background: #1a1a1a;
+  margin: 8px auto 4px;
+  border-radius: 2px;
+}
+
+.laptopTrackpad {
+  width: 30%;
+  height: 3px;
+  background: #1a1a1a;
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* iPhone Frame */
+.iphoneFrame {
+  position: relative;
+  width: 280px;
+  height: 560px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  border-radius: 40px;
+  padding: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.iphoneNotch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 24px;
+  background: #000;
+  border-radius: 0 0 16px 16px;
+  z-index: 10;
+}
+
+.iphoneScreen {
+  background: #ffffff;
+  border-radius: 32px;
+  padding: 2rem 1.5rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+
+[data-theme='dark'] .iphoneScreen {
+  background: #1a1a1a;
+}
+
+.iphoneHomeIndicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+/* App Content Styles */
+.desktopContent {
+  background: #0f1419;
+  border-radius: 8px;
+  padding: 0.75rem;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileContent {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 0.75rem 0.5rem;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-theme='dark'] .mobileContent {
+  background: #1a1a1a;
+}
+
+.appHeader {
+  margin-bottom: 0.75rem;
+}
+
+.appTitle {
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.mobileHeader {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.mobileHeaderTwoLine {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+[data-theme='dark'] .mobileHeader,
+[data-theme='dark'] .mobileHeaderTwoLine {
+  color: #ffffff;
+}
+
+.appBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.statBox {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statLabel {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.statValue {
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.statPositive {
+  color: #4caf50;
+}
+
+.chartArea {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.5rem 0;
+  min-height: 80px;
+}
+
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.chartBar {
+  flex: 1;
+  background: linear-gradient(to top, #0078d4 0%, #4da0e6 100%);
+  border-radius: 4px 4px 0 0;
+  min-height: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.chartBar:hover {
+  opacity: 0.8;
+}
+
+/* Table Styles */
+.tableArea,
+.financialTable {
+  margin-top: 1rem;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+}
+
+.financialTable .tableHeader {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.financialTable .tableRow {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.tableCol {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.55rem;
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeSuccess {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.badgeWarning {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.badgeInfo {
+  background: rgba(33, 150, 243, 0.2);
+  color: #2196f3;
+}
+
+.badgeDanger {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+.badgeInStock {
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-size: 0.45rem;
+}
+
+.badgeLowStock {
+  background: #fff9c4;
+  color: #f57f17;
+  font-size: 0.45rem;
+}
+
+.badgeReorder {
+  background: #ffebee;
+  color: #c62828;
+  font-size: 0.45rem;
+}
+
+/* Mobile List Styles */
+.mobileList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.mobileItem,
+.deliveryItem,
+.inventoryItem,
+.serviceItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.inventoryItem {
+  background: #f5f5f5;
+  border-radius: 12px;
+}
+
+[data-theme='dark'] .mobileItem,
+[data-theme='dark'] .deliveryItem,
+[data-theme='dark'] .inventoryItem,
+[data-theme='dark'] .serviceItem {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme='dark'] .inventoryItem {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mobileItemText,
+.deliveryInfo,
+.inventoryInfo,
+.serviceInfo {
+  flex: 1;
+}
+
+.mobileItemTitle,
+.deliveryAddress,
+.inventoryName,
+.serviceTitle {
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.125rem;
+}
+
+[data-theme='dark'] .mobileItemTitle,
+[data-theme='dark'] .deliveryAddress,
+[data-theme='dark'] .inventoryName,
+[data-theme='dark'] .serviceTitle {
+  color: #ffffff;
+}
+
+.mobileItemSubtitle,
+.deliveryTime,
+.inventoryStock,
+.serviceLocation,
+.serviceTime {
+  font-size: 0.45rem;
+  color: #6c757d;
+}
+
+.deliveryIcon,
+.inventoryIcon,
+.serviceIcon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* Delivery Specific */
+.mapPreview {
+  margin-top: 0.5rem;
+  height: 80px;
+  background: #e9ecef;
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme='dark'] .mapPreview {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mapMarker {
+  font-size: 1.2rem;
+  z-index: 2;
+}
+
+.mapRoute {
+  position: absolute;
+  width: 80%;
+  height: 2px;
+  background: #0078d4;
+  opacity: 0.5;
+  border-radius: 1px;
+}
+
+/* Inventory Specific */
+.scanArea {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.scanButton {
+  width: 100%;
+  padding: 0.5rem;
+  background: #0078d4;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.55rem;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  transition: background 0.2s ease;
+}
+
+.scanButton:hover {
+  background: #0066b3;
+}
+
+.scanIcon {
+  font-size: 0.7rem;
+}
+
+/* Stock List */
+.stockList {
+  margin-top: 1rem;
+}
+
+.stockItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stockSymbol {
+  font-weight: 700;
+  color: #ffffff;
+  min-width: 40px;
+  font-size: 0.55rem;
+}
+
+.stockPrice {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.5rem;
+}
+
+.stockChange {
+  font-weight: 600;
+  min-width: 40px;
+  text-align: right;
+  font-size: 0.5rem;
+}
+
+.stockPositive {
+  color: #4caf50;
+}
+
+.stockNegative {
+  color: #f44336;
+}
+
+.appFooter {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.appDate,
+.appSource {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.5rem;
+  margin-bottom: 0.125rem;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 4rem 0 2rem;
+  }
+
+  .heroContent {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .heroShowcase {
+    height: auto;
+    min-height: 400px;
+  }
+
+  .laptopFrame {
+    max-width: 100%;
+  }
+
+  .iphoneFrame {
+    width: 240px;
+    height: 480px;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statsSection {
+  padding: 4rem 0;
+  background: var(--ifm-background-color);
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.statsContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.statsItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statsNumber {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, var(--ifm-color-primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+}
+
+.statsLabel {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ifm-heading-color);
+  margin-bottom: 0.25rem;
+}
+
+.statsDescription {
+  font-size: 0.95rem;
+  color: var(--ifm-color-content-secondary);
+  line-height: 1.5;
+}
+
+.statsDescription a {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.statsDescription a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 996px) {
+  .statsContent {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .statsNumber {
+    font-size: 3rem;
+  }
+}

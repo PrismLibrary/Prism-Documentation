@@ -1,5 +1,5 @@
 ---
-uid: Platforms.Maui.Navigation.TabbedNavigation
+sidebar_position: 8
 ---
 
 # TabbedPages
@@ -20,7 +20,7 @@ var result = await navigationService.SelectTabAsync("NavigationPage|TabB");
 
 ## Navigating to a TabbedPage
 
-Tabbed Navigation in Prism for .NET MAUI has been significantly enhanced in Prism for Xamarin.Forms. Due to a variety of changes we suggest using a Uri to generate your TabbedPage over using a concrete type like:
+Tabbed Navigation in Prism for .NET MAUI has been significantly enhanced. Due to a variety of changes we suggest using a Uri to generate your TabbedPage over using a concrete type like:
 
 ```xml
 <!-- Not Recommended -->
@@ -36,7 +36,7 @@ The recommended way to do this would be to use either a Uri:
 navigationService.NavigateAsync("TabbedPage?createTab=ViewA&createTab=ViewB");
 ```
 
-Alternatively you can use the [NavigationBuilder](xref:Platforms.Maui.Navigation.NavigationBuilder) to build your TabbedPage on the fly.
+Alternatively you can use the [NavigationBuilder](navigation-builder.md) to build your TabbedPage on the fly.
 
 ```cs
 navigationService.CreateBuilder()
@@ -67,5 +67,7 @@ public static class MyNavigationExtensions
 }
 ```
 
-> [!NOTE]
-> Prism automatically registers the .NET MAUI TabbedPage with the navigation key `TabbedPage`. You do not need to register your own.
+:::note
+Prism automatically registers the .NET MAUI TabbedPage with the navigation key `TabbedPage`. You do not need to register your own.
+:::
+
