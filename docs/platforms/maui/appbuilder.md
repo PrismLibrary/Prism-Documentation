@@ -1,6 +1,5 @@
 ---
 sidebar_position: 3
-uid: Platforms.Maui.AppBuilder
 ---
 
 # App Builder
@@ -97,7 +96,7 @@ builder.UsePrism(prism =>
 
 ### IServiceCollection Support
 
-While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Services` property, it does not have an easy to use extension for registering services. To help make it even easier on developers using Prism, we have exposed an extension method on the `PrismAppBuilder` to give you the ability to easily register services with either `IContainerRegistry` or `IServiceCollection` on an as needed basis. As discussed in the [Dependency Injection - Supplement](xref:DependencyInjection.Supplement) topic, we do expose several additional extensions on the `IServiceCollection` to make it even easier on you to ensure you can register what you need to with Prism even when you're using the `IServiceCollection`.
+While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Services` property, it does not have an easy to use extension for registering services. To help make it even easier on developers using Prism, we have exposed an extension method on the `PrismAppBuilder` to give you the ability to easily register services with either `IContainerRegistry` or `IServiceCollection` on an as needed basis. As discussed in the [Dependency Injection - Supplement](../../dependency-injection/servicecollection-supplement.md) topic, we do expose several additional extensions on the `IServiceCollection` to make it even easier on you to ensure you can register what you need to with Prism even when you're using the `IServiceCollection`.
 
 :::note
 It's important to remember that if you register a service with the `IServiceCollection` it will not be available from the `IContainerRegistry`. As a result if you call the `IsRegistered<T>` method on the `IContainerRegistry` it will return `false`.

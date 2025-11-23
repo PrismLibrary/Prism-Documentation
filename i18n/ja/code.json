@@ -1,0 +1,27 @@
+{
+  "homepage.hero.description": {
+    "message": "実証済みのパターン、クロスプラットフォームサポート、WPF、.NET MAUI、Uno Platform、Avaloniaで動作する統一APIを使用して、より優れたXAMLアプリケーションを構築します。"
+  },
+  "homepage.hero.getStarted": {
+    "message": "始める →"
+  },
+  "homepage.features.crossPlatform.title": {
+    "message": "クロスプラットフォーム、統一API"
+  },
+  "homepage.features.crossPlatform.description": {
+    "message": "一度書いて、どこでも展開。Prism 9は、WPF、.NET MAUI、Uno Platform、Avalonia全体で統一APIを提供します。コードの再利用を最大化し、プラットフォーム固有のコードを最小化します。"
+  },
+  "homepage.features.mvvm.title": {
+    "message": "MVVMを簡単に"
+  },
+  "homepage.features.mvvm.description": {
+    "message": "PrismのMVVMパターンの実装により、保守可能でテスト可能なアプリケーションを構築します。依存性注入、コマンド、ナビゲーションがシームレスに連携します。"
+  },
+  "homepage.features.enterprise.title": {
+    "message": "エンタープライズ対応"
+  },
+  "homepage.features.enterprise.description": {
+    "message": "モジュラーアーキテクチャ、イベント集約、疎結合により、Prismは大規模アプリケーションに最適です。コードを整理し、チームの生産性を維持します。"
+  }
+}
+

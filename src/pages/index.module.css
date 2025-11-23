@@ -206,7 +206,7 @@
 .desktopContent {
   background: #0f1419;
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 0.75rem;
   min-height: 400px;
   display: flex;
   flex-direction: column;
@@ -215,7 +215,7 @@
 .mobileContent {
   background: #ffffff;
   border-radius: 20px;
-  padding: 1.5rem 1rem;
+  padding: 0.75rem 0.5rem;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -226,33 +226,33 @@
 }
 
 .appHeader {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .appTitle {
   color: #ffffff;
-  font-size: 1.25rem;
+  font-size: 0.65rem;
   font-weight: 600;
 }
 
 .mobileHeader {
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
   text-align: center;
 }
 
 .mobileHeaderTwoLine {
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #1a1a1a;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
   text-align: center;
   line-height: 1.2;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.125rem;
 }
 
 [data-theme='dark'] .mobileHeader,
@@ -263,34 +263,34 @@
 .appBody {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.75rem;
   flex: 1;
 }
 
 .statsRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .statBox {
   background: rgba(255, 255, 255, 0.05);
-  padding: 1rem;
-  border-radius: 6px;
+  padding: 0.5rem;
+  border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .statLabel {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.75rem;
+  font-size: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .statValue {
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 0.75rem;
   font-weight: 700;
 }
 
@@ -302,8 +302,8 @@
   flex: 1;
   display: flex;
   align-items: flex-end;
-  padding: 1rem 0;
-  min-height: 120px;
+  padding: 0.5rem 0;
+  min-height: 80px;
 }
 
 .chartBars {
@@ -335,11 +335,11 @@
 .tableHeader {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 1rem;
-  padding: 0.75rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 6px;
-  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
 }
 
 .financialTable .tableHeader {
@@ -349,8 +349,8 @@
 .tableRow {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 1rem;
-  padding: 0.75rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -360,15 +360,15 @@
 
 .tableCol {
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.875rem;
+  font-size: 0.55rem;
 }
 
 /* Badge Styles */
 .badge {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.5rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -397,26 +397,26 @@
 .badgeInStock {
   background: #e8f5e9;
   color: #2e7d32;
-  font-size: 0.7rem;
+  font-size: 0.45rem;
 }
 
 .badgeLowStock {
   background: #fff9c4;
   color: #f57f17;
-  font-size: 0.7rem;
+  font-size: 0.45rem;
 }
 
 .badgeReorder {
   background: #ffebee;
   color: #c62828;
-  font-size: 0.7rem;
+  font-size: 0.45rem;
 }
 
 /* Mobile List Styles */
 .mobileList {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   flex: 1;
 }
 
@@ -426,10 +426,10 @@
 .serviceItem {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
   background: #f8f9fa;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .inventoryItem {
@@ -459,10 +459,10 @@
 .deliveryAddress,
 .inventoryName,
 .serviceTitle {
-  font-size: 0.875rem;
+  font-size: 0.55rem;
   font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.125rem;
 }
 
 [data-theme='dark'] .mobileItemTitle,
@@ -477,23 +477,23 @@
 .inventoryStock,
 .serviceLocation,
 .serviceTime {
-  font-size: 0.75rem;
+  font-size: 0.45rem;
   color: #6c757d;
 }
 
 .deliveryIcon,
 .inventoryIcon,
 .serviceIcon {
-  font-size: 1.5rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
 }
 
 /* Delivery Specific */
 .mapPreview {
-  margin-top: 1rem;
-  height: 120px;
+  margin-top: 0.5rem;
+  height: 80px;
   background: #e9ecef;
-  border-radius: 8px;
+  border-radius: 6px;
   position: relative;
   display: flex;
   align-items: center;
@@ -505,7 +505,7 @@
 }
 
 .mapMarker {
-  font-size: 2rem;
+  font-size: 1.2rem;
   z-index: 2;
 }
 
@@ -521,24 +521,24 @@
 /* Inventory Specific */
 .scanArea {
   margin-top: auto;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 
 .scanButton {
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
   background: #0078d4;
   color: white;
-  border-radius: 12px;
+  border-radius: 8px;
   text-align: center;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.55rem;
   cursor: pointer;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   transition: background 0.2s ease;
 }
 
@@ -547,7 +547,7 @@
 }
 
 .scanIcon {
-  font-size: 1.2rem;
+  font-size: 0.7rem;
 }
 
 /* Stock List */
@@ -558,26 +558,29 @@
 .stockItem {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.75rem;
+  gap: 0.5rem;
+  padding: 0.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stockSymbol {
   font-weight: 700;
   color: #ffffff;
-  min-width: 60px;
+  min-width: 40px;
+  font-size: 0.55rem;
 }
 
 .stockPrice {
   flex: 1;
   color: rgba(255, 255, 255, 0.9);
+  font-size: 0.5rem;
 }
 
 .stockChange {
   font-weight: 600;
-  min-width: 60px;
+  min-width: 40px;
   text-align: right;
+  font-size: 0.5rem;
 }
 
 .stockPositive {
@@ -590,15 +593,15 @@
 
 .appFooter {
   margin-top: auto;
-  padding-top: 1.5rem;
+  padding-top: 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .appDate,
 .appSource {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.875rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.5rem;
+  margin-bottom: 0.125rem;
 }
 
 .buttons {

@@ -8,6 +8,7 @@ import Layout from '@theme/Layout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import HomepagePricing from '@site/src/components/HomepagePricing';
 import HomepageTeam from '@site/src/components/HomepageTeam';
+import {fetchTotalDownloads, formatDownloadsInMillions} from '@site/src/utils/nuget-downloads';
 
 import styles from './index.module.css';
 
@@ -433,12 +434,37 @@ function HomepageHeader() {
 }
 
 function HomepageStats() {
+  const [downloadsText, setDownloadsText] = useState<string>('0'); // Fallback value
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Fetch download count on client side
+    // Uses DEFAULT_OWNER from nuget-downloads.ts
+    fetchTotalDownloads()
+      .then((totalDownloads) => {
+        console.log('Successfully fetched downloads:', totalDownloads);
+        const formatted = formatDownloadsInMillions(totalDownloads);
+        setDownloadsText(formatted);
+        setIsLoading(false);
+        setError(null);
+      })
+      .catch((error) => {
+        console.error('Failed to fetch download count:', error);
+        setError(error.message || 'Failed to fetch download count');
+        // Keep the fallback value on error
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
     <section className={styles.statsSection}>
       <div className="container">
         <div className={styles.statsContent}>
           <div className={styles.statsItem}>
-            <div className={styles.statsNumber}>87M+</div>
+            <div className={styles.statsNumber}>
+              {isLoading ? '...' : downloadsText}
+            </div>
             <div className={styles.statsLabel}>
               <Translate
                 id="homepage.stats.downloads"

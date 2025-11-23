@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "npm run build-uid-mapping && docusaurus start",
-    "build": "npm run build-uid-mapping && docusaurus build",
-    "build-uid-mapping": "node scripts/build-uid-mapping.js",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "verify-links": "node scripts/verify-links.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -29,6 +29,7 @@
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
+    "lunr-languages": "^1.10.0",
     "typescript": "~5.6.2"
   },
   "browserslist": {

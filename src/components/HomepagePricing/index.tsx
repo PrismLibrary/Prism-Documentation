@@ -27,7 +27,7 @@ const PricingTiers: PricingTier[] = [
       'Unlimited Deployment',
     ],
     featuresId: 'homepage.pricing.community.features',
-    ctaLink: 'https://prismlibrary.com',
+    ctaLink: 'https://prismlibrary.com/account',
     showAsterisk: true,
   },
   {
@@ -49,7 +49,7 @@ const PricingTiers: PricingTier[] = [
       'Visual Studio Extensions (coming soon)',
     ],
     featuresId: 'homepage.pricing.commercialPlus.features',
-    ctaLink: 'https://prismlibrary.com',
+    ctaLink: 'https://prismlibrary.com/account',
     highlight: true,
   },
   {
@@ -63,7 +63,7 @@ const PricingTiers: PricingTier[] = [
       'Unlimited Deployment',
     ],
     featuresId: 'homepage.pricing.commercial.features',
-    ctaLink: 'https://prismlibrary.com',
+    ctaLink: 'https://prismlibrary.com/account',
   },
 ];
 

@@ -1,6 +1,5 @@
 ---
 sidebar_position: 8
-uid: Platforms.Maui.Navigation.TabbedNavigation
 ---
 
 # TabbedPages
@@ -37,7 +36,7 @@ The recommended way to do this would be to use either a Uri:
 navigationService.NavigateAsync("TabbedPage?createTab=ViewA&createTab=ViewB");
 ```
 
-Alternatively you can use the [NavigationBuilder](xref:Platforms.Maui.Navigation.NavigationBuilder) to build your TabbedPage on the fly.
+Alternatively you can use the [NavigationBuilder](navigation-builder.md) to build your TabbedPage on the fly.
 
 ```cs
 navigationService.CreateBuilder()

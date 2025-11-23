@@ -1,0 +1,128 @@
+{
+  "homepage.hero.title": {
+    "message": "Potencialize Suas Aplicações XAML"
+  },
+  "homepage.hero.description": {
+    "message": "Aproveite o poder da Prism Library para criar aplicações robustas e manuteníveis para WPF, .NET MAUI, Uno Platform e Avalonia com facilidade."
+  },
+  "homepage.hero.getStarted": {
+    "message": "Começar"
+  },
+  "homepage.stats.downloads": {
+    "message": "Total de Downloads"
+  },
+  "homepage.stats.version": {
+    "message": "Versão Mais Recente"
+  },
+  "homepage.stats.platforms": {
+    "message": "Plataformas Suportadas"
+  },
+  "homepage.features.crossPlatform.title": {
+    "message": "Multiplataforma, API Unificada"
+  },
+  "homepage.features.crossPlatform.description": {
+    "message": "Escreva uma vez, implante em qualquer lugar. O Prism 9 fornece uma API unificada em WPF, .NET MAUI, Uno Platform e Avalonia. Maximize a reutilização de código e minimize o código específico da plataforma."
+  },
+  "homepage.features.mvvm.title": {
+    "message": "MVVM Simplificado"
+  },
+  "homepage.features.mvvm.description": {
+    "message": "Crie aplicações manuteníveis e testáveis com a implementação de padrões MVVM do Prism. Injeção de dependência, comandos e navegação funcionam perfeitamente juntos."
+  },
+  "homepage.features.enterprise.title": {
+    "message": "Pronto para Empresas"
+  },
+  "homepage.features.enterprise.description": {
+    "message": "Arquitetura modular, agregação de eventos e acoplamento fraco tornam o Prism perfeito para aplicações de grande escala. Mantenha seu código organizado e sua equipe produtiva."
+  },
+  "homepage.pricing.title": {
+    "message": "Preços"
+  },
+  "homepage.pricing.subtitle": {
+    "message": "Escolha o plano perfeito adaptado às necessidades do seu negócio. Seja uma startup em crescimento ou uma empresa próspera, oferecemos opções de preços que se alinham com o crescimento e o orçamento da sua empresa."
+  },
+  "homepage.pricing.bestValue": {
+    "message": "Melhor Valor"
+  },
+  "homepage.pricing.billing": {
+    "message": "por ano / por desenvolvedor"
+  },
+  "homepage.pricing.buyNow": {
+    "message": "Comprar Agora"
+  },
+  "homepage.pricing.disclaimer": {
+    "message": "*Empresas e indivíduos com menos de US$ 1 milhão em receita bruta anual, ou que nunca receberam mais de US$ 3 milhões em capital de uma fonte externa, como private equity ou venture capital, são elegíveis para a Licença Comunitária."
+  },
+  "homepage.pricing.community.name": {
+    "message": "Comunidade"
+  },
+  "homepage.pricing.community.price": {
+    "message": "GRÁTIS*"
+  },
+  "homepage.pricing.community.features.0": {
+    "message": "Instalar via NuGet.org"
+  },
+  "homepage.pricing.community.features.1": {
+    "message": "Implantações Ilimitadas"
+  },
+  "homepage.pricing.commercial.name": {
+    "message": "Comercial"
+  },
+  "homepage.pricing.commercial.price": {
+    "message": "$299"
+  },
+  "homepage.pricing.commercial.features.0": {
+    "message": "Desenvolvimento de Aplicações Comerciais"
+  },
+  "homepage.pricing.commercial.features.1": {
+    "message": "Instalar via NuGet.org"
+  },
+  "homepage.pricing.commercial.features.2": {
+    "message": "Implantações Ilimitadas"
+  },
+  "homepage.pricing.commercialPlus.name": {
+    "message": "Comercial Plus"
+  },
+  "homepage.pricing.commercialPlus.price": {
+    "message": "$499"
+  },
+  "homepage.pricing.commercialPlus.features.0": {
+    "message": "Desenvolvimento de Aplicações Comerciais"
+  },
+  "homepage.pricing.commercialPlus.features.1": {
+    "message": "Instalar via NuGet.org"
+  },
+  "homepage.pricing.commercialPlus.features.2": {
+    "message": "Instalar via Feed NuGet Privado"
+  },
+  "homepage.pricing.commercialPlus.features.3": {
+    "message": "Acesso a Builds CI"
+  },
+  "homepage.pricing.commercialPlus.features.4": {
+    "message": "Atualizações Mais Frequentes"
+  },
+  "homepage.pricing.commercialPlus.features.5": {
+    "message": "Prism.Plugin.Popups"
+  },
+  "homepage.pricing.commercialPlus.features.6": {
+    "message": "Prism.Essentials (em Beta)"
+  },
+  "homepage.pricing.commercialPlus.features.7": {
+    "message": "Containers Adicionais"
+  },
+  "homepage.pricing.commercialPlus.features.8": {
+    "message": "Acesso ao Discord"
+  },
+  "homepage.pricing.commercialPlus.features.9": {
+    "message": "Prism.Magician (em breve)"
+  },
+  "homepage.pricing.commercialPlus.features.10": {
+    "message": "Extensões do Visual Studio (em breve)"
+  },
+  "homepage.team.title": {
+    "message": "Conheça nossa equipe"
+  },
+  "homepage.team.subtitle": {
+    "message": "Somos um grupo dinâmico de indivíduos apaixonados pelo que fazemos."
+  }
+}

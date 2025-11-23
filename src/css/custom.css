@@ -558,3 +558,126 @@ article img {
     height: auto;
   }
 }
+
+/* ============================================
+   Navbar Icon Links
+   Styling for GitHub and X (Twitter) icons
+   Order them to appear after the theme switcher
+   ============================================ */
+
+/* Ensure navbar items container uses flexbox */
+.navbar__items--right {
+  display: flex;
+  align-items: center;
+}
+
+/* Default order for all right-side items */
+.navbar__item--right {
+  order: 0;
+}
+
+/* Theme switcher - Docusaurus automatically adds this button */
+/* Target the button that toggles color mode (usually has aria-label or specific classes) */
+.navbar__item--right > button[aria-label*="theme"],
+.navbar__item--right > button[aria-label*="color"],
+.navbar__item--right > button[class*="toggle"],
+.navbar__item--right > button[class*="ColorMode"] {
+  order: 1;
+}
+
+/* Parent container of theme switcher button */
+.navbar__item--right:has(> button[aria-label*="theme"]),
+.navbar__item--right:has(> button[aria-label*="color"]),
+.navbar__item--right:has(> button[class*="toggle"]),
+.navbar__item--right:has(> button[class*="ColorMode"]) {
+  order: 1;
+}
+
+/* Our icon links come after theme switcher */
+.navbar-icon-x {
+  order: 2;
+}
+
+.navbar-icon-github {
+  order: 3;
+}
+
+.navbar-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  color: var(--ifm-navbar-link-color);
+  transition: opacity 0.2s ease;
+  text-decoration: none;
+}
+
+.navbar-icon-link:hover {
+  opacity: 0.8;
+  color: var(--ifm-navbar-link-hover-color);
+}
+
+.navbar-icon-link svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+[data-theme='dark'] .navbar-icon-link {
+  color: var(--ifm-navbar-link-color);
+}
+
+[data-theme='dark'] .navbar-icon-link:hover {
+  color: var(--ifm-navbar-link-hover-color);
+}
+
+/* ============================================
+   Search Bar Styling
+   Make the search bar wider
+   ============================================ */
+
+/* Make the search bar wider */
+.navbar__search {
+  min-width: 200px;
+  max-width: 400px;
+  flex: 1 1 auto;
+}
+
+/* Target the search button/input container */
+.DocSearch-Button {
+  width: 100%;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+/* For the local search plugin */
+.navbar__item--search {
+  min-width: 200px;
+  max-width: 400px;
+  flex: 1 1 auto;
+}
+
+.navbar__item--search .navbar__search-input {
+  min-width: 200px;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* ============================================
+   License Section Word Wrapping
+   Ensure long text and URLs wrap properly
+   ============================================ */
+
+/* Ensure all text in markdown content wraps */
+.markdown p,
+.markdown li {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Ensure long URLs wrap */
+.markdown a {
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
