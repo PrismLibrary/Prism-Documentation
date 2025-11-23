@@ -29,7 +29,7 @@ export default function DocsVersionBanner(): JSX.Element | null {
       This is documentation for Prism Library {version.label} version.
       <br />
       For up-to-date documentation, see the{' '}
-      <a href="/docs">latest version (9.1)</a>.
+      <a href="/docs/current">latest version (9.1)</a>.
     </div>
   );
 }

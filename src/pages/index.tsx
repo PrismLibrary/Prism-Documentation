@@ -382,7 +382,7 @@ function HomepageHeader() {
             <div className={styles.heroButtons}>
               <Link
                 className="button button--primary button--lg"
-                to="/docs/">
+                to="/docs/current">
                 <Translate
                   id="homepage.hero.getStarted"
                   description="The homepage get started button text">

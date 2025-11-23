@@ -147,19 +147,19 @@ const config: Config = {
           items: [
             {
               label: 'Getting Started',
-              to: 'docs',
+              to: '/docs/current',
             },
             {
               label: 'Navigation',
-              to: 'docs/navigation',
+              to: '/docs/current/navigation',
             },
             {
               label: 'Commands',
-              to: 'docs/commands/commanding',
+              to: '/docs/current/commands/commanding',
             },
             {
               label: 'Dependency Injection',
-              to: 'docs/dependency-injection',
+              to: '/docs/current/dependency-injection',
             },
           ],
         },
@@ -168,15 +168,15 @@ const config: Config = {
           items: [
             {
               label: '.NET MAUI',
-              to: 'docs/platforms/maui',
+              to: '/docs/current/platforms/maui',
             },
             {
               label: 'WPF',
-              to: 'docs/platforms/wpf/getting-started',
+              to: '/docs/current/platforms/wpf/getting-started',
             },
             {
               label: 'Uno Platform',
-              to: 'docs/platforms/uno',
+              to: '/docs/current/platforms/uno',
             },
           ],
         },
