@@ -13,7 +13,7 @@ var builder = MauiApp.CreateBuilder();
 builder.UseMauiApp<App>();
 
 // Include UsePrism after UseMauiApp
-builder.UseMauiApp<App>()
+builder.UseMauiApp<App>();
 builder.UsePrism(prism =>
 {
     // configure prism
@@ -91,7 +91,7 @@ builder.UsePrism(prism =>
         .RegisterTypes(container => {
             // Register platform agnostic types
         });
-}
+});
 ```
 
 ### IServiceCollection Support
