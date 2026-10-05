@@ -18,3 +18,9 @@ public interface IConnectivity
 }
 ```
 
+
+## Registration and subscription lifetime
+
+Call the host's `UsePrismEssentials()` or `RegisterConnectivity()`, then inject `Prism.Plugin.Essentials.Networking.IConnectivity`. It is registered as a singleton.
+
+`State()` provides observable connection state. Retain and dispose the subscription when its screen or service ends, and use `IMainThread` for bound UI updates. Network access is a useful hint, not proof that your server is reachable or that a particular request will succeed. Keep timeouts, cancellation, retry limits, and error handling on the actual network operation.

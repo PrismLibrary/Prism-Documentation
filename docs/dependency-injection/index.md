@@ -43,6 +43,6 @@ The container generator preserves statically visible activation types while your
 - Learn how to [Register Services](registering-types.md)
 - Learn how to [Register Platform Specific Services](platform-specific-services.md) ***(Legacy)***
 - [Microsoft.Extensions.DependencyInjection (Supplement)](servicecollection-supplement.md)
-<!-- - Learn how to [Add a Custom Container](add-custom-container) -->
+<!-- - Learn how to [Add a Custom Container](add-custom-container.md) -->
 - Learn more about the Prism Container Extensions and working with Shiny in the [Appendix](appendix.md)
 

@@ -3,15 +3,15 @@
  * for the current version (9.1)
  */
 
-import React from 'react';
-import {useDocsVersion} from '@docusaurus/theme-common/internal';
+import React, {type ReactNode} from 'react';
+import {useDocsVersion} from '@docusaurus/plugin-content-docs/client';
 
-export default function DocsVersionBanner(): JSX.Element | null {
+export default function DocsVersionBanner(): ReactNode {
   const version = useDocsVersion();
   
   // Don't show banner for current version (9.1) or if it's marked as the latest
   // The current version should never show as unreleased
-  if (version.isLast || version.label === '9.1' || version.path === 'current') {
+  if (version.isLast || version.label === '9.1' || version.version === 'current') {
     return null;
   }
   

@@ -5,64 +5,101 @@ uid: Plugins.Essentials.Stores
 
 # Stores
 
-The concept of Stores is borrowed from one of our favorite .NET Libraries [Shiny.NET](https://shinylib.net/), however we've made a few enhancements and provided implementations for all of your Prism applications. One of the root concepts of Stores is that the store implementation should be decoupled from any logic around how it is used. This means that unit testing is particularly easy.
+Generated stores give application code an injectable interface for settings, secure values, or temporary state. Reference `Prism.Plugin.Essentials` in the assembly declaring the interface and use the [matching host integration](../index.md) in the application.
 
-To get started you will need a reference to `Prism.Plugin.Essentials`. Note that this could be a transitive reference from the platform specific package for `Prism.Plugin.Essentials`. However you may use the root package for libraries that you wish to keep decoupled from platform specific references. The first thing to consider when building a store is what properties you may want to expose.
+## Declare and register a store
 
-```cs
-public interface IMyStore
-{
-    string MyProperty { get; set; }
-}
-```
+```csharp
+using System.ComponentModel;
+using Prism.Plugin.Essentials.IO;
 
-## Available Stores
-
-We currently support 3 stores by default. You can choose the store that makes the most sense for your specific application, and you can have multiple interfaces which utilize the same or different stores throughout your application.
-
-- Memory Store - This is particular helpful for scenarios where you only need the values to remain in scope during the lifecycle of the application and you can revert back to a default state the next time the app is launched.
-- Settings Store - This is useful for a wide degree of persistent values that you want to store and which do not present security concerns.
-- Secure Store - This is useful for that last scenario where you need both persistence and to take advantage of the platform's built in ability to secure values. (NOTE: While this is implemented across all Prism platforms, some heads such as WASM do not support a Secure Store)
-
-## Creating a store
-
-As you noticed from the example above our store does not implement anything. In fact it simply needs to be an interface with properties that have both a get and set. However to actually make use of the store we must do 2 things.
-
-1. We must provide an attribute for the Store type that we want to have implemented.
-2. We must make the interface partial
-
-```cs
-[SecureStore]
-public partial interface IMyStore
-{
-    string MyProperty { get; set; }
-}
-```
-
-### What The Source Generator will do
-
-Under the covers a source generator will provide both an implementation for your interface using the specified store type, and it will provide a class that implements `INotifyPropertyChanged` so that you can actually Bind directly to any property on your Store.
-
-The next thing it will do is provide a Clear method. In the implementation it will clear out ONLY the properties specified as part of the interface. This means that other code that may be making use of the given store will never directly lose their values when you call clear unless you specifically get the KeyValueStore from the `IKeyValueStoreFactory` and clear all of the values for that specific store.
-
-## Registering your Store
-
-As mentioned you will need to be sure to have the platform specific package when registering the Store, however you do not need it for the Store itself. In order to register your store you can simply call the extension
-
-```cs
-containerRegistry.RegisterStore<IMyStore>();
-```
-
-## Providing Default Values
-
-You may want to provide a default value for your properties. You can do this with the DefaultValue attribute from System.ComponentModel.
-
-```cs
 [SettingsStore]
-public partial interface IMyStore
+public partial interface IAppPreferences
 {
+    string? Theme { get; set; }
+
     [DefaultValue(true)]
-    bool RememberMe { get; set; }
+    bool ShowHints { get; set; }
 }
 ```
 
+The interface must be partial. The Essentials generator creates its implementation, property-change notifications, and a `Clear()` member that clears this contract's properties. A handwritten test fake must implement the complete generated interface, including `Clear()`.
+
+In the host's existing registration callback:
+
+```csharp
+using Prism.Ioc;
+
+registry.RegisterStore<IAppPreferences>();
+```
+
+Inject `IAppPreferences` into your view model or service. Registration uses a singleton implementation; do not create a new store per page or resolve a generated implementation by its internal name.
+
+## Choose the storage behavior
+
+| Attribute | Purpose and limits |
+| --- | --- |
+| `[MemoryStore]` | Temporary in-process state. Values do not survive a restart. |
+| `[SettingsStore]` | Persistent, non-sensitive application preferences. |
+| `[SecureStore]` | Uses a secure-store backend where available. OS, browser, and recovery behavior differ by host. |
+
+The default secure-store fallback is `None`. Choosing settings or memory as a fallback is an explicit application decision: settings does not preserve the same security property, and memory is not durable. Do not silently change the fallback to make an unsupported target work. Browser storage does not provide an OS-keychain security guarantee; see [host capabilities](../platform-support.md).
+
+`Clear()` on a generated contract does not clear every unrelated key in the backing store. Clearing a backing `IKeyValueStore` directly has a broader effect.
+
+## Generated mappings and NativeAOT
+
+The 9.1 Essentials generator emits an assembly mapping from each store interface to its internal implementation. `RegisterStore<T>()` reads that mapping and retains the normal singleton registration. You do not need to make generated classes public, guess their names, or register them manually.
+
+When upgrading, rebuild **every assembly that declares store interfaces** with the updated Essentials analyzer enabled. Updating only the executable cannot repair a previously compiled contracts assembly. A missing mapping produces a `TypeLoadException` identifying the interface and assembly to rebuild.
+
+Mapping preservation covers store construction. The underlying backend and serialized data also need to support the deployment target.
+
+### Supply JSON metadata before Essentials registration
+
+For trimming or NativeAOT, define a context for the data actually used by your application. For the preferences above and version-tracking history:
+
+```csharp
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+[JsonSerializable(typeof(string))]
+[JsonSerializable(typeof(bool))]
+[JsonSerializable(typeof(List<string>))]
+public partial class AppJsonContext : JsonSerializerContext
+{
+}
+```
+
+In your existing composition callback:
+
+```csharp
+using Prism.Ioc;
+using Prism.Plugin.Essentials;
+
+registry.RegisterSerializer(AppJsonContext.Default);
+registry.RegisterStore<IAppPreferences>();
+registry.UsePrismEssentials();
+```
+
+Add metadata for every other runtime type, collection shape, nullable value, and converter your enabled features serialize. This example is not a universal context for all Plugins. Missing metadata fails without a reflection fallback. You can register your own AOT-compatible `Prism.Plugin.Essentials.Serialization.ISerializer` first instead; Essentials preserves an existing registration.
+
+The parameterless default serializer uses reflection. Do not re-enable reflection or suppress publish diagnostics as a substitute for metadata. [Background-task persistence](../applicationmodel/background-tasks.md) has additional constraints that an ordinary application context cannot solve.
+
+## WPF settings identity
+
+WPF's default settings identity is derived from the application assembly name and public-key token, or the entry assembly when no concrete application exists. It is stable across version and installation-path changes, but unsigned applications with the same assembly name can collide.
+
+For a unique publisher/application identity, use the WPF-specific overload **before** any store services, `UsePrismEssentials()`, or version tracking are registered:
+
+```csharp
+registry.RegisterSerializer(AppJsonContext.Default);
+registry.RegisterStore<IAppPreferences>("com.example.orders");
+registry.UsePrismEssentials();
+```
+
+Additional contracts use `RegisterStore<T>()` without another identity. Keep the identifier stable across upgrades. Changing it selects a different store; existing files are not automatically migrated. Blank identifiers and late identity changes are rejected. This overload is not shared by every host.
+
+## Verify behavior
+
+Test first launch, defaults, updates, `Clear()`, restart, and unavailable storage on each target. Keep platform operations out of view-model constructors when native startup is not ready. For NativeAOT, publish and execute a consumer of the actual generated contracts assembly using the [supported Microsoft-container path](../../../dependency-injection/native-aot.md).

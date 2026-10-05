@@ -164,6 +164,6 @@ Prism provides a number of logging providers available out of the box for you wi
 
 ## Interop Extensions
 
-- [Microsoft.Extensions.Logging Interoperability](interop/microsoft)
-- [Prism.Plugins.Essentials](interop/essentials)
+- [Microsoft.Extensions.Logging Interoperability](interop/microsoft.md)
+- [Prism.Plugins.Essentials](interop/essentials.md)
 

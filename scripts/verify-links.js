@@ -12,7 +12,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const DOCS_DIR = path.join(__dirname, '..', 'docs');
+const ROOT_DIR = path.join(__dirname, '..');
+const DOCS_DIR = path.join(ROOT_DIR, 'docs');
 const VERSIONED_DOCS_DIR = path.join(__dirname, '..', 'versioned_docs');
 
 // Track all markdown files
@@ -88,7 +89,7 @@ function resolveLinkPath(sourceFile, linkUrl, baseDir) {
   }
   
   // Get directory of source file
-  const sourceDir = path.dirname(sourceFile);
+  const sourceDir = path.dirname(path.join(baseDir, sourceFile));
   
   // Resolve relative path
   const resolvedPath = path.resolve(sourceDir, cleanUrl);
@@ -166,6 +167,17 @@ function verifyFileLinks(filePath, baseDir, allFiles) {
     
     if (!resolved) continue;
     
+    // Images and other local assets are checked on disk, not in the Markdown set.
+    const cleanUrl = link.url.split('#')[0].split('?')[0];
+    const extension = path.extname(cleanUrl).toLowerCase();
+    if (extension && extension !== '.md') {
+      if (!fs.existsSync(path.join(baseDir, resolved))) {
+        errors.push({ line: link.line, url: link.url, text: link.text,
+          issue: `File not found: ${resolved}`, fix: 'Update the asset path' });
+      }
+      continue;
+    }
+
     // Check if file exists
     const exists = fileExists(resolved, allFiles);
     
@@ -197,7 +209,7 @@ function verifyFileLinks(filePath, baseDir, allFiles) {
       }
     } else {
       // Check if link has proper .md extension
-      if (!link.url.endsWith('.md') && !link.url.endsWith('/index.md')) {
+      if (!cleanUrl.endsWith('.md')) {
         warnings.push({
           line: link.line,
           url: link.url,
@@ -219,8 +231,8 @@ function main() {
   console.log('Finding all markdown files...');
   
   // Find all markdown files
-  findMarkdownFiles(DOCS_DIR, DOCS_DIR, allMarkdownFiles);
-  findMarkdownFiles(VERSIONED_DOCS_DIR, VERSIONED_DOCS_DIR, allMarkdownFiles);
+  findMarkdownFiles(DOCS_DIR, ROOT_DIR, allMarkdownFiles);
+  findMarkdownFiles(VERSIONED_DOCS_DIR, ROOT_DIR, allMarkdownFiles);
   
   console.log(`Found ${allMarkdownFiles.size} markdown files\n`);
   
@@ -229,7 +241,7 @@ function main() {
   const currentDocs = Array.from(allMarkdownFiles).filter(f => f.startsWith('docs/'));
   
   for (const file of currentDocs) {
-    const { errors, warnings } = verifyFileLinks(file, DOCS_DIR, allMarkdownFiles);
+    const { errors, warnings } = verifyFileLinks(file, ROOT_DIR, allMarkdownFiles);
     if (errors.length > 0 || warnings.length > 0) {
       issues.push({
         file,
@@ -240,11 +252,12 @@ function main() {
   }
   
   // Verify versioned docs
+  console.log(`Checked ${currentDocs.length} current documentation files`);
   console.log('Verifying versioned docs...');
   const versionedDocs = Array.from(allMarkdownFiles).filter(f => f.startsWith('versioned_docs/'));
   
   for (const file of versionedDocs) {
-    const { errors, warnings } = verifyFileLinks(file, path.dirname(VERSIONED_DOCS_DIR), allMarkdownFiles);
+    const { errors, warnings } = verifyFileLinks(file, ROOT_DIR, allMarkdownFiles);
     if (errors.length > 0 || warnings.length > 0) {
       issues.push({
         file,
@@ -254,6 +267,8 @@ function main() {
     }
   }
   
+  console.log(`Checked ${versionedDocs.length} versioned documentation files`);
+
   // Report results
   console.log('\n=== VERIFICATION RESULTS ===\n');
   
@@ -294,6 +309,7 @@ function main() {
   console.log(`Files with issues: ${issues.length}`);
   console.log(`Total errors: ${totalErrors}`);
   console.log(`Total warnings: ${totalWarnings}`);
+  if (totalErrors > 0) process.exitCode = 1;
 }
 
 if (require.main === module) {
