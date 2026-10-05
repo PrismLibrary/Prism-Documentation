@@ -1,6 +1,6 @@
 ---
-sidebar_position: 5
-title: Geofencing
+sidebar_position: 3
+uid: Plugins.Essentials.Devices.Sensors.Geofencing
 ---
 
 # Geofencing
