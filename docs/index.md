@@ -4,9 +4,17 @@ sidebar_position: 1
 
 # Introduction to Prism
 
-Prism is a framework for building loosely coupled, maintainable, and testable XAML applications in WPF, .NET MAUI, Uno Platform and Avalonia. Separate releases are available for each platform and those will be developed on independent timelines. Prism provides an implementation of a collection of design patterns that are helpful in writing well-structured and maintainable XAML applications, including MVVM, dependency injection, commands, EventAggregator, and others. Prism's core functionality is a shared code base in a Cross Compiled .NET Standard and .NET 4.5/4.8 Library. Those things that need to be platform specific are implemented in the respective libraries for the target platform. Prism also provides great integration of these patterns with the target platform. For example, Prism for .NET MAUI allows you to use an abstraction for navigation that is unit testable, but that layers on top of the platform concepts and APIs for navigation so that you can fully leverage what the platform itself has to offer, but done in the MVVM way.
+Prism is a framework for building loosely coupled, maintainable, and testable XAML applications in WPF, .NET MAUI, Uno Platform and Avalonia. Separate releases are available for each platform and those will be developed on independent timelines. Prism provides an implementation of a collection of design patterns that are helpful in writing well-structured and maintainable XAML applications, including MVVM, dependency injection, commands, EventAggregator, and others. Prism's core functionality is shared across its platform packages. Supported target frameworks vary by package; use the assets and dependencies of the version installed in your application. Those things that need to be platform specific are implemented in the respective libraries for the target platform. Prism also provides great integration of these patterns with the target platform. For example, Prism for .NET MAUI allows you to use an abstraction for navigation that is unit testable, but that layers on top of the platform concepts and APIs for navigation so that you can fully leverage what the platform itself has to offer, but done in the MVVM way.
 
 Prism 9 represents a major leap forward for app developers with a lot of focus having been spent on unifying the API across all platforms. This will unlock many possibilities for developers to move code forward from legacy applications or transition from one app development platform to another maximizing code reuse and eliminating development costs.
+
+## Prism 9.1 and NativeAOT
+
+Prism 9.1 is the first NativeAOT-ready Prism release. **Supported NativeAOT applications require `Prism.Container.Microsoft`, available with Commercial Plus.** The container's generated preservation support works with Prism's registrations, navigation, scopes, and statically linked modules.
+
+Start with the [NativeAOT guide](dependency-injection/native-aot.md). It covers container setup, view-model preservation, trimming, serialization, and the separate requirements of WPF, .NET MAUI, Uno Platform, and Avalonia. Framework readiness does not mean every application head or third-party dependency can be published with NativeAOT.
+
+The current documentation describes the 9.1 line, including features delivered in prerelease packages. Match the documentation to your installed package assets; a merged source change is not evidence that it is present in every published package. Use the version selector for 9.0 applications.
 
 ## Licensing
 
@@ -32,10 +40,10 @@ The Prism license that contains the terms and conditions can be found at [https:
 The Commercial Plus license offers a number of additional packages to help developers. At the time of writing the docs this would include:
 
 - Prism.Plugin.Popups (.NET MAUI)
-- Prism.Plugin.Essentials - A cross between several Shiny and .NET MAUI Essentials APIs abstracted and supported across all Prism Platforms allowing you to make use of these APIs with the same ViewModel regardless of which platform you are developing with.
-- Prism.Magician - A collection of Roslyn Analyzers, Source Generators, and IL Weaving to help you write less code and catch issues in your code quicker
+- Prism.Plugin.Essentials - Portable application-service abstractions with [MAUI, WPF, and Uno integrations](plugins/essentials/index.md). Capabilities depend on the selected host and operating system.
+- Prism.Magician - [Roslyn analyzers, source generators, and code fixes](magician/index.md) for registration and view-model boilerplate
 - Support for additional containers
-  - Microsoft.Extensions.DependencyInjection
+  - Microsoft.Extensions.DependencyInjection, required for supported NativeAOT applications
   - Grace Ioc
 
 Additionally Commercial Plus license holders have access to a private Discord group where they can ask questions, help one another and get help directly from the Prism team.

@@ -144,3 +144,7 @@ protected override void ConfigureViewModelLocator()
 }
 ```
 
+
+## NativeAOT and trimming
+
+For Prism 9.1 NativeAOT applications, prefer explicit view/view-model mappings and the supported Microsoft container. The default convention can find types preserved by the container generator, but the unrestricted reflection fallback is disabled during NativeAOT publishing. Custom conventions, generated registrations, and binding properties must be checked during application publication. See the [NativeAOT guide](../dependency-injection/native-aot.md) for preservation and platform requirements.

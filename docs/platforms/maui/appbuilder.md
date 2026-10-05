@@ -44,7 +44,9 @@ builder.UsePrism(prism =>
 ```
 
 :::note
-In the case where you only see the variant of `UsePrism` which requires an instance of the `IContainerProvider` this means that you are missing `Prism.DryIoc.Maui`. For most cases you will want this installed. Commercial Plus users may optionally install a different container package from the Prism NuGet feed such as Microsoft Extensions DependencyInjection or Grace Ioc. In these cases you would not need the `Prism.DryIoc.Maui` package as you have another container to provide. All other users should use make sure `Prism.DryIoc.Maui` is installed.
+The core `Prism.Maui` package exposes `UsePrism(IContainerExtension, Action<PrismAppBuilder>)`. Pass a configured container instance, or use a container-specific convenience extension supplied by your chosen package. `Prism.DryIoc.Maui` supplies the DryIoc convenience overload.
+
+For supported NativeAOT applications in Prism 9.1, use `Prism.Container.Microsoft` from Commercial Plus and follow the [NativeAOT setup guide](../../dependency-injection/native-aot.md). [Magician](../../magician/index.md) provides a generated startup alternative.
 :::
 
 #### Platform Specific Registrations
