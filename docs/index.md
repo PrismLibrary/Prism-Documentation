@@ -8,6 +8,10 @@ Prism is a framework for building loosely coupled, maintainable, and testable XA
 
 Prism 9 represents a major leap forward for app developers with a lot of focus having been spent on unifying the API across all platforms. This will unlock many possibilities for developers to move code forward from legacy applications or transition from one app development platform to another maximizing code reuse and eliminating development costs.
 
+## Explore reference applications
+
+See Prism in complete workflows with [Calculator, Planner, Sales Desk, Learning Hub, and Mail](samples/index.md). Follow shared business logic into WPF, MAUI, and Uno composition, with clearly labeled runtime images and platform-specific validation boundaries.
+
 ## Prism 9.1 and NativeAOT
 
 Prism 9.1 is the first NativeAOT-ready Prism release. **Supported NativeAOT applications require `Prism.Container.Microsoft`, available with Commercial Plus.** The container's generated preservation support works with Prism's registrations, navigation, scopes, and statically linked modules.
