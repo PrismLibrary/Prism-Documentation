@@ -15,7 +15,7 @@ Calculate with decimals, reuse a history result, and convert units. This is the 
 
 History depends on CalculationCore; UnitConversion is independent. Shared models, services, commands, and view models contain no UI-framework types.
 
-Choose your framework. Source links require access to the private [samples repository](https://github.com/PrismLibrary/samples).
+Choose your framework. Source links require access to the private [samples repository](https://github.com/PrismLibrary/samples). The source walkthrough follows merged checkpoint `02f8e351`; every image retains its own captured revision.
 
 <Tabs groupId="platform" queryString="platform" defaultValue="wpf" className="sample-platform-tabs" lazy>
 
@@ -41,19 +41,19 @@ dotnet run --project samples/prism-calculator/WPF/PrismCalculator.Wpf/PrismCalcu
 
 ### Guided walkthrough {#wpf-walkthrough}
 
-1. **Enter `2 + 3 * 4`, then press equals again.** Expect `14`, then `26`; try `0.1 + 0.2` for an exact decimal result. Read the [arithmetic contract](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/ExpressionEvaluator.cs).
+1. **Enter `2 + 3 * 4`, then press equals again.** Expect `14`, then `26`; try `0.1 + 0.2` for an exact decimal result. Read the [arithmetic contract](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/ExpressionEvaluator.cs).
 
-2. **Open a history item, cancel, then reopen and reuse its result.** The selected result returns to the same session; cancellation does not mutate it. Read the [history commands](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/History/ViewModels/HistoryViewModel.cs).
+2. **Open a history item, cancel, then reopen and reuse its result.** The selected result returns to the same session; cancellation does not mutate it. Read the [history commands](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/History/ViewModels/HistoryViewModel.cs).
 
-3. **Open Convert before Calculation in a fresh session.** UnitConversion loads independently; History loads CalculationCore first. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/WPF/PrismCalculator.Wpf/PrismStartup.cs).
+3. **Open Convert before Calculation in a fresh session.** UnitConversion loads independently; History loads CalculationCore first. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/WPF/PrismCalculator.Wpf/PrismStartup.cs).
 
-4. **Change preferences, close, and reopen on a qualified host.** Trace restore/save outcomes and protected-store behavior without logging expressions. Read the [persistence and logging](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/CalculatorState.cs).
+4. **Change preferences, close, and reopen on a qualified host.** Trace restore/save outcomes and protected-store behavior without logging expressions. Read the [persistence and logging](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/CalculatorState.cs).
 
 <details>
 <summary>Trace the WPF startup and module code</summary>
 
 
-The [WPF App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/WPF/PrismCalculator.Wpf/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
+The [WPF App class](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/WPF/PrismCalculator.Wpf/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
 
 ```csharp
 protected override IContainerExtension CreateContainerExtension()
@@ -66,7 +66,7 @@ protected override void RegisterTypes(IContainerRegistry registry)
     => PrismStartup.RegisterTypes(registry);
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/WPF/PrismCalculator.Wpf/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/WPF/PrismCalculator.Wpf/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<CalculationCoreModule>(CalculatorModules.CalculationCore, InitializationMode.OnDemand);
@@ -75,7 +75,7 @@ catalog.AddModule<UnitConversionModule>(CalculatorModules.UnitConversion, Initia
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/CalculationSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/CalculationSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -95,7 +95,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#wpf-validation}
 
-Native WPF workflows exercise actual containers, modules, bound controls, and dialogs. The images are live app-owned test renders, not OS screenshots or assistive-technology certification. WPF is not a NativeAOT target. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Native WPF workflows exercise actual containers, modules, bound controls, and dialogs. The images are live app-owned test renders, not OS screenshots or assistive-technology certification. WPF is not a NativeAOT target. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -119,7 +119,7 @@ Build the Android head with the installed Android SDK/JDK and MAUI workload:
 dotnet build samples/prism-calculator/Maui/PrismCalculator.Maui/PrismCalculator.Maui.csproj -p:TargetFrameworks=net10.0-android
 ```
 
-Open [this MAUI project](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Maui/PrismCalculator.Maui/PrismCalculator.Maui.csproj) in your IDE, select an Android emulator/device, and run it. On Windows, select the Windows target instead.
+Open [this MAUI project](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Maui/PrismCalculator.Maui/PrismCalculator.Maui.csproj) in your IDE, select an Android emulator/device, and run it. On Windows, select the Windows target instead.
 
 <details>
 <summary>Windows build command</summary>
@@ -134,19 +134,19 @@ dotnet build samples/prism-calculator/Maui/PrismCalculator.Maui/PrismCalculator.
 
 Explore the source behavior below; the current MAUI Android images validate only the limited Light checkpoint described above.
 
-1. **Enter `2 + 3 * 4`, then press equals again.** Expect `14`, then `26`; try `0.1 + 0.2` for an exact decimal result. Read the [arithmetic contract](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/ExpressionEvaluator.cs).
+1. **Enter `2 + 3 * 4`, then press equals again.** Expect `14`, then `26`; try `0.1 + 0.2` for an exact decimal result. Read the [arithmetic contract](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/ExpressionEvaluator.cs).
 
-2. **Open a history item, cancel, then reopen and reuse its result.** The selected result returns to the same session; cancellation does not mutate it. Read the [history commands](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/History/ViewModels/HistoryViewModel.cs).
+2. **Open a history item, cancel, then reopen and reuse its result.** The selected result returns to the same session; cancellation does not mutate it. Read the [history commands](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/History/ViewModels/HistoryViewModel.cs).
 
-3. **Open Convert before Calculation in a fresh session.** UnitConversion loads independently; History loads CalculationCore first. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Maui/PrismCalculator.Maui/PrismStartup.cs).
+3. **Open Convert before Calculation in a fresh session.** UnitConversion loads independently; History loads CalculationCore first. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Maui/PrismCalculator.Maui/PrismStartup.cs).
 
-4. **Change preferences, close, and reopen on a qualified host.** Trace restore/save outcomes and protected-store behavior without logging expressions. Read the [persistence and logging](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/CalculatorState.cs).
+4. **Change preferences, close, and reopen on a qualified host.** Trace restore/save outcomes and protected-store behavior without logging expressions. Read the [persistence and logging](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/CalculatorState.cs).
 
 <details>
 <summary>Trace the .NET MAUI startup and module code</summary>
 
 
-The [MAUI composition root](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Maui/PrismCalculator.Maui/MauiProgram.cs) selects the Microsoft container and the logical shell route. Excerpt (retain the rest of the app's startup):
+The [MAUI composition root](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Maui/PrismCalculator.Maui/MauiProgram.cs) selects the Microsoft container and the logical shell route. Excerpt (retain the rest of the app's startup):
 
 ```csharp
 builder.UseMauiApp<App>()
@@ -156,7 +156,7 @@ builder.UseMauiApp<App>()
         .CreateWindow(CalculatorRoutes.Shell));
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Maui/PrismCalculator.Maui/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Maui/PrismCalculator.Maui/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<CalculationCoreModule>(CalculatorModules.CalculationCore, InitializationMode.OnDemand);
@@ -165,7 +165,7 @@ catalog.AddModule<UnitConversionModule>(CalculatorModules.UnitConversion, Initia
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/CalculationSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/CalculationSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -185,7 +185,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#maui-validation}
 
-Selected MAUI Windows builds passed. The capture and interaction scope above is separate from build success. iOS/Mac Catalyst work is deferred; no all-head NativeAOT qualification is claimed. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Selected MAUI Windows builds passed. The capture and interaction scope above is separate from build success. iOS/Mac Catalyst work is deferred; no all-head NativeAOT qualification is claimed. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -224,19 +224,19 @@ These are source-backed target-selection commands, not a claim that a new browse
 
 ### Guided walkthrough {#uno-walkthrough}
 
-1. **Enter `2 + 3 * 4`, then press equals again.** Expect `14`, then `26`; try `0.1 + 0.2` for an exact decimal result. Read the [arithmetic contract](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/ExpressionEvaluator.cs).
+1. **Enter `2 + 3 * 4`, then press equals again.** Expect `14`, then `26`; try `0.1 + 0.2` for an exact decimal result. Read the [arithmetic contract](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/ExpressionEvaluator.cs).
 
-2. **Open a history item, cancel, then reopen and reuse its result.** The selected result returns to the same session; cancellation does not mutate it. Read the [history commands](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/History/ViewModels/HistoryViewModel.cs).
+2. **Open a history item, cancel, then reopen and reuse its result.** The selected result returns to the same session; cancellation does not mutate it. Read the [history commands](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/History/ViewModels/HistoryViewModel.cs).
 
-3. **Open Convert before Calculation in a fresh session.** UnitConversion loads independently; History loads CalculationCore first. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Uno/PrismCalculator.Uno/PrismStartup.cs).
+3. **Open Convert before Calculation in a fresh session.** UnitConversion loads independently; History loads CalculationCore first. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Uno/PrismCalculator.Uno/PrismStartup.cs).
 
-4. **Change preferences, close, and reopen on a qualified host.** Trace restore/save outcomes and protected-store behavior without logging expressions. Read the [persistence and logging](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/CalculatorState.cs).
+4. **Change preferences, close, and reopen on a qualified host.** Trace restore/save outcomes and protected-store behavior without logging expressions. Read the [persistence and logging](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/CalculatorState.cs).
 
 <details>
 <summary>Trace the Uno startup and module code</summary>
 
 
-The [Uno App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Uno/PrismCalculator.Uno/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
+The [Uno App class](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Uno/PrismCalculator.Uno/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
 
 ```csharp
 protected override IContainerExtension CreateContainerExtension()
@@ -249,7 +249,7 @@ protected override void RegisterTypes(IContainerRegistry registry)
     => PrismStartup.RegisterTypes(registry);
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Uno/PrismCalculator.Uno/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Uno/PrismCalculator.Uno/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<CalculationCoreModule>(CalculatorModules.CalculationCore, InitializationMode.OnDemand);
@@ -258,7 +258,7 @@ catalog.AddModule<UnitConversionModule>(CalculatorModules.UnitConversion, Initia
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/Shared/CalculationCore/Services/CalculationSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/Shared/CalculationCore/Services/CalculationSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -278,7 +278,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#uno-validation}
 
-Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain their own runtime boundaries; iOS/macOS capture work is deferred. WebAssembly AOT and desktop NativeAOT are different deployment paths. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-calculator/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain their own runtime boundaries; iOS/macOS capture work is deferred. WebAssembly AOT and desktop NativeAOT are different deployment paths. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-calculator/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -288,7 +288,7 @@ Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain 
 
 Calculator does not yet have an Avalonia application head, runnable walkthrough, or captured UI. Prism supports Avalonia APIs; this particular sample head and its Essentials integration are still to come.
 
-Continue with one of the available framework tabs, or explore the [Avalonia starter template](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/sample-template/Avalonia).
+Continue with one of the available framework tabs, or explore the [Avalonia starter template](https://github.com/PrismLibrary/samples/tree/02f8e351ff20356e0ff2cc656f8bb201f65fff97/sample-template/Avalonia).
 
 </TabItem>
 

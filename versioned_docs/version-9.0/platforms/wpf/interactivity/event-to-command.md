@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 uid: Platforms.Wpf.Interactivity.EventToCommand
+description: Bind WPF events to Prism 9 commands and select event parameters safely.
 ---
 
 # Binding Events to Commands
@@ -20,7 +21,7 @@ The ```InvokeCommandAction``` exposes the following properties:
 
 ### Basic Usage
 
-First the binding needs to be hooked up in WPF by specifying an ```InteractionTrigger```. This is standard out-of-the-box functionality in WPF. Add the namespace to be able to declare it in the XAML.
+First the binding needs to be hooked up in WPF by adding an `EventTrigger` to `Interaction.Triggers`. This comes from `Microsoft.Xaml.Behaviors.Wpf`, referenced by `Prism.Wpf`. Add the namespace to be able to declare it in the XAML.
 
 `xmlns:i="http://schemas.microsoft.com/xaml/behaviors"`
 
@@ -33,7 +34,7 @@ And attach to the control with the desired event.
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -58,7 +59,7 @@ In the code below, the ```SelectionChanged``` event receives a  ```SelectionChan
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -68,7 +69,6 @@ In the code below, the ```SelectionChanged``` event receives a  ```SelectionChan
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding SelectedCommand}"
-                                               CommandParameter="{Binding MyParameter}"
                                                TriggerParameterPath="AddedItems" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -84,7 +84,7 @@ The `AutoEnable` property specifies if the associated element should be automati
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -94,7 +94,6 @@ The `AutoEnable` property specifies if the associated element should be automati
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding SelectedCommand}"
-                                               CommandParameter="{Binding MyParameter}"
                                                TriggerParameterPath="AddedItems"
                                                AutoEnable="true" />
                 </i:EventTrigger>
@@ -106,5 +105,20 @@ The `AutoEnable` property specifies if the associated element should be automati
 
 ## Full Code Sample
 
-For a complete code example, go to the ***Prism-Samples-Wpf*** repository in [GitHub](https://github.com/PrismLibrary/Prism-Samples-Wpf) and refer to [29-InvokeCommandAction](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/29-InvokeCommandAction).
+The historical [29-InvokeCommandAction sample](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/29-InvokeCommandAction) illustrates this behavior. Its package versions may predate the current APIs; use the [Prism 9 WPF setup](../getting-started.md) and the source below for the shipped 9.0.537 APIs.
 
+
+Use either an explicit `CommandParameter` or a `TriggerParameterPath` when demonstrating event data. A non-null explicit parameter takes precedence and would hide the event property in the examples above. This action is WPF-specific; MAUI uses its [EventToCommandBehavior](../../maui/behaviors/eventtocommandbehavior.md).
+
+[Prism 9 WPF implementation](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Wpf/Prism.Wpf/Interactivity/InvokeCommandAction.cs).
+
+
+## Parameter and execution details
+
+Without an explicit non-null `CommandParameter` or `TriggerParameterPath`, the event argument is passed to the command. A path such as `AddedItems` extracts a property from that event object; dotted paths walk nested public properties. Every path segment must exist and each intermediate object must be non-null. Prism 9 does not guard a missing property or null intermediate value, and evaluates the path even when an explicit command parameter will ultimately be used.
+
+`AutoEnable` updates the control's enabled state using `CanExecute(CommandParameter)`. Event arguments do not exist at that point, so a command that depends on event data must tolerate a null parameter during this check. With `AutoEnable="False"`, Prism leaves the control's enabled state alone.
+
+The execution path itself calls `ICommand.Execute` without a fresh `CanExecute` check. Do not treat `AutoEnable` as an authorization or validation guard. If an event can fire while the action is unavailable, validate inside the command or use a wrapper that enforces `CanExecute` before execution. This matters especially for programmatically raised events and when `AutoEnable` is disabled.
+
+Source: [CommandBehaviorBase enabled-state and execution paths](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Wpf/Prism.Wpf/Interactivity/CommandBehaviorBase.cs).

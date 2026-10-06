@@ -15,7 +15,7 @@ Plan a project, edit tasks, and keep personal notes. Follow a local-first worksp
 
 PlanningBoard depends on ProjectCatalog; PersonalNotes is independent. Shared transactions and logical routes remain separate from native views and dialog hosts.
 
-Choose your framework. Source links require access to the private [samples repository](https://github.com/PrismLibrary/samples).
+Choose your framework. Source links require access to the private [samples repository](https://github.com/PrismLibrary/samples). The source walkthrough follows merged checkpoint `02f8e351`; every image retains its own captured revision.
 
 <Tabs groupId="platform" queryString="platform" defaultValue="wpf" className="sample-platform-tabs" lazy>
 
@@ -27,7 +27,7 @@ The desktop shell combines project, board, and detail regions. Keyboard commands
 
 <SampleGallery label="Planner WPF" captures={sampleCaptures["planner"].wpf} />
 
-Original WPF application-owned runtime renders; source and capture method are recorded in the gallery and [runtime coverage](runtime-coverage.md).
+The original WPF workflows remain at `7ffdd4c7`. A separate `75b63e8d` render shows the improved Dark task editor with readable fields and both actions fully visible. Each image keeps its own source and [capture provenance](runtime-coverage.md).
 
 ### Set up and run {#wpf-run}
 
@@ -41,19 +41,19 @@ dotnet run --project samples/prism-planner/WPF/PrismPlanner.Wpf/PrismPlanner.Wpf
 
 ### Guided walkthrough {#wpf-walkthrough}
 
-1. **Open Notes first, then return Home and open Planner.** PersonalNotes initializes alone; Planner loads ProjectCatalog before PlanningBoard. Read the [on-demand composition](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/WPF/PrismPlanner.Wpf/PrismStartup.cs).
+1. **Open Notes first, then return Home and open Planner.** PersonalNotes initializes alone; Planner loads ProjectCatalog before PlanningBoard. Read the [on-demand composition](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/WPF/PrismPlanner.Wpf/PrismStartup.cs).
 
-2. **Edit a task, including its date, stage, priority, and tags.** Invalid values keep the editor open; a dirty Cancel offers Keep editing or Discard. Read the [validated dialog result](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/PlanningBoard/ViewModels/EditTaskViewModel.cs).
+2. **Edit a task, including its date, stage, priority, and tags.** Invalid values keep the editor open; a dirty Cancel offers Keep editing or Discard. Read the [validated dialog result](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/PlanningBoard/ViewModels/EditTaskViewModel.cs).
 
-3. **Delete a task with confirmation, then undo it.** The proposed snapshot is persisted before the visible workspace changes. Read the [transaction boundary](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs).
+3. **Delete a task with confirmation, then undo it.** The proposed snapshot is persisted before the visible workspace changes. Read the [transaction boundary](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs).
 
-4. **Make more than one document dirty and attempt closure.** Cancelling a later decision must preserve earlier documents. Read the [close-all coordination](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Editing/CloseAllCoordinator.cs).
+4. **Make more than one document dirty and attempt closure.** Cancelling a later decision must preserve earlier documents. Read the [close-all coordination](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Editing/CloseAllCoordinator.cs).
 
 <details>
 <summary>Trace the WPF startup and module code</summary>
 
 
-The [WPF App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/WPF/PrismPlanner.Wpf/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
+The [WPF App class](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/WPF/PrismPlanner.Wpf/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
 
 ```csharp
 protected override IContainerExtension CreateContainerExtension()
@@ -66,7 +66,7 @@ protected override void RegisterTypes(IContainerRegistry registry)
     => PrismStartup.RegisterTypes(registry);
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/WPF/PrismPlanner.Wpf/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/WPF/PrismPlanner.Wpf/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<ProjectCatalogModule>(PlannerModules.ProjectCatalog, InitializationMode.OnDemand);
@@ -75,7 +75,7 @@ catalog.AddModule<PersonalNotesModule>(PlannerModules.PersonalNotes, Initializat
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -95,7 +95,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#wpf-validation}
 
-Native WPF workflows exercise actual containers, modules, bound controls, and dialogs. The images are live app-owned test renders, not OS screenshots or assistive-technology certification. WPF is not a NativeAOT target. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Native WPF workflows exercise actual containers, modules, bound controls, and dialogs. The images are live app-owned test renders, not OS screenshots or assistive-technology certification. WPF is not a NativeAOT target. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -107,7 +107,7 @@ The registered shell page contains native regions; reusable editors use Prism’
 
 <SampleGallery label="Planner .NET MAUI" captures={sampleCaptures["planner"].maui} />
 
-.NET MAUI runtime captures are pending. Windows builds are verified; Android and other native journeys need their own capture and interaction evidence.
+The Android capture at `8093ba7d` establishes the branded home only. Opening Planner failed to create `Planner.Projects`, and opening Notes raised a XAML namespace error. The source walkthrough below explains the intended composition; that Android checkpoint does not complete the journey. No newer Planner MAUI runtime repair is established by the supplied evidence.
 
 ### Set up and run {#maui-run}
 
@@ -119,7 +119,7 @@ Build the Android head with the installed Android SDK/JDK and MAUI workload:
 dotnet build samples/prism-planner/Maui/PrismPlanner.Maui/PrismPlanner.Maui.csproj -p:TargetFrameworks=net10.0-android
 ```
 
-Open [this MAUI project](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Maui/PrismPlanner.Maui/PrismPlanner.Maui.csproj) in your IDE, select an Android emulator/device, and run it. On Windows, select the Windows target instead.
+Open [this MAUI project](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Maui/PrismPlanner.Maui/PrismPlanner.Maui.csproj) in your IDE, select an Android emulator/device, and run it. On Windows, select the Windows target instead.
 
 <details>
 <summary>Windows build command</summary>
@@ -132,26 +132,26 @@ dotnet build samples/prism-planner/Maui/PrismPlanner.Maui/PrismPlanner.Maui.cspr
 
 ### Guided walkthrough {#maui-walkthrough}
 
-1. **Open Notes first, then return Home and open Planner.** PersonalNotes initializes alone; Planner loads ProjectCatalog before PlanningBoard. Read the [on-demand composition](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Maui/PrismPlanner.Maui/PrismStartup.cs).
+1. **Open Notes first, then return Home and open Planner.** PersonalNotes initializes alone; Planner loads ProjectCatalog before PlanningBoard. Read the [on-demand composition](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Maui/PrismPlanner.Maui/PrismStartup.cs).
 
-2. **Edit a task, including its date, stage, priority, and tags.** Invalid values keep the editor open; a dirty Cancel offers Keep editing or Discard. Read the [validated dialog result](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/PlanningBoard/ViewModels/EditTaskViewModel.cs).
+2. **Edit a task, including its date, stage, priority, and tags.** Invalid values keep the editor open; a dirty Cancel offers Keep editing or Discard. Read the [validated dialog result](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/PlanningBoard/ViewModels/EditTaskViewModel.cs).
 
-3. **Delete a task with confirmation, then undo it.** The proposed snapshot is persisted before the visible workspace changes. Read the [transaction boundary](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs).
+3. **Delete a task with confirmation, then undo it.** The proposed snapshot is persisted before the visible workspace changes. Read the [transaction boundary](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs).
 
-4. **Make more than one document dirty and attempt closure.** Cancelling a later decision must preserve earlier documents. Read the [close-all coordination](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Editing/CloseAllCoordinator.cs).
+4. **Make more than one document dirty and attempt closure.** Cancelling a later decision must preserve earlier documents. Read the [close-all coordination](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Editing/CloseAllCoordinator.cs).
 
 <details>
 <summary>Trace the .NET MAUI startup and module code</summary>
 
 
-The [MAUI composition root](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Maui/PrismPlanner.Maui/MauiProgram.cs) selects the Microsoft container and the logical shell route. Excerpt (retain the rest of the app's startup):
+The [MAUI composition root](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Maui/PrismPlanner.Maui/MauiProgram.cs) selects the Microsoft container and the logical shell route. Excerpt (retain the rest of the app's startup):
 
 ```csharp
 builder.UseMauiApp<App>()
     .UsePrism(new MicrosoftContainerExtension(), PrismStartup.Configure);
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Maui/PrismPlanner.Maui/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Maui/PrismPlanner.Maui/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<ProjectCatalogModule>(PlannerModules.ProjectCatalog, InitializationMode.OnDemand);
@@ -160,7 +160,7 @@ catalog.AddModule<PersonalNotesModule>(PlannerModules.PersonalNotes, Initializat
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -180,7 +180,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#maui-validation}
 
-Selected MAUI Windows builds passed. The capture and interaction scope above is separate from build success. iOS/Mac Catalyst work is deferred; no all-head NativeAOT qualification is claimed. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Selected MAUI Windows builds passed; the Android runtime scope and remaining limitations are described above. Build success does not complete an interactive journey. iOS/Mac Catalyst work is deferred; no all-head NativeAOT qualification is claimed. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -192,7 +192,7 @@ The Uno head owns its XAML, resource states, and region adapter. Task selection 
 
 <SampleGallery label="Planner Uno" captures={sampleCaptures["planner"].uno} />
 
-Uno runtime captures are pending. Windows builds are verified; Android and other native journeys need their own capture and interaction evidence.
+Actual Android captures at `8093ba7d` show a new task increasing the board count to four and a personal note saved on the device. The task editor action was partly clipped but tappable, and the attempted Dark capture remained Light. This is useful local-save evidence with remaining layout/theme work, not a full acceptance pass.
 
 ### Set up and run {#uno-run}
 
@@ -219,19 +219,19 @@ These are source-backed target-selection commands, not a claim that a new browse
 
 ### Guided walkthrough {#uno-walkthrough}
 
-1. **Open Notes first, then return Home and open Planner.** PersonalNotes initializes alone; Planner loads ProjectCatalog before PlanningBoard. Read the [on-demand composition](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Uno/PrismPlanner.Uno/PrismStartup.cs).
+1. **Open Notes first, then return Home and open Planner.** PersonalNotes initializes alone; Planner loads ProjectCatalog before PlanningBoard. Read the [on-demand composition](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Uno/PrismPlanner.Uno/PrismStartup.cs).
 
-2. **Edit a task, including its date, stage, priority, and tags.** Invalid values keep the editor open; a dirty Cancel offers Keep editing or Discard. Read the [validated dialog result](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/PlanningBoard/ViewModels/EditTaskViewModel.cs).
+2. **Edit a task, including its date, stage, priority, and tags.** Invalid values keep the editor open; a dirty Cancel offers Keep editing or Discard. Read the [validated dialog result](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/PlanningBoard/ViewModels/EditTaskViewModel.cs).
 
-3. **Delete a task with confirmation, then undo it.** The proposed snapshot is persisted before the visible workspace changes. Read the [transaction boundary](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs).
+3. **Delete a task with confirmation, then undo it.** The proposed snapshot is persisted before the visible workspace changes. Read the [transaction boundary](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs).
 
-4. **Make more than one document dirty and attempt closure.** Cancelling a later decision must preserve earlier documents. Read the [close-all coordination](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Editing/CloseAllCoordinator.cs).
+4. **Make more than one document dirty and attempt closure.** Cancelling a later decision must preserve earlier documents. Read the [close-all coordination](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Editing/CloseAllCoordinator.cs).
 
 <details>
 <summary>Trace the Uno startup and module code</summary>
 
 
-The [Uno App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Uno/PrismPlanner.Uno/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
+The [Uno App class](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Uno/PrismPlanner.Uno/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
 
 ```csharp
 protected override IContainerExtension CreateContainerExtension()
@@ -244,7 +244,7 @@ protected override void RegisterTypes(IContainerRegistry registry)
     => PrismStartup.RegisterTypes(registry);
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Uno/PrismPlanner.Uno/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Uno/PrismPlanner.Uno/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<ProjectCatalogModule>(PlannerModules.ProjectCatalog, InitializationMode.OnDemand);
@@ -253,7 +253,7 @@ catalog.AddModule<PersonalNotesModule>(PlannerModules.PersonalNotes, Initializat
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/Shared/Storage/Services/PlannerWorkspace.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -273,7 +273,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#uno-validation}
 
-Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain their own runtime boundaries; iOS/macOS capture work is deferred. WebAssembly AOT and desktop NativeAOT are different deployment paths. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-planner/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain their own runtime boundaries; iOS/macOS capture work is deferred. WebAssembly AOT and desktop NativeAOT are different deployment paths. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-planner/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -283,7 +283,7 @@ Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain 
 
 Planner does not yet have an Avalonia application head, runnable walkthrough, or captured UI. Prism supports Avalonia APIs; this particular sample head and its Essentials integration are still to come.
 
-Continue with one of the available framework tabs, or explore the [Avalonia starter template](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/sample-template/Avalonia).
+Continue with one of the available framework tabs, or explore the [Avalonia starter template](https://github.com/PrismLibrary/samples/tree/02f8e351ff20356e0ff2cc656f8bb201f65fff97/sample-template/Avalonia).
 
 </TabItem>
 

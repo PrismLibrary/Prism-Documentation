@@ -2,62 +2,85 @@
 sidebar_position: 2
 ---
 
-# INavigationParameters
+# Navigation Parameters {#inavigationparameters}
 
-The Navigation Parameters are a way that you can pass state, options, or other values during Navigation events. This includes both [Page based Navigation](page-navigation.md) as well as [Region based navigation](regions/index.md). The Navigation Parameters can be comprised entirely from the query string in your Navigation Uri, or from an instance of the `NavigationParameters`. It can even merge the two allowing you to combine query string parameters and parameters from an instance of the `NavigationParameters`. This will be done for you automatically by Prism in the Navigation Service.
-
-In Prism 9.0 the Navigation Parameters and interface are entirely shared from the Prism.Core across all Navigation paradigms and platforms.
+`Prism.Navigation.INavigationParameters` carries values through both page and region navigation. Create a `NavigationParameters` instance for in-process values, or encode simple values in a URI query. Region callbacks receive the combined values through `NavigationContext.Parameters`; MAUI page callbacks receive `INavigationParameters` directly.
 
 ## Creating Navigation Parameters
 
-```cs
-new NavigationParameters
+```csharp
+using Prism.Navigation;
+
+var parameters = new NavigationParameters
 {
-    { "Title", "Hello World" },
-    { "StarshipLaunchAttempt", new DateTime(2023, 4, 20) }
-}
+    { "customerId", "C-104" },
+    { "readOnly", true },
+    { "tag", "priority" },
+    { "tag", "renewal" }
+};
 ```
 
-As you will notice when creating an instance of the NavigationParameters you can add values of various types.
+This is a sequence of key/value pairs, not a dictionary with unique keys:
 
-```cs
-new NavigationParameters
-{
-    { "SelectedColors", Colors.Blue },
-    { "SelectedColors", Colors.Gray }
-}
-```
+- `Add` appends; it does not replace an earlier value with the same key.
+- Keys are case-sensitive.
+- `GetValue<T>` reads the first matching value and returns the type's default when the key is absent.
+- `GetValues<T>` retrieves multiple values; an absent key produces an empty sequence.
+- The indexer returns `object`, so assigning it directly to a `string` or domain object requires a cast. Prefer the typed methods.
 
-While at first it may appear that `INavigationParameters` is just an `IDictionary<string, object>`, it is in fact an `IEnumerable<KeyValuePair<string, object>>`. This means that you have the ability to overload the keys adding multiple values to the NavigationParameters with a single key.
+Typed access supports assignable object types and some conversions, including string-to-primitive conversion. It is not general-purpose JSON deserialization. Conversion can throw, including through `TryGetValue<T>` when an underlying conversion fails. Validate untrusted URI input before using it as an identifier, amount or permission decision.
 
 ## Accessing Navigation Parameters
 
-Depending on what you need to get from the Navigation Parameters you may want to call one of the following APIs.
-
 ### Getting a Single Value
 
-To access a single value from the Navigation Parameters you should use the `GetValue` method like:
-
-```cs
-Title = parameters.GetValue<string>("Title");
+```csharp
+string customerId = parameters.GetValue<string>("customerId");
+bool readOnly = parameters.GetValue<bool>("readOnly");
 ```
+
+Use a required-value check when the type's default would be ambiguous or invalid for the destination.
 
 ### Get a value if the key exists
 
-To access a value only if the key exists you can use the `TryGetValue` method like:
-
-```cs
-if (parameters.TryGetValue<string>("Title", out var title))
+```csharp
+if (parameters.TryGetValue<string>("returnTo", out var returnTo))
 {
-    Title = title;
+    // Use the optional destination.
 }
 ```
 
+This is a lookup and conversion helper, not a guarantee that arbitrary input cannot throw.
+
 ### Getting multiple values
 
-To access multiple values you can use the `GetValues` method. This will return an empty list if no values were provided.
-
-```cs
-var colors = parameters.GetValues<Color>("SelectedColors");
+```csharp
+IEnumerable<string> tags = parameters.GetValues<string>("tag");
 ```
 
+Add `using System.Collections.Generic;` when implicit usings are unavailable. In the example, the two `tag` entries remain separate values.
+
+## URI values and object values
+
+```csharp
+var query = new NavigationParameters
+{
+    { "customerId", "C-104" },
+    { "search", "coffee & tea" }
+};
+
+string destination = "CustomerView" + query;
+// CustomerView?customerId=C-104&search=coffee%20%26%20tea
+```
+
+`ToString()` escapes keys and each value's string representation. Query values are parsed as strings. Objects passed directly remain object references; converting the parameter collection to a URI does not serialize and reconstruct those objects.
+
+When you combine a query with an explicit parameter collection, avoid duplicate keys unless multiple values are intentional. Region navigation appends the explicit parameters after the query parameters, so a first-value lookup sees the query value first.
+
+## Design a small navigation contract
+
+Use stable IDs and a small set of options for repeatable navigation. Load the current record through an injected service in the destination. Passing a large mutable object graph couples the two views and can retain objects through the navigation journal. Never put passwords, access tokens or other secrets in a navigation URI.
+
+Examples: [region parameters](regions/passing-parameters.md) and [MAUI page navigation](../platforms/maui/navigation/page-navigation.md).
+
+Source (Prism 9.0.537): [NavigationParameters](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Navigation/NavigationParameters.cs), [parameter storage and URI formatting](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Common/ParametersBase.cs), [typed conversions](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Common/ParametersExtensions.cs), [region parameter merge](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Navigation/Regions/NavigationContext.cs).

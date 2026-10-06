@@ -112,7 +112,7 @@ protected override void ConfigureRegionAdapterMappings(RegionAdapterMappings map
 }
 ```
 
-Use `Prism.Ioc` for the registration extension. Register the adapter as a transient service; an adapter or behavior holding host state must not be shared as a singleton across unrelated hosts.
+Use `Prism.Ioc` for the registration extension. The mapping retains the adapter instance it resolves, even if its service registration is transient. Keep each host's state in the `Adapt` call's local variables or a behavior created for that region, rather than in shared adapter fields.
 
 This example is intentionally small: a production adapter may need incremental updates, selection, virtualization, sorting, host teardown or third-party control integration. Do not put the same visual instance into two controls.
 

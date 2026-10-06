@@ -81,6 +81,7 @@ const config: Config = {
   ],
 
   plugins: [
+    require.resolve('./plugins/social-cards'),
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {

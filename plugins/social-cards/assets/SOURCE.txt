@@ -1,0 +1,5 @@
+Inter.ttf and OFL.txt are redistributed under the included SIL Open Font License 1.1.
+Source: https://github.com/AvantiPoint/AvantiPoint.Aspire/tree/8bd94ec4f1b95193d3104ae352257f70e170d53d/docs/src/assets/fonts
+Upstream: https://github.com/rsms/inter
+Original font Git blob: 047c92f6e2212473dc436020afed689527076d44
+The Prism symbol is the existing official static/img/logo-prism-symbol@2x.png asset.

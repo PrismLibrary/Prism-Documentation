@@ -20,7 +20,7 @@ Choose an app, then select WPF, .NET MAUI, Uno, or Avalonia. Each framework tab 
 | [Learning Hub](learning-hub.md) | Offline essays, bookmarks, collections, and reading progress | Cancellable discovery, persistent reading state, original artwork, and adaptive reading layouts |
 | [Mail](mail.md) | A fictional inbox, contacts, calendar, and drafts | Account boundaries, on-demand modules, typed public configuration, and cautious provider integration |
 
-All five applications, including Mail and their workflow-logging integration, are in the reviewed samples `master` tree at `9c31a9ce`. Mail still has the provider limitations identified in its walkthrough. Source links require access to the [Prism samples repository](https://github.com/PrismLibrary/samples).
+All five applications are in the reviewed samples `master` tree at `02f8e351`, including workflow logging, visual polish, Mail MAUI startup/dialog repairs, Calendar range handling and Uno Android Accounts navigation. Mail still has the functional and provider limitations identified in its walkthrough. Source links require access to the [Prism samples repository](https://github.com/PrismLibrary/samples).
 
 ## Suggested learning path
 
@@ -42,13 +42,13 @@ The head-specific stories live in each app's framework tabs. The apps use explic
 
 ## Run from the existing repository
 
-Start with the [repository setup and templates](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/README.md). Keep its root build properties, central package versions, Uno SDK selection, and authorized feed configuration. The reference applications use the Microsoft container and Essentials packages from Commercial Plus.
+Start with the [repository setup and templates](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/README.md). Keep its root build properties, central package versions, Uno SDK selection, and authorized feed configuration. The reference applications use the Microsoft container and Essentials packages from Commercial Plus.
 
 - Select the application's WPF, MAUI, or Uno solution from its README.
 - Install/use the workload and native toolchain for the selected target.
 - Use the root `DotNetVersion` property with a matching target framework rather than adding a sample-specific SDK lock or package-version override.
 - Run the portable tests separately from native-head builds and actual UI workflows.
-- Use the [Hello World platform templates](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/sample-template) when you want a minimal starting point rather than a complete reference application. The templates' container choice is separate from these apps' explicit Microsoft-container composition.
+- Use the [Hello World platform templates](https://github.com/PrismLibrary/samples/tree/02f8e351ff20356e0ff2cc656f8bb201f65fff97/sample-template) when you want a minimal starting point rather than a complete reference application. The templates' container choice is separate from these apps' explicit Microsoft-container composition.
 
 ## Diagnose real workflows with Prism Logging
 
@@ -68,7 +68,7 @@ All five apps inject Prism's `ILogger<T>` into their shared application services
 | Learning Hub | Library restore/save, bookmarks, reading progress, and collection changes |
 | Mail | Account changes, mail/contact/calendar operations, drafts, and send-submission outcomes |
 
-The sample's own registration helper is [RegisterSampleLogging](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/shared/Logging/LocalLoggingRegistration.cs). For example, each Planner head calls:
+The sample's own registration helper is [RegisterSampleLogging](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/shared/Logging/LocalLoggingRegistration.cs). For example, each Planner head calls:
 
 ```csharp
 using PrismSamples.Diagnostics;
@@ -80,17 +80,17 @@ This is a source-linked sample helper, not an additional Prism API. It composes 
 
 ### Keep diagnostics useful without copying application data
 
-[WorkflowLog.Record](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/shared/Logging/WorkflowLog.cs) accepts fixed operation/outcome categories and an optional exception. The [output filter](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/shared/Logging/LocalLogProvider.cs) also covers messages, scopes, analytics, exception reporting, and Essentials' automatic error forwarding. Only the fixed application name, allowlisted categories, and bounded error-type names reach local output. Expressions, task notes, customer/quote content, mail addresses/bodies, contacts, appointments, tokens, arbitrary messages, exception text/stacks, and caller paths are discarded.
+[WorkflowLog.Record](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/shared/Logging/WorkflowLog.cs) accepts fixed operation/outcome categories and an optional exception. The [output filter](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/shared/Logging/LocalLogProvider.cs) also covers messages, scopes, analytics, exception reporting, and Essentials' automatic error forwarding. Only the fixed application name, allowlisted categories, and bounded error-type names reach local output. Expressions, task notes, customer/quote content, mail addresses/bodies, contacts, appointments, tokens, arbitrary messages, exception text/stacks, and caller paths are discarded.
 
 Do not add a raw `AddConsole` or remote provider alongside this filter and assume the policy still holds: that creates a second output path. These samples configure no network logging destination, credentials, persistent log file, or user identity. Capture standard output through the IDE or launch tool; a GUI launch without a captured stream may show no diagnostics. This is developer diagnostics, not a durable audit trail.
 
-Outcomes are recorded at the operation boundary. A failed save stays failed, cancellation remains distinct, and a later retry has its own outcome. Mail's uncertain send stays `Uncertain`; logging neither retransmits it nor claims a definite delivery result. See the [shared diagnostics guide](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/shared/Logging/README.md) for privacy tests and extension rules.
+Outcomes are recorded at the operation boundary. A failed save stays failed, cancellation remains distinct, and a later retry has its own outcome. Mail's uncertain send stays `Uncertain`; logging neither retransmits it nor claims a definite delivery result. See the [shared diagnostics guide](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/shared/Logging/README.md) for privacy tests and extension rules.
 
 </details>
 
 ## Read the evidence accurately
 
-The galleries contain **real WPF application-owned test renders** and **actual Calculator Android emulator captures**, labeled by framework and source checkpoint. WPF images stay in WPF tabs; Calculator MAUI and Uno tabs show their own Android evidence. Device and screen pickers list only captured combinations. Missing hosts stay visibly pending.
+The galleries contain **63 untouched images**: 32 real WPF application-owned test renders and 31 actual Android emulator captures. Each framework tab shows only its own evidence, with device and screen pickers limited to captured combinations. The Android scenes cover all five applications, with explicit limits such as Planner MAUI launch-only coverage and incomplete Sales Desk MAUI quote editing. Source checkpoints remain attached to each image; a newer source walkthrough does not upgrade older runtime evidence.
 
 See [runtime capture coverage](runtime-coverage.md) for the exact image provenance and the separate Windows, Android-emulator, Uno browser, and Linux-desktop capture status. iOS and macOS captures are deferred. Native test automation, OS input, screen-reader testing, and deployment qualification remain different forms of evidence.
 
@@ -98,4 +98,4 @@ See [runtime capture coverage](runtime-coverage.md) for the exact image provenan
 
 All five applications select the Microsoft container. Generated JSON metadata and statically visible registrations are useful prerequisites; they do not establish a NativeAOT release for every head. None of these walkthroughs claims a qualified NativeAOT UI deployment. WPF is not a NativeAOT target. Follow the [Prism 10.0 NativeAOT guide](../dependency-injection/native-aot.md) for supported container, framework, and publish/run requirements.
 
-The samples do not depend on the unmerged DeviceDisplay or new files/camera/share work, and they do not hide the persisted background-task metadata limitation by enabling reflection. The merged Logging integration is qualified for the documented portable tests and Windows checks; it does not extend the applications' Android, browser, Apple, or NativeAOT qualification.
+The samples do not depend on the unmerged DeviceDisplay or new files/camera/share work, and they do not hide the persisted background-task metadata limitation by enabling reflection. The earlier Logging qualification and newer Android workflow captures are separate evidence at their recorded revisions. Neither establishes browser, Apple, or NativeAOT qualification.

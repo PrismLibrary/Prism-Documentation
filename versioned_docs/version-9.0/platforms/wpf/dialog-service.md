@@ -1,244 +1,193 @@
 ---
 sidebar_position: 1
 uid: Platforms.Wpf.DialogService
+description: Create, register, show, and customize WPF dialogs with the Prism 9 API.
 ---
 
 # Dialog Service
 
-TODO: Intro
+`Prism.Dialogs.IDialogService` presents a registered content view inside a WPF host window. Prism creates the content and view model through its container, supplies parameters, and reports the close result. This walkthrough uses the Prism 9.0.537 API.
 
 ## Create Your Dialog View
 
-Your dialog view is a simple **UserControl** that can be designed anyway you please.  The only requirement it has a ViewModel that implements `IDialogAware` set as it's DataContext.  Preferably, it will utilize the `ViewModelLocator`
+Create a WPF UserControl named `NotificationDialog`. Keep its generated constructor calling `InitializeComponent()` and use this XAML:
 
 ```xml
-<UserControl x:Class="HelloWorld.Dialogs.NotificationDialog"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             Width="300" Height="150">
-    <Grid x:Name="LayoutRoot" Margin="5">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <TextBlock Text="{Binding Message}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0" TextWrapping="Wrap" />
-        <Button Command="{Binding CloseDialogCommand}" CommandParameter="true" Content="OK" Width="75" Height="25" HorizontalAlignment="Right" Margin="0,10,0,0" Grid.Row="1" IsDefault="True" />
-    </Grid>
+<UserControl x:Class="MyApp.Dialogs.NotificationDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    MinWidth="300">
+    <StackPanel Margin="20">
+        <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+        <Button Content="OK" Command="{Binding CloseCommand}"
+                IsDefault="True" HorizontalAlignment="Right" Margin="0,16,0,0" />
+    </StackPanel>
 </UserControl>
 ```
 
+The content must be a `FrameworkElement`; a UserControl is the usual choice. Its `DataContext` must implement `IDialogAware`. The dialog service invokes the ViewModelLocator if the data context is unset and automatic wiring has not explicitly been disabled.
+
 ## Create Your Dialog ViewModel
 
-Next you need a ViewModel that implements `IDialogAware` which is defined as follows
+Prism 9 uses a get-only `DialogCloseListener` property, not the earlier `RequestClose` event. The service initializes the listener on the host's `Loaded` event. Do not invoke it in the constructor or `OnDialogOpened`.
 
-```cs
-public interface IDialogAware
+```csharp
+using Prism.Commands;
+using Prism.Dialogs;
+using Prism.Mvvm;
+
+namespace MyApp.Dialogs;
+
+public sealed class NotificationDialogViewModel : BindableBase, IDialogAware
 {
-    bool CanCloseDialog();
-    void OnDialogClosed();
-    void OnDialogOpened(IDialogParameters parameters);
-    string Title { get; set; }
-    event Action<IDialogResult> RequestClose;
-}
-```
+    private string _message = string.Empty;
 
-Here is a simple example of what an `IDialogAware` ViewModel may look like.
+    public NotificationDialogViewModel()
+    {
+        CloseCommand = new DelegateCommand(() => RequestClose.Invoke(ButtonResult.OK));
+    }
 
-```cs
-public class NotificationDialogViewModel : BindableBase, IDialogAware
-{
-    private DelegateCommand<string> _closeDialogCommand;
-    public DelegateCommand<string> CloseDialogCommand =>
-        _closeDialogCommand ?? (_closeDialogCommand = new DelegateCommand<string>(CloseDialog));
-
-    private string _message;
+    public string Title => "Notification";
     public string Message
     {
-        get { return _message; }
-        set { SetProperty(ref _message, value); }
+        get => _message;
+        set => SetProperty(ref _message, value);
     }
 
-    private string _title = "Notification";
-    public string Title
+    public DelegateCommand CloseCommand { get; }
+    public DialogCloseListener RequestClose { get; }
+    public bool CanCloseDialog() => true;
+
+    public void OnDialogOpened(IDialogParameters parameters)
     {
-        get { return _title; }
-        set { SetProperty(ref _title, value); }
+        if (parameters.TryGetValue<string>("message", out var message))
+            Message = message;
     }
 
-    public event Action<IDialogResult> RequestClose;
-
-    protected virtual void CloseDialog(string parameter)
+    public void OnDialogClosed()
     {
-        ButtonResult result = ButtonResult.None;
-
-        if (parameter?.ToLower() == "true")
-            result = ButtonResult.OK;
-        else if (parameter?.ToLower() == "false")
-            result = ButtonResult.Cancel;
-
-        RaiseRequestClose(new DialogResult(result));
-    }
-
-    public virtual void RaiseRequestClose(IDialogResult dialogResult)
-    {
-        RequestClose?.Invoke(dialogResult);
-    }
-
-    public virtual bool CanCloseDialog()
-    {
-        return true;
-    }
-
-    public virtual void OnDialogClosed()
-    {
-
-    }
-
-    public virtual void OnDialogOpened(IDialogParameters parameters)
-    {
-        Message = parameters.GetValue<string>("message");
+        // Release any subscriptions owned by this dialog.
     }
 }
 ```
+
+`Title` is optional. Prism's default WPF host binds to it, but the [IDialogAware contract](../../dialogs/dialog-aware.md) does not require it. For forms, validate acceptance in the accept command; requiring valid input in `CanCloseDialog` can also prevent cancellation.
 
 ## Register the Dialog
 
-To register a dialog, you must have a View (UserControl) and a corresponding ViewModel (which must implement `IDialogAware`).  In the `RegisterTypes` method, simply register your dialog like you would any other service by using the `IContainerRegistry.RegisterDialog` method.
+Register the pair in `App.RegisterTypes` or a module's `RegisterTypes`:
 
-```cs
- protected override void RegisterTypes(IContainerRegistry containerRegistry)
- {
-     containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>();
- }
+```csharp
+using Prism.Ioc;
+
+containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>();
 ```
 
-Optionally, you can provide a custom name for your dialog.
+The default name is `NotificationDialog`. To use a different name:
 
-```cs
- protected override void RegisterTypes(IContainerRegistry containerRegistry)
- {
-     containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>("myDialog");
- }
+```csharp
+containerRegistry.RegisterDialog<NotificationDialog, NotificationDialogViewModel>("Notice");
 ```
+
+Use the same name when showing it. In this release, dialog registration uses the named-object navigation registration and a `ViewModelLocationProvider` mapping. Registering a pair does not change the data context of an already-created view.
 
 ## Using the Dialog Service
 
-To use the dialog service you simply ask for the service in your VM ctor.
+Inject `IDialogService` into the calling view model, then use an awaitable extension or a callback:
 
-```cs
-public MainWindowViewModel(IDialogService dialogService)
-{
-    _dialogService = dialogService;
-}
-```
+```csharp
+using Prism.Dialogs;
 
-Then call either `Show` or `ShowDialog` providing the name of the dialog, any parameters your dialogs requires, and then handle the result via a call back
-
-```cs
-private void ShowDialog()
-{
-    var message = "This is a message that should be shown in the dialog.";
-    //using the dialog service as-is
-    _dialogService.ShowDialog("NotificationDialog", new DialogParameters($"message={message}"), r =>
+_dialogs.ShowDialog("NotificationDialog",
+    new DialogParameters { { "message", "The report is ready." } },
+    new DialogCallback().OnClose(result =>
     {
-           if (r.Result == ButtonResult.None)
-               Title = "Result is None";
-           else if (r.Result == ButtonResult.OK)
-               Title = "Result is OK";
-           else if (r.Result == ButtonResult.Cancel)
-               Title = "Result is Cancel";
-           else
-               Title = "I Don't know what you did!?";
-    });
-}
+        if (result.Result == ButtonResult.OK)
+            System.Diagnostics.Debug.WriteLine("Acknowledged");
+    }));
 ```
+
+Here `_dialogs` is the injected service. Use `await _dialogs.ShowDialogAsync(...)` from an async method when the caller needs a task result. Keep input values in the parameter collection rather than interpolating unescaped text into a query string.
+
+WPF is modal by default. For a modeless window, add `KnownDialogParameters.ShowNonModal` with the value `true`:
+
+```csharp
+_dialogs.ShowDialog("NotificationDialog", new DialogParameters
+{
+    { "message", "You can keep working while this notice is open." },
+    { KnownDialogParameters.ShowNonModal, true }
+});
+```
+
+Prism checks `CanCloseDialog` on the window's `Closing` event. A denied close leaves the dialog open. A system close normally reports `ButtonResult.None` if no result was requested. If a prior close request was vetoed, its result remains stored; use explicit accept/cancel commands and test that sequence when results drive important changes.
+
+Handle opening failures around the call or await: WPF does not catch resolution/XAML/configuration exceptions and route them to `DialogCallback.OnError`. Keep completion handlers exception-safe, too; the service clears the host's content and data context after callback completion.
 
 ## Register a Custom Dialog Window
 
-It's very common to be using a third-party control vendor such as Infragistics. In these cases, you may want to replace the standard WPF Window control that hosts the dialogs with a custom Window class such as the Infragistics XamRibbonWindow control.
+A host must implement WPF's `IDialogWindow`. Inherit from `Window` and add `IDialogResult Result`, or derive from Prism's `DialogWindow`. See the [complete custom-host example](../../dialogs/dialog-window.md#wpf-a-window-host).
 
-In this case, just create your custom Window, and implement the `IDialogWindow` interface:
+```csharp
+containerRegistry.RegisterDialogWindow<AppDialogWindow>("AppDialog");
+```
 
-```cs
-public partial class MyRibbonWindow: XamRibbonWindow, IDialogWindow
+Select it with the `WindowName` parameter:
+
+```csharp
+_dialogs.ShowDialog("NotificationDialog", new DialogParameters
 {
-    public IDialogResult Result { get; set; }
-    ….
-}
+    { KnownDialogParameters.WindowName, "AppDialog" },
+    { "message", "This notice uses the custom host." }
+});
 ```
 
-Then register your dialog window with the `IContainerRegistry`.
+Omit the name when registering to replace the default host for all dialogs. The service preserves an owner already set on the host; otherwise it selects the active application window. Choose ownership explicitly in multi-window applications.
 
-```cs
-protected override void RegisterTypes(IContainerRegistry containerRegistry)
-{
-    containerRegistry.RegisterDialogWindow<MyRibbonWindow>();
-}
-```
-If you have more than one dialog window you would like to use as a dialog host, you register multiple dialog windows with the container by specifying a name for the window.
-```cs
-protected override void RegisterTypes(IContainerRegistry containerRegistry)
-{
-    containerRegistry.RegisterDialogWindow<NotificationWindow>("notifyWindow");
-}
-```
-
-:::note
-In order to use a dialog window by name, you must provide the dialog window name in the `IDialogService.Show` or `IDialogService.ShowDialog` method as follows:
-:::
-
-```cs
- _dialogService.ShowDialog("DialogName", dialogParameters), r =>
-    { ...  }, "notifyWindow");
-```
+WPF retains `Show` compatibility extensions for modeless dialogs. The shipped 9.0.537 API has no four-argument `ShowDialog(name, parameters, callback, windowName)` overload. Put the host name in `KnownDialogParameters.WindowName`.
 
 ## Style the DialogWindow
 
-You can control the properties of the DialogWindow by using a style via an attatched property on the Dialog UserControl
+Set `Dialog.WindowStyle` on the dialog content to style its host:
 
 ```xml
 <prism:Dialog.WindowStyle>
     <Style TargetType="Window">
-        <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
-        <Setter Property="ResizeMode" Value="NoResize"/>
-        <Setter Property="ShowInTaskbar" Value="False"/>
-        <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+        <Setter Property="Title" Value="Notification" />
+        <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterOwner" />
+        <Setter Property="ResizeMode" Value="NoResize" />
+        <Setter Property="ShowInTaskbar" Value="False" />
+        <Setter Property="SizeToContent" Value="WidthAndHeight" />
     </Style>
 </prism:Dialog.WindowStyle>
 ```
 
+Place this property element inside the UserControl before its content. This is WPF styling; Uno's host uses a different interface and control type.
+
 ## Simplify your Application Dialog APIs
 
-The intent of the dialog API is not to try and guess exactly what type of parameters your need for all of your dialogs, but rather to just create and show the dialogs.  To simplify common dialogs in your application the guidance will be to create an extension methods to simplify your applications dialogs.
+Wrap common parameter names in an application extension:
 
-For example:
+```csharp
+using Prism.Dialogs;
 
-```cs
-public static class DialogServiceExtensions
+public static class AppDialogExtensions
 {
-    public static void ShowNotification(this IDialogService dialogService, string message, Action<IDialogResult> callBack)
+    public static void ShowNotification(this IDialogService dialogs,
+        string message, DialogCallback callback)
     {
-        dialogService.ShowDialog("NotificationDialog", new DialogParameters($"message={message}"), callBack, "notificationWindow");
+        dialogs.ShowDialog("NotificationDialog",
+            new DialogParameters { { "message", message } }, callback);
     }
 }
 ```
 
-Then to call your Notifications use the new and improved API that you created specifically for your app.
+The helper centralizes the registered name and parameter contract. It does not replace result checks or exception handling at the caller's boundary.
 
-```cs
-_dialogService.ShowNotification(message, r =>
-{
-        if (r.Result == ButtonResult.None)
-            Title = "Result is None";
-        else if (r.Result == ButtonResult.OK)
-            Title = "Result is OK";
-        else if (r.Result == ButtonResult.Cancel)
-            Title = "Result is Cancel";
-        else
-            Title = "I Don't know what you did!?";
-});
-```
+## Source reference
 
+- [Prism 9 IDialogAware](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Dialogs/IDialogAware.cs)
+- [WPF host lifecycle and ownership](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Wpf/Prism.Wpf/Dialogs/DialogService.cs)
+- [Dialog registration](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Wpf/Prism.Wpf/Ioc/IContainerRegistryExtensions.cs)
+- [Shared service extensions](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Dialogs/IDialogServiceExtensions.cs) and [WPF compatibility extensions](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Wpf/Prism.Wpf/Dialogs/IDialogServiceCompatExtensions.cs)
+- [Window attached properties](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Wpf/Prism.Wpf/Dialogs/Dialog.cs)

@@ -17,7 +17,7 @@ The release dependency order is Containers, then Prism using the published Conta
 - Keep the actual package references authoritative. Package versions and build numbers across Prism, Containers, Plugins and Magician are independent; do not assign one guessed version to every package.
 - Keep the [Commercial Plus feed](pipelines/commercial-plus.md) configured for packages that require it. Do not replace its credentials or add new source configuration simply to work around an unavailable package.
 
-Earlier 9.1 prerelease source, test runs and sample screenshots remain historical evidence. Their recorded versions and commits should not be renamed to 10.0. Likewise, the 9.0 documentation available from the version selector describes that released line; it has not been rewritten as part of this preparation.
+Earlier 9.1 prerelease source, test runs and sample screenshots remain historical evidence. Their recorded versions and commits should not be renamed to 10.0. The expanded 9.0 documentation available from the version selector remains tied to the shipped 9.0 API contracts. Its backfilled examples do not inherit the 10.0 NativeAOT claim or newer platform APIs.
 
 ## Review the application composition
 

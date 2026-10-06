@@ -1,181 +1,119 @@
 ---
 sidebar_position: 3
+description: "Compose Prism 9.0 MAUI routes, parameters, navigation-page stacks, and tabs with NavigationBuilder."
 ---
 
 # Navigation Builder
 
-The NavigationBuilder is new to Prism.Maui and is meant to solve a number of issues that developers run into. While Prism's NavigationService will always continue to be URI based, this can create issues for very complex Deep Links and can cause issues for developers who are doing some string interpolation.
-
-```cs
-public static class NavigationKeys
-{
-    public const string ViewA = nameof(ViewA);
-    public const string ViewB = nameof(ViewB);
-}
-
-public static class NavParameterKeys
-{
-    public const string Id = nameof(Id);
-}
-
-public class ViewAViewModel : BindableBase
-{
-    private async void OnNavigateCommandExecuted()
-    {
-        await NavigationService.NavigateAsync($"{NavigationKeys.ViewA}/{NavigationKeys.ViewB}");
-    }
-}
-```
-
-The NavigationBuilder seeks to solve this issue by making the code more readable, easier to maintain, and expose a few new tricks that can help for the first time allow ViewModel based Navigation.
+The builder composes a MAUI page-navigation request from segments and parameters. Create a fresh builder from the page's injected `INavigationService` for each operation. It does not replace page registration, and it is not a service to inject or keep as a singleton.
 
 ## Getting the NavigationBuilder
 
-The NavigationBuilder can NOT be injected into anything with Dependency Injection. It is a one time use API and is created from the INavigationService.
-
 ```cs
-public class ViewAViewModel : BindableBase
-{
-    private void OnNavigateCommandExecuted()
-    {
-        var builder = NavigationService.CreateBuilder();
-    }
-}
+using Prism.Navigation;
+
+var result = await navigationService.CreateBuilder()
+    .AddSegment("DetailsPage", segment => segment.AddParameter("id", 42))
+    .NavigateAsync();
 ```
 
 ## Building the NavigationURI
 
-it is important to remember that the order in which you add Navigation Segments to the URI will be the order in which they will be added to the Navigation URI. If I want to navigate Modally to `ViewA/ViewB` then this would look like:
-
-```cs
-NavigationService.CreateBuilder()
-    .AddSegment(NavigationKeys.ViewA)
-    .AddSegment(NavigationKeys.ViewB);
-```
+Segments appear in the order they are added. Register the page routes before building the request.
 
 ### ViewModel First Navigation
 
-As mentioned the NavigationBuilder exposes the ONLY API in Prism that allows ViewModel First Navigation. In order to use ViewModel Navigation you **MUST** register **BOTH** the View and the ViewModel.
+Register both types so the builder can look up the navigation key:
 
 ```cs
-container.RegisterForNavigation<ViewA, ViewAViewModel>();
+container.RegisterForNavigation<DetailsPage, DetailsPageViewModel>();
 ```
 
-If you do not add both the Registration will not exist for the ViewModel to be able to resolve the appropriate navigation key. To use ViewModel Navigation you simply need to supplement the string for the generic ViewModel type.
+Then compose the route without repeating its string name:
 
 ```cs
-NavigationService.CreateBuilder()
-    .AddSegment<ViewAViewModel>()
-```
-
-### Navigation Pages
-
-As you may have previously read, Prism will automatically register the [PrismNavigationPage](prismnavigationpage.md) for Navigation. Regardless of whether this is the registered NavigationPage or you have provided your own NavigationPage type, as long as there is a SINGLE registration for a NavigationPage, you can use the helper extension which will check the View Registrations for the proper Navigation Name of the registered NavigationPage.
-
-```cs
-NavigationService.CreateBuilder()
-    .AddNavigationPage()
-```
-
-### Tabbed Pages
-
-Similar to the NavigationPage, Prism automatically registers the MAUI TabbedPage for Navigation. You can dynamically create your TabbedPages as follows. 
-
-:::note
-We strongly advise that you DO NOT create a TabbedPage and Manually Add Children.
-:::
-
-```cs
-NavigationService.CreateBuilder()
-    .AddTabbedSegment(b =>
-        b.CreateTab("ViewA")
-         .CreateTab(t => t.AddNavigationPage().AddSegment("ViewB")));
-```
-
-As you may have noticed the TabbedSegmentBuilder has special methods for Creating Tabs and Providing the Selected Tab. The CreateTab method additionally has its own builder that can help you to create Deep Links for individual tabs.
-
-:::warning
-Deep Linked Tabs are planned for Prism.Maui but are not available in the Beta
-:::
-
-### Relative or Absolute Navigation
-
-By Default the generated Navigation URI will be a Relative URI. However we do expose methods for explicitly setting the URI to be Relative or Absolute.
-
-```cs
-NavigationService.CreateBuilder()
-    .UseRelativeNavigation();
-
-NavigationService.CreateBuilder()
-    .UseAbsoluteNavigation();
-```
-
-In the event that you have some sort of boolean that you need to pass in to control whether it is Relative or Absolute you can pass in as follows:
-
-```cs
-NavigationService.CreateBuilder()
-    .UseAbsoluteNavigation(myCondition);
-```
-
-### Adding URI Parameters
-
-By Default the string added will be treated as though you are adding a URI so you may either add them directly or use the Segment Builder as follows:
-
-```cs
-NavigationService.CreateBuilder
-    .AddSegment("ViewA?id=5")
-    .AddSegment(NavigationKeys.ViewB, s => s.AddParameter(NavParameterKeys.Id, 6));
-```
-
-:::note
-When using Segment parameters these will always append to the URI. These will be available in the NavigationParameters passed to the ViewModel for the Specific NavigationSegment they are added to. For instance if the ViewAViewModel implements IInitialize, you would expect the `id` key to have a value of 5.
-:::
-
-### Adding Navigation Parameters
-
-Unlike Segment/URI Parameters, NavigationParameters added to the NavigationBuilder are passed to every page being navigated to. Unlike when we add a Segment, we can add parameters in any order we want. You can add them one at a time or as a full list.
-
-```cs
-var parameters = new NavigationParameters
-{
-    { "foo", foo },
-    { "bar", bar }
-};
-
-NavigationService.CreateBuilder
-    .AddParameter(NavParameterKeys.Id, 5)
-    .WithParameters(parameters);
-```
-
-## Navigating
-
-Once you're finished building the Navigation URI, of course there is the most important part... Navigating! The NavigationBuilder has a number of Extension Methods to make it easier for you to navigate from any context and help you avoid `async void`.
-
-```cs
-// NOTE: We will not get the NavigationResult back as it was not awaited
-NavigationService.CreateBuilder()
-    .AddSegment(NavigationKeys.ViewA)
-    .Navigate();
-```
-
-For those who may be dropping this into existing code you can of course simply call the classic `NavigateAsync` and get the [INavigationResult](navigation-result.md) back.
-
-```cs
-var result = await NavigationService.CreateBuilder()
-    .AddSegment(NavigationKeys.ViewA)
+var result = await navigationService.CreateBuilder()
+    .AddSegment<DetailsPageViewModel>()
     .NavigateAsync();
 ```
 
-Additionally we provide both Async and non-Async methods which simply allow you to provide a callback OnSuccess or OnError.
+The generic argument is a view model, not a page. Keep mappings unambiguous; registering several routes for the same view model requires a deliberate route-selection strategy. A string segment remains useful when you need to choose a particular registration name.
+
+### Navigation Pages
 
 ```cs
-builder.Navigate(() => Console.WriteLine("Navigation Successful"));
-await builder.NavigateAsync(() => Console.WriteLine("Navigation Successful"));
-
-builder.Navigate(ex => Console.WriteLine($"Navigation Error:\n{ex}"));
-await builder.NavigateAsync(ex => Console.WriteLine($"Navigation Error:\n{ex}"));
-
-builder.Navigate(ex => Console.WriteLine(() => Console.WriteLine("Navigation Successful"), $"Navigation Error:\n{ex}"));
-await builder.NavigateAsync(() => Console.WriteLine("Navigation Successful"), ex => Console.WriteLine($"Navigation Error:\n{ex}"));
+var result = await navigationService.CreateBuilder()
+    .UseAbsoluteNavigation()
+    .AddNavigationPage()
+    .AddSegment<HomePageViewModel>()
+    .NavigateAsync();
 ```
 
+### Relative or Absolute Navigation
+
+By default the builder produces a relative route. `UseAbsoluteNavigation()` resets the relevant window root; `UseRelativeNavigation()` selects the relative form. A boolean overload is available when this is decided at runtime.
+
+`AddNavigationPage()` looks up registered `NavigationPage` types. In Prism 9.0 it chooses the last matching registration. If you register more than one navigation-page route, use `AddSegment("YourNavigationPageRoute")` to make the choice explicit. Prism supplies the `NavigationPage` route when that name is not already registered.
+
+### Modal navigation
+
+```cs
+var result = await navigationService.CreateBuilder()
+    .AddNavigationPage(segment => segment.UseModalNavigation())
+    .AddSegment<DetailsPageViewModel>()
+    .NavigateAsync();
+```
+
+Modal navigation is a segment option; it is not implied by using the builder. The requested hierarchy must still be valid for the calling page's context.
+
+### Adding URI Parameters
+
+Use a segment callback, such as `segment.AddParameter("id", 42)`, to serialize a value into that segment's URI. The string form `AddSegment("DetailsPage?id=42")` is also supported.
+
+### Adding Navigation Parameters
+
+```cs
+var parameters = new NavigationParameters { { "customer", customer } };
+
+var result = await navigationService.CreateBuilder()
+    .AddSegment("DetailsPage", segment => segment.AddParameter("id", 42))
+    .AddParameter("source", "search")
+    .WithParameters(parameters)
+    .NavigateAsync();
+```
+
+Segment parameters are serialized into that segment's URI and apply to that page. Request parameters apply across the navigation and can carry objects. Avoid secrets in URI parameters; route strings may appear in diagnostics.
+
+### Tabbed Pages
+
+```cs
+var result = await navigationService.CreateBuilder()
+    .UseAbsoluteNavigation()
+    .AddTabbedSegment(tabs => tabs
+        .CreateTab("HomePage")
+        .CreateTab(tab => tab
+            .AddNavigationPage()
+            .AddSegment<OrdersPageViewModel>())
+        .SelectedTab("NavigationPage|OrdersPage"))
+    .NavigateAsync();
+```
+
+Register all pages and view-model pairs first. A navigation-page tab can contain multiple registered pages in 9.0; the old beta note describing tab deep links as unavailable no longer applies. Prefer the root page's registration name when selecting a navigation-page tab. See [tabbed navigation](tabbed-navigation.md) for 9.0 selection and initialization details.
+
+## Navigating
+
+Prefer `NavigateAsync()` and inspect the [navigation result](navigation-result.md). Callback overloads are also available:
+
+```cs
+await builder.NavigateAsync(
+    () => System.Diagnostics.Debug.WriteLine("Navigation succeeded."),
+    error => System.Diagnostics.Debug.WriteLine(error));
+```
+
+`Navigate()` and its callback overloads are fire-and-forget `async void` entry points. They do not give the caller an awaitable completion or result. Use them only when that tradeoff is intentional; awaiting makes sequencing, error handling, and testing clearer.
+
+## Source reference
+
+- [Builder extensions and route lookup](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Navigation/Builder/NavigationBuilderExtensions.cs)
+- [Tab segment construction](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Navigation/Builder/CreateTabBuilder.cs)
+- [Navigation service tab construction](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Navigation/PageNavigationService.cs)

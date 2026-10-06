@@ -1,21 +1,19 @@
 ---
 sidebar_position: 1
+description: "Choose a Prism 9.0 container and use the shared registration and resolution contracts."
 ---
 
-# Dependency Injection with Prism
+# Dependency injection with Prism
 
-Prism has always been built around Dependency Injection. This helps you to architect apps that are maintainable and testable and help you reduce or eliminate your dependence on Static and circular references. Prior to Prism 7, dependency injection with Prism was focused around various containers that were implemented for use with Prism. This led to a number of issues including that while docs may have been written showing you how to do something with one container they did not necessarily reflect the appropriate API to use for the container that you were using for your application.
+Dependency injection makes a component's dependencies explicit and lets the application choose their implementations and lifetimes. Prism view models can depend on a service contract while each host supplies its own implementation, without placing UI-framework dependencies in shared business logic.
 
-Prism 7 introduced several new interfaces for abstracting what Prism requires for dependency injection. This has several benefits as you might imagine including:
+Prism 7 introduced common IoC abstractions so application registrations need not depend on one container's API. Prism 9 ships those contracts separately in `Prism.Container.Abstractions`, under the `Prism.Ioc` namespace:
 
-- Docs showing how to do something in Prism will always show you what you need to do without any concern for which dependency injection container you are using.
-- This greatly simplified what needed to be added to any container specific package. In the case of Prism.Forms this reduces each container specific project 3 classes: `PrismApplication`, an implementation of `IContainerExtension` and an extension class to retrieve the underlying container should you feel the need to access it for one of it's API's that is not implemented by Prism.
+- `IContainerRegistry` describes registrations.
+- `IContainerProvider` resolves services and creates scopes.
+- `IContainerExtension` combines those responsibilities for a container adapter.
 
-In Prism 9, the Prism Ioc layer has been removed from the Prism.Core and now ships independently from Prism. This makes it easier for us to share the container implementation across all supported Prism platforms (WPF, Uno Platform, .NET MAUI, etc). Additional work has been done in Prism 9 to also give the containers better integration with Microsoft.Extensions.DependencyInjection and provide better support for Container Scoping scenarios some of which are used extensively by Prism.Maui.
-
-## Using Microsoft's IServiceCollection
-
-Prism 9.0 has separated the Container implementations from the main Prism repo. This allows us to ship and to share the containers across all platforms without any specific code coupling to the Prism.Core. In the updated Prism 9.0 implementations support has been added for Microsoft's IServiceCollection. This helps Prism better support .NET MAUI applications and the IHostBuilder approach used by the Uno.Extensions. It is important to consider that when using Registration Extensions from various Microsoft libraries, these will have been tailored to use for Web Applications. For example if using EntityFrameworkCore the default Lifetime of the DbContext will be set to Scoped. For most Prism applications you will likely want to set this to be Transient as a Singleton could cause DbAccess issues if different ViewModels or Services are accessing the database at the same time. Be sure to spend some time evaluating any prebuilt extension methods for registering services so that you can be sure that the service will have an appropriate lifetime for your application.
+Use the host's startup and module registration hooks for composition, and constructor injection for ordinary consumers. The same abstractions do not erase differences in platform lifecycles or adapter capabilities.
 
 ## Containers
 
@@ -23,20 +21,25 @@ The Prism team ships several DI container implementations for the Prism IoC abst
 
 | Container | Availability | Notes |
 |:---------:|:------------:|:-----:|
-| DryIoc | NuGet.org | Supported across all targets |
+| DryIoc | NuGet.org | Use the package/integration for the selected Prism host |
 | Grace | Commercial Plus | |
-| Microsoft | Commercial Plus | |
+| Microsoft | Commercial Plus | Prism adapter for Microsoft service-provider integration |
 | Unity | NuGet.org | Legacy support for WPF only |
 
 :::note
 While the DryIoc and Unity Container's are available on NuGet.org they are still subject to the Prism License. You should have a valid license for Prism.
 :::
 
+## Using Microsoft's IServiceCollection
+
+Prism 9 adapters can integrate Microsoft registration extensions through `IServiceCollectionAware`. Importing a service collection does not change which container adapter the application selected. Use the MAUI/Uno host's existing composition path and avoid creating a second provider to obtain a service during registration. See [service-collection integration](servicecollection-supplement.md).
+
 ## Next Steps
 
 - Learn how to [Register Services](registering-types.md)
-- Learn how to [Register Platform Specific Services](platform-specific-services.md) ***(Legacy)***
+- Learn how to [Register Platform Specific Services](platform-specific-services.md)
 - [Microsoft.Extensions.DependencyInjection (Supplement)](servicecollection-supplement.md)
-<!-- - Learn how to [Add a Custom Container](add-custom-container) -->
-- Learn more about the Prism Container Extensions and working with Shiny in the [Appendix](appendix.md)
+- [Implementing a container adapter](add-custom-container.md)
+- [Migrate older container setup](appendix.md)
 
+Source (Containers 9.0.114): [container contracts](https://github.com/PrismLibrary/Prism.Containers/tree/3e2b38b767397b7595542369ab8e9e21e3c6cdcb/src/Prism.Container.Abstractions) and [adapter projects](https://github.com/PrismLibrary/Prism.Containers/tree/3e2b38b767397b7595542369ab8e9e21e3c6cdcb/src). Repository access may require authorization.

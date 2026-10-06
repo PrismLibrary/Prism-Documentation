@@ -15,7 +15,7 @@ Edit fictional customers, products, and quotes in a multi-document workspace. Le
 
 Quotes depends on CustomerCatalog; ProductCatalog is independent. The shared repository owns validation, revisions, and atomic commits. No order, payment, email, or external CRM action is performed.
 
-Choose your framework. Source links require access to the private [samples repository](https://github.com/PrismLibrary/samples).
+Choose your framework. Source links require access to the private [samples repository](https://github.com/PrismLibrary/samples). The source walkthrough follows merged checkpoint `02f8e351`; every image retains its own captured revision.
 
 <Tabs groupId="platform" queryString="platform" defaultValue="wpf" className="sample-platform-tabs" lazy>
 
@@ -27,7 +27,7 @@ Named regions combine customer navigation, quote selection, document tabs, and t
 
 <SampleGallery label="Sales Desk WPF" captures={sampleCaptures["sales-desk"].wpf} />
 
-Original WPF application-owned runtime renders; source and capture method are recorded in the gallery and [runtime coverage](runtime-coverage.md).
+The gallery retains the original quote workflows and adds the `75b63e8d` compact Dark welcome with original app artwork, wrapped copy and both actions visible. Source and capture method remain attached to each image in [runtime coverage](runtime-coverage.md).
 
 ### Set up and run {#wpf-run}
 
@@ -41,19 +41,19 @@ dotnet run --project samples/prism-sales-desk/WPF/PrismSalesDesk.Wpf/PrismSalesD
 
 ### Guided walkthrough {#wpf-walkthrough}
 
-1. **Open Product catalog first, then Quotes.** Products loads independently; CustomerCatalog initializes before Quotes. Read the [module ownership](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/WPF/PrismSalesDesk.Wpf/PrismStartup.cs).
+1. **Open Product catalog first, then Quotes.** Products loads independently; CustomerCatalog initializes before Quotes. Read the [module ownership](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/WPF/PrismSalesDesk.Wpf/PrismStartup.cs).
 
-2. **Choose a quote, customer, and product through the native selectors.** Logical dialog keys return validated results to shared commands. Read the [document workflow](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
+2. **Choose a quote, customer, and product through the native selectors.** Logical dialog keys return validated results to shared commands. Read the [document workflow](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
 
-3. **Choose Open another instance, save one revision, then save the stale revision.** The second document retains its edits and shows a conflict. Read the [revision and replay rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRepository.cs).
+3. **Choose Open another instance, save one revision, then save the stale revision.** The second document retains its edits and shows a conflict. Read the [revision and replay rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRepository.cs).
 
-4. **Make two documents dirty and choose Close all; cancel the later decision.** Nothing is saved or closed until the complete set of decisions is accepted. Read the [close-all transaction](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
+4. **Make two documents dirty and choose Close all; cancel the later decision.** Nothing is saved or closed until the complete set of decisions is accepted. Read the [close-all transaction](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
 
 <details>
 <summary>Trace the WPF startup and module code</summary>
 
 
-The [WPF App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/WPF/PrismSalesDesk.Wpf/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
+The [WPF App class](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/WPF/PrismSalesDesk.Wpf/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
 
 ```csharp
 protected override IContainerExtension CreateContainerExtension()
@@ -66,7 +66,7 @@ protected override void RegisterTypes(IContainerRegistry registry)
     => PrismStartup.RegisterTypes(registry);
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/WPF/PrismSalesDesk.Wpf/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/WPF/PrismSalesDesk.Wpf/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<CustomerCatalogModule>(SalesModules.CustomerCatalog, InitializationMode.OnDemand);
@@ -75,7 +75,7 @@ catalog.AddModule<ProductCatalogModule>(SalesModules.ProductCatalog, Initializat
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRules.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRules.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -95,7 +95,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#wpf-validation}
 
-Native WPF workflows exercise actual containers, modules, bound controls, and dialogs. The images are live app-owned test renders, not OS screenshots or assistive-technology certification. WPF is not a NativeAOT target. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Native WPF workflows exercise actual containers, modules, bound controls, and dialogs. The images are live app-owned test renders, not OS screenshots or assistive-technology certification. WPF is not a NativeAOT target. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -107,7 +107,7 @@ Compact list/detail and wide layouts share the same quote workspace. The existin
 
 <SampleGallery label="Sales Desk .NET MAUI" captures={sampleCaptures["sales-desk"].maui} />
 
-.NET MAUI runtime captures are pending. Windows builds are verified; Android and other native journeys need their own capture and interaction evidence.
+Actual Android captures at `8093ba7d` show the home, product catalog and empty-draft validation. The attempted save correctly reports that products are required; it is not a successful quote save. The customer dialog clips horizontally, and product/subtotal controls were outside the observed editor viewport. Full new-quote completion remains unqualified.
 
 ### Set up and run {#maui-run}
 
@@ -119,7 +119,7 @@ Build the Android head with the installed Android SDK/JDK and MAUI workload:
 dotnet build samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismSalesDesk.Maui.csproj -p:TargetFrameworks=net10.0-android
 ```
 
-Open [this MAUI project](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismSalesDesk.Maui.csproj) in your IDE, select an Android emulator/device, and run it. On Windows, select the Windows target instead.
+Open [this MAUI project](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismSalesDesk.Maui.csproj) in your IDE, select an Android emulator/device, and run it. On Windows, select the Windows target instead.
 
 <details>
 <summary>Windows build command</summary>
@@ -132,19 +132,19 @@ dotnet build samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismSalesDesk.Ma
 
 ### Guided walkthrough {#maui-walkthrough}
 
-1. **Open Product catalog first, then Quotes.** Products loads independently; CustomerCatalog initializes before Quotes. Read the [module ownership](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismStartup.cs).
+1. **Open Product catalog first, then Quotes.** Products loads independently; CustomerCatalog initializes before Quotes. Read the [module ownership](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismStartup.cs).
 
-2. **Choose a quote, customer, and product through the native selectors.** Logical dialog keys return validated results to shared commands. Read the [document workflow](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
+2. **Choose a quote, customer, and product through the native selectors.** Logical dialog keys return validated results to shared commands. Read the [document workflow](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
 
-3. **Choose Open another instance, save one revision, then save the stale revision.** The second document retains its edits and shows a conflict. Read the [revision and replay rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRepository.cs).
+3. **Choose Open another instance, save one revision, then save the stale revision.** The second document retains its edits and shows a conflict. Read the [revision and replay rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRepository.cs).
 
-4. **Make two documents dirty and choose Close all; cancel the later decision.** Nothing is saved or closed until the complete set of decisions is accepted. Read the [close-all transaction](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
+4. **Make two documents dirty and choose Close all; cancel the later decision.** Nothing is saved or closed until the complete set of decisions is accepted. Read the [close-all transaction](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
 
 <details>
 <summary>Trace the .NET MAUI startup and module code</summary>
 
 
-The [MAUI composition root](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/MauiProgram.cs) selects the Microsoft container and the logical shell route. Excerpt (retain the rest of the app's startup):
+The [MAUI composition root](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/MauiProgram.cs) selects the Microsoft container and the logical shell route. Excerpt (retain the rest of the app's startup):
 
 ```csharp
 builder.UseMauiApp<App>()
@@ -154,7 +154,7 @@ builder.UseMauiApp<App>()
         .CreateWindow(SalesRoutes.Shell));
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Maui/PrismSalesDesk.Maui/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<CustomerCatalogModule>(SalesModules.CustomerCatalog, InitializationMode.OnDemand);
@@ -163,7 +163,7 @@ catalog.AddModule<ProductCatalogModule>(SalesModules.ProductCatalog, Initializat
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRules.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRules.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -183,7 +183,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#maui-validation}
 
-Selected MAUI Windows builds passed. The capture and interaction scope above is separate from build success. iOS/Mac Catalyst work is deferred; no all-head NativeAOT qualification is claimed. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Selected MAUI Windows builds passed; the Android runtime scope and remaining limitations are described above. Build success does not complete an interactive journey. iOS/Mac Catalyst work is deferred; no all-head NativeAOT qualification is claimed. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -195,7 +195,7 @@ The responsive region workspace uses Uno-native bindings and theme resources. Th
 
 <SampleGallery label="Sales Desk Uno" captures={sampleCaptures["sales-desk"].uno} />
 
-Uno runtime captures are pending. Windows builds are verified; Android and other native journeys need their own capture and interaction evidence.
+Actual Android evidence at `8093ba7d` shows Q-1042 changing from Aster Studio to Northline Works and saving locally as revision 2. No order is placed. Selected customer rows had poor contrast; attempted Catalog and Appearance navigation did not establish those states.
 
 ### Set up and run {#uno-run}
 
@@ -222,19 +222,19 @@ These are source-backed target-selection commands, not a claim that a new browse
 
 ### Guided walkthrough {#uno-walkthrough}
 
-1. **Open Product catalog first, then Quotes.** Products loads independently; CustomerCatalog initializes before Quotes. Read the [module ownership](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Uno/PrismSalesDesk.Uno/PrismStartup.cs).
+1. **Open Product catalog first, then Quotes.** Products loads independently; CustomerCatalog initializes before Quotes. Read the [module ownership](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Uno/PrismSalesDesk.Uno/PrismStartup.cs).
 
-2. **Choose a quote, customer, and product through the native selectors.** Logical dialog keys return validated results to shared commands. Read the [document workflow](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
+2. **Choose a quote, customer, and product through the native selectors.** Logical dialog keys return validated results to shared commands. Read the [document workflow](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
 
-3. **Choose Open another instance, save one revision, then save the stale revision.** The second document retains its edits and shows a conflict. Read the [revision and replay rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRepository.cs).
+3. **Choose Open another instance, save one revision, then save the stale revision.** The second document retains its edits and shows a conflict. Read the [revision and replay rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRepository.cs).
 
-4. **Make two documents dirty and choose Close all; cancel the later decision.** Nothing is saved or closed until the complete set of decisions is accepted. Read the [close-all transaction](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
+4. **Make two documents dirty and choose Close all; cancel the later decision.** Nothing is saved or closed until the complete set of decisions is accepted. Read the [close-all transaction](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/ViewModels/QuotesViewModel.cs).
 
 <details>
 <summary>Trace the Uno startup and module code</summary>
 
 
-The [Uno App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Uno/PrismSalesDesk.Uno/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
+The [Uno App class](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Uno/PrismSalesDesk.Uno/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
 
 ```csharp
 protected override IContainerExtension CreateContainerExtension()
@@ -247,7 +247,7 @@ protected override void RegisterTypes(IContainerRegistry registry)
     => PrismStartup.RegisterTypes(registry);
 ```
 
-The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Uno/PrismSalesDesk.Uno/PrismStartup.cs) registers the real on-demand graph:
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Uno/PrismSalesDesk.Uno/PrismStartup.cs) registers the real on-demand graph:
 
 ```csharp
 catalog.AddModule<CustomerCatalogModule>(SalesModules.CustomerCatalog, InitializationMode.OnDemand);
@@ -256,7 +256,7 @@ catalog.AddModule<ProductCatalogModule>(SalesModules.ProductCatalog, Initializat
 ```
 
 
-Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRules.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/Shared/Quotes/Services/QuoteRules.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
 </details>
 
@@ -276,7 +276,7 @@ The filtered Prism Console provider also covers Essentials error forwarding. Onl
 
 ### Validation and limits {#uno-validation}
 
-Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain their own runtime boundaries; iOS/macOS capture work is deferred. WebAssembly AOT and desktop NativeAOT are different deployment paths. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-sales-desk/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain their own runtime boundaries; iOS/macOS capture work is deferred. WebAssembly AOT and desktop NativeAOT are different deployment paths. Check [the sample README](https://github.com/PrismLibrary/samples/blob/02f8e351ff20356e0ff2cc656f8bb201f65fff97/samples/prism-sales-desk/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
 
 </TabItem>
 
@@ -286,7 +286,7 @@ Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain 
 
 Sales Desk does not yet have an Avalonia application head, runnable walkthrough, or captured UI. Prism supports Avalonia APIs; this particular sample head and its Essentials integration are still to come.
 
-Continue with one of the available framework tabs, or explore the [Avalonia starter template](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/sample-template/Avalonia).
+Continue with one of the available framework tabs, or explore the [Avalonia starter template](https://github.com/PrismLibrary/samples/tree/02f8e351ff20356e0ff2cc656f8bb201f65fff97/sample-template/Avalonia).
 
 </TabItem>
 

@@ -3,56 +3,71 @@ sidebar_position: 8
 uid: Navigation.Regions.PassingParameters
 ---
 
-# Passing Parameters During Navigation
+# Passing Parameters During Region Navigation {#passing-parameters-during-navigation}
 
-To implement the required navigational behavior in your application, you will often need to specify additional data during navigation request than just the target view name. The **NavigationContext** object provides access to the navigation URI, and to any parameters that were specified within it or externally. You can access the **NavigationContext** from within the **IsNavigationTarget**, **OnNavigatedFrom**, and **OnNavigatedTo** methods.
+Pass the destination's identity and options as `Prism.Navigation.NavigationParameters`. The destination receives the merged values through `NavigationContext.Parameters`, which implements `INavigationParameters`.
 
-Prism provides the **NavigationParameters** class to help specify and retrieve navigation parameters. The **NavigationParameters** class maintains a list of name-value pairs, one for each parameter. You can use this class to pass parameters as part of navigation URI or for passing object parameters.
+## Pass an identifier
 
-The following code example shows how to add individual string parameters to the **NavigationParameters** instance so that it can be appended to the navigation URI.
+With an injected `IRegionManager regionManager`:
 
-```cs
-Employee employee = Employees.CurrentItem as Employee;
-if (employee != null)
+```csharp
+using Prism.Navigation;
+using Prism.Navigation.Regions;
+
+var parameters = new NavigationParameters
 {
-    var navigationParameters = new NavigationParameters();
-    navigationParameters.Add("ID", employee.Id);
-    _regionManager.RequestNavigate(
-        RegionNames.TabRegion,
-        new Uri("EmployeeDetailsView" + navigationParameters.ToString(), UriKind.Relative)
-    );
+    { "customerId", "C-104" },
+    { "readOnly", true }
+};
+
+regionManager.RequestNavigate("MainRegion", "CustomerView", result =>
+{
+    if (!result.Success)
+        System.Diagnostics.Debug.WriteLine(result.Exception?.Message
+            ?? "Navigation did not complete.");
+}, parameters);
+```
+
+The equivalent simple URI is `CustomerView?customerId=C-104&readOnly=true`. Prefer `NavigationParameters.ToString()` to manually concatenating user-entered text, since it escapes query keys and values.
+
+## Receive it in the view model
+
+Inside an `IRegionAware` implementation:
+
+```csharp
+public void OnNavigatedTo(NavigationContext context)
+{
+    if (!context.Parameters.TryGetValue<string>("customerId", out var id)
+        || string.IsNullOrWhiteSpace(id))
+        throw new ArgumentException("A customerId is required.");
+
+    CustomerId = id;
+    IsReadOnly = context.Parameters.GetValue<bool>("readOnly");
 }
 ```
 
-Additionally, you can pass object parameters by adding them to the **NavigationParameters** instance, and passing it as a parameter of the **RequestNavigate** method. This is shown in the following code using the simpler string based navigation:
+`CustomerId` and `IsReadOnly` are application properties. Handle invalid input before loading data, and remember that `OnNavigatedTo` can run again on a reused instance. Use the same identity key in [IsNavigationTarget](navigation-existing-views.md).
 
-```cs
-Employee employee = Employees.CurrentItem as Employee;
-if (employee != null)
+## Pass an in-memory object deliberately
+
+```csharp
+var parameters = new NavigationParameters
 {
-    var parameters = new NavigationParameters();
-    parameters.Add("ID", employee.Id);
-    parameters.Add("myObjectParameter", new ObjectParameter());
-    regionManager.RequestNavigate(RegionNames.TabRegion, "EmployeeDetailsView", parameters);
-}
+    { "customerId", customer.Id },
+    { "customerSnapshot", customer }
+};
+regionManager.RequestNavigate("MainRegion", "CustomerView", parameters);
 ```
 
-You can retrieve the navigation parameters using the **Parameters** property on the **NavigationContext** object. This property returns an instance of the **NavigationParameters** class, which provides an indexer property to allow easy access to individual parameters, independently of them being passed through the query or through the **RequestNavigate** method.
+Here `customer` is an application object. Retrieve it with `GetValue<Customer>("customerSnapshot")`. Passing it as an object preserves its reference and type; putting it into a URI only uses its string representation. The short overload above omits error handling for brevity; prefer a result callback in application navigation code.
 
-```cs
-public void OnNavigatedTo(NavigationContext navigationContext)
-{
-    string id = navigationContext.Parameters["ID"];
-    ObjectParameter myParameter = navigationContext.Parameters["myObjectParameter"];
-}
-```
+Use an ID instead when the destination should reload current data, survive application restart, or avoid holding a large graph in the [journal](navigation-journal.md). A navigation parameter is neither an authorization check nor a persistent data store.
 
-You can also retrieve parameters in a type safe manner using generics:
+## Merging and duplicates
 
-```cs
-public void OnNavigatedTo(NavigationContext navigationContext)
-{
-    ObjectParameter objectParameter = navigationContext.Parameters.GetValue<ObjectParameter>("myObjectParameter");
-}
-```
+A query and an explicit collection can be used together. The region navigation context parses the query first and appends the object parameters. Duplicate keys remain duplicate entries; an object parameter does not overwrite a same-named query parameter. Use unique keys for single values, and `GetValues<T>` for intentional multi-value parameters.
 
+See [Navigation Parameters](../navigation-parameters.md) for conversion, missing-value and validation rules.
+
+Source (Prism 9.0.537): [NavigationContext](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Navigation/Regions/NavigationContext.cs), [manager overloads](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Navigation/Regions/IRegionManagerExtensions.cs).

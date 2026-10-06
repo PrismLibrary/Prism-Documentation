@@ -1,27 +1,45 @@
 ---
 sidebar_position: 1
 title: Notifications
+description: "Register native alerts, action sheets, and prompts supported by Prism Essentials 9.0."
 ---
 
 # Notifications
 
-Displaying an alert, asking a user to make a choice, or displaying a prompt is a common UI task. The Notifications API from Prism Essentials is designed as a cross platform replacement API for the PageDialogService in Prism.Forms and Prism.Maui. For those migrating from Prism.Forms it is recommended to migrate to this API as this will better help you to migrate your code to a more future proof API which will work well into the future without the need to change your code should you choose to switch between Uno Platform and .NET MAUI. Additionally this API will be providing support with WPF making your WPF apps easier to migrate to mobile in the future.
+The Essentials notification contracts cover alerts, action sheets, and text prompts. They can replace simple page-dialog interactions in shared application logic while the host supplies the native presentation.
 
 ## Getting Started
 
-To use the Notifications API you must either call `UsePrismEssentials` or `RegisterNotifications`.
+Use `UsePrismEssentials()` or `RegisterNotifications()` from `Prism.Plugin.Essentials` on a supported native MAUI/Uno target. These services are transient and require an initialized Activity/window. WPF and Uno desktop/browser do not get notification services from this 9.0 registration path.
 
-```cs
-public class MyViewModel(INotifications notifications)
+```csharp
+using Prism.Plugin.Essentials.Notifications;
+
+public sealed class ReportFeedback(INotifications notifications)
+{
+    public Task SavedAsync() =>
+        notifications.Alert.DisplayAsync("Saved", "Your report is ready.", "OK");
+}
 ```
+
+`INotifications` groups `Alert`, `ActionSheet`, and `Prompt`. The 9.0 property is singular `Prompt`, while its type is `IPrompts`. You can inject any of the individual contracts directly.
+
+Present from the active UI, avoid overlapping native dialogs, and handle returned decisions before performing the application operation. These contracts have no cancellation-token overload and do not promise that unrelated work cancellation dismisses a native dialog.
 
 ## Next Steps
 
-- [ActionSheets](actionsheets.md)
-- [Alerts](alerts.md)
-- [Prompts](prompts.md)
+- [ActionSheets](actionsheets.md): named choices and callbacks.
+- [Alerts](alerts.md): acknowledgments and Boolean decisions.
+- [Prompts](prompts.md): text input with a distinct cancellation result.
 
-:::note
-This is currently only supported on Android, iOS, MacCatalyst, & WinUI for .NET MAUI and Uno Platform. This feature is planned for future expansion to all Uno Platform platforms and WPF.
-:::
+For a custom view and lifecycle use [Prism dialogs](../../../dialogs/index.md). The 9.0 Essentials contract has no toast API.
 
+## Source reference
+
+These pinned source links describe the Plugins 9.0 baseline and require authorized access to the Prism.Plugins repository.
+
+- [`src/Prism.Plugin.Essentials/Notifications/INotifications.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/Notifications/INotifications.cs)
+- [`src/Prism.Plugin.Essentials/Notifications/NotificationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/Notifications/NotificationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)
