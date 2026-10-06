@@ -4,15 +4,19 @@ sidebar_position: 1
 
 # Getting Started with Avalonia
 
-Prism 9.1 includes `Prism.Avalonia` for application initialization, MVVM, modules, regions, and desktop dialogs. It is a supported Prism platform even where the separate [sample gallery](../../samples/index.md) has no Avalonia showcase yet.
+:::caution 10.0 package rollout
+This guide targets Prism 10.0 vNext APIs. Its package rollout is not complete. Set any version variable below to an exact compatible version that actually exists in your feed; do not substitute an assumed 10.0 version. Existing 9.1 prerelease evidence is not a published 10.0 package. See [migration and readiness](../../migrating-to-10.md).
+:::
+
+The Prism 10.0 documentation covers `Prism.Avalonia` for application initialization, MVVM, modules, regions, and desktop dialogs. It is a supported Prism platform even where the separate [sample gallery](../../samples/index.md) has no Avalonia showcase yet.
 
 ## Packages and prerequisites
 
-Start with an Avalonia application using the official [setup guide](https://docs.avaloniaui.net/docs/get-started). Install a matching 9.1 version of `Prism.DryIoc.Avalonia`; it references `Prism.Avalonia` and `Prism.Container.DryIoc`. The platform-only package is `Prism.Avalonia` when supplying another container through `PrismApplicationBase`.
+Start with an Avalonia application using the official [setup guide](https://docs.avaloniaui.net/docs/get-started). Install a compatible version of `Prism.DryIoc.Avalonia`; it references `Prism.Avalonia` and `Prism.Container.DryIoc`. The platform-only package is `Prism.Avalonia` when supplying another container through `PrismApplicationBase`.
 
-The audited source builds `net9.0` and `net10.0` assets and pins Avalonia `12.1.1`. Match your Avalonia packages and Prism package assets rather than combining an arbitrary current Avalonia template with an older Prism binary. These are source-head boundaries, not a guarantee that every published 9.1 preview has identical dependencies.
+The audited source builds `net9.0` and `net10.0` assets and pins Avalonia `12.1.1`. Match your Avalonia packages and Prism package assets rather than combining an arbitrary current Avalonia template with an older Prism binary. These are source-head boundaries, not a guarantee that every published prerelease has identical dependencies.
 
-For an existing project named `PrismAvaloniaDemo`, use your feed's exact 9.1 version:
+For an existing project named `PrismAvaloniaDemo`, use your feed's exact available version:
 
 ```sh
 # Set PRISM_VERSION to a version available from your configured feed first.
@@ -118,7 +122,7 @@ Use the target actually declared by your project. Confirm that the window appear
 
 Continue with [regions and navigation](regions.md), [desktop dialogs](dialogs.md), [commands](../../commands/commanding.md), and [modularity](../../modularity/index.md).
 
-Prism 9.1 is the first NativeAOT-ready release. The supported container for NativeAOT is `Prism.Container.Microsoft` from Commercial Plus, not the DryIoc setup above. Check the [NativeAOT guide](../../dependency-injection/native-aot.md), your Avalonia target, and all application dependencies before publishing; a successful JIT desktop run does not validate a NativeAOT build.
+Prism 10.0 (vNext) is planned as the first NativeAOT-ready release. The supported container for NativeAOT is `Prism.Container.Microsoft` from Commercial Plus, not the DryIoc setup above. Check the [NativeAOT guide](../../dependency-injection/native-aot.md), your Avalonia target, and all application dependencies before publishing; a successful JIT desktop run does not validate a NativeAOT build.
 
 ## Source reference
 

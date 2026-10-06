@@ -8,7 +8,7 @@ A Prism.Forms migration changes both the UI framework and Prism startup. Keep re
 
 ## Replace legacy startup
 
-Prism 9.1 MAUI applications use a normal MAUI `Application` with `UsePrism` on `MauiAppBuilder`. The old Prism.Forms `PrismApplication.RegisterTypes`, `OnInitialized`, and `IPlatformInitializer` startup pattern is not the current API. Do not follow historical .NET 6/7 compatibility examples.
+Prism 10.0 MAUI applications use a normal MAUI `Application` with `UsePrism` on `MauiAppBuilder`. The old Prism.Forms `PrismApplication.RegisterTypes`, `OnInitialized`, and `IPlatformInitializer` startup pattern is not the current API. Do not follow historical .NET 6/7 compatibility examples.
 
 Move registration and initialization to the builder:
 
@@ -60,7 +60,7 @@ Prefer `RegisterForNavigation<MainPage, MainPageViewModel>()` and let Prism crea
 
 - Page navigation remains URI-based, but it is scoped to the calling page and its window. Test absolute resets, relative navigation, hardware Back, modal dismissal, and tabs.
 - The [XAML navigation](navigation/xaml-navigation.md) extension is `prism:NavigateTo` at the current source head.
-- Native alerts use `Prism.Services.IPageDialogService`; custom dialogs are implemented by `Prism.Dialogs.IDialogService` and use `DialogCloseListener` in Prism 9.1.
+- Native alerts use `Prism.Services.IPageDialogService`; custom dialogs are implemented by `Prism.Dialogs.IDialogService` and use the `DialogCloseListener` contract introduced in Prism 9.
 - Page appearing/disappearing, navigation callbacks, destruction, and application/window lifecycle are separate events. Do not put permanent disposal in a temporary disappearing callback.
 - Current source/package target boundaries differ from older Prism.Forms platforms. Start with [the MAUI package guide](index.md), and verify each deployment target.
 

@@ -20,8 +20,8 @@ const FeatureList: FeatureItem[] = [
       <Translate
         id="homepage.features.crossPlatform.description"
         description="Cross-platform feature description">
-        Write once, deploy everywhere. Prism 9 provides a unified API across WPF, .NET MAUI, 
-        Uno Platform, and Avalonia. Maximize code reuse and minimize platform-specific code.
+        Share application patterns across WPF, .NET MAUI, Uno Platform, and Avalonia.
+        Prism keeps business logic reusable while each host owns its UI and lifecycle.
       </Translate>
     ),
     descriptionId: 'homepage.features.crossPlatform.description',

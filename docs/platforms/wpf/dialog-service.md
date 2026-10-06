@@ -63,7 +63,7 @@ public class NotificationDialogViewModel : BindableBase, IDialogAware
 }
 ```
 
-In Prism 9.1, `RequestClose` is a `DialogCloseListener`, not an event. Prism initializes it; do not replace it yourself. `Title` is not a member of `IDialogAware`. Set the window title through its style or a binding on a custom host. The listener is initialized when the WPF dialog window loads, so do not request closure from the view-model constructor or `OnDialogOpened`.
+In Prism 9 and later, `RequestClose` is a `DialogCloseListener`, not an event. Prism initializes it; do not replace it yourself. `Title` is not a member of `IDialogAware`. Set the window title through its style or a binding on a custom host. The listener is initialized when the WPF dialog window loads, so do not request closure from the view-model constructor or `OnDialogOpened`.
 
 ## Register and show
 

@@ -1,13 +1,14 @@
 ---
 sidebar_position: 1
-title: Reference applications
+title: Sample Applications
+sidebar_label: Overview
 ---
 
-# Build an application, then follow the decisions
+# Sample Applications
 
 These five reference applications show how Prism fits into everyday product work: calculating a result, planning a project, editing a quote, saving a read, or composing a message. Each has a UI-free application layer and separate WPF, .NET MAUI, and Uno Platform heads.
 
-The walkthroughs connect visible behavior to the source that owns it. Start with one workflow, then compare how the three heads present the same application rules.
+Choose an app, then select WPF, .NET MAUI, Uno, or Avalonia. Each framework tab contains its own screenshots, setup, source patterns, and walkthrough. Your framework choice follows you between pages; Avalonia is clearly marked Coming soon.
 
 ## Choose a starting point
 
@@ -21,19 +22,23 @@ The walkthroughs connect visible behavior to the source that owns it. Start with
 
 All five applications, including Mail and their workflow-logging integration, are in the reviewed samples `master` tree at `9c31a9ce`. Mail still has the provider limitations identified in its walkthrough. Source links require access to the [Prism samples repository](https://github.com/PrismLibrary/samples).
 
-## What is shared, and what belongs to a head?
+## Suggested learning path
+
+1. **[Calculator](calculator.md): commands and state.** Follow one calculation through the evaluator, session, history dialog, and independent conversion module.
+2. **[Planner](planner.md): edits and persistence.** Trace validation, a proposed snapshot, save failure, undo, and coordinated close decisions.
+3. **[Learning Hub](learning-hub.md): asynchronous presentation.** Follow search cancellation into saved reading progress and a collection dialog.
+4. **[Sales Desk](sales-desk.md): document identity.** Open independent revisions of the same quote and trace conflict/replay behavior through an atomic commit.
+5. **[Prism Mail](mail.md): account and provider boundaries.** Start offline, then inspect typed public configuration, secure storage, session changes, and uncertain submission outcomes.
+
+Within each app, choose your framework, try the four-step workflow, then expand the startup/module code and storage/diagnostics notes. Each step links to the concrete source that owns the behavior.
+
+## Shared logic, native presentation
 
 `Shared` projects are ordinary .NET libraries. They contain domain models, application services, Prism commands, view models, and logical navigation contracts. They do not reference WPF, MAUI, Uno controls, or platform target frameworks.
 
 Each head owns its XAML, resources, view/view-model registrations, startup, dialogs, and navigation adapter. A shared view model requests a logical route such as `Planner.Tasks`; it never needs the native view's type or name. The same module relationship is declared separately in each host's `PrismStartup`.
 
-| Presentation head | Developer focus |
-| --- | --- |
-| WPF | A desktop shell with named regions, keyboard-accessible commands, native dialog windows, and explicit window lifetime. Runtime test renders exercise the real WPF control tree. |
-| .NET MAUI | Builder composition with an explicit Microsoft container, a registered shell page, page/region lifetime, touch-sized controls, and compact versus wide native views. Windows build or composition results do not qualify Android interactions. |
-| Uno Platform | A Prism application and Uno-native XAML with head-specific resources, compiled bindings where declared, and separate Desktop, BrowserWasm, Android, and WinUI targets. One successful head does not qualify the others. |
-
-The applications use explicit Prism registrations. They demonstrate Essentials storage and platform boundaries where the feature needs them; they are not demonstrations of every plugin or of Magician-generated startup.
+The head-specific stories live in each app's framework tabs. The apps use explicit Prism registrations, UI-free shared view models, Essentials where a feature needs platform services, and typed local Logging. They do not demonstrate every plugin or Magician-generated startup.
 
 ## Run from the existing repository
 
@@ -46,6 +51,12 @@ Start with the [repository setup and templates](https://github.com/PrismLibrary/
 - Use the [Hello World platform templates](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/sample-template) when you want a minimal starting point rather than a complete reference application. The templates' container choice is separate from these apps' explicit Microsoft-container composition.
 
 ## Diagnose real workflows with Prism Logging
+
+The five apps log real persistence and session outcomes through a filtered local Prism provider. Open the details for the operation map, privacy rules, and source links.
+
+<details>
+<summary>Workflow diagnostics and privacy</summary>
+
 
 All five apps inject Prism's `ILogger<T>` into their shared application services. Every WPF, MAUI, and Uno composition root registers the same filtered, local console output before application services. The logging describes useful boundaries rather than merely proving that a package can be resolved:
 
@@ -75,14 +86,16 @@ Do not add a raw `AddConsole` or remote provider alongside this filter and assum
 
 Outcomes are recorded at the operation boundary. A failed save stays failed, cancellation remains distinct, and a later retry has its own outcome. Mail's uncertain send stays `Uncertain`; logging neither retransmits it nor claims a definite delivery result. See the [shared diagnostics guide](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/shared/Logging/README.md) for privacy tests and extension rules.
 
+</details>
+
 ## Read the evidence accurately
 
-The images currently shown are **real WPF application renders made by the native test host**, with synthetic or app-owned data. They are labeled by platform and source checkpoint. They are not design mockups, operating-system screenshots, Android screenshots, or evidence of an Uno browser run.
+The galleries contain **real WPF application-owned test renders** and **actual Calculator Android emulator captures**, labeled by framework and source checkpoint. WPF images stay in WPF tabs; Calculator MAUI and Uno tabs show their own Android evidence. Device and screen pickers list only captured combinations. Missing hosts stay visibly pending.
 
 See [runtime capture coverage](runtime-coverage.md) for the exact image provenance and the separate Windows, Android-emulator, Uno browser, and Linux-desktop capture status. iOS and macOS captures are deferred. Native test automation, OS input, screen-reader testing, and deployment qualification remain different forms of evidence.
 
 ## NativeAOT and production boundaries
 
-All five applications select the Microsoft container. Generated JSON metadata and statically visible registrations are useful prerequisites; they do not establish a NativeAOT release for every head. None of these walkthroughs claims a qualified NativeAOT UI deployment. WPF is not a NativeAOT target. Follow the [Prism 9.1 NativeAOT guide](../dependency-injection/native-aot.md) for supported container, framework, and publish/run requirements.
+All five applications select the Microsoft container. Generated JSON metadata and statically visible registrations are useful prerequisites; they do not establish a NativeAOT release for every head. None of these walkthroughs claims a qualified NativeAOT UI deployment. WPF is not a NativeAOT target. Follow the [Prism 10.0 NativeAOT guide](../dependency-injection/native-aot.md) for supported container, framework, and publish/run requirements.
 
 The samples do not depend on the unmerged DeviceDisplay or new files/camera/share work, and they do not hide the persisted background-task metadata limitation by enabling reflection. The merged Logging integration is qualified for the documented portable tests and Windows checks; it does not extend the applications' Android, browser, Apple, or NativeAOT qualification.

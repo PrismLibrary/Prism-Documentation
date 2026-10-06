@@ -29,7 +29,7 @@ public static MauiApp BuildApp(IContainerExtension container)
 
 Supply a configured container compatible with your packages. `Prism.DryIoc.Maui` supplies `UsePrism(Action<PrismAppBuilder>)` and a DryIoc-rules overload in the `Microsoft.Maui` namespace; the [getting-started example](index.md) uses that convenience API.
 
-For supported NativeAOT applications in Prism 9.1, supply `Prism.Container.Microsoft.MicrosoftContainerExtension` from Commercial Plus and follow the [NativeAOT guide](../../dependency-injection/native-aot.md). [Magician](../../magician/index.md) can generate startup and explicit mappings. A helper class called `PrismStartup` is an organizational choice, not a required base class.
+For supported NativeAOT applications in Prism 10.0, supply `Prism.Container.Microsoft.MicrosoftContainerExtension` from Commercial Plus and follow the [NativeAOT guide](../../dependency-injection/native-aot.md). [Magician](../../magician/index.md) can generate startup and explicit mappings. A helper class called `PrismStartup` is an organizational choice, not a required base class.
 
 ## Register services and views
 

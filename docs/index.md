@@ -6,7 +6,7 @@ sidebar_position: 1
 
 Prism is a framework for building loosely coupled, maintainable, and testable XAML applications in WPF, .NET MAUI, Uno Platform and Avalonia. Separate releases are available for each platform and those will be developed on independent timelines. Prism provides an implementation of a collection of design patterns that are helpful in writing well-structured and maintainable XAML applications, including MVVM, dependency injection, commands, EventAggregator, and others. Prism's core functionality is shared across its platform packages. Supported target frameworks vary by package; use the assets and dependencies of the version installed in your application. Those things that need to be platform specific are implemented in the respective libraries for the target platform. Prism also provides great integration of these patterns with the target platform. For example, Prism for .NET MAUI allows you to use an abstraction for navigation that is unit testable, but that layers on top of the platform concepts and APIs for navigation so that you can fully leverage what the platform itself has to offer, but done in the MVVM way.
 
-Prism 9 represents a major leap forward for app developers with a lot of focus having been spent on unifying the API across all platforms. This will unlock many possibilities for developers to move code forward from legacy applications or transition from one app development platform to another sharing application logic while retaining host-specific behavior.
+Prism 10.0 is the next release line. Its documentation brings together shared application patterns and the host-specific setup needed to use them correctly.
 
 ## Build a feature, then compose an application
 
@@ -21,13 +21,15 @@ Prism 9 represents a major leap forward for app developers with a lot of focus h
 
 See Prism in complete workflows with [Calculator, Planner, Sales Desk, Learning Hub, and Mail](samples/index.md). Follow shared business logic into WPF, MAUI, and Uno composition, with clearly labeled runtime images and platform-specific validation boundaries.
 
-## Prism 9.1 and NativeAOT
+## Prism 10.0 vNext and NativeAOT
 
-Prism 9.1 is the first NativeAOT-ready Prism release. **Supported NativeAOT applications require `Prism.Container.Microsoft`, available with Commercial Plus.** The container's generated preservation support works with Prism's registrations, navigation, scopes, and statically linked modules.
+Prism 10.0 (vNext) is planned as the first NativeAOT-ready Prism release. **Supported NativeAOT applications require `Prism.Container.Microsoft`, available with Commercial Plus.** The container's generated preservation support works with Prism's registrations, navigation, scopes, and statically linked modules.
 
 Start with the [NativeAOT guide](dependency-injection/native-aot.md). It covers container setup, view-model preservation, trimming, serialization, and the separate requirements of WPF, .NET MAUI, Uno Platform, and Avalonia. Framework readiness does not mean every application head or third-party dependency can be published with NativeAOT.
 
-The current documentation describes the 9.1 line, including features delivered in prerelease packages. Match the documentation to your installed package assets; a merged source change is not evidence that it is present in every published package. Use the version selector for 9.0 applications.
+:::caution vNext package readiness
+These pages describe the source being prepared for Prism 10.0. The 10.0 package rollout is not complete; do not assume a package exists because the documentation uses the new release name. Earlier 9.1 prerelease source, sample tests and captures remain historical evidence. Follow the [10.0 migration and readiness checklist](migrating-to-10.md), and use the version selector for 9.0 applications.
+:::
 
 ## Licensing
 

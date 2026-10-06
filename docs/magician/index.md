@@ -72,7 +72,7 @@ public static class MauiProgram
 
 `App` and the attributed `EditorPage` belong to the application. Generated registrations run before the configuration callback's initial navigation. Do not call a second generated registration hook alongside this startup path.
 
-One referenced adapter is selected automatically. If several are referenced, select it explicitly. For the supported Prism 9.1 NativeAOT path:
+One referenced adapter is selected automatically. If several are referenced, select it explicitly. For the supported Prism 10.0 NativeAOT path:
 
 ```csharp
 .UsePrismMagician<Prism.Container.Microsoft.MicrosoftContainerExtension>(

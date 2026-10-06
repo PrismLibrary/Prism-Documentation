@@ -104,7 +104,7 @@ The `AutoEnable` property specifies if the associated element should be automati
 
 ## Full Code Sample
 
-The historical [29-InvokeCommandAction sample](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/29-InvokeCommandAction) illustrates this behavior. Its package versions may predate 9.1; use the [current WPF setup](../getting-started.md) and the source below for current APIs.
+The historical [29-InvokeCommandAction sample](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/29-InvokeCommandAction) illustrates this behavior. Its package versions may predate the current APIs; use the [current WPF setup](../getting-started.md) and the source below for current APIs.
 
 
 Use either an explicit `CommandParameter` or a `TriggerParameterPath` when demonstrating event data. An explicit parameter takes precedence and would hide the event property in the examples above. This action is WPF-specific; MAUI uses its [EventToCommandBehavior](../../maui/behaviors/eventtocommandbehavior.md).

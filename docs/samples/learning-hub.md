@@ -1,67 +1,293 @@
 ---
 sidebar_position: 5
 title: Learning Hub
+hide_table_of_contents: true
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import SampleGallery from '@site/src/components/SampleGallery';
+import {sampleCaptures} from '@site/src/data/sampleCaptures';
 
 # Learning Hub
 
-A complete offline reading experience: discover a short essay, save it to a collection, and return to the section where you stopped. Original illustrations and comfortable reading controls give the shared application model something useful to support.
+Discover an original offline essay, bookmark it, organize a collection, and resume reading. Twelve essays and five original illustrations make this a complete reading experience without accounts or video services.
 
-![WPF Learning Hub with an illustrated discovery header and an offline essay catalog](images/learning-hub-wpf-catalog.png)
+Collections depends on ContentCatalog; ReadingTools is independent. Shared cancellation and a durable LearningSession keep search, progress, and preferences independent of transient native views.
 
-*WPF runtime test render, light theme, source `dc814b3`. Original application-owned image; [capture provenance](runtime-coverage.md).*
+Choose your framework. Source links require access to the private [samples repository](https://github.com/PrismLibrary/samples).
 
-The bundled catalog contains twelve original essays and five original topic illustrations. It is an essay reader, not a course service or video player. No account, API key, media backend, or external content download is needed.
+<Tabs groupId="platform" queryString="platform" defaultValue="wpf" className="sample-platform-tabs" lazy>
 
-## Try the workflow
+<TabItem value="wpf" label="WPF">
 
-1. Search by text and topic, cancel a search, then clear the query to restore the local catalog.
-2. Open an essay, advance a section, bookmark it, and return later to its saved progress.
-3. Create a collection and add the current essay from the reader. Rename the selected collection without losing the selection.
-4. Change text size and appearance in Reading tools. Open that feature first in a fresh session to see its independent module initialization.
+### WPF experience
 
-![WPF Learning Hub reader in dark theme with larger text and a selected collection](images/learning-hub-wpf-reader-dark.png)
+The root region hosts discovery and reading views; a native dialog window edits collections. Bounded virtualizing lists, focus, image decoding, and large-text scrolling have native test coverage.
 
-*The same WPF source checkpoint, scrolled reader with large text. The image shows the lower reading actions and retained collection selection; it is not a mobile capture.*
+<SampleGallery label="Learning Hub WPF" captures={sampleCaptures["learning-hub"].wpf} />
 
-## Follow the application layer
+Original WPF application-owned runtime renders; source and capture method are recorded in the gallery and [runtime coverage](runtime-coverage.md).
 
-[CatalogViewModel](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/ContentCatalog/ViewModels/CatalogViewModel.cs) owns search cancellation and a request generation. Only the newest live request can update results, errors, or busy state, including when a source ignores cancellation. [LearningSession](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) owns bookmarks, collections, preferences, and reading progress independently of transient views.
+### Set up and run {#wpf-run}
 
-The on-demand graph is **Collections → ContentCatalog**, with **ReadingTools** independent. Heads map `Learning.*` routes and dialog keys to native views. Collection editing uses a draft and explicit dialog result; dirty cancellation offers Keep editing or Discard.
+Run from the repository root using its existing package versions, entitled [Commercial Plus feed](../pipelines/commercial-plus.md), and the matching SDK/workloads.
 
-## Compare the heads
+On Windows:
 
-### WPF: reading state and bounded controls
+```sh
+dotnet run --project samples/prism-learning-hub/WPF/PrismLearningHub.Wpf/PrismLearningHub.Wpf.csproj
+```
 
-The WPF shell uses a root region and native dialog window. Bounded, virtualizing catalog lists avoid an ever-growing stack of cards. Runtime tests inspect actual image decoding, selected-item focus, scrolling, collection edits, and large-text reader actions. These are in-process controls tests, not screen-reader certification.
+### Guided walkthrough {#wpf-walkthrough}
 
-Follow [WPF startup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/WPF/PrismLearningHub.Wpf/PrismStartup.cs).
+1. **Search by text and topic, cancel, and clear the query.** Only the newest live search can publish results, errors, or busy state. Read the [request ownership](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/ContentCatalog/ViewModels/CatalogViewModel.cs).
 
-### MAUI: touch-friendly discovery and reading
+2. **Open an essay, advance a section, and return to the catalog.** The next visit restores progress after the save has succeeded. Read the [reading-state persistence](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs).
 
-The MAUI builder selects the Microsoft container and registers a logical shell route. Native pages and region views own layout, font sizing, and platform appearance; the shared session retains progress and collections across presentation changes.
+3. **Create a collection, add the read, and rename the selected collection.** Selection survives the update; dirty cancellation preserves the editor draft. Read the [collection state](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Collections/ViewModels/CollectionsViewModel.cs).
 
-Follow [MAUI composition](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Maui/PrismLearningHub.Maui/MauiProgram.cs).
+4. **Open Reading tools first in a fresh session and change text size or theme.** The independent module loads without ContentCatalog; the head adapts its native presentation. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/WPF/PrismLearningHub.Wpf/PrismStartup.cs).
 
-### Uno: native XAML for each application head
+<details>
+<summary>Trace the WPF startup and module code</summary>
 
-Uno registers its own shell and feature views while using the same catalog, session, and module graph. The compiled view templates and image presentation belong to the Uno head, so native WinUI build results must not be advertised as browser or Linux interaction results.
 
-Follow [Uno startup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Uno/PrismLearningHub.Uno/PrismStartup.cs).
+The [WPF App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/WPF/PrismLearningHub.Wpf/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
 
-## Essentials and original artwork
+```csharp
+protected override IContainerExtension CreateContainerExtension()
+    => new MicrosoftContainerExtension();
 
-[LearningStore](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningStore.cs) stores a versioned, generated-JSON snapshot through Essentials settings. Progress is persisted before the UI claims success. A failed write retains the previous state; unreadable or unsupported stored data pauses writes instead of resetting the library.
+protected override Window CreateShell()
+    => Container.Resolve<ShellWindow>();
 
-The [original SVG illustrations and bounded raster assets](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Assets) are bundled with the app. A failed image retains the topic and title text. The fixed publication date describes this local edition; it is not presented as a recent remote synchronization.
+protected override void RegisterTypes(IContainerRegistry registry)
+    => PrismStartup.RegisterTypes(registry);
+```
 
-## Workflow diagnostics
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/WPF/PrismLearningHub.Wpf/PrismStartup.cs) registers the real on-demand graph:
 
-[LearningSession](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) receives `ILogger<LearningSession>` and records library restore/save, bookmark changes, progress saves, and collection changes. Outcomes follow persistence: a failed write remains failed, and a protected read-only store produces a skipped outcome. Collection names, essay selections, and reading-state values are not copied to the [filtered local diagnostics](index.md#diagnose-real-workflows-with-prism-logging).
+```csharp
+catalog.AddModule<ContentCatalogModule>(LearningModules.ContentCatalog, InitializationMode.OnDemand);
+catalog.AddModule<CollectionsModule>(LearningModules.Collections, InitializationMode.OnDemand, LearningModules.ContentCatalog);
+catalog.AddModule<ReadingToolsModule>(LearningModules.ReadingTools, InitializationMode.OnDemand);
+```
 
-## Run and verify
 
-Use the [Learning Hub README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/README.md). Portable tests cover out-of-order search, cancellation, state restoration, collection drafts, persistence failures, and UI-free dependencies. Native WPF tests exercise real routes, dialogs, bindings, virtualized lists, and the selected-collection regression.
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
 
-See [runtime capture coverage](runtime-coverage.md) and the [NativeAOT boundary](index.md#nativeaot-and-production-boundaries).
+</details>
+
+<details>
+<summary>Essentials, persistence, and private-by-default diagnostics</summary>
+
+
+LearningStore writes a versioned generated-JSON snapshot through Essentials settings. A failed write retains previous state; unreadable or unsupported data pauses writes. Original bundled artwork has bounded raster derivatives, with titles retained if an image fails.
+
+
+LearningSession receives `ILogger<LearningSession>` and records restore/save, bookmarks, progress, and collection changes at the persistence boundary. Collection names, essay selections, and state values are excluded.
+
+
+The filtered Prism Console provider also covers Essentials error forwarding. Only fixed operation/outcome categories and bounded error types reach local standard output. No remote provider, credentials, persistent log file, or user identity is configured. See [the diagnostics guide](index.md#diagnose-real-workflows-with-prism-logging).
+
+</details>
+
+### Validation and limits {#wpf-validation}
+
+Native WPF workflows exercise actual containers, modules, bound controls, and dialogs. The images are live app-owned test renders, not OS screenshots or assistive-technology certification. WPF is not a NativeAOT target. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+
+</TabItem>
+
+<TabItem value="maui" label=".NET MAUI">
+
+### .NET MAUI experience
+
+A shell page and touch-friendly region views present the same catalog and reading session. Native layout, font sizing, and appearance stay in this head.
+
+<SampleGallery label="Learning Hub .NET MAUI" captures={sampleCaptures["learning-hub"].maui} />
+
+.NET MAUI runtime captures are pending. Windows builds are verified; Android and other native journeys need their own capture and interaction evidence.
+
+### Set up and run {#maui-run}
+
+Run from the repository root using its existing package versions, entitled [Commercial Plus feed](../pipelines/commercial-plus.md), and the matching SDK/workloads.
+
+Build the Android head with the installed Android SDK/JDK and MAUI workload:
+
+```sh
+dotnet build samples/prism-learning-hub/Maui/PrismLearningHub.Maui/PrismLearningHub.Maui.csproj -p:TargetFrameworks=net10.0-android
+```
+
+Open [this MAUI project](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Maui/PrismLearningHub.Maui/PrismLearningHub.Maui.csproj) in your IDE, select an Android emulator/device, and run it. On Windows, select the Windows target instead.
+
+<details>
+<summary>Windows build command</summary>
+
+```sh
+dotnet build samples/prism-learning-hub/Maui/PrismLearningHub.Maui/PrismLearningHub.Maui.csproj -p:TargetFrameworks=net10.0-windows10.0.19041.0
+```
+
+</details>
+
+### Guided walkthrough {#maui-walkthrough}
+
+1. **Search by text and topic, cancel, and clear the query.** Only the newest live search can publish results, errors, or busy state. Read the [request ownership](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/ContentCatalog/ViewModels/CatalogViewModel.cs).
+
+2. **Open an essay, advance a section, and return to the catalog.** The next visit restores progress after the save has succeeded. Read the [reading-state persistence](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs).
+
+3. **Create a collection, add the read, and rename the selected collection.** Selection survives the update; dirty cancellation preserves the editor draft. Read the [collection state](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Collections/ViewModels/CollectionsViewModel.cs).
+
+4. **Open Reading tools first in a fresh session and change text size or theme.** The independent module loads without ContentCatalog; the head adapts its native presentation. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Maui/PrismLearningHub.Maui/PrismStartup.cs).
+
+<details>
+<summary>Trace the .NET MAUI startup and module code</summary>
+
+
+The [MAUI composition root](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Maui/PrismLearningHub.Maui/MauiProgram.cs) selects the Microsoft container and the logical shell route. Excerpt (retain the rest of the app's startup):
+
+```csharp
+builder.UseMauiApp<App>()
+    .UsePrism(new MicrosoftContainerExtension(), prism => prism
+        .RegisterTypes(PrismStartup.RegisterTypes)
+        .ConfigureModuleCatalog(PrismStartup.ConfigureModules)
+        .CreateWindow(LearningRoutes.Shell));
+```
+
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Maui/PrismLearningHub.Maui/PrismStartup.cs) registers the real on-demand graph:
+
+```csharp
+catalog.AddModule<ContentCatalogModule>(LearningModules.ContentCatalog, InitializationMode.OnDemand);
+catalog.AddModule<CollectionsModule>(LearningModules.Collections, InitializationMode.OnDemand, LearningModules.ContentCatalog);
+catalog.AddModule<ReadingToolsModule>(LearningModules.ReadingTools, InitializationMode.OnDemand);
+```
+
+
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+
+</details>
+
+<details>
+<summary>Essentials, persistence, and private-by-default diagnostics</summary>
+
+
+LearningStore writes a versioned generated-JSON snapshot through Essentials settings. A failed write retains previous state; unreadable or unsupported data pauses writes. Original bundled artwork has bounded raster derivatives, with titles retained if an image fails.
+
+
+LearningSession receives `ILogger<LearningSession>` and records restore/save, bookmarks, progress, and collection changes at the persistence boundary. Collection names, essay selections, and state values are excluded.
+
+
+The filtered Prism Console provider also covers Essentials error forwarding. Only fixed operation/outcome categories and bounded error types reach local standard output. No remote provider, credentials, persistent log file, or user identity is configured. See [the diagnostics guide](index.md#diagnose-real-workflows-with-prism-logging).
+
+</details>
+
+### Validation and limits {#maui-validation}
+
+Selected MAUI Windows builds passed. The capture and interaction scope above is separate from build success. iOS/Mac Catalyst work is deferred; no all-head NativeAOT qualification is claimed. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+
+</TabItem>
+
+<TabItem value="uno-platform" label="Uno">
+
+### Uno experience
+
+The Uno shell supplies native templates and image presentation while sharing the catalog, session, and module graph. Each WinUI, Desktop, browser, or mobile head needs its own runtime check.
+
+<SampleGallery label="Learning Hub Uno" captures={sampleCaptures["learning-hub"].uno} />
+
+Uno runtime captures are pending. Windows builds are verified; Android and other native journeys need their own capture and interaction evidence.
+
+### Set up and run {#uno-run}
+
+Run from the repository root using its existing package versions, entitled [Commercial Plus feed](../pipelines/commercial-plus.md), and the matching SDK/workloads.
+
+Select the Desktop target on a supported desktop host:
+
+```sh
+dotnet run --project samples/prism-learning-hub/Uno/PrismLearningHub.Uno/PrismLearningHub.Uno.csproj -f net10.0-desktop -p:TargetFrameworks=net10.0-desktop --launch-profile "PrismLearningHub.Uno (Desktop)"
+```
+
+<details>
+<summary>Run the browser target</summary>
+
+With the matching WebAssembly workload, select the separately declared browser head:
+
+```sh
+dotnet run --project samples/prism-learning-hub/Uno/PrismLearningHub.Uno/PrismLearningHub.Uno.csproj -f net10.0-browserwasm -p:TargetFrameworks=net10.0-browserwasm -p:TargetFramework=net10.0-browserwasm --launch-profile "PrismLearningHub.Uno (WebAssembly)"
+```
+
+These are source-backed target-selection commands, not a claim that a new browser run was completed for this walkthrough.
+
+</details>
+
+### Guided walkthrough {#uno-walkthrough}
+
+1. **Search by text and topic, cancel, and clear the query.** Only the newest live search can publish results, errors, or busy state. Read the [request ownership](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/ContentCatalog/ViewModels/CatalogViewModel.cs).
+
+2. **Open an essay, advance a section, and return to the catalog.** The next visit restores progress after the save has succeeded. Read the [reading-state persistence](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs).
+
+3. **Create a collection, add the read, and rename the selected collection.** Selection survives the update; dirty cancellation preserves the editor draft. Read the [collection state](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Collections/ViewModels/CollectionsViewModel.cs).
+
+4. **Open Reading tools first in a fresh session and change text size or theme.** The independent module loads without ContentCatalog; the head adapts its native presentation. Read the [module catalog](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Uno/PrismLearningHub.Uno/PrismStartup.cs).
+
+<details>
+<summary>Trace the Uno startup and module code</summary>
+
+
+The [Uno App class](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Uno/PrismLearningHub.Uno/App.xaml.cs) owns native startup and shell creation. Excerpt (retain its remaining lifecycle methods):
+
+```csharp
+protected override IContainerExtension CreateContainerExtension()
+    => new MicrosoftContainerExtension();
+
+protected override UIElement CreateShell()
+    => _shell = Container.Resolve<ShellPage>();
+
+protected override void RegisterTypes(IContainerRegistry registry)
+    => PrismStartup.RegisterTypes(registry);
+```
+
+The head's [PrismStartup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Uno/PrismLearningHub.Uno/PrismStartup.cs) registers the real on-demand graph:
+
+```csharp
+catalog.AddModule<ContentCatalogModule>(LearningModules.ContentCatalog, InitializationMode.OnDemand);
+catalog.AddModule<CollectionsModule>(LearningModules.Collections, InitializationMode.OnDemand, LearningModules.ContentCatalog);
+catalog.AddModule<ReadingToolsModule>(LearningModules.ReadingTools, InitializationMode.OnDemand);
+```
+
+
+Follow [the shared application rules](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) next, then the head's feature view registrations. Shared view models request logical routes; only the head references native view types. The loader checks dependency completion before navigation and does not claim to repair every module-manager failure mode.
+
+</details>
+
+<details>
+<summary>Essentials, persistence, and private-by-default diagnostics</summary>
+
+
+LearningStore writes a versioned generated-JSON snapshot through Essentials settings. A failed write retains previous state; unreadable or unsupported data pauses writes. Original bundled artwork has bounded raster derivatives, with titles retained if an image fails.
+
+
+LearningSession receives `ILogger<LearningSession>` and records restore/save, bookmarks, progress, and collection changes at the persistence boundary. Collection names, essay selections, and state values are excluded.
+
+
+The filtered Prism Console provider also covers Essentials error forwarding. Only fixed operation/outcome categories and bounded error types reach local standard output. No remote provider, credentials, persistent log file, or user identity is configured. See [the diagnostics guide](index.md#diagnose-real-workflows-with-prism-logging).
+
+</details>
+
+### Validation and limits {#uno-validation}
+
+Selected Uno Windows builds passed. Android, Desktop, browser, and Apple retain their own runtime boundaries; iOS/macOS capture work is deferred. WebAssembly AOT and desktop NativeAOT are different deployment paths. Check [the sample README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/README.md), [capture provenance](runtime-coverage.md), and [Prism 10.0 NativeAOT requirements](../dependency-injection/native-aot.md) before extending the sample.
+
+</TabItem>
+
+<TabItem value="avalonia" label="Avalonia">
+
+### Coming soon
+
+Learning Hub does not yet have an Avalonia application head, runnable walkthrough, or captured UI. Prism supports Avalonia APIs; this particular sample head and its Essentials integration are still to come.
+
+Continue with one of the available framework tabs, or explore the [Avalonia starter template](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/sample-template/Avalonia).
+
+</TabItem>
+
+</Tabs>

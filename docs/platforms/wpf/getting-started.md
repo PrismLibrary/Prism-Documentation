@@ -4,24 +4,28 @@ sidebar_position: 1
 
 # Getting Started with WPF
 
-This walkthrough creates a Windows desktop application with Prism 9.1, DryIoc, a view model, and a region. Start with a normal WPF Application project. If you need the Windows SDK or Visual Studio workload, follow Microsoft's [WPF setup tutorial](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/get-started/create-app-visual-studio).
+This walkthrough creates a Windows desktop application with Prism 10.0, DryIoc, a view model, and a region. Start with a normal WPF Application project. If you need the Windows SDK or Visual Studio workload, follow Microsoft's [WPF setup tutorial](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/get-started/create-app-visual-studio).
+
+:::caution 10.0 package rollout
+This walkthrough targets Prism 10.0 vNext APIs. The package rollout is not complete. Use an exact compatible version that exists in your feed, and follow the [migration/readiness checklist](../../migrating-to-10.md) before adopting the 10.0 package set.
+:::
 
 ## Choose compatible packages
 
-Install `Prism.DryIoc` for the DryIoc application base, or `Prism.Unity` for Unity. These WPF packages bring in `Prism.Wpf`, `Prism.Core`, and their container dependencies. Choose one application container, and use compatible 9.1 package versions from your configured feed. The package name is `Prism.DryIoc`, even though its source project is named `Prism.DryIoc.Wpf`.
+Install `Prism.DryIoc` for the DryIoc application base, or `Prism.Unity` for Unity. These WPF packages bring in `Prism.Wpf`, `Prism.Core`, and their container dependencies. Choose one application container, and use compatible available package versions from your configured feed. The package name is `Prism.DryIoc`, even though its source project is named `Prism.DryIoc.Wpf`.
 
-The audited 9.1 source targets `net462`, `net47`, `net8.0-windows`, `net9.0-windows`, and `net10.0-windows`. A target in source is not a promise that every preview package contains the same assets; check the package you restore. New projects should use a supported .NET Windows target and matching SDK.
+The inspected prerelease source targets `net462`, `net47`, `net8.0-windows`, `net9.0-windows`, and `net10.0-windows`. A target in source is not a promise that every preview package contains the same assets; check the package you restore. New projects should use a supported .NET Windows target and matching SDK.
 
 For example, in PowerShell on a Windows development machine with the .NET 10 SDK:
 
 ```powershell
  dotnet new wpf -n PrismWpfDemo -f net10.0
  cd PrismWpfDemo
- $PrismVersion = Read-Host 'Exact Prism 9.1 package version from your feed'
+ $PrismVersion = Read-Host 'Exact available Prism package version from your feed'
  dotnet add package Prism.DryIoc --version $PrismVersion
 ```
 
-Prism 9.1 is the first NativeAOT-ready Prism release, but WPF is not a NativeAOT target. Do not add `PublishAot` to this application. See the [NativeAOT guide](../../dependency-injection/native-aot.md) for supported hosts and the Commercial Plus Microsoft container requirement.
+Prism 10.0 (vNext) is planned as the first NativeAOT-ready Prism release, but WPF is not a NativeAOT target. Do not add `PublishAot` to this application. See the [NativeAOT guide](../../dependency-injection/native-aot.md) for supported hosts and the Commercial Plus Microsoft container requirement.
 
 ## Let Prism create the shell
 

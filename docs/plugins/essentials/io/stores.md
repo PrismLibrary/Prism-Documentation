@@ -49,7 +49,7 @@ The default secure-store fallback is `None`. Choosing settings or memory as a fa
 
 ## Generated mappings and NativeAOT
 
-The 9.1 Essentials generator emits an assembly mapping from each store interface to its internal implementation. `RegisterStore<T>()` reads that mapping and retains the normal singleton registration. You do not need to make generated classes public, guess their names, or register them manually.
+The Essentials generator at the reviewed source checkpoint emits an assembly mapping from each store interface to its internal implementation. `RegisterStore<T>()` reads that mapping and retains the normal singleton registration. You do not need to make generated classes public, guess their names, or register them manually.
 
 When upgrading, rebuild **every assembly that declares store interfaces** with the updated Essentials analyzer enabled. Updating only the executable cannot repair a previously compiled contracts assembly. A missing mapping produces a `TypeLoadException` identifying the interface and assembly to rebuild.
 

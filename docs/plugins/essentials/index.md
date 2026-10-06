@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 Prism Essentials provides injectable application-service abstractions so shared view models can use platform services without depending directly on a UI framework. The shared contracts and the host integration have separate responsibilities: compiling against an interface does not guarantee that every operating system implements the capability.
 
-Prism Plugins require an active Commercial Plus license and are distributed through the [authorized Prism feed](../../pipelines/commercial-plus.md). These pages describe the 9.1 line; install compatible package assets for your application and check availability before adopting a recently added API.
+Prism Plugins require an active Commercial Plus license and are distributed through the [authorized Prism feed](../../pipelines/commercial-plus.md). These pages describe the source being prepared for Prism 10.0 vNext. The 10.0 package rollout is not complete; install only compatible assets that exist in your feed. See [migration and readiness](../../migrating-to-10.md).
 
 ## Select the host package
 
@@ -101,7 +101,7 @@ These features require additional setup:
 
 ## NativeAOT and serializer order
 
-Prism 9.1's supported NativeAOT path uses the Microsoft container with Commercial Plus. Essentials' generated store mapping and JSON serialization need their own configuration. In an existing registration callback:
+Prism 10.0's supported NativeAOT path uses the Microsoft container with Commercial Plus. Essentials' generated store mapping and JSON serialization need their own configuration. In an existing registration callback:
 
 ```csharp
 using Prism.Plugin.Essentials;

@@ -7,7 +7,7 @@ uid: Platforms.Maui.Navigation.XamlNavigation
 
 Use Prism's MAUI navigation markup extensions for simple view-owned actions. They obtain the navigation service from the target's page context, so the page should be created through Prism navigation.
 
-At the current 9.1 source head the extension is `NavigateTo`, not `Navigate`. Its content property is `Name` and can contain a relative or absolute route.
+At the inspected prerelease source checkpoint the extension is `NavigateTo`, not `Navigate`. Its content property is `Name` and can contain a relative or absolute route.
 
 ```xml
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"

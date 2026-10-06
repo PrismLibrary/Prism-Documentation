@@ -5,13 +5,17 @@ uid: Platforms.UnoPlatform.GettingStarted
 
 # Getting Started with Uno Platform
 
+:::caution 10.0 package rollout
+This guide targets Prism 10.0 vNext APIs. Its package rollout is not complete. Set any version variable below to an exact compatible version that actually exists in your feed; do not substitute an assumed 10.0 version. Existing 9.1 prerelease evidence is not a published 10.0 package. See [migration and readiness](../../migrating-to-10.md).
+:::
+
 Prism's Uno integration uses WinUI controls, a Prism application base, region navigation, and Uno.Extensions hosting. It does not use MAUI page navigation, and its shell is a `Microsoft.UI.Xaml.UIElement`, not a WPF `Window`.
 
 ## Create the project and choose packages
 
 Prepare the tools for your intended targets using Uno's [Quick Start](https://platform.uno/docs/articles/get-started.html). Start with a blank Uno Platform project and its platform entry points. Let Prism own application startup and navigation rather than retaining a second Uno.Extensions navigation startup pipeline.
 
-Install a compatible 9.1 version of `Prism.DryIoc.Uno.WinUI`. It references `Prism.Uno.WinUI` and the DryIoc container. For another container, use `Prism.Uno.WinUI` with `Prism.PrismApplicationBase` and implement `CreateContainerExtension`. The `.WinUI` suffix is part of the package name; the platform assemblies use names such as `Prism.Uno` and `Prism.DryIoc.Uno`.
+Install a compatible version of `Prism.DryIoc.Uno.WinUI`. It references `Prism.Uno.WinUI` and the DryIoc container. For another container, use `Prism.Uno.WinUI` with `Prism.PrismApplicationBase` and implement `CreateContainerExtension`. The `.WinUI` suffix is part of the package name; the platform assemblies use names such as `Prism.Uno` and `Prism.DryIoc.Uno`.
 
 At the audited source head, Uno libraries target .NET 9 and .NET 10 base, Android, iOS, tvOS, desktop, and browserwasm frameworks. Windows builds additionally include the corresponding `windows10.0.19041` targets. Your app's SDK, workload, platform entry point, and restored package assets must agree; a library target does not establish an end-to-end runtime or NativeAOT qualification for every device.
 
@@ -102,7 +106,7 @@ dotnet run --project PrismUnoDemo.csproj --framework net10.0-desktop
 
 For browser, Android, iOS, or WinUI, use the matching Uno template launch profile and its platform prerequisites. Verify shell loading, initial navigation, Back/Forward behavior if you expose a journal, and dialogs on every target you ship. A desktop run does not test browser or mobile behavior.
 
-Prism 9.1 is the first NativeAOT-ready release; supported NativeAOT applications require `Prism.Container.Microsoft` from Commercial Plus and a qualified target/dependency set. Use the [NativeAOT guide](../../dependency-injection/native-aot.md) rather than applying `PublishAot` to every Uno head.
+Prism 10.0 (vNext) is planned as the first NativeAOT-ready release; supported NativeAOT applications require `Prism.Container.Microsoft` from Commercial Plus and a qualified target/dependency set. Use the [NativeAOT guide](../../dependency-injection/native-aot.md) rather than applying `PublishAot` to every Uno head.
 
 ## Continue learning
 

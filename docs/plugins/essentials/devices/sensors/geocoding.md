@@ -5,7 +5,7 @@ uid: Plugins.Essentials.Devices.Sensors.Geocoding
 
 # Geocoding
 
-The merged 9.1 source does not currently expose a Prism `IGeocoding` service, a `RegisterGeocoding()` extension, or a geocoding provider package. Installing the optional Geolocation package does not add address lookup.
+The audited source does not currently expose a Prism `IGeocoding` service, a `RegisterGeocoding()` extension, or a geocoding provider package. Installing the optional Geolocation package does not add address lookup.
 
 Geocoding translates an address to coordinates; reverse geocoding translates coordinates to an address. [Geolocation](geolocation.md) supplies position readings and [geofencing](geofencing.md) monitors regions. Neither contract promises address resolution.
 

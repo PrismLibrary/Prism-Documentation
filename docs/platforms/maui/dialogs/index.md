@@ -10,7 +10,7 @@ Prism.Maui implements two dialog services with different presentation roles:
 - [`Prism.Services.IPageDialogService`](pagedialogs.md) wraps native alerts, action sheets, and prompts on the current Prism window's page.
 - [`Prism.Dialogs.IDialogService`](../../../dialogs/index.md) presents a custom MAUI `View` with a view model implementing `IDialogAware`.
 
-Custom dialogs are implemented in Prism.Maui 9.1. Older guidance describing them as unavailable is obsolete.
+Custom dialogs are implemented in the inspected Prism.Maui source. Older guidance describing them as unavailable is obsolete.
 
 ## Register a custom dialog
 

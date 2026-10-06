@@ -16,7 +16,7 @@ Essentials exposes portable contracts through host-specific implementations. A p
 | Uno mobile / WinUI | Use the appropriate Uno integration and `ConfigurePrismEssentials` host/window setup. Match package assets, Uno SDK, and the selected platform head. |
 | Uno Skia Desktop | Uses Windows, macOS, or Linux implementations where provided. Some features need OS utilities or keychain/biometric services. Handle unavailable backends. |
 | Uno BrowserWasm | Browser implementations are subject to browser support, permissions, tab visibility, and browser storage behavior. They are not equivalent to native OS services or a durable background process. |
-| Avalonia | There is no dedicated Essentials host package in the reviewed 9.1 source. An application must supply verified adapters; Prism.Avalonia support alone does not provide them. |
+| Avalonia | There is no dedicated Essentials host package in the reviewed source. An application must supply verified adapters; Prism.Avalonia support alone does not provide them. |
 
 For [geolocation](devices/sensors/geolocation.md) and [background tasks](applicationmodel/background-tasks.md), install their separate host packages. The base `Prism.Plugin.Essentials` reference used by a shared library does not supply every host registration.
 

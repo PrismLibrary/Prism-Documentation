@@ -1,18 +1,22 @@
 ---
 sidebar_position: 2
-title: NativeAOT in Prism 9.1
+title: NativeAOT in Prism 10.0
 ---
 
-# NativeAOT in Prism 9.1
+# NativeAOT in Prism 10.0
 
-Prism 9.1 is the first NativeAOT-ready Prism release. **The supported NativeAOT path requires the Microsoft container (`Prism.Container.Microsoft`), which is available with Commercial Plus.**
+Prism 10.0 (vNext) is planned as the first NativeAOT-ready Prism release. **The supported NativeAOT path requires the Microsoft container (`Prism.Container.Microsoft`), which is available with Commercial Plus.**
 
 NativeAOT compiles an application to native code at publish time. It also trims unused code and cannot rely on arbitrary runtime code generation or loading previously unknown assemblies. Prism's support preserves the metadata needed by its container and view-model activation paths. Your UI framework, bindings, serializers, modules, and other dependencies still need to support the selected deployment target.
+
+:::caution Prism 10.0 is vNext
+The release is being prepared; its upstream package rollout is not complete. The source references below include work previously tested in 9.1 prereleases. They establish the implementation checkpoint, not the availability or qualification of a published 10.0 application. See [migration and package readiness](../migrating-to-10.md).
+:::
 
 ## Choose the container and packages
 
 1. Configure your authorized [Commercial Plus package feed](../pipelines/commercial-plus.md).
-2. Reference the Prism platform package for your head and `Prism.Container.Microsoft` from a compatible 9.1 package set.
+2. Reference the Prism platform package for your head and `Prism.Container.Microsoft` from a compatible package set available in your feed; use the 10.0 set only after its publication is verified.
 3. Keep `Prism.Container.Abstractions` and its transitive analyzer/build assets enabled in application and module projects. Rebuild libraries that contain registrations when updating the generator.
 4. Configure the Microsoft adapter explicitly. `IServiceCollection` integration alone does not change which container Prism uses.
 

@@ -5,7 +5,7 @@ sidebar_label: Migrating older container setup
 
 # Migrating older container setup
 
-Older Prism applications may reference `Prism.Container.Extensions`, `Prism.*.Forms.Extended`, `Shiny.Prism`, `IPlatformInitializer`, or factory-based `ContainerLocator` initialization. Those recipes describe earlier Xamarin.Forms-era composition and should not be copied into a new Prism 9 application.
+Older Prism applications may reference `Prism.Container.Extensions`, `Prism.*.Forms.Extended`, `Shiny.Prism`, `IPlatformInitializer`, or factory-based `ContainerLocator` initialization. Those recipes describe earlier Xamarin.Forms-era composition and should not be copied into a new Prism application.
 
 ## Start from the current host
 

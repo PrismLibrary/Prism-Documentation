@@ -4,15 +4,19 @@ sidebar_position: 1
 
 # Getting Started with .NET MAUI
 
+:::caution 10.0 package rollout
+This guide targets Prism 10.0 vNext APIs. Its package rollout is not complete. Set any version variable below to an exact compatible version that actually exists in your feed; do not substitute an assumed 10.0 version. Existing 9.1 prerelease evidence is not a published 10.0 package. See [migration and readiness](../../migrating-to-10.md).
+:::
+
 Prism.Maui provides page navigation, regions, dialogs, dependency injection, commands, and view-model lifecycle hooks on top of .NET MAUI. Startup uses `MauiAppBuilder`; your `App` remains a MAUI `Application`.
 
 ## Prepare the project
 
 Install the SDK and platform workloads using Microsoft's [MAUI installation guide](https://learn.microsoft.com/en-us/dotnet/maui/get-started/installation?view=net-maui-10.0), then create a .NET MAUI project. Use an SDK, MAUI version, platform workload, and Prism package version that agree.
 
-The audited Prism 9.1 source targets .NET 10 and .NET 11 base, Android, and iOS frameworks; Windows targets are added on Windows builds. It does not declare a Mac Catalyst target at this head. Do not equate MAUI's overall platform list with the assets and tested hosts in a particular Prism package. Check the package you restore, particularly for preview frameworks.
+The inspected prerelease source targets .NET 10 and .NET 11 base, Android, and iOS frameworks; Windows targets are added on Windows builds. It does not declare a Mac Catalyst target at this head. Do not equate MAUI's overall platform list with the assets and tested hosts in a particular Prism package. Check the package you restore, particularly for preview frameworks.
 
-Install `Prism.DryIoc.Maui` for the convenience startup overload below. It references `Prism.Maui` and the DryIoc container. Choose a matching 9.1 package from your configured feed. With `Prism.Maui` alone, supply an `IContainerExtension` explicitly as shown in [App Builder](appbuilder.md).
+Install `Prism.DryIoc.Maui` for the convenience startup overload below. It references `Prism.Maui` and the DryIoc container. Choose a compatible package from your configured feed. With `Prism.Maui` alone, supply an `IContainerExtension` explicitly as shown in [App Builder](appbuilder.md).
 
 ## Configure startup
 
@@ -96,7 +100,7 @@ dotnet build PrismMauiDemo.csproj -t:Run -f net10.0-android
 
 A suitable Android device/emulator and its SDK are required. Use the platform launch target for Windows or iOS; iOS requires the matching Apple toolchain and host. Confirm that the home page appears within a navigation page, then test forward/back navigation and dialogs on each shipping platform.
 
-Prism 9.1 is the first NativeAOT-ready release. The supported NativeAOT container is `Prism.Container.Microsoft` from Commercial Plus. The DryIoc example here is a normal setup, not a NativeAOT recipe. Follow the [NativeAOT guide](../../dependency-injection/native-aot.md) for target-specific support and generated registration requirements.
+Prism 10.0 (vNext) is planned as the first NativeAOT-ready release. The supported NativeAOT container is `Prism.Container.Microsoft` from Commercial Plus. The DryIoc example here is a normal setup, not a NativeAOT recipe. Follow the [NativeAOT guide](../../dependency-injection/native-aot.md) for target-specific support and generated registration requirements.
 
 ## Learning path
 

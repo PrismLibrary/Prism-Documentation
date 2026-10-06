@@ -104,7 +104,7 @@ Use Prism's service rather than directly calling `Navigation.PopAsync` or editin
 
 ## Navigate from an existing page
 
-Prism 9.1 also exposes `NavigateFromAsync`:
+The inspected navigation service also exposes `NavigateFromAsync`:
 
 ```cs
 var result = await navigation.NavigateFromAsync("HomePage", "SummaryPage",

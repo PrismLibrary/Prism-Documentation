@@ -5,7 +5,7 @@ uid: Plugins.Essentials.Media.Video
 
 # Video
 
-The merged 9.1 Essentials source does not expose a video picker, video recorder, or playback service. There is no current `IVideo` registration to add. The media category is not a package-availability guarantee.
+The audited Essentials source does not expose a video picker, video recorder, or playback service. There is no current `IVideo` registration to add. The media category is not a package-availability guarantee.
 
 For application-package assets and app directories, use [IFileSystem](../io/filesystem.md). It provides file access, not a native picker or media player. The proposed portable media-selection/capture work remains under review; see the [camera availability boundary](camera.md).
 

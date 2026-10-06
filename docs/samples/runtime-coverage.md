@@ -11,35 +11,45 @@ A screenshot identifies one application, presentation framework, operating syste
 
 | Application | WPF / Windows | MAUI / Windows | MAUI / Android emulator | Uno / Windows | Uno / Linux Desktop | Uno / BrowserWasm | Uno / Android emulator |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Calculator | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
-| Planner | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
-| Sales Desk | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
-| Learning Hub | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
-| Mail | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
+| Calculator | 5 runtime test renders | Capture pending | 2 Light captures; limited checkpoint | Capture pending | Capture held | Capture pending | 6 source-qualified captures |
+| Planner | 4 runtime test renders | Capture pending | Capture pending | Capture pending | Capture held | Capture pending | Capture pending |
+| Sales Desk | 6 runtime test renders | Capture pending | Capture pending | Capture pending | Capture held | Capture pending | Capture pending |
+| Learning Hub | 6 runtime test renders | Capture pending | Capture pending | Capture pending | Capture held | Capture pending | Capture pending |
+| Mail | 6 runtime test renders | Capture pending | Capture pending | Capture pending | Capture held | Capture pending | Capture pending |
 
-“Capture pending” means no qualified image from that application/head is included here. It does not mean that the target is unsupported. Linux capture is currently blocked before a runnable application is available; no substitute image is presented as Linux output. Browser execution and an Android emulator must likewise be verified before their rows change.
+“Capture pending” means no qualified image from that application/head is included here. It does not mean that the target is unsupported. Linux capture remains held before a runnable application is available; no substitute image is presented as Linux output. Only Calculator has the Android evidence listed here. Other applications and browser execution remain pending.
 
 **iOS and macOS capture work is deferred.** No Apple runtime or screenshot acceptance is implied. Avalonia application heads are outside this five-app showcase; the separate starter template is not an Essentials-qualified replacement for them.
 
 Some native Windows builds and composition tests already exist in the sample READMEs. Those results retain their exact source checkpoints and do not fill an interactive screenshot row automatically. Updated screenshots should record the actual current head that was launched.
 
-## Included WPF images
+## Included galleries and provenance
 
-These original PNGs were produced on Windows by live application-owned WPF windows running in an STA/Dispatcher test host. The tests create the real Prism container, modules, regions, dialogs, and bound controls, with isolated app data. `RenderTargetBitmap` captures the application visual tree. These images are **not operating-system screen captures** and do not show OS keyboard, pointer, or assistive-technology automation.
-
-| Application and scene | Source checkpoint | Image |
+| App / framework | Included scenes | Verified source |
 | --- | --- | --- |
-| Calculator, decimal result with history | Commit `89f3a5b2da69a9b0eb7fbbbcaaa98f31c694c961` | [Light workspace](images/calculator-wpf-light.png) |
-| Planner, project/task/detail workspace | Commit `7ffdd4c76a8dab96969ef23012a2b61b3258d2c1` | [Task board](images/planner-wpf-board.png) |
-| Learning Hub, discovery catalog | Commit `dc814b3a6da1e3f8eb237007945f884406d9f066` | [Catalog](images/learning-hub-wpf-catalog.png) |
-| Learning Hub, scrolled large-text reader | Same `dc814b3` checkpoint | [Dark reader](images/learning-hub-wpf-reader-dark.png) |
-| Sales Desk, quote workspace | Qualified tree `eae806326ddba3739357f120570fdc41314504e2`, based on commit `75c467cf7ef7db56424ae3ae12df7bce2204a91e` with the validated theme/binding corrections | [Quote editor](images/sales-desk-wpf-quotes.png) |
-| Mail, fictional inbox and reader | Commit `53894e9dc8def51791de6bb541b63a9beed6187b` | [Inbox](images/mail-wpf-inbox.png) |
-| Mail, compact dark compose | Same `53894e9` checkpoint | [Compose](images/mail-wpf-compose-dark.png) |
+| [Calculator / WPF](calculator.md?platform=wpf) | Calculation/history, detail and clear dialogs, converter, dark layout | `89f3a5b` |
+| [Planner / WPF](planner.md?platform=wpf) | Home, task board, editor dialog, compact dark board | `7ffdd4c` |
+| [Sales Desk / WPF](sales-desk.md?platform=wpf) | Quote workspace, products, customer and dirty-close dialogs, compact/dark layouts | Base `75c467c` plus qualified tree `eae8063` |
+| [Learning Hub / WPF](learning-hub.md?platform=wpf) | Catalog, reader, collection state/confirmation, reading tools, compact catalog | `dc814b3` |
+| [Prism Mail / WPF](mail.md?platform=wpf) | Inbox, compose, recipients, contacts, calendar, compact reader | `d03d63a`, with unchanged earlier render bytes where recorded |
+| [Calculator / Uno Android](calculator.md?platform=uno-platform) | Arithmetic, memory, history detail, number format, restored history | `5c048dc` |
+| [Calculator / MAUI Android](calculator.md?platform=maui) | Light calculator showing `14` and single-entry history | `89f3a5b` |
 
-Captured on 5 October 2026. The original capture records do not establish a normalized UTC timestamp, so none is invented. Pixel dimensions, full source identifiers, SHA-256 hashes, data isolation, and capture method are recorded in the [image provenance manifest](images/runtime-provenance.json). Original bytes, including transparent non-client margins, are preserved; no image was generated or retouched to represent a running application.
+The gallery contains **35 untouched PNGs**: 27 WPF renders and eight Android captures. The [provenance manifest](images/runtime-provenance.json) records full source/qualified-tree identifiers, SHA-256 hashes, dimensions, capture method, verified interactions, and limitations. A filesystem modification timestamp is identified as such; it is not invented as an embedded capture time.
 
-The image checkpoints may precede the source revision linked by a walkthrough. A source link describes the reviewed code; an image describes its labeled captured revision. Mail's merged source and these earlier offline images remain separate evidence. The Logging changes did not modify the UI assets or XAML, so the images remain pinned to their original captured checkpoints.
+### WPF capture method
+
+The live application-owned WPF windows ran in an STA/Dispatcher test host on Windows, using real Prism containers, modules, regions, dialogs, and bound controls with isolated app data. `RenderTargetBitmap` captured the visual tree. These images are not operating-system screenshots and do not demonstrate OS mouse/keyboard or screen-reader automation. Original transparent non-client margins are retained.
+
+### Android capture method and limits
+
+Calculator ran on a portrait Android 15 / API 35 x86_64 emulator. The images are untouched full framebuffer captures, including Android chrome. They are emulator evidence, not physical-device qualification.
+
+- **Uno `5c048dc`:** arithmetic `14`, repeat `26`, parentheses `20`, decimal `0.3`, error recovery, memory, history/dialogs, and Dark/French/history persistence were exercised. Some dark Android status icons have poor contrast, and dark detail/clear dialogs retain white surfaces. Normal scrolling exposes the lower keypad row. The captions preserve these boundaries.
+- **MAUI `89f3a5b`:** launch, keypad result `14`, a single history entry, and readable Light appearance were verified. Repeat-equals `26` and full MAUI persistence were not established. Four Dark captures with pale shell text on a white background are excluded from the polished gallery. An inherited task-owned setting under the shared application ID is not independent MAUI restart evidence.
+- These captures do not qualify the current Logging head, other applications on Android, alternate widths, high contrast, definitive keyboard/clipboard completion, or all-platform parity.
+
+A source link describes the code under discussion; an image describes its labeled capture or verified checkpoint. The walkthroughs follow merged source `9c31a9ce`, while gallery images retain their exact earlier runtime evidence.
 
 ## What a new platform capture must establish
 

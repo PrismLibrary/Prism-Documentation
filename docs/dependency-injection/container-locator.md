@@ -6,7 +6,7 @@ sidebar_position: 6
 
 `Prism.Ioc.ContainerLocator` holds the application's current `IContainerExtension`. Prism's startup and infrastructure use it where constructor injection is unavailable. Application services and view models should normally request their dependencies in constructors instead of reaching into this global locator.
 
-## Current Prism 9.1 contract
+## Current Prism 10.0 contract
 
 ```csharp
 // Infrastructure/composition code; container is an existing IContainerExtension.

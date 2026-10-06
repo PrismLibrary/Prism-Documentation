@@ -61,4 +61,4 @@ Avalonia uses `xmlns:prism="http://prismlibrary.com/"` and `DataContext`. Its de
 
 Use the target frameworks and package versions declared by the actual host you restore. The setup guides cite the audited source head and distinguish it from published package availability. A library targeting a framework is not proof that every operating-system head, third-party dependency, or deployment mode is qualified.
 
-Prism 9.1 is the first NativeAOT-ready release. The supported container is `Prism.Container.Microsoft` from Commercial Plus; see the [NativeAOT guide](../dependency-injection/native-aot.md) for host-specific limits. Package/source access for commercial components is separate from access to the public Prism source.
+Prism 10.0 (vNext) is planned as the first NativeAOT-ready release. The supported container is `Prism.Container.Microsoft` from Commercial Plus; see the [NativeAOT guide](../dependency-injection/native-aot.md) for host-specific limits. Package/source access for commercial components is separate from access to the public Prism source.
