@@ -18,8 +18,6 @@ Implementing the `ICommand` interface is straightforward. Prism provides the `De
 
 ## Creating a DelegateCommand
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/tYItSPv58Bo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 The Prism `DelegateCommand` class encapsulates two delegates that each reference a method implemented within your ViewModel class. It implements the `ICommand` interface's `Execute` and `CanExecute` methods by invoking these delegates. You specify the delegates to your ViewModel methods in the `DelegateCommand` class constructor. For example, the following code example shows how a `DelegateCommand` instance, which represents a Submit command, is constructed by specifying delegates to the OnSubmit and CanSubmit ViewModel methods. The command is then exposed to the view via a read-only property that returns a reference to the `DelegateCommand`.
 
 ```cs
@@ -76,7 +74,7 @@ The `DelegateCommand` deliberately prevents the use of value types (int, double,
 
 ## Invoking DelegateCommands from the View
 
-There are a number of ways in which a control in the view can be associated with a command object provided by the ViewModel. Certain WPF, .NET MAUI, and Uno Platform controls can be easily data bound to a command object through the `Command` property.
+There are a number of ways in which a control in the view can be associated with a command object provided by the ViewModel. Certain WPF, .NET MAUI, Uno and Avalonia controls can be easily data bound to a command object through the `Command` property.
 
 ```xml
 <Button Command="{Binding SubmitCommand}" CommandParameter="OrderId"/>
@@ -171,48 +169,31 @@ public class ArticleViewModel : BindableBase
 ```
 
 :::warning
-Do not attempt to chain-register `ObservesCanExecute` methods. Only one property can be observed for the `CanExcute` delegate.
+Do not attempt to chain-register `ObservesCanExecute` methods. Only one property can be observed for the `CanExecute` delegate.
 :::
 
-## Implementing a Task-Based DelegateCommand
+## Asynchronous operations
 
-In today's world of `async`/`await`, calling asynchronous methods inside of the `Execute` delegate is a very common requirement. Everyone's first instinct is that they need an `AsyncCommand`, but that assumption is wrong. `ICommand` by nature is synchronous, and the `Execute` and `CanExecute` delegates should be considered events.  This means that `async void` is a perfectly valid syntax to use for commands.  There are two approaches to using async methods with `DelegateCommand`.
+Use [AsyncDelegateCommand](async-commands.md) for a task-returning operation. An `async` lambda passed to `DelegateCommand` becomes `async void`: callers cannot await it, its asynchronous failures escape the normal synchronous command boundary, and it does not acquire async-command running-state protection.
 
-**Option 1:**
+```csharp
+public AsyncDelegateCommand SubmitCommand { get; }
 
-```cs
-public class ArticleViewModel
-{
-    public DelegateCommand SubmitCommand { get; private set; }
-
-    public ArticleViewModel()
-    {
-        SubmitCommand = new DelegateCommand(Submit);
-    }
-
-    async void Submit()
-    {
-        await SomeAsyncMethod();
-    }
-}
+// In the view-model constructor; SubmitAsync returns Task.
+SubmitCommand = new AsyncDelegateCommand(SubmitAsync);
 ```
 
-**Option 2:**
+## Execution is not authorization
 
-```cs
-public class ArticleViewModel
-{
-    public DelegateCommand SubmitCommand { get; private set; }
+`CanExecute` controls availability in the UI. Calling `Execute` directly does not first call `CanExecute`, and enabled state can change after a control checks it. Validate business invariants in the operation or domain service as well. For tests or other programmatic callers, check `CanExecute` and invoke the appropriate command method explicitly.
 
-    public ArticleViewModel()
-    {
-        SubmitCommand = new DelegateCommand(async ()=> await Submit());
-    }
+Create commands on the UI thread when possible. Prism captures the current synchronization context for `CanExecuteChanged`; this does not automatically dispatch all property changes or business operations onto that thread.
 
-    Task Submit()
-    {
-        return SomeAsyncMethod();
-    }
-}
-```
+## Continue learning
 
+- [Composite commands](composite-commands.md): connect an application action to participating child commands.
+- [Async commands](async-commands.md): cancellation, timeout and overlap behavior.
+- [Error handling](error-handling.md): typed failures and the awaited boundary.
+- [Calculator walkthrough](../samples/calculator.md): commands, history and conversion in a working application.
+
+Source: [DelegateCommand](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Commands/DelegateCommand.cs) and [DelegateCommandBase](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Commands/DelegateCommandBase.cs).

@@ -2,72 +2,70 @@
 sidebar_position: 8
 ---
 
-# TabbedPages
+# Tabbed Navigation
 
-## Selecting a Tab at Runtime
+Prism creates tabbed page hierarchies from registered routes. It registers MAUI `TabbedPage` under the key `TabbedPage` if that name is absent during initialization. You do not need a custom tabbed-page subclass for a simple tab layout.
 
-Sometimes you may want to programmatically switch between tabs. Keep in mind that this must be done from a ViewModel attached to one of the children of the TabbedPage or the TabbedPage itself.
+## Create tabs through navigation
 
-```cs
-var result = await navigationService.SelectTabAsync("TabB");
-```
-
-In the event that you have a tab which is nested inside of a NavigationPage you can select the tab:
+Register each content page and its view model. Then use the builder to create the hierarchy:
 
 ```cs
-var result = await navigationService.SelectTabAsync("NavigationPage|TabB");
-```
+using Prism.Navigation;
 
-## Navigating to a TabbedPage
-
-Tabbed Navigation in Prism for .NET MAUI has been significantly enhanced. Due to a variety of changes we suggest using a Uri to generate your TabbedPage over using a concrete type like:
-
-```xml
-<!-- Not Recommended -->
-<TabbedPage>
-  <view:ViewA />
-  <view:ViewB />
-</TabbedPage>
-```
-
-The recommended way to do this would be to use either a Uri:
-
-```csharp
-navigationService.NavigateAsync("TabbedPage?createTab=ViewA&createTab=ViewB");
-```
-
-Alternatively you can use the [NavigationBuilder](navigation-builder.md) to build your TabbedPage on the fly.
-
-```cs
-navigationService.CreateBuilder()
-    .AddTabbedSegment(s => s
-        .CreateTab(t => t.AddSegment<ViewAViewModel>())
-        .CreateTab(t => t.AddNavigationPage().AddSegment<ViewBViewModel>())
-    )
+var result = await navigationService.CreateBuilder()
+    .UseAbsoluteNavigation()
+    .AddTabbedSegment(tabs => tabs
+        .CreateTab("HomePage")
+        .CreateTab(tab => tab
+            .AddNavigationPage()
+            .AddSegment<OrdersPageViewModel>())
+        .SelectedTab("HomePage"))
     .NavigateAsync();
 ```
 
-This approach offers you a lot of flexibility when creating the same tabbed page over and over throughout your app as well as you can write an extension method once to consolidate this.
+The absolute form replaces the relevant window root. Omit `UseAbsoluteNavigation()` only when a relative tabbed-page presentation is what your current context requires.
+
+A simple equivalent URI is `TabbedPage?createTab=HomePage&createTab=OrdersPage`. Repeat `createTab` for each tab. Prefer the builder for navigation-page tabs and deep-linked child stacks, so the construction is readable. At the audited source head a navigation-page tab can include further registered pages through additional `AddSegment` calls.
+
+Avoid manually creating the `TabbedPage.Children` list in XAML or code when Prism should own its pages. Direct construction can bypass route-based view-model mapping and page scopes.
+
+## Select an existing tab
+
+Call from the tabbed page or a page associated with its hierarchy:
 
 ```cs
-public static class MyNavigationExtensions
+var result = await navigationService.SelectTabAsync("HomePage");
+```
+
+For a tab wrapped by a navigation page, include the wrapper's registration name and the current/top page name:
+
+```cs
+var result = await navigationService.SelectTabAsync("NavigationPage|OrdersPage");
+```
+
+If that tab has navigated forward to `OrderDetailsPage`, target `NavigationPage|OrderDetailsPage` instead. Registering or selecting a tab is not the same as replacing the entire application's root. Inspect the result and avoid assuming a tab change destroyed the previous tab's page.
+
+## Reuse a tab layout
+
+```cs
+using Prism.Navigation;
+using Prism.Navigation.Builder;
+
+public static class AppNavigation
 {
-    public static INavigationBuilder AddMyTabbedPage(this INavigationBuilder builder, string? selectedTab = null)
+    public static INavigationBuilder AddMainTabs(this INavigationBuilder builder)
     {
-        return builder.AddTabbedSegment(s => 
-        {
-            s.CreateTab(t => t.AddSegment<ViewAViewModel>())
-             .CreateTab(t => t.AddNavigationPage().AddSegment<ViewBViewModel>());
-            if (!string.IsNullOrEmpty(selectedTab))
-            {
-                s.SelectedTab(selectedTab);
-            }
-        });
+        return builder.AddTabbedSegment(tabs => tabs
+            .CreateTab("HomePage")
+            .CreateTab(tab => tab.AddNavigationPage().AddSegment("OrdersPage")));
     }
 }
 ```
 
-:::note
-Prism automatically registers the .NET MAUI TabbedPage with the navigation key `TabbedPage`. You do not need to register your own.
-:::
+Create a fresh navigation builder per request, then call `AddMainTabs().NavigateAsync()`. Test initial selection, switching back to a tab with an existing stack, Back within a tab, and absolute replacement of the tabbed hierarchy.
 
+## Source reference
+
+- [Tab creation and selection](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Navigation/PageNavigationService.cs)
+- [Builder tab helpers](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Navigation/Builder/NavigationBuilderExtensions.cs)

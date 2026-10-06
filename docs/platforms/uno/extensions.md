@@ -5,30 +5,71 @@ uid: Platforms.Uno.Extensions
 
 # Uno.Extensions Support
 
-Prism 9 for Uno.WinUI makes some opinionated choices that we feel ultimately enhances the development experience for those building apps with Uno Platform. One of the choices that we've made is to take a dependency on `Uno.Extensions.Hosting.WinUI`. As a result this makes it easier for Uno developers building apps with Prism to opt into the Uno.Extensions model for things like App Configuration, Http/Rest Clients, or even Authentication.
+`Prism.Uno.WinUI` references `Uno.Extensions.Hosting.WinUI`. Prism owns the application startup sequence and integrates the host with the same Prism container through `PrismServiceProviderFactory`. Use the application hooks to configure services, logging, or hosting without building a second service provider.
 
-:::note
-Prism is fundamentally not compatible with all of the Uno.Extensions. Specifically as Prism requires the use of the PrismApplication, this creates an inherent incompatibility with `Uno.Extensions.Maui.WinUI`. Similarly we do not suggest attempting to combine both Prism's Region Navigation and the Region Navigation in `Uno.Extensions.Navigation.WinUI`.
-:::
-
-## Setting up the Application
-
-As part of the App Initialization you will find that the `OnLaunched` method is sealed by `PrismApplicationBase`. This is ultimately to protect you from inadvertently making changes that would lead to breaks in your Application Startup. Additionally part of the `Uno.Extensions.Hosting.WinUI` model we create for you and expose methods for you to make use of Uno's `IApplicationBuilder` and the `IHostBuilder` depending on what you need to extend.
+## Available hooks
 
 ```cs
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Prism.DryIoc;
+using Prism.Ioc;
+using Uno.Extensions;
+using Uno.Extensions.Hosting;
+
+// These overrides belong in the App class from Getting Started.
 public partial class App : PrismApplication
 {
     protected override void ConfigureApp(IApplicationBuilder builder)
     {
-        // Your logic here
-    } 
+        // Configure Uno's application builder before the shell is created.
+    }
 
     protected override void ConfigureHost(IHostBuilder builder)
     {
-        // Your logic here
+        builder.ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Information));
+    }
+
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSingleton<ReportCache>();
     }
 }
 ```
 
-It is important for Prism to control this process as we additionally take the extra steps of ensuring that both Prism and Uno.Extensions will maintain a single Dependency Injection Container. This ensures that regardless of whether a service is ultimately registered through the `IServiceCollection` or the `IContainerRegistry` your services will be available for you to inject throughout your application code with no additional effort.
+`ReportCache` is an application service you define. Add any Uno.Extensions package required by additional configuration, authentication, or HTTP APIs you choose to call; the hosting dependency does not install every extension.
 
+## Registration timing matters
+
+The container exists early, but the Uno host is built after the shell loads. The two registration paths therefore have different availability during startup:
+
+- `RegisterTypes(IContainerRegistry)` registers dependencies used to create the shell and its view model.
+- `ConfigureServices(IServiceCollection)` participates in host construction. Those services are available after the shell has loaded and the host has been built.
+- `OnInitialized()` runs after host construction and module initialization. Resolve host-registered services here or use them in views created later.
+
+For example, if `ShellViewModel` needs `ReportCache` in its constructor, move that registration to `RegisterTypes`:
+
+```cs
+protected override void RegisterTypes(IContainerRegistry containerRegistry)
+{
+    containerRegistry.RegisterSingleton<ReportCache>();
+    // Other shell, navigation, and dialog registrations.
+}
+```
+
+Do not register the same intended singleton independently in a second container, call `BuildServiceProvider()` yourself, or assume that host services can already be resolved in `ConfigureWindow` or `CreateShell`.
+
+## Navigation and lifecycle boundaries
+
+Prism's `OnLaunched` override is sealed. Use `ConfigureApp`, `ConfigureHost`, `ConfigureServices`, `ConfigureWindow`, and `OnInitialized` to extend startup. Keep the startup sequence described in [Getting Started](index.md).
+
+Use Prism region navigation for the UI managed by Prism. Combining it with Uno.Extensions navigation creates competing owners for navigation and view construction. MAUI embedding (`Uno.Extensions.Maui.WinUI`) has additional application/hosting assumptions; the Prism application base does not establish compatibility with that integration.
+
+Prism's Uno dialog implementation uses a `ContentDialog` host and obtains `XamlRoot` from the registered application window's content. It cannot display a dialog before that content exists. Treat multi-window ownership as a separate design concern rather than assuming WPF's active-window selection applies.
+
+## Source reference
+
+- [Hook signatures, service-provider integration, and startup ordering](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Uno/Prism.Uno/PrismApplicationBase.cs)
+- [Hosting package reference](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Uno/Prism.Uno/Prism.Uno.WinUI.csproj)
+- [Uno dialog XamlRoot selection](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Uno/Prism.Uno/Dialogs/DialogService.cs)

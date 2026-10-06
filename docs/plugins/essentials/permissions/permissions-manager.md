@@ -49,3 +49,9 @@ The interface has no cancellation-token overload. Cancelling a screen's work doe
 | Uno desktop / browser | The host backend and browser/OS permission support for the actual operation. Not every mobile permission maps to a meaningful desktop/browser prompt. |
 
 The API includes location, camera, microphone, photos, contacts, calendar, sensors, network, and other permission types. Availability depends on the target implementation and OS version. Use operation-level capability checks and handle native failures as well as checking permission status. See [geolocation setup](../devices/sensors/geolocation.md) and [host capabilities](../platform-support.md).
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Essentials/Permissions/IPermissionsManager.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Permissions/IPermissionsManager.cs)

@@ -4,46 +4,78 @@ sidebar_position: 6
 
 # View and View Model Participation in Navigation
 
-Frequently, the views and view models in your application will want to participate in navigation. The **INavigationAware** interface enables this. You can implement this interface on the view or (more commonly) the view model. By implementing this interface, your view or view model can opt-in to participate in the navigation process.
+Implement `Prism.Navigation.Regions.IRegionAware` on a view model to receive region navigation callbacks. Prism also checks the view. WPF, Uno and Avalonia use `DataContext`; MAUI uses `BindingContext`.
 
-:::note
-In the description that follows, although a reference is made to calls to this interface during navigation between views, it should be noted that the **INavigationAware** interface will be called during navigation whether it is implemented by the view or by the view model.
-:::
-
-During navigation, Prism checks to see whether the view implements the **INavigationAware** interface; if it does, it calls the required methods during navigation. Prism also checks to see whether the object set as the view's **DataContext** implements this interface; if it does, it calls the required methods during navigation.
-
-This interface allows the view or view model to participate in a navigation operation. The **INavigationAware** interface defines three methods.
-
-```cs
-public interface INavigationAware
+```csharp
+public interface IRegionAware
 {
     bool IsNavigationTarget(NavigationContext navigationContext);
-    void OnNavigatedTo(NavigationContext navigationContext);
     void OnNavigatedFrom(NavigationContext navigationContext);
+    void OnNavigatedTo(NavigationContext navigationContext);
 }
 ```
 
-The **IsNavigationTarget** method allows an existing (displayed) view or view model to indicate whether it is able to handle the navigation request. This is useful in cases where you can re-use an existing view to handle the navigation operation or when navigating to a view that already exists. For example, a view displaying customer information can be updated to display a different customer's information. For more information about using this method, see the section, [Navigating to Existing Views](navigation-existing-views.md).
+WPF and Avalonia retain a legacy region `INavigationAware` interface that inherits `IRegionAware`. Use `IRegionAware` in new shared region code. MAUI page `Prism.Navigation.INavigationAware` is a separate contract with different arguments.
 
-The **OnNavigatedFrom** and **OnNavigatedTo** methods are called during a navigation operation. If the currently active view in the region implements this interface (or its view model), its **OnNavigatedFrom** method is called before navigation takes place. The **OnNavigatedFrom** method allows the previous view to save any state or to prepare for its deactivation or removal from the UI, for example, to save any changes that the user has made to a web service or database.
+## Example: receive a customer identifier
 
-If the newly created view implements this interface (or its view model), its **OnNavigatedTo** method is called after navigation is complete. The **OnNavigatedTo** method allows the newly displayed view to initialize itself, potentially using any parameters passed to it on the navigation URI. For more information on passing parameters, see [Passing Parameters During Navigation](passing-parameters.md).
+```csharp
+using System;
+using Prism.Mvvm;
+using Prism.Navigation.Regions;
 
-After the new view is instantiated, initialized, and added to the target region, it then becomes the active view, and the previous view is deactivated. Sometimes you will want the deactivated view to be removed from the region. Prism provides the **IRegionMemberLifetime** interface, which allows you to control the lifetime of views within regions by allowing you to specify whether deactivated views are to be removed from the region or simply marked as deactivated.
-
-```cs
-public class EmployeeDetailsViewModel : IRegionMemberLifetime
+public sealed class CustomerViewModel : BindableBase, IRegionAware
 {
-    public bool KeepAlive
+    private string _customerId = string.Empty;
+    public string CustomerId
     {
-        get { return true; }
+        get => _customerId;
+        private set => SetProperty(ref _customerId, value);
+    }
+
+    public bool IsNavigationTarget(NavigationContext context) => true;
+
+    public void OnNavigatedTo(NavigationContext context)
+    {
+        if (!context.Parameters.TryGetValue<string>("customerId", out var id)
+            || string.IsNullOrWhiteSpace(id))
+            throw new ArgumentException("A customerId is required.");
+
+        CustomerId = id;
+    }
+
+    public void OnNavigatedFrom(NavigationContext context)
+    {
+        // Snapshot transient UI state if the application needs it.
     }
 }
 ```
 
-The **IRegionMemberLifetime** interface defines a single read-only property, **KeepAlive**. If this property returns **false**, the view is removed from the region when it is deactivated. Because the region no longer has a reference to the view, it then becomes eligible for garbage collection (unless some other component in your application maintains a reference to it). You can implement this interface on your view or your view model classes. Although the **IRegionMemberLifetime** interface is primarily intended to allow you to manage the lifetime of views within regions during activation and deactivation, the **KeepAlive** property is also considered during navigation after the new view is activated in the target region.
+`IsNavigationTarget` returning `true` permits reuse. `OnNavigatedTo` must therefore handle new parameters on an existing instance, not only initial construction. See [Navigating to Existing Views](navigation-existing-views.md) for one-instance-per-record behavior.
 
-:::note
-Regions that can display multiple views, such as those that use an **ItemsControl** or a **TabControl**, will display both non-active and active views. Removal of a non-active view from these types of regions will result in the view being removed from the UI.
-:::
+## Navigation order
 
+![Region navigation proceeds from confirmation to outgoing notification, target selection, activation, history, incoming notification and completion.](images/region-navigation-lifecycle.svg)
+
+*Region navigation sequence. A rejected or superseded confirmation reports an unsuccessful result before the target is activated.*
+
+1. The active views and their view models can [confirm the request](confirming-navigation.md).
+2. Prism calls `OnNavigatedFrom` on active participants.
+3. The content loader checks candidate views with `IsNavigationTarget`, or resolves a new view and its view model.
+4. `Navigating` is raised just before target activation.
+5. Prism activates the target. A single-active region deactivates its previous view, invoking any applicable lifetime policy.
+6. The region journal is updated.
+7. Prism calls `OnNavigatedTo` on the target's participating view and view model.
+8. The completion callback runs, then the navigation service raises `Navigated`.
+
+Adapters can react to a new view being added during content loading, including activating the first item in an empty content region. The sequence above describes the navigation service’s explicit activation step.
+
+`IsNavigationTarget` is a reuse decision for candidate instances, not a veto on leaving the current view. `OnNavigatedFrom` cannot cancel navigation. A new view does not need to pass an existing-instance reuse check.
+
+## Keep lifecycle work bounded
+
+These methods are synchronous. An `async void OnNavigatedTo` returns to Prism at the first incomplete await, so a successful navigation result does not mean its data load succeeded. Use an explicit asynchronous loading operation with observed errors, cancellation and loading state. If navigation away must wait for a decision or save, coordinate that through `IConfirmNavigationRequest` instead.
+
+Do not duplicate a side effect on both view and view model: both may receive the callback. Do not assume failure restores the prior UI; `OnNavigatedFrom` or activation may already have happened before a later exception is reported.
+
+Source: [IRegionAware](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Navigation/Regions/IRegionAware.cs), [desktop sequence](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.Wpf/Navigation/Regions/RegionNavigationService.cs), [MAUI sequence](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Navigation/Regions/Navigation/RegionNavigationService.cs).

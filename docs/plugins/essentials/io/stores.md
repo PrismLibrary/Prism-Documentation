@@ -103,3 +103,11 @@ Additional contracts use `RegisterStore<T>()` without another identity. Keep the
 ## Verify behavior
 
 Test first launch, defaults, updates, `Clear()`, restart, and unavailable storage on each target. Keep platform operations out of view-model constructors when native startup is not ready. For NativeAOT, publish and execute a consumer of the actual generated contracts assembly using the [supported Microsoft-container path](../../../dependency-injection/native-aot.md).
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`docs/Prism.Plugin.Essentials.NativeAot.md`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/docs/Prism.Plugin.Essentials.NativeAot.md)
+- [`src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs)

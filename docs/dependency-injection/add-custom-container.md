@@ -2,132 +2,61 @@
 sidebar_position: 8
 ---
 
-# Custom Containers
+# Implementing a container adapter
 
-For a variety of reasons the Prism team cannot support every container that developers may want to use. Prism makes it very easy to use a container that isn't officially supported or shipped by the Prism Library.
+A custom adapter is infrastructure work, not a small wrapper around `Resolve`. Prefer a maintained Prism adapter unless a concrete requirement cannot be met. An adapter can support a chosen host without claiming every Prism platform or NativeAOT runtime is qualified.
 
-Prism imposes the following requirements in order to use a container:
+Prism 9 moved the IoC abstractions into `Prism.Container.Abstractions`. An old adapter targeting `Prism.Core` with a handful of Prism 7/8 methods is not a complete implementation of the current contract.
 
-- The container must be mutable to support Prism Modularity
-- The container must support Transient and Singleton registrations
-- The container must support registering a specified instance
-- The container must support keyed registrations / resolving by name
-- The container must support accessing its service registrations
-- The container must support all Prism platforms (WPF, .NET MAUI, Uno Platform)
+## Contracts to implement
 
-In this topic we will be creating a container extension for the Grace DI container.
+| Contract | Responsibility |
+| --- | --- |
+| `IContainerRegistry` | Transient, singleton, scoped, instance, named and factory registrations; registration checks; multi-contract registration |
+| `IContainerProvider` | Typed/named resolution, explicit typed parameters, scope creation and current-scope access |
+| `IContainerExtension` | Combines registry and provider |
+| `IContainerExtension<T>` | Exposes the adapter's underlying container instance |
+| `IScopedProvider` | Scope resolution, child scope creation, attachment state and disposal |
+| `IServiceCollectionAware` | Optional service-collection import and provider creation used by host integration |
 
-## Create a New Project
+Prism infrastructure also uses registration metadata through `Prism.Ioc.Internals.IContainerInfo`. Treat that as an integration dependency to verify against the version you target, rather than inventing a permanently stable public adapter contract.
 
-The first step is to create a new project that will contain the code for your DI container extension.
+## Registration must survive real application behavior
 
-```shell
-dotnet new classlib
-```
+An application may register a module after startup. Define how the adapter handles that without replacing already resolved application singletons or breaking existing scopes. Named view hosts and typed parameters must preserve their identity and intended scope. A container's stock immutable provider is not automatically sufficient for Prism's modular registration behavior.
 
-Next you'll want to add a Reference to the Prism.Core and your container of choice
+Test the adapter with:
 
-## Adding a Container Extension
+1. Two resolutions for each lifetime, across two scopes and a child scope.
+2. A named service, an existing instance, factory registrations, and multi-contract singleton identity.
+3. Missing dependencies, constructor failures and cyclical dependencies.
+4. Registrations added by a module after initial composition.
+5. Actual host navigation and dialogs, including MAUI page-scoped services where applicable.
+6. Disposal and ownership of scopes, generated services and supplied instances.
+7. Imported Microsoft descriptors and the exact advanced features your libraries use.
 
-Next, add a new class to your project and implement the `IContainerExtension` interface.  The `IContainerExtension` interface is used to create a mapping for the most common registration and resolution methods.
+## Preserve diagnostic context
 
-:::note
-The implementation shown here is not maintained. Note that there are differences in the Prism 8 Ioc abstractions from what is shown here, and there may additionally be changes in the GraceIoc API. This is provided only as an example.
-:::
+Wrap a resolution failure with its requested service type, optional name, underlying exception and the provider used for resolution. For example, inside an adapter's resolution implementation:
 
-In the case of the Grace DI container we simply need to add this single class:
-
-```cs
-public class GraceContainerExtension : IContainerExtension<IInjectionScope>
+```csharp
+try
 {
-    public GraceContainerExtension()
-        : this(new DependencyInjectionContainer())
-    {
-    }
-
-    public GraceContainerExtension(IInjectionScope injectionScope)
-    {
-        Instance = injectionScope;
-    }
-
-    public IInjectionScope Instance { get; }
-
-    public void FinalizeExtension() { }
-
-    public IContainerRegistry Register(Type from, Type to)
-    {
-        Instance.Configure(c => c.Export(to).As(from));
-        return this;
-    }
-
-    public IContainerRegistry Register(Type from, Type to, string name)
-    {
-        Instance.Configure(c => c.Export(to).AsKeyed(from, name));
-        return this;
-    }
-
-    public IContainerRegistry RegisterInstance(Type type, object instance)
-    {
-        Instance.Configure(c => c.ExportInstance(instance).As(type));
-        return this;
-    }
-
-    public IContainerRegistry RegisterSingleton(Type from, Type to) =>
-        Instance.Configure(c => c.Export(to).As(from).Lifestyle.Singleton());
-
-    // NOTE: ContainerResolutionException is v8.0+
-    public object Resolve(Type type)
-    {
-        try
-        {
-            return Instance.Locate(type);
-        }
-        catch(Exception ex)
-        {
-            throw new ContainerResolutionException(ex);
-        }
-    }
-
-    // NOTE: ContainerResolutionException is v8.0+
-    public object Resolve(Type type, string name)
-    {
-        try
-        {
-            return Instance.Locate(type, withKey: name);
-        }
-        catch(Exception ex)
-        {
-            throw new ContainerResolutionException(ex);
-        }
-    }
+    return ResolveUsingUnderlyingContainer(serviceType, serviceName);
+}
+catch (Exception exception)
+{
+    throw new ContainerResolutionException(
+        serviceType, serviceName, exception, this);
 }
 ```
 
-:::note
-If using Prism 8+ you will need to additionally implement `IContainerInfo`, and your Resolve methods should catch any exception thrown by the container and rethrow using the Prism ContainerResolutionException.
-:::
+`ResolveUsingUnderlyingContainer` is deliberately adapter-specific here. This excerpt illustrates error propagation; it is not a complete adapter implementation. See [resolution diagnostics](resolution-errors.md) before adding constructor-inspection diagnostics to production paths.
 
-## Create the Application Class
+## Host integration and NativeAOT
 
-Once we've added this single class we only need to add to update our App as follows:
+Wire the adapter through the selected host's application/builder composition, not by swapping `ContainerLocator` after initialization. Keep the Prism contracts and host packages compatible through their actual dependency references.
 
-```cs
-namespace Prism.Grace
-{
-    public partial class PrismApplication : PrismApplicationBase
-    {
-        protected override IContainerExtension CreateContainerExtension() => new GraceContainerExtension();
-    }
-}
-```
+A custom adapter does not acquire supported NativeAOT status by compiling with trimming enabled. Prism's supported NativeAOT path uses the Commercial Plus Microsoft adapter. Static activation, registration metadata, framework behavior and the published runtime must all be verified separately; see the [NativeAOT guide](native-aot.md).
 
-As previously mentioned, Prism's IOC abstraction only provides the most common functionality. This means that you could find an advanced scenario where you need direct access to the underlying container. To achieve a more complex registration, you can add an extension method like we provide in the Container specific packages:
-
-```cs
-public static class ContainerExtensions
-{
-    public static IInjectionScope GetContainer(this IContainerRegistry containerRegistry) =>
-        ((IContainerExtension<IInjectionScope>)containerRegistry).Instance;
-}
-```
-
+Use the [current abstractions](https://github.com/PrismLibrary/Prism.Containers/tree/e59d1b2fb10a0a156305e214a1a5839f1e1f51ce/src/Prism.Container.Abstractions) and [shared adapter tests](https://github.com/PrismLibrary/Prism.Containers/tree/e59d1b2fb10a0a156305e214a1a5839f1e1f51ce/tests/Prism.Container.Shared/Tests) as the compatibility checklist. These source links require authorized repository access.

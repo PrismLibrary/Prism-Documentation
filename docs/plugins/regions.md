@@ -10,101 +10,90 @@ import TabItem from '@theme/TabItem';
 
 # Observable Regions
 
-## Getting Started
+`Prism.Plugin.ObservableRegions` exposes navigation activity from the injected region manager as one observable stream. It is a Commercial Plus plugin. It watches region navigation, not MAUI page navigation, and does not use `IEventAggregator`.
 
-While it has always been possible to respond to Region Navigation Events such as Navigating, Navigated and NavigationFailed through the IRegionNavigationService, this hasn't been something that is particularly easy to deal with from a global scope. This is in part due to the fact that each Region has it's own Navigation Service. `Prism.Plugin.ObservableRegions` is a new cross platform package from the Prism team exclusively available to Commercial Plus subscribers. For the first time you now have the ability to manage Region Navigation Events from a global context.
+## Register and own a subscription
+
+Register the singleton observer and an application-owned subscription service:
+
+```csharp
+using Prism.Ioc;
+using Prism.Plugin.ObservableRegions;
+using System.Reactive.Linq;
+
+public sealed class RegionDiagnostics(IGlobalRegionNavigationObserver observer) : IDisposable
+{
+    private IDisposable? _subscription;
+
+    public void Start(Action<string> onFailure)
+    {
+        _subscription?.Dispose();
+        _subscription = observer.Navigation
+            .Where(e => e.Event == RegionNavigationEventType.Failed)
+            .Subscribe(e => onFailure(e.Name));
+    }
+
+    public void Dispose()
+    {
+        _subscription?.Dispose();
+        _subscription = null;
+    }
+}
+```
+
+`onFailure` is an application callback, for example a fixed diagnostic label or UI notification. Avoid serializing navigation parameters or complete URIs into telemetry; they can contain user data. Marshal bound UI updates to the UI thread when needed. Keep callbacks brief and handle their own errors.
 
 <Tabs groupId="platform">
 <TabItem value="maui" label=".NET MAUI">
 
-```cs
-public static class PrismStartup
+Inside the existing Prism builder callback:
+
+```csharp
+prism.RegisterTypes(registry =>
 {
-    public static void Configure(PrismAppBuilder builder) =>
-        builder.RegisterTypes(RegisterTypes)
-            .OnInitialized(container => container.ObserveRegionNavigation(RegionNavigationObserver));
-
-    private static void RegisterTypes(IContainerRegistry containerRegistry)
-    {
-        containerRegistry.AddObservableRegions();
-    }
-
-    private static void RegionNavigationObserver(IContainerProvider container, IGlobalRegionNavigationObserver observer) =>
-        observer.Navigation
-            .Where(x => x.Event == RegionNavigationEventType.Failed)
-            .Subscribe(regionEvent => {
-                var logger = container.Resolve<ILogger>();
-                logger.Report(regionEvent.Error!);
-            });
-}
+    registry.AddObservableRegions();
+    registry.RegisterSingleton<RegionDiagnostics>();
+});
+prism.OnInitialized(container =>
+    container.Resolve<RegionDiagnostics>().Start(name =>
+        System.Diagnostics.Debug.WriteLine($"Region navigation failed: {name}")));
 ```
+
+This observes MAUI regions after startup. It does not replace page-navigation observation or navigation-result handling.
 
 </TabItem>
 <TabItem value="wpf" label="WPF">
 
-```cs
-public partial class App : Application
-{
-    protected override void RegisterTypes(IContainerRegistry containerRegistry)
-    {
-        containerRegistry.AddObservableRegions();
-    }
-
-    protected override void OnInitialized()
-    {
-        Container.ObserveRegionNavigation(RegionNavigationObserver);
-    }
-
-    private static void RegionNavigationObserver(IContainerProvider container, IGlobalRegionNavigationObserver observer) =>
-        observer.Navigation
-            .Where(x => x.Event == RegionNavigationEventType.Failed)
-            .Subscribe(regionEvent => {
-                var logger = container.Resolve<ILogger>();
-                logger.Report(regionEvent.Error!);
-            });
-}
-```
+In the existing Prism application's `RegisterTypes`, call `registry.AddObservableRegions()` and `registry.RegisterSingleton<RegionDiagnostics>()`. In `OnInitialized`, retain `base.OnInitialized()` and start `Container.Resolve<RegionDiagnostics>()` before issuing the region navigation you want to observe. Keep the application's existing shell startup.
 
 </TabItem>
 <TabItem value="uno-platform" label="Uno Platform">
 
-```cs
-public partial class App : Application
-{
-    protected override void RegisterTypes(IContainerRegistry containerRegistry)
-    {
-        containerRegistry.AddObservableRegions();
-    }
+Use the same registrations in the Prism application's `RegisterTypes`. Start the subscription in `OnInitialized`, retaining the base implementation and existing host/window setup. The injected manager determines which regions are observed; this is not a browser-wide navigation stream.
 
-    protected override void OnInitialized()
-    {
-        Container.ObserveRegionNavigation(RegionNavigationObserver);
-    }
+</TabItem>
+<TabItem value="avalonia" label="Avalonia">
 
-    private static void RegionNavigationObserver(IContainerProvider container, IGlobalRegionNavigationObserver observer) =>
-        observer.Navigation
-            .Where(x => x.Event == RegionNavigationEventType.Failed)
-            .Subscribe(regionEvent => {
-                var logger = container.Resolve<ILogger>();
-                logger.Report(regionEvent.Error!);
-            });
-}
-```
+Register and start the observer in the existing Prism application lifecycle, retaining the base initialization and shell setup. The plugin depends on the shared Prism region contracts; it does not require Essentials or a MAUI popup host.
 
 </TabItem>
 </Tabs>
 
-## RegionNavigationEvent
+The application owns `RegionDiagnostics` and should dispose it at shutdown; a scoped UI consumer should dispose at its own teardown. Disposing a subscriber does not mean that consumer should dispose the singleton global observer. The container owns the observer's underlying region/event subscriptions.
 
-Note that this event does not inherit from PubSubEvent and is not fired from the `IEventAggregator`. The event will give you the following record with access to the Region that is being navigated, the event type, the NavigationContext, the Uri and the ViewName that was being navigated. When the Event Type is null you will also have an Error. The Error will always be null when Navigating and Navigated are the event types.
+## Event contract
 
-```cs
-public record RegionNavigationEvent(IRegion Region, RegionNavigationEventType Event, NavigationContext Context, Uri Uri, string Name, Exception? Error = null);
+`RegionNavigationEvent` includes `Region`, `Event`, `Context`, `Uri`, `Name`, and nullable `Error`. Event values are `Navigating`, `Navigated`, and `Failed`. Only a `Failed` event carries the failure supplied by the region service; inspect for null instead of assuming every failure contains an exception. `Navigating` is not evidence of completed navigation.
 
-public enum RegionNavigationEventType
-{
-    Navigating,
-    Navigated,
-    Failed
-}
-```
+The observer subscribes to existing regions and region additions/removals on the injected manager. It is a hot notification stream with no history replay: subscribe before the operation to observe it. The public `IGlobalRegionNavigationObserver` does not expose the concrete implementation's scoped-manager watch methods. Do not promise automatic discovery of every independent scoped manager or code against a commented-out interface method.
+
+`ObserveRegionNavigation` is a convenience extension taking `Action<IGlobalRegionNavigationObserver>` with one argument. It returns `void` and does not own the subscription created by the callback. Prefer the explicit owner shown above when teardown matters.
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.ObservableRegions/GlobalRegionNavigationObserverExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.ObservableRegions/GlobalRegionNavigationObserverExtensions.cs)
+- [`src/Prism.Plugin.ObservableRegions/IGlobalRegionNavigationObserver.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.ObservableRegions/IGlobalRegionNavigationObserver.cs)
+- [`src/Prism.Plugin.ObservableRegions/GlobalRegionNavigationObserver.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.ObservableRegions/GlobalRegionNavigationObserver.cs)
+- [`src/Prism.Plugin.ObservableRegions/RegionNavigationEvent.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.ObservableRegions/RegionNavigationEvent.cs)

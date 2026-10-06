@@ -5,35 +5,64 @@ uid: Navigation.Regions.NavigationExistingViews
 
 # Navigating to Existing Views
 
-Frequently, it is more appropriate for the views in your application to be re-used, updated, or activated during navigation, instead of replaced by a new view. This is often the case where you are navigating to the same type of view but need to display different information or state to the user, or when the appropriate view is already available in the UI but needs to be activated (that is, selected or made top-most).
+A navigation request does not always create a new view. Prism looks for an existing candidate in the target region, asks its `IRegionAware.IsNavigationTarget` participants whether it can handle the request, and reuses the first accepting candidate. Otherwise it creates a new view.
 
-For an example of the first scenario, imagine that your application allows the user to edit customer records, using the **EditCustomer** view, and the user is currently using that view to edit customer ID 123. If the customer decides to edit the customer record for customer ID 456, the user can simply navigate to the **EditCustomer** view and enter the new customer ID. The **EditCustomer** view can then retrieve the data for the new customer and update its UI accordingly.
+## Choose an instance policy
 
-An example of the second scenario is where the application allows the user to edit more than one customer record at a time. In this case, the application displays multiple **EditCustomer** view instances in a tab control—for example, one for customer ID 123 and another for customer ID 456. When the user navigates to the **EditCustomer** view and enters customer ID 456, the corresponding view will be activated (that is, its corresponding tab will be selected). If the user navigates to the **EditCustomer** view and enters customer ID 789, a new instance will be created and displayed in the tab control.
+| Policy | `IsNavigationTarget` | Suitable workflow |
+| --- | --- | --- |
+| Reuse a matching view | Return `true` | One detail pane that updates for each selection |
+| One instance per record | Compare the incoming ID with the instance's ID | Several open customer/document tabs |
+| Always create a new instance | Return `false` | Independent editing sessions |
 
-The ability to navigate to an existing view is useful for a variety of reasons. It is often more efficient to update an existing view instead of replace it with a new instance of the same type. Similarly, activating an existing view, instead of creating a duplicate view, provides a more consistent user experience. In addition, the ability to handle these situations seamlessly without requiring much custom code means that the application is easier to develop and maintain.
+If both view and view model implement `IRegionAware`, the candidate must pass both checks. A matching candidate without the interface accepts by default. Reuse still invokes `OnNavigatedTo`, so refresh state from the incoming parameters.
 
-Prism supports the two scenarios described earlier via the **IsNavigationTarget** method on the **INavigationAware** interface. This method is called during navigation on all views in a region that are of the same type as the target view. In the preceding examples, the target type of the view is the **EditCustomer** view, so the **IsNavigationTarget** method will be called on all existing **EditCustomer** view instances currently in the region. Prism determines the target type from the view URI, which it assumes is the short type name of the target type.
+## One view per customer
 
-:::note
-For Prism to determine the type of the target view, the view's name in the navigation URI should be the same as the actual target type's short type name. For example, if your view is implemented by the **MyApp.Views.EmployeeDetailsView** class, the view name specified in the navigation URI should be **EmployeeDetailsView**. This is the default behavior provided by Prism. You can customize this behavior by implementing a custom content loader class: do this by implementing the **IRegionNavigationContentLoader** interface or by deriving from the **RegionNavigationContentLoader** class.
-:::
+```csharp
+using System;
+using Prism.Mvvm;
+using Prism.Navigation.Regions;
 
-The implementation of the **IsNavigationTarget** method can use the **NavigationContext** parameter to determine whether it can handle the navigation request. The **NavigationContext** object provides access to the navigation URI and the navigation parameters. In the preceding examples, the implementation of this method in the **EditCustomer** view model compares the current customer ID to the ID specified in the navigation request, and it returns **true** if they match.
-
-```cs
-public class EmployeeDetailsViewModel : BindableBase, INavigationAware
+public sealed class CustomerEditorViewModel : BindableBase, IRegionAware
 {
-    public bool IsNavigationTarget(NavigationContext navigationContext)
+    private string _customerId = string.Empty;
+    public string CustomerId
     {
-        string id = navigationContext.Parameters["ID"];
-        return _currentCustomer.Id.Equals(id);
+        get => _customerId;
+        private set => SetProperty(ref _customerId, value);
     }
 
-    public void OnNavigatedTo(NavigationContext navigationContext) { }
-    public void OnNavigatedFrom(NavigationContext navigationContext) { }
+    public bool IsNavigationTarget(NavigationContext context) =>
+        context.Parameters.TryGetValue<string>("customerId", out var id)
+        && string.Equals(CustomerId, id, StringComparison.Ordinal);
+
+    public void OnNavigatedTo(NavigationContext context)
+    {
+        if (!context.Parameters.TryGetValue<string>("customerId", out var id)
+            || string.IsNullOrWhiteSpace(id))
+            throw new ArgumentException("A customerId is required.");
+        CustomerId = id;
+    }
+
+    public void OnNavigatedFrom(NavigationContext context) { }
 }
 ```
 
-If the **IsNavigationTarget** method always returns **true**, regardless of the navigation parameters, that view instance will always be re-used. This allows you to ensure that only one view of a particular type will be displayed in a particular region.
+Navigate using `CustomerEditorView?customerId=C-104`, then `C-205`, then `C-104`. With retained views, the final request should reactivate the first instance. With `KeepAlive == false`, a deactivated instance may already have been removed, so Prism must create another one.
 
+## Registration names and candidate matching
+
+Use explicit navigation registration and keep route names stable. WPF, Uno and Avalonia's current loader consults `IRegionNavigationRegistry` to match the registered view type and navigation name. Aliases do not have to equal the CLR type's short name, and distinct aliases on the same view type can remain distinct navigation targets.
+
+At the inspected MAUI source checkpoint, the region loader first matches the view's CLR short or full name, but the alias-fallback branch does not return its matched candidate sequence. This is a source-review finding, not a runtime-confirmed contract for every package. Use the default type-name registration when following this walkthrough, and explicitly test instance reuse before relying on an alias-based route. A corrected package may behave differently.
+
+View identity, region instance names and navigation registration names are separate concepts. `region.GetView("editor-C104")` only finds an instance explicitly named when it was added; it does not ask `IsNavigationTarget`.
+
+## Verify the full workflow
+
+Test the same ID twice, a different ID, a return to an inactive ID, a rejected confirmation, and removal followed by another request. Inspect both `region.Views` and `region.ActiveViews`: a hidden retained view may still be a valid candidate.
+
+Do not register a navigation view as a singleton to force reuse. The region should decide reuse, and visual instances cannot safely belong to multiple hosts. Keep shared data in services with a deliberately chosen [container lifetime](../../dependency-injection/registering-types.md).
+
+Source: [desktop candidate matching](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.Wpf/Navigation/Regions/RegionNavigationContentLoader.cs), [MAUI candidate matching](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Navigation/Regions/Navigation/RegionNavigationContentLoader.cs).

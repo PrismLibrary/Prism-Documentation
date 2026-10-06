@@ -78,3 +78,10 @@ Do not assume that the [Microsoft container's NativeAOT support](../../../depend
 ## Design for interruption
 
 Use stable operation IDs or checkpoints to avoid duplicate external effects. Handle offline and low-battery conditions, partially completed work, OS revocation, overlapping triggers, cancellation, and application restart. Requested intervals are not delivery guarantees; use an appropriate server-side mechanism when the feature needs stronger timing or closed-app guarantees.
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`docs/Prism.Plugin.Essentials.BackgroundTasks.md`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/docs/Prism.Plugin.Essentials.BackgroundTasks.md)
+- [`src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/IBackgroundTaskScheduler.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/IBackgroundTaskScheduler.cs)

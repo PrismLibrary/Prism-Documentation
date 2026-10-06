@@ -2,89 +2,39 @@
 sidebar_position: 6
 ---
 
-# The ContainerLocator
+# ContainerLocator
 
-The ContainerLocator is new in Prism 8.0. This was introduced to help Prism get rid of a dependency on the CommonServiceLocator, and solve a number of internal issues where we must fallback to a ServiceLocator pattern such as within XAML Extensions.
+`Prism.Ioc.ContainerLocator` holds the application's current `IContainerExtension`. Prism's startup and infrastructure use it where constructor injection is unavailable. Application services and view models should normally request their dependencies in constructors instead of reaching into this global locator.
 
-The ContainerLocator also has some additional benefits for Prism, particularly for those developers working on Cross Platform applications such as .NET MAUI or Uno Platform. In these cases it may sometimes be necessary to initialize the container prior to initializing your Prism application. A common example of this would be apps that are leveraging Shiny. For such apps you may want to add the ServiceCollection to your Prism container and then return the ServiceProvider to Shiny. This allows both Prism and Shiny to maintain a single container rather than have multiple containers.
-
-:::note
-For those developers sponsoring [Dan Siegel](https://xam.dev/sponsor-prism-dan) it is recommended that you use the Prism.Magician for this.
-:::
-
-## How to use the ContainerLocator
-
-Note that the ContainerLocator can set the container instance lazily by taking a delegate to create the container. It will NOT create the container until ContainerLocator.Container is called.
+## Current Prism 9.1 contract
 
 ```csharp
-var createContainerExtension = () => new DryIocContainerExtension();
-ContainerLocator.SetContainerExtension(createContainerExtension);
+// Infrastructure/composition code; container is an existing IContainerExtension.
+ContainerLocator.SetContainerExtension(container);
+
+IContainerProvider provider = ContainerLocator.Container;
+IContainerExtension extension = ContainerLocator.Current;
+bool initialized = ContainerLocator.IsInitialized;
 ```
 
-:::warning
-If you do not call `ContainerLocator.Current` or `ContainerLocator.Container` after setting the creation delegate, subsequent calls to `SetContainerExtension` will override your initial delegate.
-:::
+`SetContainerExtension` takes a **container instance**, not a factory delegate. It replaces the current reference. `TrySetContainerExtension(container)` returns false if a container is already set. Reading `Current` or `Container` before initialization throws.
 
-## Advanced Usage
+Older examples with `SetContainerExtension(() => new ...)` and lazy creation do not describe this API. Use the host's normal Prism startup path; do not replace an initialized application container to add one registration.
 
-Please note that the information here is for advanced users only. These API's are intentionally hidden from intellisense because they are not for common consumption. Use these at your own risk, and only under the right circumstances.
+## One application container
 
-In the event that you need to access the raw IContainerExtension you can do so by accessing `ContainerLocator.Current`.
+MAUI and Uno host composition integrate their service collection with the selected Prism container. Creating a second provider can duplicate singleton state and disconnect page-scoped navigation services from the view that owns them. See [IServiceCollection integration](servicecollection-supplement.md).
 
-### Testing
+A global provider is not a substitute for the current page or operation scope. Code that needs a scope should receive the appropriate provider or an explicit service/factory from its owner.
 
-While not entirely an uncommon issue, while unit testing it is commonly recommended that you reset the ContainerLocator. This ensures container is disposed and that the container instance is cleared along with the delegate to create a new instance.
+## Isolated tests
+
+Tests that deliberately initialize this static state can clear it in teardown:
 
 ```csharp
-public class SomeTests : IDisposable
-{
-    public void Dispose()
-    {
-        ContainerLocator.ResetContainer();
-    }
-}
+ContainerLocator.ResetContainer();
 ```
 
-## Example Usage
+`ResetContainer` only clears the reference in the current implementation. It does **not** dispose the old container, resolved services or scopes. Tests must dispose what they own separately and avoid parallel tests competing for the same static locator. Prefer testing view models with constructor-injected fakes so most tests need no locator at all.
 
-In a ShinyStartup you might have something like:
-
-```csharp
-public class MyStartup : ShinyStartup
-{
-    private void RegisterTypes(IContainerRegistry container)
-    {
-        // Your normal registrations here...
-    }
-
-    private IContainerExtension CreateContainerExtension() =>
-        new DryIocContainerExtension();
-
-    public override IServiceProvider CreateServiceProvider(IServiceCollection services)
-    {
-        ContainerLocator.SetContainerExtension(CreateContainerExtension);
-        var container = ContainerLocator.Container;
-        container.RegisterServices(services);
-        RegisterTypes(container);
-        return container.GetContainer();
-    }
-}
-```
-
-In a XAML Extension
-
-```csharp
-public class SomeMarkupExtension : IMarkupExtension
-{
-    private static readonly Lazy<IEventAggregator> _lazyEventAggregator =
-        new Lazy<IEventAggregator>(() => ContainerLocator.Container.Resolve<IEventAggregator>());
-
-    private IEventAggregator EventAggregator => _lazyEventAggregator.Value;
-
-    public object ProvideValue(IServiceProvider provider)
-    {
-        // your logic here...
-    }
-}
-```
-
+Source: [ContainerLocator](https://github.com/PrismLibrary/Prism.Containers/blob/e59d1b2fb10a0a156305e214a1a5839f1e1f51ce/src/Prism.Container.Abstractions/ContainerLocator.cs) and [shared tests](https://github.com/PrismLibrary/Prism.Containers/blob/e59d1b2fb10a0a156305e214a1a5839f1e1f51ce/tests/Prism.Container.Shared/Tests/ContainerLocatorFixture.cs). The Containers repository requires authorized access.

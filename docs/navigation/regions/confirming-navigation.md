@@ -2,62 +2,88 @@
 sidebar_position: 9
 ---
 
-# Confirming Navigation
+# Confirming Region Navigation
 
-You will often find that you will need to interact with the user during a navigation operation, so that the user can confirm or cancel it. In many applications, for example, the user may try to navigate while in the middle of entering or editing data. In these situations, you may want to ask the user whether he or she wants to save or discard the data that has been entered before continuing to navigate away from the page, or whether the user wants to cancel the navigation operation altogether. Prism supports these scenarios via the **IConfirmNavigationRequest** interface.
+Implement `IConfirmNavigationRequest` to let an active view or view model approve or reject a region navigation request. It inherits `IRegionAware` and adds a continuation callback:
 
-The **IConfirmNavigationRequest** interface derives from the **INavigationAware** interface and adds the **ConfirmNavigationRequest** method. By implementing this interface on your view or view model class, you allow them to participate in the navigation sequence in a way that allows them to interact with the user so that the user can confirm or cancel the navigation. One way of displaying a confirmation is to use a simple windows message box. For something more complex, the **Dialog Service**, as described in [Dialog Service](../../dialogs/index.md) could be used.
+```csharp
+void ConfirmNavigationRequest(
+    NavigationContext navigationContext,
+    Action<bool> continuationCallback);
+```
 
-The **ConfirmNavigationRequest** method provides two parameters, a reference to the current navigation context as described earlier, and a callback method that you can call when you want navigation to continue.
+Call the callback with `true` to continue or `false` to stay. You may return from the method before invoking it, which lets a dialog complete without blocking the UI thread.
 
-The following steps summarize the process of confirming navigation using an **InteractionRequest** object:
+## Protect unfinished edits with a dialog
 
-1. Navigation operation is initiated via a **RequestNavigate** call.
-1. If the view or view model of the current view implements **IConfirmNavigation**, **ConfirmNavigationRequest** is called.
-1. The view displays the confirmation UI and awaits the user's response.
-1. Continuation callback is invoked to continue or cancel the pending navigation operation.
-1. The navigation operation is completed or canceled.
+This view model uses the shared Prism dialog service. Register a platform-appropriate `ConfirmDiscardDialog` that closes with `ButtonResult.Yes` only when the user explicitly chooses to discard changes; other results keep the editor open. See [Dialog Service](../../dialogs/index.md) for the view and view-model setup.
 
-To illustrate this, check out the sample app at [22-ConfirmCancelNavigation](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/22-ConfirmCancelNavigation).
+```csharp
+using System;
+using System.Diagnostics;
+using Prism.Dialogs;
+using Prism.Mvvm;
+using Prism.Navigation.Regions;
 
-```cs
-public class ViewAViewModel : BindableBase, IConfirmNavigationRequest
+public sealed class EditorViewModel : BindableBase, IConfirmNavigationRequest
 {
-    public ViewAViewModel()
+    private readonly IDialogService _dialogs;
+    private bool _hasUnsavedChanges;
+
+    public EditorViewModel(IDialogService dialogs) => _dialogs = dialogs;
+
+    public bool HasUnsavedChanges
     {
+        get => _hasUnsavedChanges;
+        set => SetProperty(ref _hasUnsavedChanges, value);
     }
 
-    public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+    public void ConfirmNavigationRequest(
+        NavigationContext context, Action<bool> continuationCallback)
     {
-        bool result = true;
+        if (!HasUnsavedChanges)
+        {
+            continuationCallback(true);
+            return;
+        }
 
-        // this is demo code only and not suitable for production. It is generally
-        // poor practice to reference your UI in the view model. Use the Prism
-        // IDialogService to help with this.
-        if (MessageBox.Show("Do you to navigate?", "Navigate?", MessageBoxButton.YesNo) == MessageBoxResult.No)
-            result = false;
-
-        continuationCallback(result);
+        _dialogs.ShowDialog("ConfirmDiscardDialog", new DialogParameters
+        {
+            { "message", "Discard your unsaved changes?" }
+        }, new DialogCallback()
+            .OnClose(result => continuationCallback(
+                result.Exception is null && result.Result == ButtonResult.Yes))
+            .OnError((Exception error) =>
+            {
+                Debug.WriteLine(error);
+                continuationCallback(false);
+            }));
     }
 
-    public bool IsNavigationTarget(NavigationContext navigationContext)
-    {
-        return true;
-    }
-
-    public void OnNavigatedFrom(NavigationContext navigationContext)
-    {
-    }
-
-    public void OnNavigatedTo(NavigationContext navigationContext)
-    {
-    }
+    public bool IsNavigationTarget(NavigationContext context) => true;
+    public void OnNavigatedTo(NavigationContext context) { }
+    public void OnNavigatedFrom(NavigationContext context) { }
 }
 ```
 
-In the above example, when the ConfirmNavigationRequest is called, a simple windows message box is popped up for the user to say yes or no to. If the user picks the "No" button the navigation is then canceled.
+The example demonstrates the navigation decision. The application still needs a policy for discarding or retaining the draft, especially if the view has `KeepAlive == true`. An approval is not proof that navigation subsequently succeeded.
 
-All of this happens on the UI thread. But it is still possible to call async methods (such as REST API calls) to help determine navigation status. In that case, depending on implementation, you may need to store a reference to the callback so that you can call it from another location.
+## Continuation rules
 
-If there is a long running implementation, it may be possible for the user to call another navigation operation. If that were to happen, the previous navigation would be canceled and invoking the callback for the previous navigation will have no effect as it is no longer the current navigation.
+- Invoke the continuation exactly once for each request, including cancellation and error paths. Otherwise navigation can remain pending or be processed more than once.
+- Invoke it on the UI thread. If a background operation is needed, dispatch the final continuation back through the platform's dispatcher.
+- Do not block with `.Wait()` or `.Result` while awaiting a UI dialog or save operation.
+- If saving is required before leaving, await the save in your confirmation workflow and continue only after it succeeds. `OnNavigatedFrom` is too late to veto navigation.
+- Avoid overlapping prompts, for example by disabling navigation commands while a decision is pending.
 
+Prism confirms the active view and then its view model, and can continue to other active views in a multi-active region. Avoid implementing the same prompt independently on both objects.
+
+## Scope of the guard
+
+A later request can supersede an earlier pending request. When the old continuation eventually returns, the region service rejects that old context rather than activating its destination. The old request can still receive an unsuccessful callback, so do not treat a late dialog answer as a successful navigation.
+
+The guard applies to `RequestNavigate` and journal navigation. It does not automatically guard direct `region.Remove`, `region.Activate`, closing a window, changing a native selector, or popping a MAUI page. Handle those entry points through the appropriate application/platform workflow. For MAUI page navigation, use the page-specific confirmation contract.
+
+Test clean and dirty editors, Yes/No, dialog errors, a pending prompt followed by a second request, and failed destination resolution. Inspect `NavigationResult.Success`; declined region requests can have no exception.
+
+Source: [IConfirmNavigationRequest](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Navigation/Regions/IConfirmNavigationRequest.cs), [confirmation flow](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.Wpf/Navigation/Regions/RegionNavigationService.cs), [dialog callback handling](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Dialogs/DialogCallback.cs).

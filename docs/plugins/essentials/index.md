@@ -119,3 +119,11 @@ Do not treat registering JSON metadata as proof that every optional plugin suppo
 Resolve native services after their application/window/activity is ready. Constructor injection should establish dependencies; avoid opening dialogs, requesting permissions, or eagerly reading platform stores before native startup has completed.
 
 Keep cancellation tokens and observable subscriptions owned by the screen or operation using them. Dispose subscriptions when their owner ends, and marshal UI updates through `IMainThread`. See [permissions](permissions/permissions-manager.md), [toasts](notifications/toasts.md), and [file ownership](io/filesystem.md) for concrete contracts.
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)

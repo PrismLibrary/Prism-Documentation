@@ -49,3 +49,11 @@ Browser storage does not provide the same protection as an OS keychain and is ex
 ## Features still awaiting publication
 
 The current guide does not advertise DeviceDisplay, portable picked-file references, or the new camera/share contracts as generally available. Their API and platform guidance will be added after review, merge, and package availability are confirmed. The existing [camera](media/camera.md) and [share](applicationmodel/datatransfer/share.md) pages identify that boundary.
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)

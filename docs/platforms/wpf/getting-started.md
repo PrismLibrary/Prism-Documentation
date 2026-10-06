@@ -2,274 +2,145 @@
 sidebar_position: 1
 ---
 
-# Getting Started
+# Getting Started with WPF
 
-Getting started with Prism is pretty easy. Follow the steps below and you will be up and running quickly with the start of a modular and easy to maintain app.
+This walkthrough creates a Windows desktop application with Prism 9.1, DryIoc, a view model, and a region. Start with a normal WPF Application project. If you need the Windows SDK or Visual Studio workload, follow Microsoft's [WPF setup tutorial](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/get-started/create-app-visual-studio).
 
-> This guide assumes that you have some knowledge of the structure of a WPF application project and some comfort with C#. An understanding of the Model-View-ViewModel (MVVM) pattern is helpful as well as WPF lends to that pattern very easily. If you aren't, consider taking a moment to do a bit of research on it first.
+## Choose compatible packages
 
-## Install the Nuget Packages
+Install `Prism.DryIoc` for the DryIoc application base, or `Prism.Unity` for Unity. These WPF packages bring in `Prism.Wpf`, `Prism.Core`, and their container dependencies. Choose one application container, and use compatible 9.1 package versions from your configured feed. The package name is `Prism.DryIoc`, even though its source project is named `Prism.DryIoc.Wpf`.
 
-Create a brand new WPF application in Visual Studio. Next up is to install the appropriate nuget packages. At this point, a choice needs to be made, and that is which container to use for managing dependencies. For the purposes of this documentation, Unity will be the container of choice. See the list below of what is available.
+The audited 9.1 source targets `net462`, `net47`, `net8.0-windows`, `net9.0-windows`, and `net10.0-windows`. A target in source is not a promise that every preview package contains the same assets; check the package you restore. New projects should use a supported .NET Windows target and matching SDK.
 
-| Package | Container | Version |
-|---------|-----------|---------|
-| Prism.Unity   | [Unity](https://github.com/unitycontainer/unity) | 5.11.1 |
-| Prism.DryIoc  | [DryIoc](https://github.com/dadhi/DryIoc)        | 4.0.7  |
+For example, in PowerShell on a Windows development machine with the .NET 10 SDK:
 
-> Note: There is no need to explicitly install any other dependencies. Installing one of the above packages will also take care of installing the packages for the container as well as the shared Prism packages.
+```powershell
+ dotnet new wpf -n PrismWpfDemo -f net10.0
+ cd PrismWpfDemo
+ $PrismVersion = Read-Host 'Exact Prism 9.1 package version from your feed'
+ dotnet add package Prism.DryIoc --version $PrismVersion
+```
 
-![Install Nuget](./images/nuget-install.png)
+Prism 9.1 is the first NativeAOT-ready Prism release, but WPF is not a NativeAOT target. Do not add `PublishAot` to this application. See the [NativeAOT guide](../../dependency-injection/native-aot.md) for supported hosts and the Commercial Plus Microsoft container requirement.
 
-## Override the Existing Application Object
+## Let Prism create the shell
 
-The next step in getting started is to subclass the Application object contained in the newly created WPF project. Navigate to the ```App.xaml``` and  replace the standard WPF Application class with the Prism ```PrismApplication``` class.
+Change `App.xaml` to use the Prism application class. Remove `StartupUri`; otherwise WPF also tries to create the window independently of Prism.
 
-```xml
-<prism:PrismApplication
-    x:Class="WpfApp1.App"
+```xml title="App.xaml"
+<prism:PrismApplication x:Class="PrismWpfDemo.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:WpfApp1"
     xmlns:prism="http://prismlibrary.com/">
-    <Application.Resources>
-    </Application.Resources>
+    <Application.Resources />
 </prism:PrismApplication>
 ```
 
-In the snippet above, notice that line 6 has been added to define the namespace and that the App object has been updated to derive from ```PrismApplication```. Next, navigate to the ```app.xaml.cs``` code-behind file and update the class definition.
+Move the template's main window into `Views`, updating its C# namespace and XAML `x:Class` to `PrismWpfDemo.Views.MainWindow`. Then replace the application code-behind:
 
-> Don't forget to remove the ```StartupUri``` property from the ```PrismApplication``` tag. Otherwise, you will end up with two window instances.
-
-
-```cs
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+```cs title="App.xaml.cs"
 using System.Windows;
-using Prism.Unity;
+using Prism.DryIoc;
+using Prism.Ioc;
+using Prism.Mvvm;
+using PrismWpfDemo.ViewModels;
+using PrismWpfDemo.Views;
 
-namespace WpfApp1
-{
-    public partial class App : PrismApplication
-    {
-    }
-}
-```
+namespace PrismWpfDemo;
 
-There are a pair of abstract methods defined in ```PrismApplication``` that must be implemented first: RegisterTypes and CreateShell.
-
-### RegisterTypes
-
-This function is used to register any app dependencies. For example, there might be an interface to read customer data from a persistent store of some kind and the implementation of it is to use a database of some kind. It might look something like this:
-
-```cs
-public interface ICustomerStore
-{
-    List<string> GetAll();
-}
-
-public class DbCustomerStore : ICustomerStore
-{
-    public List<string> GetAll()
-    {
-        // return list from db
-    }
-}
-```
-
-Objects in the app, such as view models, that have a dependency on the customer data would require an ```ICustomerStore``` object. In the ```App.RegisterTypes``` function, a registration would be made to create a ```DbCustomerStore``` every time an object takes a dependency on ```ICustomerStore```.
-
-```cs
-protected override void RegisterTypes(IContainerRegistry containerRegistry)
-{
-    containerRegistry.Register<Services.ICustomerStore, Services.DbCustomerStore>();
-    // register other needed services here
-}
-```
-
-> IContainerRegistry has other functions for registering against interfaces as well. ```RegisterInstance``` will register a created instance of an object against an interface. In effect the implementation of the registered interface is a singleton. A similar method is ```RegisterSingleton``` that will create a single instance at the time the dependency is made and not before. It should be noted that the ```Container``` can also resolve concrete types without a prior registration.
-
-### CreateShell
-
-The second method that has to be implemented is the CreateShell method. This is the method that will create the main window of the application. The Container property of the App class should be used to create the window as it takes care of any dependencies.
-
-```cs
 public partial class App : PrismApplication
 {
-    // RegisterTypes function is here
+    protected override Window CreateShell() => Container.Resolve<MainWindow>();
 
-    protected override Window CreateShell()
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        var w = Container.Resolve<MainWindow>();
-        return w;
+        containerRegistry.Register<MainWindow>();
+        containerRegistry.Register<MainWindowViewModel>();
+        ViewModelLocationProvider.Register<MainWindow, MainWindowViewModel>();
+        containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
     }
 }
 ```
 
-At this point, the app can be built and run and should look like the following:
+For Unity, install `Prism.Unity` and use `Prism.Unity.PrismApplication` instead. Keep the base class in XAML and code-behind consistent. For a container supplied separately, derive from `Prism.PrismApplicationBase` and implement `CreateContainerExtension` as described in the [container guide](../../dependency-injection/index.md).
 
-![First Run of App](./images/FirstRun.PNG)
+The shell is a `System.Windows.Window`. Prism registers its infrastructure and your services, creates the shell, wires its view model, attaches the region manager, and initializes modules. Its default `OnInitialized` shows the shell. Call `base.OnInitialized()` if you override that method and still want this behavior.
 
-This is now a Prism app. There isn't much here yet, but there are lots of things that Prism can help out with, such as breaking up the app into manageable chunks, navigation and implementing the MVVM patterns.
+## Add a view model and a region
 
-## View Models
+The following window provides a navigation command and an empty `ContentControl` for Prism to populate:
 
-WPF is well setup to use an MVVM pattern and Prism helps a lot with this. It has a base class that handles the INotifyPropertyChanged infrastructure that publishes changes from the view model to the view. There are some other classes that make it simple to handle buttons from within the view model as opposed to writing an event handler in your code behind.
-
-First there needs to be some controls added to the view. Go to ```MainWindow.xaml``` and add the following ```<Grid>``` markup as the content for the ```<MainWindow>```.
-
-```xml
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <ListView
-            ItemsSource="{Binding Customers}"
-            SelectedItem="{Binding SelectedCustomer}"
-        />
-        <Button
-            Grid.Row="1" Width="80" Height="40"
-            Command="{Binding CommandLoad}"
-            Content="LOAD"
-        />
-    </Grid>
-```
-
-The above will add a new listview that will display a list of customer names and a button to load the list.
-
-> The important thing to remember is that every time there is a ```Binding```, there is a linkage to the view model for this view.
-
-To help out with this part of the Getting Started Guide, the service that was shown above needs to be setup in the project. In the root of the project, create a ```Services``` folder. In that folder, create the ```CustomerStore.cs``` file and add the following code:
-
-```cs
-    public interface ICustomerStore
-    {
-        List<string> GetAll();
-    }
-
-    public class DbCustomerStore : ICustomerStore
-    {
-        public List<string> GetAll()
-        {
-            return new List<string>()
-            {
-                "cust 1",
-                "cust 2",
-                "cust 3",
-            };
-        }
-    }
-
-```
-
-Inside the ```App.xaml.cs``` file, ensure that ```RegisterTypes``` has the following line:
-
-```cs
-    containerRegistry.Register<Services.ICustomerStore, Services.DbCustomerStore>();
-```
-
-## Creating the View Model
-
-First, at the root level of your project, create a folder called ```ViewModels```. Use that exact name because that will be needed later when view model resolution is discussed.
-
-![Project Folder Structure](./images/ProjectStructure.PNG)
-
-Inside the ```ViewModels``` folder, a class is created called ```MainWindowViewModel```. Use that exact name for reasons to be shown later. Prism has a class called ```BindableBase``` that is used as a base for all view models and ```MainWindowViewModel``` will be subclassed from it.
-
-```cs
-using Prism.Commands;
-using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfApp1.ViewModels
-{
-    public class MainWindowViewModel : BindableBase
-    {
-        private Services.ICustomerStore _customerStore = null;
-
-        public MainWindowViewModel(Services.ICustomerStore customerStore)
-        {
-            _customerStore = customerStore;
-        }
-
-
-        public ObservableCollection<string> Customers { get; private set; } =
-            new ObservableCollection<string>();
-
-
-        private string _selectedCustomer = null;
-        public string SelectedCustomer
-        {
-            get => _selectedCustomer;
-            set
-            {
-                if (SetProperty<string>(ref _selectedCustomer, value))
-                {
-                    Debug.WriteLine(_selectedCustomer ?? "no customer selected");
-                }
-            }
-        }
-
-        private DelegateCommand _commandLoad = null;
-        public DelegateCommand CommandLoad =>
-            _commandLoad ?? (_commandLoad = new DelegateCommand(CommandLoadExecute));
-
-        private void CommandLoadExecute()
-        {
-            Customers.Clear();
-            List<string> list = _customerStore.GetAll();
-            foreach (string item in list)
-                Customers.Add(item);
-        }
-    }
-}
-```
-
-A bit of an explanation on what is happening here. MainWindowViewModel has a dependency on the ```ICustomerStore``` interface, so that interface has to be registered in the ```App.RegisterTypes``` so that its implementation can be handled by the dependency container. There is a ```Customers``` property that is bound to the listview in the user interface and a ```SelectedCustomer``` that is bound to the currently selected item in the list view.
-
-There is also CommandLoad object that implements the ```ICommand``` interface. This has an ```Execute``` method that is called when the user clicks on the button. Prism implements the ```ICommand``` interface with ```DelegateCommand``` class that allows delegates to be passed in to handle implementing the ```ICommand``` interface. In the case of ```CommandLoad```, the ```CommandLoadExecute``` function is passed in as the delegate and now, whenever the WPF binding system tries to execute ```ICommand.Execute```, ```CommandLoadExecute``` is invoked.
-
-For more details on DelegateCommand, see [Commanding](../../commands/commanding.md).
-
-### Using the ViewModelLocator
-
-Now there is a View and a ViewModel, but how are they linked together? Out of the box, Prism has a ```ViewModelLocator``` that uses convention to determine the correct class for the view model, instantiate it with its dependencies and attach it to the ```DataContext``` of the view.
-
-The default convention is to place all the views in the ```Views``` folder and the view models in the ```ViewModels``` folder.
-
-- ```WpfApp1.Views.MainWindow``` => ```WpfApp1.ViewModels.MainWindowViewModel```
-- ```WpfApp1.Views.OtherView``` => ```WpfApp1.ViewModels.OtherViewModel```
-
-This is configurable and different resolution logic can be added.
-
-For this to work, Views and ViewModels must be properly located within their correct name spaces. Below is a screen shot of what that would look like:
-
-![Viewmodel Locator Project Structure](./images/viewmodellocator.png)
-
-Click [here](../../mvvm/viewmodel-locator.md) for detailed information on the ```ViewModelLocator```.
-
-If you don't want to use this capability for some reason, you will have to opt out in your view. You can manage this in your XAML as follows:
-
-```xml
-<Window
-    ...
+```xml title="Views/MainWindow.xaml"
+<Window x:Class="PrismWpfDemo.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
-    prism:ViewModelLocator.AutoWireViewModel="False"
-    >
-
-	<!-- ui controls here -->
+    Title="Prism WPF" Width="800" Height="450">
+    <DockPanel>
+        <Button DockPanel.Dock="Top" Content="Open home"
+                Command="{Binding OpenHomeCommand}" />
+        <ContentControl prism:RegionManager.RegionName="MainRegion" />
+    </DockPanel>
 </Window>
 ```
 
+```cs title="ViewModels/MainWindowViewModel.cs"
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Navigation.Regions;
+
+namespace PrismWpfDemo.ViewModels;
+
+public class MainWindowViewModel : BindableBase
+{
+    public MainWindowViewModel(IRegionManager regionManager)
+    {
+        OpenHomeCommand = new DelegateCommand(() =>
+            regionManager.RequestNavigate("MainRegion", "HomeView"));
+    }
+
+    public DelegateCommand OpenHomeCommand { get; }
+}
+```
+
+Add a WPF UserControl named `HomeView` to `Views` and keep its generated constructor calling `InitializeComponent()`. Replace its XAML with:
+
+```xml title="Views/HomeView.xaml"
+<UserControl x:Class="PrismWpfDemo.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <TextBlock Text="{Binding Message}" Margin="24" />
+</UserControl>
+```
+
+```cs title="ViewModels/HomeViewModel.cs"
+namespace PrismWpfDemo.ViewModels;
+
+public class HomeViewModel
+{
+    public string Message => "Your first Prism region is ready.";
+}
+```
+
+The explicit view/view-model registrations avoid reliance on naming conventions. Convention-based [ViewModelLocator](../../mvvm/viewmodel-locator.md) is also available. A standalone view created outside Prism's shell, navigation, or dialog flow may need `prism:ViewModelLocator.AutoWireViewModel="True"`.
+
+## Run and check
+
+```powershell
+ dotnet run --project PrismWpfDemo.csproj
+```
+
+Select **Open home**. The message should appear in `MainRegion`. If the view is blank, check `x:Class`, namespaces, registration names, and binding errors in the debugger. If the region is missing, verify the host has loaded and that the attached property uses the WPF URI with its trailing slash.
+
+## Continue learning
+
+1. [UI composition](view-composition.md): discovery, injection, and scoped regions
+2. [Region navigation](../../navigation/regions/index.md): parameters, reuse, confirmation, and lifetime
+3. [WPF dialogs](dialog-service.md): modal and modeless windows
+4. [Commands](../../commands/commanding.md) and [modules](../../modularity/index.md)
+
+## Source reference
+
+- [WPF target frameworks](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.Wpf/Prism.Wpf.csproj)
+- [WPF startup sequence](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.Wpf/PrismApplicationBase.cs)
+- [DryIoc application base](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.DryIoc.Wpf/PrismApplication.cs)

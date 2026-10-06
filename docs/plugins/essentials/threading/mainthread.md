@@ -73,3 +73,8 @@ public class ViewAViewModel : BindableBase
 
 Additionally `IMainThread` has a number of overloads which will let you execute a Function with a return type or even asynchronous code.
 
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Essentials/Threading/IMainThread.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Threading/IMainThread.cs)

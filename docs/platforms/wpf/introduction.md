@@ -26,5 +26,9 @@ In this document, learn how to get started with Prism by creating an application
 
 Learn how to use the Prism dialog service to present dialog windows in an MVVM friendly manner.
 
-[Prism IDialogService](../../dialogs/index.md)
+[WPF IDialogService](dialog-service.md)
 
+
+## Platform boundary
+
+WPF uses `System.Windows` controls, a `Window` shell, `DataContext`, and `Prism.Navigation.Regions`. Its Prism XML namespace is `http://prismlibrary.com/`. Do not copy MAUI page navigation or Uno/Avalonia startup signatures into a WPF application. Start with [the current setup and package guide](getting-started.md), then use [UI composition](view-composition.md) to grow the application. WPF is not a NativeAOT target.

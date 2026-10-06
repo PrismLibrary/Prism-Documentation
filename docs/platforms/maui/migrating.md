@@ -4,66 +4,68 @@ sidebar_position: 2
 
 # Migrating from Prism.Forms
 
-With over 87 million total downloads across all Prism packages on NuGet, Prism has been an amazingly popular choice for developers building XAML applications. Prism.Forms was particularly popular among Xamarin.Forms developers. While many features and API's remain the same or very similar there are some differences which you will need to be aware of before making an upgrade. The bulk of these changes are directly related to the startup/bootstrapping process. In Prism.Forms, the startup process was handled by PrismApplication as Xamarin.Forms itself had no real concept of Dependency Injection. 
+A Prism.Forms migration changes both the UI framework and Prism startup. Keep reusable commands, models, and service abstractions where possible, but validate page construction, navigation, dialogs, and lifecycle behavior on MAUI.
 
-.NET MAUI revolutionizes mobile app development for .NET Developers making Dependency Injection a first class concept even if you are not using Prism. It also shifts from the older paradigm of one project per platform plus a shared project to the new Single Project format. This allows for a radically different startup flow with the `MauiAppBuilder`. As a result, Prism for .NET MAUI no longer relies on `PrismApplication` and instead uses an extension on the `MauiAppBuilder`.
+## Replace legacy startup
 
-## Legacy PrismApplication Support
+Prism 9.1 MAUI applications use a normal MAUI `Application` with `UsePrism` on `MauiAppBuilder`. The old Prism.Forms `PrismApplication.RegisterTypes`, `OnInitialized`, and `IPlatformInitializer` startup pattern is not the current API. Do not follow historical .NET 6/7 compatibility examples.
 
-While there were a number of methods off of the `PrismApplication`, the majority of code most people wrote was located within 2 methods:
+Move registration and initialization to the builder:
 
-1. `OnInitialized`
-2. `RegisterTypes`
-
-To better support developers migrating code from Prism.Forms to Prism.Maui, both of these methods remain in the `PrismApplication` class, and will be called automatically on application startup. Any code that you might have customizing the container, adding Prism Modules, or customizing the ViewModelLocationProvider will need to be move to the `PrismAppBuilder`.
-
-:::note
-These methods will only be supported in .NET 6.0 & .NET 7.0. These are planned for removal in .NET 8.0.
-:::
-
-### IPlatformInitializer Conversion
-
-For those who may have been making use of Prism's IPlatformInitializer interface, the SingleProject provides a great place to keep move that code. As there is no need for the interface in Prism.Maui it no longer exists.
-
-**EXISTING**
 ```cs
-public class iOSPlatformInitializer : IPlatformInitializer
-{
-    public void RegisterTypes(IContainerRegistry containerRegistry)
-    {
-        // Register any platform specific implementations
-    }
-}
+// Requires Prism.DryIoc.Maui and using Microsoft.Maui; using Prism;
+MauiApp.CreateBuilder()
+    .UseMauiApp<App>()
+    .UsePrism(prism => prism
+        .RegisterTypes(container =>
+        {
+            container.RegisterForNavigation<MainPage, MainPageViewModel>();
+            PlatformRegistrations.RegisterTypes(container);
+        })
+        .OnInitialized(container =>
+        {
+            // Synchronous initialization after configured modules run.
+        })
+        .CreateWindow("/NavigationPage/MainPage"))
+    .Build();
 ```
 
-**RECOMMENDED**
-```cs
-// In the root namespace in the Platform Code Folder
-// Keep the name the same on each platform to avoid compiler directives
-public static class PlatformInitializer
-{
-    public static void RegisterTypes(IContainerRegistry containerRegistry)
-    {
-        // Register any platform specific implementations
-    }
-}
+Define `PlatformRegistrations.RegisterTypes(IContainerRegistry)` in the selected platform folders, or use compiler conditions in shared registration code. Use `Prism.Ioc` for the registry/navigation registration extensions. See [App Builder](appbuilder.md) for container-specific overloads and a complete setup.
 
-public class MauiProgram
-{
-    public static MauiApp CreateMauiApp() =>
-        MauiApp.CreateBuilder()
-            .UseMauiApp<App>()
-            .UsePrism(prism =>
-                prism.RegisterTypes(container => {
-                    PlatformInitializer.RegisterTypes(container);
-                }))
-            .Build();
-}
+Remove `AppShell` startup, direct `MainPage` assignment, and template window creation that bypasses Prism. Register every page route and put initial navigation in `CreateWindow`.
+
+## Update XAML and view-model wiring
+
+Use MAUI's `http://schemas.microsoft.com/dotnet/2021/maui` namespace and Prism's `http://prismlibrary.com` namespace, without a trailing slash.
+
+MAUI's attached property is `ViewModelLocator.AutowireViewModel`, with an enum value:
+
+```xml
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    x:Class="MyApp.Views.MainPage"
+    prism:ViewModelLocator.AutowireViewModel="Automatic">
+    <!-- Page content -->
+</ContentPage>
 ```
 
-## ViewModelLocator Autowire Property
+- `Automatic` is the default: Prism wires the view model after preparing the page, region, or dialog context. Usually omit the property.
+- `Disabled` opts out when the application supplies its own binding context.
+- `Forced` resolves immediately and can bypass the intended scope. It is not the normal migration equivalent of `true`.
 
-Developers coming to Prism.Maui from Prism.Forms may be familiar with the `prism:ViewModelLocator.Autowire="true"` property. This goes back Prism's earliest days. In early Prism 6 versions this was implemented as a boolean flag meaning that if you wanted to opt out of use you just didn't reference it and if you wanted to Autowire the ViewModel you added the property and you knew that Prism would find and resolve the ViewModel and attach it as the BindingContext of your View. Before very long in Prism 6.2, this was changed to a nullable boolean allowing for what we have felt is really the intended behavior which is that Prism Applications should Autowire the ViewModel and that the behavior should be Opt-Out and not Opt-In.
+Prefer `RegisterForNavigation<MainPage, MainPageViewModel>()` and let Prism create the page. Do not resolve a page's `INavigationService` from the root container and share it globally.
 
-In Prism.Maui we have introduced a breaking change. The change provides us more flexibility by allowing us to check if you Opted Out or already provided a ViewModel, and automatically Autowire the ViewModel once the View has been properly initialized by Prism. This allows us behind the scene to attach the Container Scope to the Page allowing us to always access correct container to resolve things as needed for Regions, or XAML Extensions, etc. For those developers migrating code which relied on the Opt-In behavior and thus did not explicitly declare the Autowire property, your code should migrate over without any changes besides changing the Xamarin.Forms xmlns to the new MAUI one. In the event that you have declared the Autowire property, this will need to be updated to the new Enum value that the property uses.
+## Revisit the platform-specific behavior
 
+- Page navigation remains URI-based, but it is scoped to the calling page and its window. Test absolute resets, relative navigation, hardware Back, modal dismissal, and tabs.
+- The [XAML navigation](navigation/xaml-navigation.md) extension is `prism:NavigateTo` at the current source head.
+- Native alerts use `Prism.Services.IPageDialogService`; custom dialogs are implemented by `Prism.Dialogs.IDialogService` and use `DialogCloseListener` in Prism 9.1.
+- Page appearing/disappearing, navigation callbacks, destruction, and application/window lifecycle are separate events. Do not put permanent disposal in a temporary disappearing callback.
+- Current source/package target boundaries differ from older Prism.Forms platforms. Start with [the MAUI package guide](index.md), and verify each deployment target.
+
+## Source reference
+
+- [Current MAUI builder](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/PrismAppBuilder.cs)
+- [MAUI ViewModelLocator property](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Mvvm/ViewModelLocator.cs)
+- [ViewModelLocatorBehavior enum](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Mvvm/ViewModelLocatorBehavior.cs)

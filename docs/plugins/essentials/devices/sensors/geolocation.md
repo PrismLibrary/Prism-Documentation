@@ -63,3 +63,11 @@ Dispose the subscription when its screen or operation ends. Separately call `Sto
 | Uno | Behavior follows the selected native, desktop, or browser backend. Browser geolocation depends on browser support and permission and does not provide durable background execution. |
 
 Request access in the context of the user's feature and handle cancellation, errors, and app resume. Background callbacks require the plugin's delegate/lifecycle configuration; a foreground observable alone is not background-delivery support. Validate declarations and actual behavior for each selected host. See [permissions](../../permissions/permissions-manager.md) and [geofencing](geofencing.md).
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Essentials.Geolocation/IGpsManager.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation/IGpsManager.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation/IGpsManagerExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation/IGpsManagerExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation.Maui/EssentialsGeolocationRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation.Maui/EssentialsGeolocationRegistrationExtensions.cs)

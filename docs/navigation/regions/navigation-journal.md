@@ -5,92 +5,110 @@ uid: Navigation.Regions.NavigationJournal
 
 # Using the Navigation Journal
 
-The **NavigationContext** class provides access to the region navigation service, which is responsible for coordinating the sequence of operations during navigation within a region. It provides access to the region in which navigation is taking place, and to the navigation journal associated with that region. The region navigation service implements the **IRegionNavigationService**, which is defined as follows.
+Each region navigation service has its own `IRegionNavigationJournal`, exposed through `region.NavigationService.Journal`. It tracks the current entry plus Back and Forward stacks for navigation performed by that service.
 
-```cs
-public interface IRegionNavigationService : INavigateAsync
+An entry contains the destination URI and `INavigationParameters`. It is not a saved visual tree or a durable session snapshot. Returning to an entry goes through navigation again, including confirmation and existing-view selection.
+
+## Add Back and Forward commands
+
+This coordinator can be owned by a shell or region toolbar. Call `Attach` after the target region has been created, for example with `regionManager.Regions["MainRegion"].NavigationService`. Dispose it when its owner is torn down.
+
+```csharp
+using System;
+using Prism.Commands;
+using Prism.Navigation.Regions;
+
+public sealed class RegionHistoryViewModel : IDisposable
 {
-    IRegion Region {get; set;}
-    IRegionNavigationJournal Journal {get;}
-    event EventHandler<RegionNavigationEventArgs> Navigating;
-    event EventHandler<RegionNavigationEventArgs> Navigated;
-    event EventHandler<RegionNavigationFailedEventArgs> NavigationFailed;
-}
-```
+    private IRegionNavigationService? _navigation;
 
-Because the region navigation service implements the **INavigateAsync** interface, you can initiate navigation within the parent region by calling its **RequestNavigate** method. The **Navigating** event is raised when a navigation operation is initiated. The **Navigated** event is raised when navigation within a region is completed. The **NavigationFailed** is raised if an error was encountered during navigation.
-
-The **Journal** property provides access to the navigation journal associated with the region. The navigation journal implements the **IRegionNavigationJournal** interface, which is defined as follows.
-
-```cs
-public interface IRegionNavigationJournal
-{
-    bool CanGoBack { get; }
-    bool CanGoForward { get; }
-    IRegionNavigationJournalEntry CurrentEntry { get; }
-    INavigateAsync NavigationTarget { get; set; }
-    void Clear();
-    void GoBack();
-    void GoForward();
-    void RecordNavigation(IRegionNavigationJournalEntry entry);
-}
-```
-
-You can obtain and store a reference to the region navigation service within a view during navigation via the **OnNavigatedTo** method call. By default, Prism provides a simple stack-based journal that allows you to navigate forward or backward within a region.
-
-You can use the navigation journal to allow the user to navigate from within the view itself. In the following example, the view model implements a **GoBack** command, which uses the navigation journal within the host region. Therefore, the view can display a **Back** button that allows the user to easily navigate back to the previous view within the region. Similarly, you can implement a **GoForward** command to implement a wizard style workflow.
-
-```cs
-public class EmployeeDetailsViewModel : INavigationAware
-{
-    ...
-    private IRegionNavigationService navigationService;
-
-    public void OnNavigatedTo(NavigationContext navigationContext)
+    public RegionHistoryViewModel()
     {
-        navigationService = navigationContext.NavigationService;
+        BackCommand = new DelegateCommand(
+            () => _navigation?.Journal.GoBack(),
+            () => _navigation?.Journal.CanGoBack == true);
+        ForwardCommand = new DelegateCommand(
+            () => _navigation?.Journal.GoForward(),
+            () => _navigation?.Journal.CanGoForward == true);
     }
 
-    public DelegateCommand<object> GoBackCommand { get; private set; }
+    public DelegateCommand BackCommand { get; }
+    public DelegateCommand ForwardCommand { get; }
 
-    private void GoBack(object commandArg)
+    public void Attach(IRegionNavigationService navigation)
     {
-        if (navigationService.Journal.CanGoBack)
-        {
-            navigationService.Journal.GoBack();
-        }
+        Detach();
+        _navigation = navigation;
+        navigation.Navigated += OnNavigated;
+        navigation.NavigationFailed += OnNavigationFailed;
+        RefreshCommands();
     }
 
-    private bool CanGoBack(object commandArg)
+    public void ClearHistory()
     {
-        return navigationService.Journal.CanGoBack;
+        _navigation?.Journal.Clear();
+        RefreshCommands();
+    }
+
+    private void OnNavigated(object? sender, RegionNavigationEventArgs args) =>
+        RefreshCommands();
+
+    private void OnNavigationFailed(object? sender, RegionNavigationFailedEventArgs args) =>
+        RefreshCommands();
+
+    private void RefreshCommands()
+    {
+        BackCommand.RaiseCanExecuteChanged();
+        ForwardCommand.RaiseCanExecuteChanged();
+    }
+
+    private void Detach()
+    {
+        if (_navigation is null)
+            return;
+        _navigation.Navigated -= OnNavigated;
+        _navigation.NavigationFailed -= OnNavigationFailed;
+        _navigation = null;
+    }
+
+    public void Dispose()
+    {
+        Detach();
+        RefreshCommands();
     }
 }
 ```
 
-You can implement a custom journal for a region if you need to implement a specific workflow pattern within that region.
+A view model participating in navigation can instead obtain the same service through `NavigationContext.NavigationService`. Avoid storing that reference globally when multiple regions or documents have independent histories.
 
-:::note
-The navigation journal can only be used for region-based navigation operations that are coordinated by the region navigation service. If you use view discovery or view injection to implement navigation within a region, the navigation journal will not be updated during navigation and cannot be used to navigate forward or backward within that region.
-:::
+## What changes history?
 
-## Opting out of the Navigation Journal
+- A successful ordinary navigation records an entry and clears the Forward stack.
+- `GoBack()` and `GoForward()` navigate to an existing entry. The journal moves its stacks only when that request succeeds.
+- `Clear()` clears the current entry and both stacks; it does not remove the active view.
+- Direct view discovery, injection or `Activate` calls do not automatically create journal entries.
 
-When using the Navigation Journal, it can be useful to display intermediary pages like splash screens, loading pages or dialogs. It is desirable that these pages should not be revisited via calls to **IRegionNavigationJournal.GoForward()** or **IRegionNavigationJournal.GoBack()**. This behavior can be achieved by implementing the **IJournalAware** interface.
+Do not manually call `RecordNavigation` for normal navigation. The service already does so. Its current signature takes both `IRegionNavigationJournalEntry entry` and `bool persistInHistory`.
 
-```cs
-public interface IJournalAware
-{
-    bool PersistInHistory();
-}
-```
+If UI navigation can remain pending for confirmation, prevent overlapping Back/Forward actions in the application. `CanGoBack` describes available history, not whether a prompt is currently open.
 
-Pages can opt-out of being added to the journal history by implementing **IJournalAware** on the **View** or **View Model** and returning false from **PersistInHistory()**.
+## Exclude an intermediate view
 
-```cs
-public class IntermediaryPage : IJournalAware
+```csharp
+using Prism.Navigation.Regions;
+
+public sealed class LoadingViewModel : IJournalAware
 {
     public bool PersistInHistory() => false;
 }
 ```
 
+Prism checks both the target view and its view model; either can opt out. The view is still displayed and notified, but it is not retained as the journal's current entry for a future Back/Forward visit. This does not erase earlier entries or undo navigation that already occurred.
+
+## Boundaries to keep in mind
+
+Region history is separate from a WPF `Frame`, browser URL history, native OS Back behavior and the MAUI page stack. Integrate the relevant Back affordance deliberately. Uno's `NavigationViewRegionAdapter` connects its `BackRequested` event to the region journal, but that does not establish a universal OS Back policy.
+
+Object parameters can remain referenced by journal entries. Prefer stable identifiers when possible, and clear history when the application changes a security or workflow boundary, such as switching accounts. Clearing a journal is not a substitute for clearing cached data or enforcing authorization.
+
+Source: [journal implementation](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Navigation/Regions/RegionNavigationJournal.cs), [journal contract](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Navigation/Regions/IRegionNavigationJournal.cs), [Uno NavigationView adapter](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Uno/Prism.Uno/Navigation/Regions/NavigationViewRegionAdapter.cs).

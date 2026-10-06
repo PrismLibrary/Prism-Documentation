@@ -3,25 +3,45 @@ sidebar_position: 3
 uid: DependencyInjection.Supplement
 ---
 
-# Dependency Injection - Supplement
+# Microsoft service-collection integration
 
-As you may already realize, Dependency Injection is a first class citizen in .NET MAUI. As you might expect from a Microsoft product, they have adopted the Microsoft.Extensions.DependencyInjection package. Prism however going back to Prism 7.0 continues to rely on the Prism Ioc Abstractions for the `IContainerRegistry` and `IContainerProvider`.
+`IServiceCollection` is a registration format used by the Microsoft extensions ecosystem. Importing those registrations into a Prism container does **not** select the Microsoft container adapter. The application still chooses its Prism adapter during startup.
 
-## IServiceCollection Extensions
+## Use the host's composition path
 
-Despite the fact that you may want to use a container other than Microsoft.Extensions.DependencyInjection, there are many times in which you may want to leverage the registration extensions that are provided by packages that use Microsoft.Extensions.DependencyInjection. In Prism 9.0 we have added a core reference to the Microsoft.Extensions.DependencyInjection.Abstractions allowing us to ensure that all container implementations can support these extensions natively.
+MAUI's application builder and Uno host integration already coordinate service collection and Prism registration. Add services through those supported startup paths. Do not call `BuildServiceProvider()` midway through registration to fetch a dependency: it creates a separate provider with potentially different singleton and scope ownership.
 
-## F.A.Q.
+For infrastructure that owns composition directly, Prism's adapter integration contract is `IServiceCollectionAware`:
 
-Q. Is it EntityFrameworkCore or the Microsoft.Extensions.Http HttpClientFactory, or the Microsoft..... supported?
-A. Short answer is maybe. These extension may work just fine, may need some tweaking, or you may want to go to GitHub, copy the Registration Extension and alter it to work for you in your project. Remember that the extensions written for registering these services were built around developers developing for AspNetCore. This is a very different environment than the one that we are building for. In some cases such as Entity Framework Core you may find that you need to change the default Lifetime of the Service. For example EntityFrameworkCore will register your DbContext as a Scoped Service. This make perfect sense in a WebApi, however if you are building a Blazor Application you may find yourself hitting several errors because various components are trying to use the same instance of the DbContext at the same time. You may find yourself hitting the same exact issue if you are using Prism Regions in which case you would need to change the default lifetime to Transient. Each library that you're trying to pull in built around Microsoft.Extensions.DependencyInjection may or may not have quirks that show up because they weren't originally built with the understanding of running in a Mobile app.
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Prism.Ioc;
 
-Q. What is a Scoped Service? What does it mean in a Prism.Maui app?
-A. Scoped Services can be a bit of an advanced topic. In short, they provide you a middle ground between a Transient and a Singleton in which a Service resolve multiple instances throughout the lifecycle of the application, while providing the same exact instance to dependencies within the Scope. For the context of a Prism.Maui application, Scoped Services resolve the same instance of services such as the INavigationService within the scope of a given Page. This means that whether the INavigationService is injected into the Page itself, the ViewModel, some service you have a dependency on, or even the ViewModel of a Region dynamically created later during the Page's lifecycle, you will always be able to access the same instance of the INavigationService. However as the scope of the next page is different, the instance of the INavigationService will be different. You can utilize scoped services within your application in the same way.
+var services = new ServiceCollection();
+services.AddSingleton<IClock, SystemClock>();
+services.AddTransient<IReportFormatter, ReportFormatter>();
 
-## Further Reading
+// container is the selected IContainerExtension owned by this host.
+container.Populate(services);
+IServiceProvider provider = container.CreateServiceProvider();
+```
 
-If you have additional questions about Dependency Injection, please be sure to check out the full Dependency Injection Topic
+`Populate` and `CreateServiceProvider` require an adapter implementing that contract. This is an illustration of the integration boundary, not a replacement for MAUI/Uno startup or an instruction to build an additional provider inside a running application.
 
-- [Dependency Injection](../dependency-injection/index.md)
+## Match scopes to operations
 
+A desktop/mobile application does not have an HTTP request scope. MAUI has page scopes; a desktop editor might need a document/session or operation scope. Audit the lifetimes chosen by a library's `Add...` extension before adopting it. Avoid resolving a short-lived scoped dependency from a long-lived singleton.
+
+For EF Core, one page can perform several separate units of work. A context per operation, often through `IDbContextFactory<TContext>`, can make that ownership explicit. A `DbContext` is not thread safe; switching every registration to transient does not by itself define disposal or prevent overlapping use. See Microsoft's [context lifetime and factory guidance](https://learn.microsoft.com/en-us/ef/core/dbcontext-configuration/).
+
+## Check a library's actual dependencies
+
+A registration extension can rely on more than `IServiceCollection`: options, logging, keyed service behavior, scopes, disposal, open generics or host lifecycle. Compile success is not a behavior-compatibility certificate. Test the extension with the actual Prism adapter, framework and runtime used by the application.
+
+Useful tests include resolving the full graph, two separate scopes, shared singleton identity, collection registrations, disposal, named/keyed services, and the failure path. Do not describe the Prism Microsoft adapter as a fully behavior-identical replacement for every newer .NET DI feature without qualification.
+
+## NativeAOT
+
+Prism 9.1's supported NativeAOT path requires `Prism.Container.Microsoft` from Commercial Plus. Keep activation statically visible, use generated preservation where applicable, and test a published binary. Registering Microsoft extension services into DryIoc does not change that requirement. See [NativeAOT setup and limits](native-aot.md).
+
+Sources: [IServiceCollectionAware](https://github.com/PrismLibrary/Prism.Containers/blob/e59d1b2fb10a0a156305e214a1a5839f1e1f51ce/src/Prism.Container.Abstractions/IServiceCollectionAware.cs), [integration extensions](https://github.com/PrismLibrary/Prism.Containers/blob/e59d1b2fb10a0a156305e214a1a5839f1e1f51ce/src/Prism.Container.Abstractions/MicrosoftDependencyInjectionExtensions.cs), and [adapter integration tests](https://github.com/PrismLibrary/Prism.Containers/blob/e59d1b2fb10a0a156305e214a1a5839f1e1f51ce/tests/Prism.Container.Shared/Tests/ServiceCollectionAwareFixture.cs). Containers source access is restricted. Microsoft's [DI guidelines](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection/guidelines) provide the baseline lifetime and ownership guidance.

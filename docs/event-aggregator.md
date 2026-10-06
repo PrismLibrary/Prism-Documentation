@@ -13,8 +13,6 @@ Events created with the Prism Library are typed events. This means you can take 
 
 ![Using the event aggregator](./images/event-aggregator-1.png)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/xTP9_hN_3xA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## IEventAggregator
 
 The `EventAggregator` class is offered as a service in the container and can be retrieved through the `IEventAggregator` interface. The event aggregator is responsible for locating or building events and for keeping a collection of the events in the system.
@@ -22,7 +20,7 @@ The `EventAggregator` class is offered as a service in the container and can be 
 ```cs
 public interface IEventAggregator
 {
-    TEventType GetEvent<TEventType>() where TEventType : EventBase;
+    TEventType GetEvent<TEventType>() where TEventType : EventBase, new();
 }
 ```
 
@@ -32,10 +30,10 @@ The `EventAggregator` constructs the event on its first access if it has not alr
 
 The real work of connecting publishers and subscribers is done by the `PubSubEvent` class. This is the only implementation of the `EventBase` class that is included in the Prism Library. This class maintains the list of subscribers and handles event dispatching to the subscribers.
 
-The `PubSubEvent` class is a generic class that requires the payload type to be defined as the generic type. This helps enforce, at compile time, that publishers and subscribers provide the correct methods for successful event connection. The following code shows a partial definition of the PubSubEvent class.
+Use `PubSubEvent<TPayload>` when an event carries data, or the non-generic `PubSubEvent` for a signal without a payload. The generic type specifies the payload. This helps enforce, at compile time, that publishers and subscribers provide the correct methods for successful event connection. The following code shows a partial definition of the PubSubEvent class.
 
 :::note
-`PubSubEvent` can be found in the Prism.Events namespace which is located in the Prism.Core NuGet package.
+`PubSubEvent` can be found in the Prism.Events namespace which is provided by the Prism.Events NuGet package (also referenced by Prism.Core).
 :::
 
 ## Creating an Event
@@ -127,7 +125,7 @@ public class MainPageViewModel
 The following options are available for `ThreadOption`:
 
 - `PublisherThread`: Use this setting to receive the event on the publishers' thread. This is the default setting.
-- `BackgroundThread`: Use this setting to asynchronously receive the event on a .NET Framework thread-pool thread.
+- `BackgroundThread`: Use this setting to asynchronously receive the event on a thread-pool thread.
 - `UIThread`: Use this setting to receive the event on the UI thread.
 
 :::note
@@ -169,7 +167,7 @@ It is not recommended to modify the payload object from within a callback delega
 
 If you are raising multiple events in a short period of time and have noticed performance concerns with them, you may need to subscribe with strong delegate references. If you do that, you will then need to manually unsubscribe from the event when disposing the subscriber.
 
-By default, `PubSubEvent` maintains a weak delegate reference to the subscriber's handler and filter on subscription. This means the reference that `PubSubEvent` holds on to will not prevent garbage collection of the subscriber. Using a weak delegate reference relieves the subscriber from the need to unsubscribe and allows for proper garbage collection.
+By default, `PubSubEvent` maintains a weak delegate reference to the subscriber's handler and filter on subscription. This means the reference that `PubSubEvent` holds on to will not prevent garbage collection of the subscriber. Using a weak delegate reference relieves the subscriber from the need to unsubscribe and allows garbage collection when no other references remain. Explicit unsubscription is still useful when a live view model should stop receiving events.
 
 However, maintaining this weak delegate reference is slower than a corresponding strong reference. For most applications, this performance will not be noticeable, but if your application publishes a large number of events in a short period of time, you may need to use strong references with PubSubEvent. If you do use strong delegate references, your subscriber should unsubscribe to enable proper garbage collection of your subscribing object when it is no longer used.
 
@@ -196,7 +194,7 @@ public class MainPageViewModel
 The `keepSubscriberReferenceAlive` parameter is of type `bool`:
 
 - When set to `true`, the event instance keeps a strong reference to the subscriber instance, thereby not allowing it to get garbage collected. For information about how to unsubscribe, see the section Unsubscribing from an Event later in this topic.
-- When set to `false` (the default value when this parameter omitted), the event maintains a weak reference to the subscriber instance, thereby allowing the garbage collector to dispose the subscriber instance when there are no other references to it. When the subscriber instance gets collected, the event is automatically unsubscribed.
+- When set to `false` (the default value when this parameter omitted), the event maintains a weak reference to the subscriber instance, thereby allowing the garbage collector to collect the subscriber instance when there are no other references to it. When the subscriber instance gets collected, the event is automatically unsubscribed.
 
 ## Unsubscribing from an Event
 
@@ -251,3 +249,30 @@ public class MainPageViewModel
 }
 ```
 
+
+## Lifetime, filters and asynchronous work
+
+Keep the `SubscriptionToken` when the subscriber has a definite end-of-interest. It implements `IDisposable`; disposing it unsubscribes. This is especially useful for a strong subscription or a view model that remains cached after navigation.
+
+```csharp
+private readonly SubscriptionToken _subscription;
+
+// In the subscriber constructor:
+_subscription = events.GetEvent<TickerSymbolSelectedEvent>()
+    .Subscribe(ShowNews, ThreadOption.UIThread,
+        keepSubscriberReferenceAlive: true,
+        filter: symbol => !string.IsNullOrWhiteSpace(symbol));
+
+// In the subscriber owner's cleanup path:
+_subscription.Dispose();
+```
+
+`ThreadOption.UIThread` dispatches the action through the synchronization context captured when the `EventAggregator` was constructed. Ensure the application's shared aggregator is created on a UI thread with a valid context. If no context was captured, a UI-thread subscription throws; merely choosing the enum cannot create a dispatcher.
+
+A payload filter runs during publication, **before** dispatching the action. Keep it fast, side-effect free and safe on the publisher's thread. Do not read UI-only state from a filter simply because the subscriber uses `UIThread`.
+
+Publication is an in-process notification, not a durable message, request/response call or awaited workflow. Handlers are `Action` delegates; an `async` lambda becomes `async void`. Use an explicit task-returning service when the publisher needs completion, errors or cancellation. A synchronous publisher-thread handler can propagate an exception to `Publish`; posted/background handlers have a different exception boundary. Do not depend on subscriber ordering for business correctness.
+
+Prefer immutable payloads that contain the minimum information needed. A notification can identify that state changed; a service can own loading the current state. Avoid treating event payloads as a second mutable application store.
+
+Sources: [EventAggregator](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Events/EventAggregator.cs), [subscription and filter execution](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Events/EventSubscription.cs), [PubSubEvent](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Events/PubSubEvent.cs), and [SubscriptionToken](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Events/SubscriptionToken.cs).

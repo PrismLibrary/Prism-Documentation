@@ -3,97 +3,104 @@ sidebar_position: 5
 uid: Plugins.Logging.Gelf
 ---
 
-# Logging with Graylog (GELF)
+# Graylog (GELF)
 
-Graylog is a great option for Developers. We find that there are generally 2 categories of developers that really love using Graylog:
+Install `Prism.Plugin.Logging.Gelf` to send Graylog Extended Log Format messages over UDP, TCP, HTTP, or HTTPS. Create a matching receiver input and use the application's reachable host/port; a phone's `localhost` refers to the phone, not your development computer.
 
-- Developers who want to have logging that is disconnected from Visual Studio but something that can remain local on their developer machine. This can work fantastic in scenarios where you may be doing a demo from a pre-deploy dev build to a device without an active Debug session in Visual Studio. In these situations we have all had great demos where something goes wrong and we wish we could see what happened. Using the GELF logger this problem can be solved by ensuring that even while you're doing your demo the logs can continue to stream to your machine for you to review later.
-- Some Enterprises in particular have very strict Data policies. As such owning the full End-to-End solution can be of great importance. For these customers Graylog can provide a fantastic option as you can control your options by deploying your own Graylog server into production.
+```csharp
+using Prism.Plugin.Logging;
+using Prism.Plugin.Logging.Gelf;
 
-## Setup
-
-## Local Debugging
-
-Below is a sample docker file. You can use this to create a local Graylog stack using the [Graylog Docker image](https://hub.docker.com/r/graylog/graylog/). This can be useful for testing application logs locally. Requires [Docker](https://www.docker.com/get-docker) and Docker Compose.
-
-- `docker-compose up`
-- Navigate to [http://localhost:9000](http://localhost:9000)
-- Credentials: admin/admin
-- Create a UDP input on port 12201 and set `GelfLoggerOptions.Host` to `localhost`.
-
-:::note
-The username and password are both `admin`. This should only be used for local testing. If putting this into production be sure to update the password.
-:::
-
-```docker
-services:
-  mongodb:
-    image: mongo:4.4
-    container_name: graylog-mongodb
-    restart: always
-    volumes:
-      - /docker/graylog/data/mongodb:/data/db
-    networks:
-      - graylog-network
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
-    container_name: graylog-elasticsearch
-    restart: always
-    environment:
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g
-      - xpack.security.enabled=false
-      - xpack.monitoring.enabled=false
-      - xpack.ml.enabled=false
-      - network.host=0.0.0.0
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - /docker/graylog/data/elasticsearch:/usr/share/elasticsearch/data
-    networks:
-      - graylog-network
-
-  graylog:
-    image: graylog/graylog:4.3
-    container_name: graylog
-    restart: always
-    depends_on:
-      - mongodb
-      - elasticsearch
-    environment:
-      - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
-      # Password: "admin"
-      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
-      - GRAYLOG_ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - GRAYLOG_MONGODB_URI=mongodb://mongodb:27017/graylog
-    ports:
-      # Graylog web interface and REST API
-      - "9000:9000/tcp"
-      # Beats
-      - "5044:5044/tcp"
-      # Syslog TCP
-      - "5140:5140/tcp"
-      # Syslog UDP
-      - "5140:5140/udp"
-      # GELF TCP
-      - "12201:12201/tcp"
-      # GELF UDP
-      - "12201:12201/udp"
-      # Forwarder data
-      - "13301:13301/tcp"
-      # Forwarder config
-      - "13302:13302/tcp"
-    volumes:
-      - /docker/graylog/data/graylog:/usr/share/graylog/data/journal
-    networks:
-      - graylog-network
-
-networks:
-  graylog-network:
-    driver: bridge
+registry.UsePrismLogging(logging => logging.AddGelf(new GelfLoggerOptions
+{
+    Protocol = GelfProtocol.Https,
+    Host = "logs.example.com",
+    Port = 443,
+    Timeout = TimeSpan.FromSeconds(10)
+}));
 ```
 
+Replace the host/port with your configured destination. `Host` is the server hostname; the HTTP transport constructs the `/gelf` endpoint. Use [Graylog's current GELF input documentation](https://go2docs.graylog.org/current/getting_in_log_data/gelf.html) to configure transport, TLS, and the server's access policy. Do not copy an obsolete development stack or default credentials into production.
+
+Convenience methods include `AddUdpGelf(host, port)`, `AddTcpGelf(host, port)`, and `AddHttpsGelf(host, port)`. The default protocol is UDP, which is fire-and-forget and does not support the persistent store. Browser hosts require HTTP(S), with normal CORS and mixed-content restrictions.
+
+## Opt into bounded offline storage
+
+`OfflineStore` defaults to `null`. For native TCP or HTTP(S), give the logger its own absolute application-private directory:
+
+```csharp
+var options = new GelfLoggerOptions
+{
+    Protocol = GelfProtocol.Https,
+    Host = "logs.example.com",
+    Port = 443,
+    Timeout = TimeSpan.FromSeconds(10),
+    OfflineStore = new GelfOfflineStoreOptions
+    {
+        DirectoryPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "ExampleApp", "Gelf"),
+        MaxMessages = 1000,
+        MaxBytes = 1024 * 1024,
+        RetryInterval = TimeSpan.FromSeconds(30)
+    }
+};
+registry.UsePrismLogging(logging => logging.AddGelf(options));
+```
+
+Use one registration approach, not both examples in the same container. The directory is exclusive to one active logger/process and bound to the destination. Do not reuse it for another endpoint, put it in cache/shared storage, or modify records while the logger owns it.
+
+An accepted native log is serialized, written/flushed, and renamed synchronously before returning. Network replay uses a single FIFO worker. A full store, oversized record, or storage failure is reported synchronously to the logging caller; accepted records are not evicted to admit new ones. `OnError` can report background delivery/storage failures. Do not log through this provider or synchronously dispose it from that callback.
+
+Defaults are 10,000 messages and 16 MiB of payload, excluding storage overhead. Failed sends, including HTTP 4xx, retain the head record and retry; a malformed retained record can block the queue. Recovery needs an application policy, not a claim that retries always fix invalid configuration.
+
+## Uno BrowserWasm persistence
+
+Configure `BrowserStorageKey` instead of `DirectoryPath`, then initialize on the browser thread before the first log:
+
+```csharp
+registry.UsePrismLogging(logging => logging.AddGelf(new GelfLoggerOptions
+{
+    Protocol = GelfProtocol.Https,
+    Host = "logs.example.com",
+    Port = 443,
+    OfflineStore = new GelfOfflineStoreOptions
+    {
+        BrowserStorageKey = "example-app-gelf",
+        MaxMessages = 1000,
+        MaxBytes = 1024 * 1024
+    }
+}));
+
+// After the application container exists, on the browser thread:
+await containerProvider.InitializeGelfAsync(cancellationToken);
+```
+
+Initialization requires a secure context and Web Locks. A second active owner of the same key fails initialization. Registration alone acquires no ownership. Logging before initialization or on the wrong browser thread fails visibly. Initialization can be retried after cancellation/failure.
+
+Browser records are a bounded plaintext `localStorage` snapshot. A completed write means the browser accepted it, not that bytes were physically flushed. Storage is readable by same-origin scripts and subject to quota, clearing, and eviction. Limits exclude snapshot/escaping overhead. This is not equivalent to native durable storage or a background service that survives a closed tab.
+
+## Delivery, cancellation, and shutdown
+
+Public Prism log/event/report calls have no per-message cancellation token. Once accepted into storage, a record belongs to the queue; canceling the producer's operation does not retract it. Native filesystem operations already in progress cannot be interrupted mid-commit.
+
+HTTP removes a record after a successful 2xx response; that is not proof of indexing or durable server storage. TCP removes it after a successful socket write, with no application-level acknowledgment. Ambiguous failures or process termination around delivery can cause duplicates. Delivery is not exactly once.
+
+Dispose the owning DI container at shutdown. For deterministic asynchronous ownership release, especially before another browser owner starts, call:
+
+```csharp
+await containerProvider.ShutdownGelfAsync();
+```
+
+Shutdown cancels delivery and retains pending records; it does not drain the queue. Remaining accepted records replay when a new owner resolves/initializes the logger. Uninstallation, storage cleanup, or corruption can still lose records.
+
+Persisted payloads can include messages, exception details, user identifiers, and properties. HTTP headers are not stored, but queued payloads are plaintext. Select retention, access permissions, backup exclusion, and encryption requirements before enabling storage. Review [provider filtering](../index.md); it is not a general sanitizer.
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Logging.Gelf/GelfLoggingServiceExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Gelf/GelfLoggingServiceExtensions.cs)
+- [`src/Prism.Plugin.Logging.Gelf/GelfLoggerOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Gelf/GelfLoggerOptions.cs)
+- [`src/Prism.Plugin.Logging.Gelf/GelfOfflineStoreOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Gelf/GelfOfflineStoreOptions.cs)
+- [`src/Prism.Plugin.Logging.Gelf/ReadMe.md`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Gelf/ReadMe.md)

@@ -52,3 +52,9 @@ Package `help.txt` with the application's platform-specific asset build action. 
 - Bound file sizes and validate externally supplied filenames before writing.
 
 Portable picked-file references and the new native camera/share APIs are not part of this merged baseline. See the [camera](../media/camera.md) and [share](../applicationmodel/datatransfer/share.md) availability notes.
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Essentials/IO/FileSystem/IFileSystem.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/IO/FileSystem/IFileSystem.cs)

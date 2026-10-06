@@ -5,23 +5,30 @@ uid: Plugins.Logging.Kochava
 
 # Kochava
 
-By installing the `Prism.Plugin.Logging.Kochava` package you get access to the Kochava Logging provider.
+Install `Prism.Plugin.Logging.Kochava` for analytics on Android, iOS, and Mac Catalyst. `AddKochava` does nothing on other targets, so a shared registration call is not evidence that an active provider exists on every head.
 
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    logging.AddKochava("{app secret}");
-});
+```csharp
+using Prism.Plugin.Logging;
+
+registry.UsePrismLogging(logging => logging.AddKochava(
+    "your-application-guid",
+    options =>
+    {
+        options.CanLogEvent = (name, _) =>
+            name.StartsWith("Workflow_", StringComparison.Ordinal);
+    }));
 ```
 
-## Limitations & Considerations
+Use the application GUID supplied by your Kochava project. The extension registers the native app GUID and starts the Kochava SDK during registration. Complete native configuration and consent decisions before this point.
 
-Kochava is best utilized for application Analytics.
+`TrackEvent` combines global/scoped properties, applies `CanLogEvent`, transforms the name with `FormatEventName`, and sends it to Kochava. `SetUser` / `ClearUser` manage the SDK's default event user ID. Generic `Log` and exception `Report` are no-ops; pair with an explicitly selected diagnostic provider if needed.
 
-### API
+Disabling Prism events only filters calls passing through this adapter. It is not a promise that the native SDK has no other automatic collection. Verify the installed SDK's platform setup and data policy. Keep identifiers and event properties within the application's approved telemetry scope. See [logging configuration](../index.md).
 
-Only the `TrackEvent` API has been implemented for Kochava. As a result there is no need to try to disable the Error Tracking or generic Logging.
+## Source reference
 
-### Supported Platforms
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-Kochava is only available on Android, iOS, & MacCatalyst. The `Prism.Plugin.Logging.Kochava` package can safely be used across any other targets you may have without the need to put a compiler directive around it. Adding the provider outside of the supported platforms will not result in any additional provider being added and you will not have a Kochava reference in your code.
-
+- [`src/Prism.Plugin.Logging.Kochava/KochavaLoggerExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Kochava/KochavaLoggerExtensions.cs)
+- [`src/Prism.Plugin.Logging.Kochava/KochavaLoggingService.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Kochava/KochavaLoggingService.cs)
+- [`src/Prism.Plugin.Logging.Kochava/Prism.Plugin.Logging.Kochava.csproj`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Kochava/Prism.Plugin.Logging.Kochava.csproj)

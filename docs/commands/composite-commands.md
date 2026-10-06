@@ -1,237 +1,124 @@
 ---
 sidebar_position: 2
-uid: Commands.CompositeCommands
 ---
 
-# Composite Commands
+# Composite commands
 
-In many cases, a command defined by a ViewModel will be bound to controls in the associated view so that the user can directly invoke the command from within the view. However, in some cases, you may want to be able to invoke commands on one or more ViewModels from a control in a parent view in the application's UI.
+A `Prism.Commands.CompositeCommand` exposes one `ICommand` to the UI and forwards it to registered child commands. A shell's **Save all** action is a useful example: each open document owns its own save command, while the shell does not need to know each document's concrete view-model type.
 
-For example, if your application allows the user to edit multiple items at the same time, you may want to allow the user to save all the items using a single command represented by a button in the application's toolbar or ribbon. In this case, the Save All command will invoke each of the Save commands implemented by the ViewModel instance for each item as shown in the following illustration.
+Use the same composite-command service instance in the shell and its participants. The command is UI-framework independent; WPF, .NET MAUI, Uno and Avalonia can bind to it.
 
-![SaveAll composite command](../images/composite-commands-1.png)
+## How enabled state and execution flow
 
-Prism supports this scenario through the `CompositeCommand` class.
+![Save all checks every participating child command. If any child cannot execute, Save all is disabled. Once enabled and invoked, it calls each child in registration order.](../images/composite-command-flow.svg)
 
-The `CompositeCommand` class represents a command that is composed from multiple child commands. When the composite command is invoked, each of its child commands is invoked in turn. It is useful in situations where you need to represent a group of commands as a single command in the UI or where you want to invoke multiple commands to implement a logical command.
+The diagram describes a normal control invocation: the control checks `CanExecute` before calling `Execute`. Prism's composite itself does not perform that check inside `Execute`.
 
-The `CompositeCommand` class maintains a list of child commands (`DelegateCommand` instances). The `Execute` method of the `CompositeCommand` class simply calls the `Execute` method on each of the child commands in turn. The `CanExecute` method similarly calls the `CanExecute` method of each child command, but if any of the child commands cannot be executed, the `CanExecute` method will return `false`. In other words, by default, a `CompositeCommand` can only be executed when all the child commands can be executed.
+| Participating children | `CanExecute` |
+| --- | --- |
+| No children | `false` |
+| Invoice can save; notes can save | `true` |
+| Invoice can save; notes cannot save | `false` |
+| Activity monitoring enabled; no active children | `false` |
 
-:::note
-`CompositeCommand` can be found in the Prism.Commands namespace which is located in the Prism.Core NuGet package.
-:::
+For a **Save all** command, a clean document often needs a no-op save that can execute. If its predicate returns false merely because it has no changes, it disables saving every other document too. Choose the predicate according to the meaning of the aggregate action.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kssprOqdfME" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+## Creating a CompositeCommand
 
-## Creating a Composite Command
+```csharp
+using Prism.Commands;
 
-To create a composite command, instantiate a `CompositeCommand` instance and then expose it as either an `ICommand` or `CompositeCommand` property.
-
-```cs
-    public class ApplicationCommands
-    {
-        private CompositeCommand _saveCommand = new CompositeCommand();
-        public CompositeCommand SaveCommand
-        {
-            get => _saveCommand;
-        }
-    }
-```
-
-## Making a CompositeCommand Globally Available
-
-Typically, CompositeCommands are shared throughout an application and need to be made available globally. It's important that when you register a child command with a `CompositeCommand` that you are using the same instance of the CompositeCommand throughout the application. This requires the CompositeCommand to be defined as a singleton in your application.  This can be done by either using dependency injection (DI), or by defining your CompositeCommand as a static class.
-
-### Using Dependency Injection
-
-The first step in defining your CompositeCommands is to create an interface.
-
-```cs
-    public interface IApplicationCommands
-    {
-        CompositeCommand SaveCommand { get; }
-    }
-```
-
-Next, create a class that implements the interface.
-
-```cs
-    public class ApplicationCommands : IApplicationCommands
-    {
-        private CompositeCommand _saveCommand = new CompositeCommand();
-        public CompositeCommand SaveCommand
-        {
-            get =>_saveCommand;
-        }
-    }
-```
-
-Once you have defined your ApplicationCommands class, you must register it as a singleton with the container.
-
-```cs
-    public partial class App : PrismApplication
-    {
-        protected override void RegisterTypes(IContainerRegistry containerRegistry)
-        {
-            containerRegistry.RegisterSingleton<IApplicationCommands, ApplicationCommands>();
-        }
-    }
-```
-
-Next, ask for the `IApplicationCommands` interface in the ViewModel constructor.  Once you have an instance of the `ApplicationCommands` class, can now register your DelegateCommands with the appropriate CompositeCommand.
-
-```cs
-    public DelegateCommand UpdateCommand { get; private set; }
-
-    public TabViewModel(IApplicationCommands applicationCommands)
-    {
-        UpdateCommand = new DelegateCommand(Update);
-        applicationCommands.SaveCommand.RegisterCommand(UpdateCommand);
-    }
-```
-
-### Using a Static Class
-
-Create a static class that will represent your CompositeCommands
-
-```cs
-public static class ApplicationCommands
+public interface IApplicationCommands
 {
-    public static CompositeCommand SaveCommand = new CompositeCommand();
+    CompositeCommand SaveCommand { get; }
+}
+
+public sealed class ApplicationCommands : IApplicationCommands
+{
+    public CompositeCommand SaveCommand { get; } = new();
 }
 ```
 
-In your ViewModel, associate child commands to the static `ApplicationCommands` class.
+Register the shared service once in application composition:
 
-```cs
-    public DelegateCommand UpdateCommand { get; private set; }
+```csharp
+containerRegistry.RegisterSingleton<IApplicationCommands, ApplicationCommands>();
+```
 
-    public TabViewModel()
+Inject it into the shell view model and expose it for binding:
+
+```csharp
+public sealed class ShellViewModel
+{
+    public ShellViewModel(IApplicationCommands commands) => Commands = commands;
+    public IApplicationCommands Commands { get; }
+}
+```
+
+Bind the button's `Command` to `{Binding Commands.SaveCommand}`. Set its label with the host's normal content property (`Content` on WPF/Uno/Avalonia; `Text` on .NET MAUI).
+
+## Registering and unregistering child commands
+
+```csharp
+using Prism.Commands;
+using Prism.Mvvm;
+
+public sealed class DocumentViewModel : BindableBase, IDisposable
+{
+    private readonly IApplicationCommands _commands;
+    private readonly IDocument _document;
+    private bool _isValid = true;
+
+    public DocumentViewModel(IApplicationCommands commands, IDocument document)
     {
-        UpdateCommand = new DelegateCommand(Update);
-        ApplicationCommands.SaveCommand.RegisterCommand(UpdateCommand);
+        _commands = commands;
+        _document = document;
+        SaveCommand = new DelegateCommand(_document.Save, () => IsValid)
+            .ObservesProperty(() => IsValid);
+        _commands.SaveCommand.RegisterCommand(SaveCommand);
     }
-```
 
-:::note
-To increase the maintainability and testability of your code, it is recommended that you using the dependency injection approach.
-:::
+    public DelegateCommand SaveCommand { get; }
 
-## Binding to a Globally Available Command
-
-Once you have created your CompositeCommands, you must now bind them to UI elements in order to invoke the commands.
-
-### Using Dependency Injection
-
-When using DI, you must expose the `IApplicationCommands` for binding to a View.  In the ViewModel of the view, ask for the `IApplicationCommands` in the constructor and set a property of type `IApplicationCommands` to the instance.
-
-```cs
-    public class MainWindowViewModel : BindableBase
+    public bool IsValid
     {
-        private IApplicationCommands _applicationCommands;
-        public IApplicationCommands ApplicationCommands
-        {
-            get => _applicationCommands;
-            set => SetProperty(ref _applicationCommands, value);
-        }
-
-        public MainWindowViewModel(IApplicationCommands applicationCommands)
-        {
-            ApplicationCommands = applicationCommands;
-        }
+        get => _isValid;
+        set => SetProperty(ref _isValid, value);
     }
+
+    public void Dispose() =>
+        _commands.SaveCommand.UnregisterCommand(SaveCommand);
+}
+
+public interface IDocument
+{
+    void Save();
+}
 ```
 
-In the view, bind the button to the `ApplicationCommands.SaveCommand` property. The `SaveCommand` is a property that is defined on the `ApplicationCommands` class.
+The composite holds strong references to its children and subscribes to their `CanExecuteChanged` events. The document owner must unregister when the document is permanently removed. Wire that cleanup into your host's actual lifetime; `IDisposable` in this example is an explicit ownership contract, not a promise that every region automatically disposes view models.
 
-```xml
-<Button Content="Save" Command="{Binding ApplicationCommands.SaveCommand}"/>
+Registering the same command twice or registering a composite in itself throws. The `RegisteredCommands` property returns a copy; modifying that list does not register or unregister commands.
+
+## Executing active commands only
+
+Create `new CompositeCommand(monitorCommandActivity: true)` when the action should involve only active participants. A child implementing `Prism.IActiveAware` participates only while its `IsActive` is true. `DelegateCommand` and `AsyncDelegateCommand` implement this interface; their initial `IsActive` is false.
+
+```csharp
+public CompositeCommand SaveActiveCommand { get; } = new(true);
+
+// When the owning document's active state changes:
+SaveCommand.IsActive = isActive;
 ```
 
-<!--TODO: Remove duplicate sections -->
-### Using a Static Class
+A region's activation of a view/view model does not automatically set every command property on that view model. Forward the relevant active state deliberately. Children that do not implement `IActiveAware` continue to participate even when monitoring is enabled.
 
-If you are using the static class approach, the following code example shows how to bind a button to the static ApplicationCommands class in WPF.
+## Execution and failures
 
-```xml
-<Button Content="Save" Command="{x:Static local:ApplicationCommands.SaveCommand}" />
-```
+Execution takes a snapshot of participating children and invokes them in registration order with the same parameter. It is not transactional: if one synchronous child throws, later children are not reached and earlier work is not rolled back.
 
-## Unregister a Command
+Although an `AsyncDelegateCommand` can be registered because it implements `ICommand`, the composite invokes its `ICommand.Execute` bridge and does **not** await the task. For an asynchronous Save all workflow, use one `AsyncDelegateCommand` that awaits a coordinating service, chooses sequential or parallel behavior explicitly, and defines partial-failure and cancellation policies. See [async commands](async-commands.md).
 
-As seen in the previous examples, child commands are registered using the `CompositeCommand.RegisterCommand` method. However, when you no longer wish to respond to a CompositeCommand or if you are destroying the View/ViewModel for garbage collection, you should unregister the child commands with the `CompositeCommand.UnregisterCommand` method.
+## Source and tests
 
-```cs
-    public void Destroy()
-    {
-        _applicationCommands.UnregisterCommand(UpdateCommand);
-    }
-```
-
-:::warning
-You MUST unregister your commands from a `CompositeCommand` when the View/ViewModel is no longer needed (ready for GC). Otherwise you will have introduced a memory leak.
-:::
-
-## Executing Commands on Active Views
-
-Composite commands at the parent view level will often be used to coordinate how commands at the child view level are invoked. In some cases, you will want the commands for all shown views to be executed, as in the Save All command example described earlier. In other cases, you will want the command to be executed only on the active view. In this case, the composite command will execute the child commands only on views that are deemed to be active; it will not execute the child commands on views that are not active. For example, you may want to implement a Zoom command on the application's toolbar that causes only the currently active item to be zoomed, as shown in the following diagram.
-
-![Executing a CompositeCommand on a single child](../images/composite-commands-2.png)
-
-To support this scenario, Prism provides the `IActiveAware` interface. The `IActiveAware` interface defines an `IsActive` property that returns `true` when the implementer is active, and an `IsActiveChanged` event that is raised whenever the active state is changed.
-
-You can implement the `IActiveAware` interface on views or ViewModels. It is primarily used to track the active state of a view. Whether or not a view is active is determined by the views within the specific control. For the Tab control, there is an adapter that sets the view in the currently selected tab as active, for example.
-
-The `DelegateCommand` class also implements the `IActiveAware` interface. The `CompositeCommand` can be configured to evaluate the active status of child DelegateCommands (in addition to the `CanExecute` status) by specifying `true` for the `monitorCommandActivity` parameter in the constructor. When this parameter is set to `true`, the `CompositeCommand` class will consider each child DelegateCommand's active status when determining the return value for the `CanExecute` method and when executing child commands within the `Execute` method.
-
-```cs
-    public class ApplicationCommands : IApplicationCommands
-    {
-        private CompositeCommand _saveCommand = new CompositeCommand(true);
-        public CompositeCommand SaveCommand
-        {
-            get => _saveCommand;
-        }
-    }
-```
-
-When the `monitorCommandActivity` parameter is `true`, the `CompositeCommand` class exhibits the following behavior:
-
-- `CanExecute`: Returns `true` only when all active commands can be executed. Child commands that are inactive will not be considered at all.
-- `Execute`: Executes all active commands. Child commands that are inactive will not be considered at all.
-
-By implementing the `IActiveAware` interface on your ViewModels, you will be notified when your view becomes active or inactive. When the view's active status changes, you can update the active status of the child commands. Then, when the user invokes the composite command, the command on the active child view will be invoked.
-
-```cs
-    public class TabViewModel : BindableBase, IActiveAware
-    {
-        private bool _isActive;
-        public bool IsActive
-        {
-            get { return _isActive; }
-            set => SetProperty(ref _isActive, OnIsActiveChanged);
-        }
-
-        public event EventHandler IsActiveChanged;
-
-        public DelegateCommand UpdateCommand { get; private set; }
-
-        public TabViewModel(IApplicationCommands applicationCommands)
-        {
-            UpdateCommand = new DelegateCommand(Update);
-            applicationCommands.SaveCommand.RegisterCommand(UpdateCommand);
-        }
-
-        private void Update()
-        {
-            //implement logic
-        }
-
-        private void OnIsActiveChanged()
-        {
-            UpdateCommand.IsActive = IsActive; //set the command as active
-            IsActiveChanged?.Invoke(this, new EventArgs()); //invoke the event for all listeners
-        }
-    }
-```
-
+[CompositeCommand implementation](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Commands/CompositeCommand.cs) and [behavior tests](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/tests/Prism.Core.Tests/Commands/CompositeCommandFixture.cs) cover registration, empty state, active-state filtering and forwarding.
