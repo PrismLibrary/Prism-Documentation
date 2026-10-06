@@ -26,7 +26,7 @@ The bundled catalog contains twelve original essays and five original topic illu
 
 ## Follow the application layer
 
-[CatalogViewModel](https://github.com/PrismLibrary/samples/blob/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/Shared/ContentCatalog/ViewModels/CatalogViewModel.cs) owns search cancellation and a request generation. Only the newest live request can update results, errors, or busy state, including when a source ignores cancellation. [LearningSession](https://github.com/PrismLibrary/samples/blob/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) owns bookmarks, collections, preferences, and reading progress independently of transient views.
+[CatalogViewModel](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/ContentCatalog/ViewModels/CatalogViewModel.cs) owns search cancellation and a request generation. Only the newest live request can update results, errors, or busy state, including when a source ignores cancellation. [LearningSession](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) owns bookmarks, collections, preferences, and reading progress independently of transient views.
 
 The on-demand graph is **Collections → ContentCatalog**, with **ReadingTools** independent. Heads map `Learning.*` routes and dialog keys to native views. Collection editing uses a draft and explicit dialog result; dirty cancellation offers Keep editing or Discard.
 
@@ -36,28 +36,32 @@ The on-demand graph is **Collections → ContentCatalog**, with **ReadingTools**
 
 The WPF shell uses a root region and native dialog window. Bounded, virtualizing catalog lists avoid an ever-growing stack of cards. Runtime tests inspect actual image decoding, selected-item focus, scrolling, collection edits, and large-text reader actions. These are in-process controls tests, not screen-reader certification.
 
-Follow [WPF startup](https://github.com/PrismLibrary/samples/blob/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/WPF/PrismLearningHub.Wpf/PrismStartup.cs).
+Follow [WPF startup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/WPF/PrismLearningHub.Wpf/PrismStartup.cs).
 
 ### MAUI: touch-friendly discovery and reading
 
 The MAUI builder selects the Microsoft container and registers a logical shell route. Native pages and region views own layout, font sizing, and platform appearance; the shared session retains progress and collections across presentation changes.
 
-Follow [MAUI composition](https://github.com/PrismLibrary/samples/blob/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/Maui/PrismLearningHub.Maui/MauiProgram.cs).
+Follow [MAUI composition](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Maui/PrismLearningHub.Maui/MauiProgram.cs).
 
 ### Uno: native XAML for each application head
 
 Uno registers its own shell and feature views while using the same catalog, session, and module graph. The compiled view templates and image presentation belong to the Uno head, so native WinUI build results must not be advertised as browser or Linux interaction results.
 
-Follow [Uno startup](https://github.com/PrismLibrary/samples/blob/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/Uno/PrismLearningHub.Uno/PrismStartup.cs).
+Follow [Uno startup](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Uno/PrismLearningHub.Uno/PrismStartup.cs).
 
 ## Essentials and original artwork
 
-[LearningStore](https://github.com/PrismLibrary/samples/blob/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/Shared/Settings/Services/LearningStore.cs) stores a versioned, generated-JSON snapshot through Essentials settings. Progress is persisted before the UI claims success. A failed write retains the previous state; unreadable or unsupported stored data pauses writes instead of resetting the library.
+[LearningStore](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningStore.cs) stores a versioned, generated-JSON snapshot through Essentials settings. Progress is persisted before the UI claims success. A failed write retains the previous state; unreadable or unsupported stored data pauses writes instead of resetting the library.
 
-The [original SVG illustrations and bounded raster assets](https://github.com/PrismLibrary/samples/tree/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/Assets) are bundled with the app. A failed image retains the topic and title text. The fixed publication date describes this local edition; it is not presented as a recent remote synchronization.
+The [original SVG illustrations and bounded raster assets](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Assets) are bundled with the app. A failed image retains the topic and title text. The fixed publication date describes this local edition; it is not presented as a recent remote synchronization.
+
+## Workflow diagnostics
+
+[LearningSession](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/Shared/Settings/Services/LearningSession.cs) receives `ILogger<LearningSession>` and records library restore/save, bookmark changes, progress saves, and collection changes. Outcomes follow persistence: a failed write remains failed, and a protected read-only store produces a skipped outcome. Collection names, essay selections, and reading-state values are not copied to the [filtered local diagnostics](index.md#diagnose-real-workflows-with-prism-logging).
 
 ## Run and verify
 
-Use the [Learning Hub README](https://github.com/PrismLibrary/samples/blob/88efab29a85f986877ec4cff7bc37770c0d4327b/samples/prism-learning-hub/README.md). Portable tests cover out-of-order search, cancellation, state restoration, collection drafts, persistence failures, and UI-free dependencies. Native WPF tests exercise real routes, dialogs, bindings, virtualized lists, and the selected-collection regression.
+Use the [Learning Hub README](https://github.com/PrismLibrary/samples/blob/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57/samples/prism-learning-hub/README.md). Portable tests cover out-of-order search, cancellation, state restoration, collection drafts, persistence failures, and UI-free dependencies. Native WPF tests exercise real routes, dialogs, bindings, virtualized lists, and the selected-collection regression.
 
 See [runtime capture coverage](runtime-coverage.md) and the [NativeAOT boundary](index.md#nativeaot-and-production-boundaries).

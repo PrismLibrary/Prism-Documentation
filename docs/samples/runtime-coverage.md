@@ -15,7 +15,7 @@ A screenshot identifies one application, presentation framework, operating syste
 | Planner | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
 | Sales Desk | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
 | Learning Hub | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
-| Mail, review branch | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
+| Mail | Runtime test render | Capture pending | Capture pending | Capture pending | Capture blocked | Capture pending | Capture pending |
 
 “Capture pending” means no qualified image from that application/head is included here. It does not mean that the target is unsupported. Linux capture is currently blocked before a runnable application is available; no substitute image is presented as Linux output. Browser execution and an Android emulator must likewise be verified before their rows change.
 
@@ -39,7 +39,7 @@ These original PNGs were produced on Windows by live application-owned WPF windo
 
 Captured on 5 October 2026. The original capture records do not establish a normalized UTC timestamp, so none is invented. Pixel dimensions, full source identifiers, SHA-256 hashes, data isolation, and capture method are recorded in the [image provenance manifest](images/runtime-provenance.json). Original bytes, including transparent non-client margins, are preserved; no image was generated or retouched to represent a running application.
 
-The image checkpoints may precede the source revision linked by a walkthrough. A source link describes the reviewed code; an image describes its labeled captured revision. Mail's current provider branch and these offline images remain separate evidence.
+The image checkpoints may precede the source revision linked by a walkthrough. A source link describes the reviewed code; an image describes its labeled captured revision. Mail's merged source and these earlier offline images remain separate evidence. The Logging changes did not modify the UI assets or XAML, so the images remain pinned to their original captured checkpoints.
 
 ## What a new platform capture must establish
 
@@ -54,4 +54,12 @@ No live mail sign-in, consent, mailbox access, or real send is needed to capture
 
 ## Source baselines
 
-The four merged applications were reviewed at [samples master `88efab29`](https://github.com/PrismLibrary/samples/tree/88efab29a85f986877ec4cff7bc37770c0d4327b). Mail was reviewed at [PR #9 source `4ec97be`](https://github.com/PrismLibrary/samples/tree/4ec97be72f11357c74ee616573a74a03adeb513c/samples/prism-mail). Source access is required for these repository links. The [walkthrough overview](index.md) remains self-contained about the composition and validation boundaries.
+All five applications, including merged Mail and Logging, were reviewed at [samples master `9c31a9ce`](https://github.com/PrismLibrary/samples/tree/9c31a9ce1a1fd55cc15c2cba4fc4a6338fd98b57). Mail's merge is [PR #9](https://github.com/PrismLibrary/samples/pull/9); the Logging integration is [PR #15](https://github.com/PrismLibrary/samples/pull/15). Source access is required for these repository links. The [walkthrough overview](index.md) describes the composition and privacy boundaries.
+
+The Logging qualification used source `5aa5302bcd65da01376c48292bd5d70e931d3d00`, whose file tree matches the merge:
+
+- The 561-test portable suite passed on both .NET 10 and .NET 11.
+- 21 native WPF tests passed, including the five actual host startup/logger-composition checks.
+- All ten selected MAUI/Uno Windows builds passed with zero errors and the existing package-source mapping warnings.
+
+Those checks verify the real Logging integration, privacy filtering, and tested application boundaries. They do not constitute new screenshots, complete MAUI/Uno interactive journeys, Android/browser runtime checks, Apple acceptance, or NativeAOT publication. Pending capture rows above therefore remain pending.
