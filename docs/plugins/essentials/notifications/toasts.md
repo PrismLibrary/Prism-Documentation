@@ -46,12 +46,13 @@ Tie the token to the operation or screen that owns the message. Cancellation ret
 
 `ToastAction.Text` is required. Its optional `Callback` starts after dismissal begins, and the toast does not await that callback's completion. When follow-on work must be awaited or errors handled in sequence, use the returned `ActionSelected` result and run that work in your own async method instead. Avoid attaching a callback and then executing the same action again from the result.
 
-Implementations exist for the MAUI, WPF, and Uno integrations, including Uno desktop/browser UI paths. Rendering and resource lookup are host-specific. Test replacement, action selection, cancellation, window closure, and accessibility on the actual target. There is no Avalonia Essentials host registration.
+Implementations exist for the MAUI, WPF, and Uno integrations, including Uno desktop/browser UI paths. Rendering and resource lookup are host-specific. Cleanup also handles presentation registered after the session has already completed, so a canceled/replaced toast does not leave late UI attached. Test replacement, action selection, cancellation, window closure, and accessibility on the actual target. There is no Avalonia Essentials host registration.
 
 ## Source reference
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials/Notifications/IToasts.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Notifications/IToasts.cs)
-- [`src/Prism.Plugin.Essentials/Notifications/ToastOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Notifications/ToastOptions.cs)
-- [`src/Prism.Plugin.Essentials/Notifications/ToastAction.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Notifications/ToastAction.cs)
+- [`src/Prism.Plugin.Essentials/Notifications/IToasts.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Notifications/IToasts.cs)
+- [`src/Prism.Plugin.Essentials/Notifications/ToastOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Notifications/ToastOptions.cs)
+- [`src/Prism.Plugin.Essentials/Notifications/ToastAction.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Notifications/ToastAction.cs)
+- [`src/Prism.Plugin.Essentials/Notifications/ToastHost.Session.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Notifications/ToastHost.Session.cs)

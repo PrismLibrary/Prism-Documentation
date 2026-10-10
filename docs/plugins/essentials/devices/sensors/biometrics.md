@@ -62,7 +62,7 @@ A local success is not remote account authentication, authorization, or encrypti
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/IBiometrics.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/IBiometrics.cs)
-- [`src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/AuthenticationRequestConfiguration.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/AuthenticationRequestConfiguration.cs)
-- [`src/Prism.Plugin.Essentials.Uno.WinUI/Desktop/Win32/Devices/BiometricImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Uno.WinUI/Desktop/Win32/Devices/BiometricImplementation.cs)
-- [`src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BiometricImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BiometricImplementation.cs)
+- [`src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/IBiometrics.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/IBiometrics.cs)
+- [`src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/AuthenticationRequestConfiguration.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Devices/Sensors/Biometrics/AuthenticationRequestConfiguration.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/Desktop/Win32/Devices/BiometricImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Uno.WinUI/Desktop/Win32/Devices/BiometricImplementation.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BiometricImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BiometricImplementation.cs)

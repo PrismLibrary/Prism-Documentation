@@ -15,6 +15,7 @@ Install `Prism.Plugin.Logging.Essentials` with your host's Essentials package an
 using Prism.Plugin.Essentials;
 using Prism.Plugin.Logging;
 
+registry.RegisterSerializer(AppJsonContext.Default);
 registry.UsePrismEssentials();
 registry.UsePrismLogging(logging =>
 {
@@ -34,7 +35,7 @@ registry.UsePrismLogging(logging =>
 
 The bridge converts error properties to strings and calls Prism's exception `Log` extension. That path includes the exception message and may add its type and stack trace. It is generic logging, so turning off only `EnableErrorTracking` does not suppress it. Filter or sanitize all provider entry points if the application must keep exception content out of output.
 
-The integration is best-effort and uses reflection. Missing assemblies, an incompatible error-handler API, or failure to resolve a logger can prevent forwarding. Do not rely on it as a guaranteed audit channel, global unhandled-exception handler, or NativeAOT qualification. Verify the actual published application, including any trimming configuration.
+The integration is best-effort and uses reflection. The merged source retains loaded-assembly discovery and a literal assembly-qualified lookup that preserves the linked Essentials bridge's public methods during trimming. Externally loaded plugin hosts must preserve that bridge contract themselves. Missing assemblies, an incompatible error-handler API, or failure to resolve a logger can prevent forwarding. Do not rely on it as a guaranteed audit channel, global unhandled-exception handler, or NativeAOT qualification. Verify the actual published application, including any trimming configuration.
 
 See [logging configuration](../index.md), [device information](../../essentials/devices/deviceinfo.md), and [NativeAOT](../../../dependency-injection/native-aot.md).
 
@@ -42,7 +43,7 @@ See [logging configuration](../index.md), [device information](../../essentials/
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Logging.Essentials/EssentialsLoggingExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Essentials/EssentialsLoggingExtensions.cs)
-- [`src/Prism.Plugin.Logging.Abstractions/Internals/EssentialsErrorLoggingIntegration.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Abstractions/Internals/EssentialsErrorLoggingIntegration.cs)
-- [`src/Prism.Plugin.Logging.Abstractions/ILoggerExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Abstractions/ILoggerExtensions.cs)
-- [`src/Prism.Plugin.Logging.Abstractions/GlobalLoggingProperties.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Logging.Abstractions/GlobalLoggingProperties.cs)
+- [`src/Prism.Plugin.Logging.Essentials/EssentialsLoggingExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Logging.Essentials/EssentialsLoggingExtensions.cs)
+- [`src/Prism.Plugin.Logging.Abstractions/Internals/EssentialsErrorLoggingIntegration.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Logging.Abstractions/Internals/EssentialsErrorLoggingIntegration.cs)
+- [`src/Prism.Plugin.Logging.Abstractions/ILoggerExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Logging.Abstractions/ILoggerExtensions.cs)
+- [`src/Prism.Plugin.Logging.Abstractions/GlobalLoggingProperties.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Logging.Abstractions/GlobalLoggingProperties.cs)

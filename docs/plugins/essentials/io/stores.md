@@ -57,7 +57,7 @@ Mapping preservation covers store construction. The underlying backend and seria
 
 ### Supply JSON metadata before Essentials registration
 
-For trimming or NativeAOT, define a context for the data actually used by your application. For the preferences above and version-tracking history:
+For ordinary builds, trimming, and NativeAOT, define a context for the data actually used by your application. For the preferences above and version-tracking history:
 
 ```csharp
 using System.Collections.Generic;
@@ -84,7 +84,18 @@ registry.UsePrismEssentials();
 
 Add metadata for every other runtime type, collection shape, nullable value, and converter your enabled features serialize. This example is not a universal context for all Plugins. Missing metadata fails without a reflection fallback. You can register your own AOT-compatible `Prism.Plugin.Essentials.Serialization.ISerializer` first instead; Essentials preserves an existing registration.
 
-The parameterless default serializer uses reflection. Do not re-enable reflection or suppress publish diagnostics as a substitute for metadata. [Background-task persistence](../applicationmodel/background-tasks.md) has additional constraints that an ordinary application context cannot solve.
+`RegisterSerializer(context, params JsonSerializerContext[] additionalContexts)` and the matching `DefaultSerializer` constructor compose application/library metadata without reflection fallback. The first context supplies JSON options and takes precedence for shared types. If enabling background tasks, include its library context in the first serializer registration:
+
+```csharp
+using Prism.Plugin.Essentials.ApplicationModel.BackgroundTasks;
+
+registry.RegisterSerializer(AppJsonContext.Default, BackgroundTaskStore.SerializationContext);
+registry.UsePrismEssentials();
+```
+
+A later `RegisterSerializer(...)` preserves the first registration; it does not add metadata to an existing serializer. Configure all contexts together before the serializer is registered. A custom `ISerializer` must likewise cover the enabled services' persisted shapes.
+
+The explicit parameterless `RegisterSerializer()` remains a reflection opt-in and declares `RequiresUnreferencedCode` / `RequiresDynamicCode`; platform setup no longer registers it implicitly. Missing serializer registration fails in every build through `EnsureSerializerRegistered`. Do not suppress diagnostics as a substitute for metadata. See [background-task persistence](../applicationmodel/background-tasks.md) for task-type preservation and restart limits.
 
 ## WPF settings identity
 
@@ -108,6 +119,7 @@ Test first launch, defaults, updates, `Clear()`, restart, and unavailable storag
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`docs/Prism.Plugin.Essentials.NativeAot.md`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/docs/Prism.Plugin.Essentials.NativeAot.md)
-- [`src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs)
-- [`src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs)
+- [`docs/Prism.Plugin.Essentials.NativeAot.md`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/docs/Prism.Plugin.Essentials.NativeAot.md)
+- [`src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs)
+- [`src/Prism.Plugin.Essentials/Serialization/DefaultSerializer.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Serialization/DefaultSerializer.cs)

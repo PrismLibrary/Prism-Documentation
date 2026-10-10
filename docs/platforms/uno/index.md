@@ -95,6 +95,25 @@ Prism assigns the shell to `Window.Content`, activates the window, and waits for
 
 Services registered through `ConfigureServices` become available to the Prism container when the host is built, after shell creation/loading. If a shell constructor needs a service, register it through `RegisterTypes` instead. See [Uno.Extensions integration](extensions.md) for examples.
 
+## Optional plugin loading shell and Essentials startup
+
+`Prism.Plugin.Toolkit.Uno.WinUI` supplies a loading wrapper around your registered feature shell. Add a compatible package, then use its extension in the existing Prism application:
+
+```csharp
+using Prism.Plugin.Toolkit;
+
+protected override UIElement CreateShell() =>
+    this.CreateLoadingShell(PrismShell.DefaultRegionName, "Main");
+```
+
+Register the inner shell for navigation under that name, for example `registry.RegisterForNavigation<Shell, MainViewModel>("Main")`. This replaces the earlier direct `CreateShell` example. The wrapper keeps its loading indicator while Prism initializes, then displays the registered shell in `PrismShellContent`; retain your inner shell's own region and menu navigation. In the normal Essentials sample, the inner shell selects Welcome after loading through the same menu-selection path used by other pages. Do not bypass region attachment with a separate startup navigation pipeline.
+
+Keep `XamlControlsResources` and your selected toolkit/theme resources in `App.xaml`. The wrapper and normal sample shell use `{ThemeResource ApplicationPageBackgroundThemeBrush}`. Put application colors in Light/Dark theme dictionaries under application-owned keys and consume them with `ThemeResource`; do not override framework background keys solely to style feature cards. The normal samples retain separate card/text/logo styles.
+
+When using [Essentials](../../plugins/essentials/index.md), call `builder.ConfigurePrismEssentials()` in `ConfigureApp`, and register the generated serializer before `UsePrismEssentials()` in `RegisterTypes`. If enabling [background tasks](../../plugins/essentials/applicationmodel/background-tasks.md), compose `BackgroundTaskStore.SerializationContext` in that first serializer registration and call `this.StartPrismBackgroundTasks()` from `OnInitialized`, after the host exists. These callbacks and shell configuration are the same in ordinary and NativeAOT builds. There is no alternate diagnostic or AOT-only application path to configure.
+
+The normal sample and Toolkit source establish this initialization path; fresh theme rendering and per-device runtime acceptance are separate validation work. Select actual package assets from the authorized feed.
+
 ## Build and run a head
 
 Select a framework actually present in your app's `TargetFrameworks`. For an Uno single-project desktop target:
@@ -120,3 +139,8 @@ Prism 10.0 (vNext) is planned as the first NativeAOT-ready release; supported Na
 - [Uno target framework definitions](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Directory.Build.props)
 - [DryIoc package ID and references](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Uno/Prism.DryIoc.Uno/Prism.DryIoc.Uno.WinUI.csproj)
 - [Framework-owned Uno application](https://github.com/PrismLibrary/Prism/tree/b8f00b5091063feea127a2417fc72d6b299ee16c/e2e/Uno/HelloWorld)
+- [Toolkit loading-shell overloads](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Toolkit.Uno.WinUI/CreateAppShellExtensions.cs)
+- [Loading wrapper and theme resource](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Toolkit.Uno.WinUI/PrismShell.xaml)
+- [Normal Essentials Uno startup](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/samples/Samples.UnoWinUI/App.xaml.cs)
+- [Sample menu startup](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/samples/Samples.UnoWinUI/Views/Shell.xaml.cs)
+- [Sample Light/Dark resources](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/samples/Samples.UnoWinUI/App.xaml)

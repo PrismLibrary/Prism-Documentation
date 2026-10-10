@@ -34,7 +34,7 @@ The caller should catch lookup/network failures and present an unavailable check
 - `GetLatestVersionNumber()` retrieves a version, while `IsUsingLatestVersion()` performs the backend's comparison/update check.
 - `OpenAppInStore()` opens the listing; it does not install an update.
 
-Android uses Google Play page content, so parser failures and store changes must be handled. Apple uses a bundle-ID lookup; test storefront availability and the installed implementation's transport requirements. At the inspected source checkpoint (`f0abcbb9`), the Apple implementation constructs an HTTP lookup URL. This is a static source observation; redirects, native transport-policy enforcement, and end-to-end runtime behavior were not established by this audit. Do not claim secure transport or relax platform transport policy merely to make the check pass; recheck the installed package. Windows uses Store update APIs, which depend on the app's store/packaging context.
+Android uses Google Play page content, so parser failures and store changes must be handled. The current parser does not require JavaScript execution. Apple uses an HTTPS bundle-ID lookup with the plugin's generated `AppStoreJsonContext`; the application does not need to describe its private response DTOs. Test storefront availability, network failure, and actual app listings. Windows uses Store update APIs, which depend on the app's store/packaging context.
 
 WPF and unsupported Uno targets use a fallback: `SupportsAppStore` is `false`, the latest version is the installed version, `IsUsingLatestVersion()` returns `true`, and `OpenAppInStore()` throws `PlatformNotSupportedException`. Always check support before interpreting those values.
 
@@ -46,7 +46,7 @@ For local launch history use [version tracking](versiontracking.md). For current
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/ILatestVersion.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/ILatestVersion.cs)
-- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.android.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.android.cs)
-- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.apple.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.apple.cs)
-- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.netcore.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.netcore.cs)
+- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/ILatestVersion.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/ILatestVersion.cs)
+- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.android.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.android.cs)
+- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.apple.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.apple.cs)
+- [`src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.netcore.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/ApplicationModel/LatestVersion/LatestVersion.netcore.cs)

@@ -86,7 +86,7 @@ Prism uses linker annotations such as `DynamicallyAccessedMembers` to carry publ
 
 Use statically referenced modules and their normal module catalog registrations. They may register services on demand when Prism loads them. NativeAOT cannot add unknown assemblies discovered from a directory after publication.
 
-For [Essentials stores](../plugins/essentials/io/stores.md), rebuild each assembly declaring generated store interfaces. Register a generated `JsonSerializerContext` or your own AOT-compatible `ISerializer` **before** registering services that install Essentials' default serializer. Constructor preservation does not generate JSON metadata or make every optional plugin NativeAOT-compatible.
+For [Essentials stores](../plugins/essentials/io/stores.md), rebuild each assembly declaring generated store interfaces. Register a generated `JsonSerializerContext` or your own AOT-compatible `ISerializer` **before** registering Essentials platform services. This explicit serializer requirement applies to ordinary builds too; platform startup no longer chooses a reflection serializer. Compose `BackgroundTaskStore.SerializationContext` with your application context in the first serializer registration when enabling [background tasks](../plugins/essentials/applicationmodel/background-tasks.md). Constructor preservation does not generate JSON metadata or qualify native scheduling, persisted task-type lookup, or every optional plugin.
 
 ## Platform boundaries
 

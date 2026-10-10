@@ -45,7 +45,7 @@ public static IDisposable ObserveBattery(
 }
 ```
 
-The caller owns the returned subscription and must dispose it at teardown. `BatteryInfo` carries one coherent charge/state/power/energy-saver snapshot. Do not assume callbacks arrive on the UI thread or at a fixed polling rate. There is no cancellation-token overload; observation ends by disposal.
+The caller owns the returned subscription and must dispose it at teardown. Each reconnect reads a fresh snapshot while sharing native observers. Identical seed/native readings are deduplicated per subscriber; `Take(1)` does not return a disconnected session's cached seed. `BatteryInfo` carries one coherent charge/state/power/energy-saver snapshot. Do not assume callbacks arrive on the UI thread or at a fixed polling rate. There is no cancellation-token overload; observation ends by disposal.
 
 <Tabs groupId="platform">
 <TabItem value="maui" label=".NET MAUI">
@@ -77,7 +77,8 @@ Use these readings to adapt optional work, not as a guarantee that an operation 
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials/Devices/Battery/IBattery.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Devices/Battery/IBattery.cs)
-- [`src/Prism.Plugin.Essentials/Devices/Battery/BatteryInfo.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Devices/Battery/BatteryInfo.cs)
-- [`src/Prism.Plugin.Essentials/Devices/Battery/BatteryImplementation.android.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/Devices/Battery/BatteryImplementation.android.cs)
-- [`src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BatteryImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BatteryImplementation.cs)
+- [`src/Prism.Plugin.Essentials/Devices/Battery/IBattery.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Devices/Battery/IBattery.cs)
+- [`src/Prism.Plugin.Essentials/Devices/Battery/BatteryInfo.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Devices/Battery/BatteryInfo.cs)
+- [`src/Prism.Plugin.Essentials/Devices/Battery/BatteryImplementation.android.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Devices/Battery/BatteryImplementation.android.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BatteryImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Uno.WinUI/Wasm/Devices/BatteryImplementation.cs)
+- [`src/Prism.Plugin.Essentials/Devices/Battery/BatteryObservable.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/Devices/Battery/BatteryObservable.cs)

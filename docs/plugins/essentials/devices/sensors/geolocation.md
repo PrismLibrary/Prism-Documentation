@@ -20,6 +20,7 @@ Register the service after the required Essentials host services:
 ```csharp
 using Prism.Plugin.Essentials;
 
+registry.RegisterSerializer(AppJsonContext.Default);
 registry.UsePrismEssentials();
 registry.RegisterGeolocation();
 ```
@@ -43,7 +44,7 @@ public sealed class LocationReader(IGpsManager gps)
 
 A last reading may be null or stale. Inspect its timestamp and accuracy before using it. Permission failures and unavailable location services must be handled by the application. `ToTask(token)` cancels the subscription; it does not grant permission or promise to dismiss a native prompt.
 
-For a fresh one-shot reading, `GetCurrentPosition()` returns an observable and manages a foreground listener when one was not already active. Its cancellation and listener cleanup should be tested on the target used by your application.
+For a fresh one-shot reading, `GetCurrentPosition()` returns an observable and manages a foreground listener when one was not already active. Canceled waiters do not release another request's acquisition gate. Its cancellation and listener cleanup should still be tested on the target used by your application.
 
 ## Continuous tracking and ownership
 
@@ -68,6 +69,6 @@ Request access in the context of the user's feature and handle cancellation, err
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials.Geolocation/IGpsManager.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation/IGpsManager.cs)
-- [`src/Prism.Plugin.Essentials.Geolocation/IGpsManagerExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation/IGpsManagerExtensions.cs)
-- [`src/Prism.Plugin.Essentials.Geolocation.Maui/EssentialsGeolocationRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation.Maui/EssentialsGeolocationRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation/IGpsManager.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Geolocation/IGpsManager.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation/IGpsManagerExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Geolocation/IGpsManagerExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation.Maui/EssentialsGeolocationRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Geolocation.Maui/EssentialsGeolocationRegistrationExtensions.cs)

@@ -41,7 +41,7 @@ For schema migrations or a dismissible welcome screen, persist an explicit appli
 
 ## Store and NativeAOT setup
 
-On WPF, configure a stable application settings identity before registration. Follow [stores](../io/stores.md) for serialization and retention. With reflection disabled, the application JSON context must include the shapes used by version tracking, including `string` and `List<string>`, before `UsePrismEssentials()` registers defaults. This does not independently qualify a platform for NativeAOT.
+On WPF, configure a stable application settings identity before registration. Follow [stores](../io/stores.md) for serialization and retention. Register serializer metadata in every build before `UsePrismEssentials()`. The application JSON context must include the shapes used by version tracking, including `string` and `List<string>`; an explicit reflection serializer is a separate opt-in. This does not independently qualify a platform for NativeAOT.
 
 For the current installed version without history, use [application context](appcontext.md). For remote store-version lookup, use [latest version](latestversion.md).
 
@@ -49,5 +49,5 @@ For the current installed version without history, use [application context](app
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/IVersionTracking.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/IVersionTracking.cs)
-- [`src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/VersionTrackingImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/VersionTrackingImplementation.cs)
+- [`src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/IVersionTracking.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/IVersionTracking.cs)
+- [`src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/VersionTrackingImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials/ApplicationModel/VersionTracking/VersionTrackingImplementation.cs)

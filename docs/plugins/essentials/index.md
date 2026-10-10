@@ -40,10 +40,14 @@ Inside your existing Prism builder callback:
 ```csharp
 using Prism.Plugin.Essentials;
 
-prism.UsePrismEssentials();
+prism.RegisterTypes(registry =>
+{
+    registry.RegisterSerializer(AppJsonContext.Default);
+    registry.UsePrismEssentials();
+});
 ```
 
-Or use `prism.RegisterTypes(registry => registry.UsePrismEssentials())` when other registrations need to be ordered together. For NativeAOT, register generated serializer metadata first, as shown below.
+`AppJsonContext` is your application-defined generated context; the [stores guide](io/stores.md) includes its declaration. Order the serializer and platform registrations together in this callback in every build.
 
 </TabItem>
 <TabItem value="wpf" label="WPF">
@@ -54,6 +58,7 @@ using Prism.Plugin.Essentials;
 
 protected override void RegisterTypes(IContainerRegistry registry)
 {
+    registry.RegisterSerializer(AppJsonContext.Default);
     registry.UsePrismEssentials();
 }
 ```
@@ -77,6 +82,7 @@ protected override void ConfigureApp(IApplicationBuilder builder)
 
 protected override void RegisterTypes(IContainerRegistry registry)
 {
+    registry.RegisterSerializer(AppJsonContext.Default);
     registry.UsePrismEssentials();
 }
 ```
@@ -88,12 +94,15 @@ protected override void RegisterTypes(IContainerRegistry registry)
 
 ## Baseline and optional services
 
-`UsePrismEssentials()` registers the host's baseline application context, battery, browser, clipboard, connectivity, device information, email, file system, latest-version lookup, launcher, notifications, permissions, phone dialer, and version tracking. Required threading and store services are added by the corresponding registration methods.
+`UsePrismEssentials()` registers the host's baseline application context, battery, browser, clipboard, connectivity, device information, device display, email, file system, latest-version lookup, launcher, notifications, permissions, phone dialer, and version tracking. Required threading and store services are added by the corresponding registration methods.
+
+For display-only use, call [RegisterDeviceDisplay](devices/display.md); its granular registration has no serializer dependency.
 
 The baseline differs by host. WPF also includes biometrics; MAUI and Uno require an explicit `RegisterBiometrics()` when needed. To use a smaller set of services, use the granular registration methods and their required dependencies.
 
-These features require additional setup:
+Choose the optional services your application needs:
 
+- [Media picking/capture](media/index.md) and [sharing](applicationmodel/datatransfer/share.md): opt in with `RegisterMedia()` and `RegisterShare()` independently.
 - [Generated application stores](io/stores.md): declare a store interface and call `RegisterStore<T>()`.
 - [Geolocation](devices/sensors/geolocation.md) and [geofencing](devices/sensors/geofencing.md): add the matching optional Geolocation package and registration.
 - [Background tasks](applicationmodel/background-tasks.md): add the matching optional package, scheduler registration, and lifecycle configuration.
@@ -110,20 +119,24 @@ registry.RegisterSerializer(AppJsonContext.Default);
 registry.UsePrismEssentials();
 ```
 
-`AppJsonContext` is an application-defined `JsonSerializerContext` containing every data shape actually serialized by the enabled services. The [stores guide](io/stores.md) includes a concrete example. Registration preserves an already registered application serializer. If JSON reflection is disabled and no compatible serializer is registered, Essentials deliberately reports an error.
+`AppJsonContext` is an application-defined `JsonSerializerContext` containing every data shape actually serialized by the enabled services. The [stores guide](io/stores.md) includes a concrete example. Registration preserves an already registered application serializer. Platform services now call `EnsureSerializerRegistered`: if no serializer is registered, registration throws `InvalidOperationException`, whether AOT is enabled or disabled. Configure metadata or a custom `ISerializer` before `UsePrismEssentials()` and other services that require serialization.
 
-Do not treat registering JSON metadata as proof that every optional plugin supports NativeAOT. In particular, review the [background-task persistence limitation](applicationmodel/background-tasks.md). See the complete [NativeAOT checklist](../../dependency-injection/native-aot.md).
+For background tasks, compose the application context with `BackgroundTaskStore.SerializationContext` in this first registration. See [background-task persistence and startup](applicationmodel/background-tasks.md). The explicit parameterless `RegisterSerializer()` remains available for reflection-based applications and declares trimming/dynamic-code requirements; it is never implicitly selected by platform startup. Use the same application registration path in ordinary and NativeAOT builds. See the complete [NativeAOT checklist](../../dependency-injection/native-aot.md).
 
 ## Use services within the host lifecycle
 
 Resolve native services after their application/window/activity is ready. Constructor injection should establish dependencies; avoid opening dialogs, requesting permissions, or eagerly reading platform stores before native startup has completed.
 
-Keep cancellation tokens and observable subscriptions owned by the screen or operation using them. Dispose subscriptions when their owner ends, and marshal UI updates through `IMainThread`. See [permissions](permissions/permissions-manager.md), [toasts](notifications/toasts.md), and [file ownership](io/filesystem.md) for concrete contracts.
+Keep cancellation tokens and observable subscriptions owned by the screen or operation using them. Dispose subscriptions when their owner ends, and marshal UI updates through `IMainThread`. See [permissions](permissions/permissions-manager.md), [toasts](notifications/toasts.md), and [file ownership](io/file-references.md) for concrete contracts.
+
+## Documented source baseline
+
+The serializer, startup, and lifecycle guidance incorporates merged [Plugins #184](https://github.com/PrismLibrary/Prism.Plugins/pull/184), at master `22bf2ff`. Media/Share pages separately identify the open #167 source baseline at `154cd86`. These contracts do not require alternate AOT initialization or experimental startup paths. Publication and per-device acceptance are distinct from source/API availability; confirm the package assets in your feed and validate the native behavior you ship.
 
 ## Source reference
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
-- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
-- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)

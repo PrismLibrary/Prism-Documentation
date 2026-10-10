@@ -46,14 +46,18 @@ Choose `[SecureStore]` only with a verified backend and an explicit recovery pla
 
 Browser storage does not provide the same protection as an OS keychain and is exposed to same-origin script compromise and profile clearing. Desktop keychains can be locked or absent. Handle these cases rather than silently changing storage backends. See [stores](io/stores.md).
 
-## Features still awaiting publication
+## Display, media, and sharing boundaries
 
-The current guide does not advertise DeviceDisplay, portable picked-file references, or the new camera/share contracts as generally available. Their API and platform guidance will be added after review, merge, and package availability are confirmed. The existing [camera](media/camera.md) and [share](applicationmodel/datatransfer/share.md) pages identify that boundary.
+[Device display](devices/display.md) is included by `UsePrismEssentials()` and has Android/iOS backends. Its other registered hosts throw `FeatureNotSupportedException`; desktop monitor support is not implied.
+
+[Portable files](io/file-references.md), [media](media/index.md), and [sharing](applicationmodel/datatransfer/share.md) document Plugins #167's `154cd86` source contract while merge/publication and fresh device acceptance remain pending. `RegisterMedia()` and `RegisterShare()` are separate opt-ins and each includes file services. Media uses `IMedia.PickAsync` / `CaptureAsync`; Share uses `IShare.RequestAsync` independently. Android/iOS have native routes; other registered MAUI/Uno/WPF targets report no media/share capabilities. Desktop cameras, manual controls, and owned camera sessions are unsupported.
+
+Merged Plugins #184's serializer and startup guidance uses master `22bf2ff`. Explicit serializer setup applies to all builds, and Uno background tasks start from `OnInitialized` after the host is built. Use the normal app path in AOT and ordinary builds; runtime qualification remains separate. [Custom permission gaps](permissions/permissions-manager.md#permission-metadata-and-custom-permissions) are tracked in #185.
 
 ## Source reference
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
-- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
-- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)

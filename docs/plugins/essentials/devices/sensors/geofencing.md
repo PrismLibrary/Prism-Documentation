@@ -8,6 +8,7 @@ uid: Plugins.Essentials.Devices.Sensors.Geofencing
 Geofencing is part of the optional [Geolocation package family](geolocation.md). After registering the required Essentials services, call `RegisterGeofencing()` from `Prism.Plugin.Essentials` and inject `Prism.Plugin.Essentials.Devices.Sensors.IGeofenceManager`.
 
 ```csharp
+registry.RegisterSerializer(AppJsonContext.Default);
 registry.UsePrismEssentials();
 registry.RegisterGeolocation();
 registry.RegisterGeofencing();
@@ -37,7 +38,7 @@ public sealed class RegionStatus(IGeofenceManager geofences)
 - `WhenTransition()` is a foreground transition stream. Dispose each subscription when its owner ends.
 - `StopMonitoring(identifier)` removes one region; `StopAllMonitoring()` affects every region owned by that manager.
 
-Background work requires a registered `IGeofenceDelegate` and the target's permission and lifecycle setup. Foreground subscriptions do not substitute for it. Native OS limits affect how many regions can be watched at once; the plugin selects a nearby watch set rather than guaranteeing every persisted region is simultaneously registered with the OS.
+Apple platform registration initializes the manager at UIKit startup even when no page resolves it, retaining its native delegate for the process lifetime. Geofence persistence uses the plugin's own generated JSON context. Background work requires a registered `IGeofenceDelegate` and the target's permission and lifecycle setup. Foreground subscriptions do not substitute for it. Native OS limits affect how many regions can be watched at once; the plugin selects a nearby watch set rather than guaranteeing every persisted region is simultaneously registered with the OS.
 
 WPF uses an in-process geofencing implementation. Do not promise transitions while a WPF application is closed, or browser delivery when its tab cannot run. Test boundary crossings, denied/revoked location access, restarts, and removal on each actual target. Keep tracking limited to the user's enabled feature.
 
@@ -45,5 +46,7 @@ WPF uses an in-process geofencing implementation. Do not promise transitions whi
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`src/Prism.Plugin.Essentials.Geolocation/IGeofenceManager.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation/IGeofenceManager.cs)
-- [`src/Prism.Plugin.Essentials.Geolocation/GeofenceCircularRegion.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.Geolocation/GeofenceCircularRegion.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation/IGeofenceManager.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Geolocation/IGeofenceManager.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation/GeofenceCircularRegion.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Geolocation/GeofenceCircularRegion.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation/AppleGeofenceStartup.apple.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Geolocation/AppleGeofenceStartup.apple.cs)
+- [`src/Prism.Plugin.Essentials.Geolocation/GeofenceRegionStore.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.Geolocation/GeofenceRegionStore.cs)

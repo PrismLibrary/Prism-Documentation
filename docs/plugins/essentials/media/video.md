@@ -1,20 +1,55 @@
 ---
-sidebar_position: 2
+sidebar_position: 3
 uid: Plugins.Essentials.Media.Video
 ---
 
 # Video
 
-The audited Essentials source does not expose a video picker, video recorder, or playback service. There is no current `IVideo` registration to add. The media category is not a package-availability guarantee.
+Use the same `IMedia` service for photos and videos. The examples below use the Prism 10.0 vNext contract at Plugins #167's `154cd86`; see [registration and availability](index.md). There is no separate `IVideo` registration.
 
-For application-package assets and app directories, use [IFileSystem](../io/filesystem.md). It provides file access, not a native picker or media player. The proposed portable media-selection/capture work remains under review; see the [camera availability boundary](camera.md).
+## Select or capture
 
-## Keep host media behavior explicit
+With an injected `IMedia media`, select existing videos:
 
-For an application-owned implementation, separate picking an existing video, recording a new one, and playback. Each has different requirements:
+```csharp
+using Prism.Plugin.Essentials.Media;
 
-- Picking may return a provider-owned reference rather than a durable local path. Define who opens and closes streams and whether the app needs its own copy.
-- Recording can require camera/microphone declarations and runtime permission. A canceled recording is not a saved video.
-- Playback depends on the selected platform control, codecs, network policy, and media lifetime.
+var selected = await media.PickAsync(new MediaPickerOptions
+{
+    MediaType = MediaType.Video,
+    SelectionLimit = 3
+});
+```
 
-Register a verified adapter for each supported head and expose unavailable capabilities to the UI. Avoid passing framework-specific file objects into a supposedly portable Prism contract, and do not infer NativeAOT support from the existence of an adapter.
+Dispose every result after its streams; use the complete [selection cleanup example](index.md#pick-one-or-several-items). For mixed photos/videos use `PhotoOrVideo` with the same method.
+
+Record one video through system UI:
+
+```csharp
+await using var video = await media.CaptureAsync(new MediaCaptureOptions
+{
+    MediaType = MediaType.Video,
+    CameraFacing = CameraFacing.SystemDefault
+});
+if (video is not null)
+{
+    await using var stream = await video.OpenReadAsync();
+    // Read or copy the video before the stream and reference are disposed.
+}
+```
+
+Capture does its own operation-specific permission request. Optional preflight takes `MediaCapabilities.CaptureVideo`, not an options object. iOS system video capture includes audio and requires camera/microphone descriptions. Android delegates audio access to the camera app. See [capture setup](camera.md).
+
+## Representation and playback
+
+Filename and MIME describe the returned representation, which can vary by provider and device. Neither selection nor capture guarantees MP4, a codec, transcoding, or public-gallery storage. Native limits and picker titles are advisory; cloud retrieval and large media can fail.
+
+Playback is application/framework-owned. If a player requires a path, use [explicit local materialization](../io/file-references.md#when-a-native-consumer-needs-a-path) and keep the lease alive for the player's entire read lifetime. A file reference does not grant access after restart. NativeAOT compilation does not establish playback or recording support on a target; validate the codecs and actual device flows your application uses.
+
+## Source reference
+
+Pinned links require access to the Prism.Plugins repository. Check package availability in your authorized feed.
+
+- [`src/Prism.Plugin.Essentials/Media/MediaType.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/154cd86774b5c33ad9911c046ab57c5975698da7/src/Prism.Plugin.Essentials/Media/MediaType.cs)
+- [`src/Prism.Plugin.Essentials/Media/MediaPickerOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/154cd86774b5c33ad9911c046ab57c5975698da7/src/Prism.Plugin.Essentials/Media/MediaPickerOptions.cs)
+- [`src/Prism.Plugin.Essentials/Media/MediaCaptureOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/154cd86774b5c33ad9911c046ab57c5975698da7/src/Prism.Plugin.Essentials/Media/MediaCaptureOptions.cs)

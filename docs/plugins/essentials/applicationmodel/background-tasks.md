@@ -40,6 +40,7 @@ Register the application's `IOrderSync` implementation, then configure the sched
 using Prism.Plugin.Essentials;
 using Prism.Plugin.Essentials.ApplicationModel.BackgroundTasks;
 
+registry.RegisterSerializer(AppJsonContext.Default, BackgroundTaskStore.SerializationContext);
 registry.UsePrismEssentials();
 registry.RegisterBackgroundTasks(tasks =>
     tasks.Add<SyncOrdersTask>(
@@ -48,7 +49,19 @@ registry.RegisterBackgroundTasks(tasks =>
         network: BackgroundNetworkRequirement.Any));
 ```
 
-The scheduler requires Essentials' connectivity, battery, serializer, and associated store services. MAUI must also call `UsePrismBackgroundTasksLifecycle()` on its `MauiAppBuilder` after `UseMauiApp`. WPF and Uno registration wire their own application lifecycle; ensure registration happens while that application lifecycle is available.
+The scheduler requires Essentials' connectivity, battery, serializer, and associated store services. MAUI must also call `UsePrismBackgroundTasksLifecycle()` on its `MauiAppBuilder` after `UseMauiApp`. WPF and Uno registration wire their application lifecycle. Uno must also start the coordinator after Prism builds the host, in the application's existing `OnInitialized` override:
+
+```csharp
+using Prism.Plugin.Essentials;
+
+protected override void OnInitialized()
+{
+    this.StartPrismBackgroundTasks();
+    // Retain the rest of your application initialization.
+}
+```
+
+Resume callbacks reuse that initialized host. Do not wait for `LeavingBackground` to start first-launch work, or resolve the host before Prism has built it. Use the same setup whether NativeAOT is enabled or disabled.
 
 Inject `IBackgroundTaskScheduler` to call `RunAsync(identifier, token)`, inspect registrations, or cancel them. Observe `TaskStarted` and `TaskFinished` only with an owned, disposable subscription. Inspect the returned result rather than assuming that a request means work completed successfully.
 
@@ -67,13 +80,11 @@ On Apple platforms, configure `UIBackgroundModes` with `processing` and `BGTaskS
 
 Desktop OS jobs launch the application with `--prism-essentials-bg=<identifier>`. Preserve the normal scheduler startup path and account for the fact that the application process starts to execute the task. Native registration failure and in-process fallback do not provide the same closed-app behavior.
 
-## NativeAOT persistence limitation
+## Generated persistence metadata and NativeAOT
 
-:::warning
-The current background-task persistence path is not qualified for NativeAOT. It serializes private registration DTOs and reloads task types from stored type names. Adding the application's ordinary `JsonSerializerContext` cannot provide metadata for those private DTOs or guarantee type-name resolution.
-:::
+Merged Plugins #184 exposes `BackgroundTaskStore.SerializationContext` for the plugin's private persistence DTOs. Compose it with `AppJsonContext.Default` in the first `RegisterSerializer` call, as above, before Essentials and scheduler registration. An application context alone does not describe those DTOs. A second registration will preserve the existing serializer rather than extend it.
 
-Do not assume that the [Microsoft container's NativeAOT support](../../../dependency-injection/native-aot.md) makes persisted scheduling compatible. Use a verified non-NativeAOT deployment for this feature until an appropriate plugin persistence/type-resolution path has been validated. Do not suppress warnings or re-enable reflection to imply support.
+This supplies JSON metadata without reflection fallback. It does not independently preserve every task type: persisted registrations still reload task types from stored names with `Type.GetType`. Keep tasks statically registered/resolvable in the container, preserve any types needed after trimming, and verify task recovery after restart. Include metadata for your own parameter value shapes. The [Microsoft-container NativeAOT setup](../../../dependency-injection/native-aot.md) and actual OS scheduling/relaunch tests remain required. Generated metadata is supported source behavior; fresh native scheduling, relaunch, and NativeAOT runtime acceptance remain validation work.
 
 ## Design for interruption
 
@@ -83,5 +94,7 @@ Use stable operation IDs or checkpoints to avoid duplicate external effects. Han
 
 The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
 
-- [`docs/Prism.Plugin.Essentials.BackgroundTasks.md`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/docs/Prism.Plugin.Essentials.BackgroundTasks.md)
-- [`src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/IBackgroundTaskScheduler.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/IBackgroundTaskScheduler.cs)
+- [`docs/Prism.Plugin.Essentials.BackgroundTasks.md`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/docs/Prism.Plugin.Essentials.BackgroundTasks.md)
+- [`src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/IBackgroundTaskScheduler.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/IBackgroundTaskScheduler.cs)
+- [`src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/BackgroundTaskStore.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.BackgroundTasks/ApplicationModel/BackgroundTasks/BackgroundTaskStore.cs)
+- [`src/Prism.Plugin.Essentials.BackgroundTasks.Uno.WinUI/EssentialsBackgroundTasksRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/22bf2ff10cbbc52fe00f9332530e1aac1b420ff4/src/Prism.Plugin.Essentials.BackgroundTasks.Uno.WinUI/EssentialsBackgroundTasksRegistrationExtensions.cs)
