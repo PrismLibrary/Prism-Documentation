@@ -4,216 +4,166 @@ sidebar_position: 3
 
 # App Builder
 
-.NET MAUI adopts a pattern that we see commonly throughout modern .NET Applications with a Builder Pattern. Prism.Maui adopts this as part of the natural pattern for MAUI Developers by first exposing an extension method on the `MauiAppBuilder`. To get started we simply need to include `UsePrism` after the `UseMauiApp` call on the `MauiAppBuilder`.
+Prism configures MAUI through `MauiAppBuilder.UsePrism`. Call it once, after `UseMauiApp<App>()`, and finish with `Build()`. Your application remains a `Microsoft.Maui.Controls.Application`; Prism registers the container integration, navigation services, and window creator.
+
+## Choose the startup overload
+
+`Prism.Maui` exposes the container-instance overload in namespace `Prism`:
 
 ```cs
-var builder = MauiApp.CreateBuilder();
+using Microsoft.Maui.Hosting;
+using Prism;
+using Prism.Ioc;
 
-// Default MAUI Applications
-builder.UseMauiApp<App>();
-
-// Include UsePrism after UseMauiApp
-builder.UseMauiApp<App>();
-builder.UsePrism(prism =>
+public static MauiApp BuildApp(IContainerExtension container)
 {
-    // configure prism
-});
+    return MauiApp.CreateBuilder()
+        .UseMauiApp<App>()
+        .UsePrism(container, prism => prism
+            .RegisterTypes(registry =>
+                registry.RegisterForNavigation<MainPage, MainPageViewModel>())
+            .CreateWindow("/NavigationPage/MainPage"))
+        .Build();
+}
 ```
 
-## Configuring Prism
+Supply a configured container compatible with your packages. `Prism.DryIoc.Maui` supplies `UsePrism(Action<PrismAppBuilder>)` and a DryIoc-rules overload in the `Microsoft.Maui` namespace; the [getting-started example](index.md) uses that convenience API.
 
-The `UsePrism` method expects a delegate that will configure the startup for Prism applications. This includes registering services, adding modules, and various other common tasks. While we have tried to keep this as simple as possible, we have also tried to provide a number of overloads to make it easier to get started for developers who may have different requirements as you will see as we go into depth into the `PrismAppBuilder`.
+For supported NativeAOT applications in Prism 10.0, supply `Prism.Container.Microsoft.MicrosoftContainerExtension` from Commercial Plus and follow the [NativeAOT guide](../../dependency-injection/native-aot.md). [Magician](../../magician/index.md) can generate startup and explicit mappings. A helper class called `PrismStartup` is an organizational choice, not a required base class.
 
-:::note
-In the Prism Templates we use a static `PrismStartup` class. The class is no way required. This is provided out of the box for convenience as many medium to large apps may have hundreds of lines of code simply to register base services. We find that smaller/focused files are easier for many developers to maintain. By moving the configuration of Prism to another file we can more easily focus on thew lines that build the pipeline for the MauiApplicationBuilder.
-:::
+## Register services and views
 
-### Registering Services with Prism's IContainerRegistry
-
-If you are coming to Prism.Maui from Prism.Forms, Prism.Wpf, or Prism.Uno you may be familiar with the RegisterTypes on the PrismApplication. In Prism.Maui this has moved to the `PrismAppBuilder`.
-
-```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>();
-builder.UsePrism(prism =>
-{
-    prism.RegisterTypes(container => {
-        // Register platform agnostic types
-    });
-});
-```
-
-:::note
-In the case where you only see the variant of `UsePrism` which requires an instance of the `IContainerProvider` this means that you are missing `Prism.DryIoc.Maui`. For most cases you will want this installed. Commercial Plus users may optionally install a different container package from the Prism NuGet feed such as Microsoft Extensions DependencyInjection or Grace Ioc. In these cases you would not need the `Prism.DryIoc.Maui` package as you have another container to provide. All other users should use make sure `Prism.DryIoc.Maui` is installed.
-:::
-
-#### Platform Specific Registrations
-
-MAUI Single Project eliminates the need for the goofy IPlatformInitializer that was required for Prism.Forms. Registering Platform Specific services is as simple as including a compiler directive in your project.
+Use `RegisterTypes` for Prism registrations. Explicit view/view-model pairs make route ownership clear:
 
 ```cs
 prism.RegisterTypes(container =>
 {
-#if IOS
-    container.Register<IFoo, iOSFoo>();
-#elif ANDROID
-    container.Register<IFoo, AndroidFoo>();
+    container.RegisterSingleton<ICustomerStore, CustomerStore>();
+    container.RegisterForNavigation<MainPage, MainPageViewModel>();
+    container.RegisterForNavigation<CustomerPage, CustomerPageViewModel>();
+});
+```
+
+Use `ConfigureServices` when an integration expects `IServiceCollection`:
+
+```cs
+using Microsoft.Extensions.DependencyInjection;
+
+prism.ConfigureServices(services =>
+{
+    services.AddSingleton<ReportCache>();
+});
+```
+
+This delegates to `MauiAppBuilder.Services`. Prism's service-provider factory imports these registrations into the chosen container. Do not create a second provider with `BuildServiceProvider()`. Avoid assuming that an `IsRegistered` check made during configuration describes the final built container; registration visibility depends on when the service collection is populated.
+
+Page navigation uses scoped services. Inject `INavigationService` into the page's view model rather than capturing one in an application singleton. Region-manager scopes, page scopes, and application singletons have different purposes; see [page navigation](navigation/page-navigation.md) and the [container guide](../../dependency-injection/index.md).
+
+### Platform-specific services
+
+MAUI's single-project layout supports platform-specific code and compile conditions:
+
+```cs
+prism.RegisterTypes(container =>
+{
+#if ANDROID
+    container.Register<IDeviceIntegration, AndroidDeviceIntegration>();
+#elif IOS
+    container.Register<IDeviceIntegration, IosDeviceIntegration>();
 #elif WINDOWS
-    container.Register<IFoo, WindowsFoo>();
-#elif MACCATALYST
-    container.Register<IFoo, MacCatalystFoo>();
-#elif TIZEN
-    container.Register<IFoo, TizenFoo>();
+    container.Register<IDeviceIntegration, WindowsDeviceIntegration>();
 #endif
 });
 ```
 
-For larger projects where you may have a larger number of platform specific registrations you may instead want to simply write an extension method in your platform specific code. In this case let's say that the project name is `MyAwesomeProject` and you want to register your services with an extension method. You would start by creating a static class in each platform specific folder which has the namespace `MyAwesomeProject` so that you can reference without any compiler directives for namespace usings.
+These service types are application-defined. Alternatively, put the same static registration method in each selected platform folder and call it from the shared startup code. Only add branches for targets your actual Prism package and project support.
+
+## Logging
+
+`ConfigureLogging` delegates to MAUI's `ILoggingBuilder`:
 
 ```cs
-public static class PlatformRegistrations
+using Microsoft.Extensions.Logging;
+
+prism.ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Information));
+```
+
+Configure an appropriate logging provider through MAUI or your chosen integration. Current Prism.Maui code uses `ILogger` internally, including initialization and navigation diagnostics. Do not depend on the old claim that Prism never logs. Review your providers and filters before recording navigation URIs, parameters, or exception content that may contain private application data.
+
+## Modules and initialization order
+
+```cs
+using Prism.Modularity;
+
+prism.ConfigureModuleCatalog(catalog =>
 {
-    public static void RegisterPlatformTypes(IContainerRegistry container)
+    catalog.AddModule<CustomersModule>();
+});
+
+prism.OnInitialized(container =>
+{
+    // The configured modules have initialized; their services are available.
+});
+```
+
+At this source head Prism performs these stages once:
+
+1. Execute module-catalog configuration delegates
+2. Run module initialization
+3. Execute `OnInitialized` delegates
+4. Add default `NavigationPage` and `TabbedPage` routes if those names are absent
+
+`OnInitialized` is synchronous initialization, not the initial navigation callback. Keep startup navigation in `CreateWindow`. The default navigation-page route maps to `Prism.Controls.PrismNavigationPage`; see [its back-navigation behavior](navigation/prismnavigationpage.md).
+
+## Create the initial window through navigation
+
+`CreateWindow` configures the initial navigation invoked by Prism's MAUI window creator. It is not the `Application.CreateWindow` override and it does not directly return a `Window`.
+
+Choose one of these alternatives:
+
+```cs
+// A route string.
+prism.CreateWindow("/NavigationPage/MainPage");
+
+// A route string with error handling.
+prism.CreateWindow("/NavigationPage/MainPage",
+    error => System.Diagnostics.Debug.WriteLine(error));
+```
+
+Or await and inspect navigation explicitly:
+
+```cs
+using Microsoft.Extensions.Logging;
+using Prism.Navigation;
+
+prism.CreateWindow(async (container, navigation) =>
+{
+    var result = await navigation.NavigateAsync("/NavigationPage/MainPage");
+    if (!result.Success)
     {
-        container.Register<IFoo, iOSFoo>();
+        var logger = container.Resolve<ILogger<App>>();
+        logger.LogError(result.Exception, "Initial navigation failed.");
     }
-}
+});
 ```
 
-With this we can now simply update our our code like:
+A builder-returning overload also runs the navigation:
 
 ```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-builder.UsePrism(prism =>
-{
-    prism.RegisterTypes(PlatformRegistrations.RegisterPlatformTypes)
-        .RegisterTypes(container => {
-            // Register platform agnostic types
-        });
-});
+using Prism.Navigation;
+
+prism.CreateWindow(navigation => navigation.CreateBuilder()
+    .UseAbsoluteNavigation()
+    .AddNavigationPage()
+    .AddSegment<MainPageViewModel>());
 ```
 
-### IServiceCollection Support
+The generic segment requires the explicit page/view-model registration. The initial route must produce a root page; an error callback does not manufacture a fallback window. If startup fails, inspect the result/exception and registrations before attempting another route.
 
-While the `MauiAppBuilder` does expose the `IServicesCollection` through the `Services` property, it does not have an easy to use extension for registering services. To help make it even easier on developers using Prism, we have exposed an extension method on the `PrismAppBuilder` to give you the ability to easily register services with either `IContainerRegistry` or `IServiceCollection` on an as needed basis. As discussed in the [Dependency Injection - Supplement](../../dependency-injection/servicecollection-supplement.md) topic, we do expose several additional extensions on the `IServiceCollection` to make it even easier on you to ensure you can register what you need to with Prism even when you're using the `IServiceCollection`.
+Remove the template's competing `MainPage` assignment or `CreateWindow` implementation that constructs an `AppShell`. If an application override remains for window-event subscriptions, preserve Prism's creator by obtaining the window from `base.CreateWindow(activationState)`.
 
-:::note
-It's important to remember that if you register a service with the `IServiceCollection` it will not be available from the `IContainerRegistry`. As a result if you call the `IsRegistered<T>` method on the `IContainerRegistry` it will return `false`.
-:::
+## Source reference
 
-```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-builder.UsePrism(prism => {
-    prism.ConfigureServices(services => {
-        // Register services with the IServiceCollection
-        services.AddSingleton<IFoo, Foo>();
-    });
-});
-```
-
-### Logging Support
-
-Similar to the `ConfigureServices` overload which is provided as a convenience method, the `ConfigureLogging` method is also provided as a convenience method. This method allows you to easily configure the logging for your application using the Microsoft `ILoggingBuilder`. It is important to note that this is provided through the `MauiAppBuilder`, and Prism does not make use of the `ILogger` anywhere internally.
-
-```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-builder.UsePrism(prism => {
-    prism.ConfigureLogging(builder => {
-        builder.AddConsole();
-    });
-});
-```
-
-### OnInitialized
-
-While .NET MAUI does actually provide an interface that you can register to handle registration logic, something that 3rd parties like Prism or ShinyLib both utilize, it may be overkill for you. Prism provides 2 easy to use overloads for the `OnInitialized` method. You can use either of these methods to do any initializations.
-
-```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-builder.UsePrism(prism =>
-{
-    prism.OnInitialized(container =>
-    {
-        // resolve services and do other initialization
-    })
-    .OnInitialized(() => {
-        // do some initialization that doesn't require resolving services
-    });
-}
-```
-
-### Configuring the Module Catalog
-
-For those coming from other platforms you may be used to adding your Modules to the ModuleCatalog in the `PrismApplication`. The `PrismAppBuilder` also provides an easy to use method for adding modules to the ModuleCatalog.
-
-```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-builder.UsePrism(prism => {
-    prism.ConfigureModuleCatalog(moduleCatalog => {
-        moduleCatalog.AddModule<ModuleA>();
-        moduleCatalog.AddModule<ModuleB>();
-    });
-});
-```
-
-### CreateWindow
-
-:::note
-If upgrading from previews of Prism.Maui CreateWindow has replaced the formerly available OnAppStart
-:::
-
-In .NET MAUI, the Application has been re-architected. While the `Application.MainPage` still technically exists for legacy compatibility purposes it is not used. .NET MAUI instead uses an API that focuses around the use of Windows. While the exact implementation of what a Window is may vary based on Desktop vs Mobile, the concept nonetheless is central to the design and application startup process.
-
-Prism registers a service with .NET MAUI that allows Prism to provide a callback and return the initial application window that will be created for the Application in the `Application.CreateWindow` method. While the Window is abstracted away from Prism's Uri based navigation, this extension of the `PrismAppBuilder` has been mapped to match the name of the corresponding .NET MAUI API that ultimately invokes it to better show where your code will be executed.
-
-The CreateWindow method is one of the most important methods on the `PrismAppBuilder` as it is used as your starting point to set the initial Navigation Event for Prism. We provide a number of overloads here to make it easier for you whether you want to operate within an Async or Synchronous context. We also provide overloads that let you access the container to resolve services you may need such as the `ILogger` to Log a Navigation Exception that was encountered. Additionally if you want to keep things as simple as possible we even have an overload to let you only pass in a Navigation URI.
-
-```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-
-// Bare Bones
-builder.UsePrism(prism => {
-    // Register Types excluded for brevity
-    prism.CreateWindow("/MainPage");
-});
-
-// Bare Bones with Exception Handler
-builder.UsePrism(prism => {
-    // Register Types excluded for brevity
-    prism.CreateWindow("/MainPage", exception => Console.WriteLine(exception));
-});
-
-// Use the NavigationService
-builder.UsePrism(prism => {
-    // Register Types excluded for brevity
-    prism.CreateWindow(navigation => navigation.NavigateAsync("/MainPage"));
-});
-
-// Use the NavigationBuilder
-builder.UsePrism(prism => {
-    // Register Types excluded for brevity
-    prism.CreateWindow(navigation => navigation.CreateBuilder()
-        .UseAbsoluteNavigation()
-        .AddSegment("MainPage"))
-});
-
-// Use the NavigationService & Container
-builder.UsePrism(prism => {
-    // Register Types excluded for brevity
-    prism.CreateWindow(async (container, navigation) => {
-        var result =  await navigation.NavigateAsync("/MainPage");
-        if(!result.Success)
-        {
-            var logger = container.Resolve<ILogger<MauiProgram>>();
-            logger.Log(result.Exception);
-        }
-    });
-});
-```
-
+- [Container-instance and CreateWindow overloads](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/PrismAppBuilderExtensions.cs)
+- [Initialization stages and registrations](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/PrismAppBuilder.cs)
+- [Window creation and initial navigation failure](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Navigation/PrismWindowManager.cs)

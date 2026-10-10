@@ -1,21 +1,121 @@
 ---
 sidebar_position: 1
 uid: Platforms.UnoPlatform.GettingStarted
+description: Configure a Prism 9 Uno WinUI application, shell, regions, window, and host startup.
 ---
 
 # Getting Started
 
-## Configuring the Window
+This guide describes Prism **9.0.537** for Uno Platform.
 
-Due to Prism's dependency on `Uno.Extensions.Hosting.WinUI` and the adoption of the `IApplicationBuilder`, you do not need to create a Window for your application as this is already done for you by the `IApplicationBuilder`. However you may find that you need to still access the Window to configure properties on the Window, Set the App icon on WinUi, or even initialize certain services which will need access to the Window's `XamlRoot`. To do this you can simply provide an override as follows:
+Prism's Uno integration uses WinUI controls, a Prism application base, region navigation, and Uno.Extensions hosting. It does not use MAUI page navigation, and its shell is a `Microsoft.UI.Xaml.UIElement`, not a WPF `Window`.
 
-```cs
+## Create the project and choose packages
+
+Prepare the tools for your intended targets using Uno's [Quick Start](https://platform.uno/docs/articles/get-started.html). Start with a blank Uno Platform project and its platform entry points. Let Prism own application startup and navigation rather than retaining a second Uno.Extensions navigation startup pipeline.
+
+Install `Prism.DryIoc.Uno.WinUI` version **9.0.537**. It references `Prism.Uno.WinUI` and the DryIoc container. For another container, use `Prism.Uno.WinUI` with `Prism.PrismApplicationBase` and implement `CreateContainerExtension`. The `.WinUI` suffix is part of the package name; the platform assemblies use names such as `Prism.Uno` and `Prism.DryIoc.Uno`.
+
+The shipped source defines `net8.0`, `net8.0-android`, `net8.0-ios`, `net8.0-maccatalyst`, and `net8.0-macos` library targets; Windows builds also include `net8.0-windows10.0.19041`. The source uses Uno SDK 5.3.31 and Uno.Extensions.Hosting.WinUI 4.2.2. Match your app's Uno SDK, workloads, and package assets rather than copying a newer template's startup or target names unchanged.
+
+## Replace application startup
+
+Update the root of `App.xaml` while retaining any resources your chosen Uno template needs:
+
+```xml title="App.xaml"
+<prism:PrismApplication x:Class="PrismUnoDemo.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="using:Prism.DryIoc">
+    <Application.Resources>
+        <ResourceDictionary>
+            <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+        </ResourceDictionary>
+    </Application.Resources>
+</prism:PrismApplication>
+```
+
+Create a `Shell` UserControl in `Views`, with its generated constructor calling `InitializeComponent()`. Register it and a region view:
+
+```cs title="App.xaml.cs"
+using Microsoft.UI.Xaml;
+using Prism.DryIoc;
+using Prism.Ioc;
+using Prism.Navigation.Regions;
+using PrismUnoDemo.Views;
+using PrismUnoDemo.ViewModels;
+
+namespace PrismUnoDemo;
+
 public partial class App : PrismApplication
 {
-    protected virtual void ConfigureWindow(Window window)
+    public App() => InitializeComponent();
+
+    protected override UIElement CreateShell() => Container.Resolve<Shell>();
+
+    protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        // Your code here
+        containerRegistry.Register<Shell>();
+        containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
+    }
+
+    protected override void OnInitialized()
+    {
+        RegionManager.RequestNavigate("MainRegion", "HomeView");
+    }
+
+    protected override void ConfigureWindow(Window window)
+    {
+        window.Title = "Prism Uno";
     }
 }
 ```
 
+`OnLaunched` is sealed in Prism's base class. Remove the template's override rather than attempting to create a second host or window there.
+
+```xml title="Views/Shell.xaml"
+<UserControl x:Class="PrismUnoDemo.Views.Shell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:regions="using:Prism.Navigation.Regions">
+    <ContentControl regions:RegionManager.RegionName="MainRegion" />
+</UserControl>
+```
+
+Use `using:` namespace mappings for WinUI-compatible XAML. Uno's non-Windows builds also carry Prism XML namespace metadata, but the Microsoft WinUI compiler does not consume that mapping in the same way. An explicit `using:Prism.Navigation.Regions` works across this distinction.
+
+Add a `HomeView` UserControl and bind its `TextBlock.Text` to a public `Message` property on `HomeViewModel`. The registration stores a named `object` entry and a `ViewModelLocationProvider` mapping. Region navigation resolves the named view and invokes automatic wiring when its data context is unset. This is the Prism 9 registration model; it does not use a separate desktop navigation registry. Use `{Binding Message}` for runtime `DataContext` binding; `{x:Bind}` has different source semantics and is not a drop-in replacement.
+
+## Configuring the Window
+
+Uno.Extensions creates the application window. `ConfigureWindow(Window)` runs before Prism creates and attaches the shell. Configure window properties there, but do not assume its content or `XamlRoot` is ready yet.
+
+Prism assigns the shell to `Window.Content`, activates the window, and waits for a `FrameworkElement` shell to load before finalizing startup. It then attaches/updates regions, builds the host, initializes modules, and calls `OnInitialized`. This is the appropriate point for initial region navigation and services that depend on the built host. The `Host` property throws if accessed before host creation.
+
+Services registered through `ConfigureServices` become available to the Prism container when the host is built, after shell creation/loading. If a shell constructor needs a service, register it through `RegisterTypes` instead. See [Uno.Extensions integration](extensions.md) for examples.
+
+## Build and run a head
+
+Select a framework actually present in your app's `TargetFrameworks`. For example, restore the project before launching the desired head:
+
+```sh
+dotnet restore PrismUnoDemo.csproj
+```
+
+For browser, Android, iOS, or WinUI, use the matching Uno template launch profile and its platform prerequisites. Verify shell loading, initial navigation, Back/Forward behavior if you expose a journal, and dialogs on every target you ship. A desktop run does not test browser or mobile behavior.
+
+This stable release does not establish NativeAOT support. Runtime checks must cover the renderer and workload you deploy, including trimming if enabled by that target.
+
+## Continue learning
+
+- [Uno.Extensions and shared hosting](extensions.md)
+- [Region navigation](../../navigation/regions/index.md) and [modules](../../modularity/index.md)
+- [Dialog service](../../dialogs/index.md): Uno uses a `ContentDialog`-based host and requires a loaded window's `XamlRoot`
+
+## Source reference
+
+- [Uno startup, shell loading, and host construction](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Uno/Prism.Uno/PrismApplicationBase.cs)
+- [Uno target framework definitions](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Directory.Build.props)
+- [DryIoc package ID and references](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Uno/Prism.DryIoc.Uno/Prism.DryIoc.Uno.WinUI.csproj)
+- [Framework-owned Uno application](https://github.com/PrismLibrary/Prism/tree/ec6d1926b4a20540f1dbf2d90b432660670d0c30/e2e/Uno/HelloWorld)
+- [Release SDK](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/global.json) and [hosting dependency version](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/Directory.Packages.props)

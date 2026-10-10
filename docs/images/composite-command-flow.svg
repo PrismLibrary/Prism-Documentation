@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 390" role="img" aria-labelledby="title desc">
+<title id="title">CompositeCommand: check together, execute each</title>
+<desc id="desc">A Save all button asks the composite command whether all participating children can execute. Invoice true and Notes false result in disabled Save all. When both are true, invocation fans out to Invoice.Save then Notes.Save in registration order.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#52657b" stroke-width="1.5"/></marker></defs>
+<rect width="840" height="390" rx="18" fill="#f3f6fb"/>
+<g font-family="system-ui, sans-serif" fill="#152c45">
+<text x="28" y="37" font-size="20" font-weight="700">One action, explicit participation</text>
+<text x="28" y="65" font-size="14">1. The control asks whether every participating child can execute.</text>
+<rect x="30" y="92" width="165" height="72" rx="9" fill="#fff" stroke="#52657b"/>
+<text x="112" y="121" text-anchor="middle" font-size="17" font-weight="600">Save all button</text>
+<text x="112" y="146" text-anchor="middle" font-size="14">disabled</text>
+<path d="M195 128H253" stroke="#52657b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="265" y="92" width="230" height="72" rx="9" fill="#153c70"/>
+<text x="380" y="121" fill="white" text-anchor="middle" font-size="17" font-weight="600">CompositeCommand</text>
+<text x="380" y="146" fill="white" text-anchor="middle" font-size="14">true AND false = false</text>
+<path d="M495 128H541V102H576M541 128V156H576" fill="none" stroke="#52657b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="589" y="80" width="220" height="44" rx="8" fill="#e2f2e9" stroke="#257454"/>
+<text x="699" y="108" text-anchor="middle" font-size="15">Invoice: CanExecute true</text>
+<rect x="589" y="136" width="220" height="44" rx="8" fill="#ffede2" stroke="#a65324"/>
+<text x="699" y="164" text-anchor="middle" font-size="15">Notes: CanExecute false</text>
+<path d="M28 206H812" stroke="#c3d0df"/>
+<text x="28" y="238" font-size="14">2. When both become true, the enabled button invokes the composite.</text>
+<rect x="30" y="268" width="165" height="66" rx="9" fill="#e2f2e9" stroke="#257454"/>
+<text x="112" y="295" text-anchor="middle" font-size="17" font-weight="600">Save all button</text>
+<text x="112" y="318" text-anchor="middle" font-size="14">enabled + invoked</text>
+<path d="M195 301H253" stroke="#52657b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="265" y="268" width="230" height="66" rx="9" fill="#153c70"/>
+<text x="380" y="295" fill="white" text-anchor="middle" font-size="17" font-weight="600">Execute(parameter)</text>
+<text x="380" y="318" fill="white" text-anchor="middle" font-size="14">same parameter to each child</text>
+<path d="M495 301H541V275H576M541 301V330H576" fill="none" stroke="#52657b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="589" y="254" width="220" height="44" rx="8" fill="#fff" stroke="#52657b"/>
+<text x="699" y="282" text-anchor="middle" font-size="15">1 · Invoice.Save</text>
+<rect x="589" y="310" width="220" height="44" rx="8" fill="#fff" stroke="#52657b"/>
+<text x="699" y="338" text-anchor="middle" font-size="15">2 · Notes.Save</text>
+<text x="28" y="373" font-size="13">No children → disabled. Execution is ordered; it does not await async child commands.</text>
+</g></svg>

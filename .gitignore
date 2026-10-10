@@ -19,3 +19,6 @@ uid-mapping.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Generated page-specific social cards (rebuilt from content and licensed assets)
+/static/social/

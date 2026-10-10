@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" role="img" aria-labelledby="title desc">
+  <title id="title">Region navigation lifecycle</title>
+  <desc id="desc">A request asks active views and view models for confirmation. If declined or superseded, it reports failure. Otherwise Prism notifies outgoing participants, selects or creates a target, activates it, records history and notifies incoming participants before reporting completion.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52607c"/></marker>
+  </defs>
+  <rect width="900" height="720" rx="22" fill="#f4f7fc"/>
+  <g font-family="system-ui, sans-serif" fill="#14213d">
+    <text x="42" y="48" font-size="24" font-weight="700">A region navigation request</text>
+    <text x="42" y="77" font-size="16" fill="#52607c">Shared service sequence · control adapters determine the visual behavior</text>
+    <g stroke="#52607c" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M337 166V195"/><path d="M337 254V283"/>
+      <path d="M337 342V371"/><path d="M337 430V459"/>
+      <path d="M337 518V547"/>
+      <path d="M604 137H655"/>
+    </g>
+    <g fill="#fff" stroke="#c8d3e6" stroke-width="1.5">
+      <rect x="42" y="106" width="562" height="60" rx="12"/>
+      <rect x="42" y="194" width="562" height="60" rx="12"/>
+      <rect x="42" y="282" width="562" height="60" rx="12"/>
+      <rect x="42" y="370" width="562" height="60" rx="12"/>
+      <rect x="42" y="458" width="562" height="60" rx="12"/>
+      <rect x="42" y="546" width="562" height="72" rx="12" fill="#e5f3ef" stroke="#7ca99b"/>
+      <rect x="659" y="107" width="199" height="99" rx="12" fill="#fff1e8" stroke="#d9ad8f"/>
+    </g>
+    <g font-size="18" font-weight="650">
+      <text x="66" y="132">1 · Confirm the request</text>
+      <text x="66" y="220">2 · Notify outgoing participants</text>
+      <text x="66" y="308">3 · Select or create the target</text>
+      <text x="66" y="396">4 · Navigating → activate target</text>
+      <text x="66" y="484">5 · Record the journal entry</text>
+      <text x="66" y="572">6 · Notify incoming participants</text>
+      <text x="680" y="137">Declined or</text>
+      <text x="680" y="161">superseded</text>
+    </g>
+    <g font-size="15" fill="#52607c">
+      <text x="66" y="153">IConfirmNavigationRequest on active views / view models</text>
+      <text x="66" y="241">IRegionAware.OnNavigatedFrom</text>
+      <text x="66" y="329">Existing candidate: IsNavigationTarget · new target: container</text>
+      <text x="66" y="417">Single-active hosts deactivate the previous view</text>
+      <text x="66" y="505">IJournalAware can exclude the destination from history</text>
+      <text x="66" y="597">OnNavigatedTo → completion callback → Navigated event</text>
+      <text x="680" y="189">Unsuccessful result</text>
+      <text x="42" y="658">Lifecycle exceptions are reported as failures; late failures do not guarantee rollback.</text>
+      <text x="42" y="685">Direct Add / Activate / Remove calls do not run this navigation sequence.</text>
+    </g>
+  </g>
+</svg>

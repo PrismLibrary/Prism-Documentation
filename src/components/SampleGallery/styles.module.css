@@ -1,0 +1,12 @@
+.gallery { margin: 1rem 0 1.5rem; }
+.controls { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+.controls label { display: flex; flex: 1 1 14rem; flex-direction: column; gap: .35rem; font-size: .875rem; font-weight: 600; }
+.controls select { width: 100%; min-width: 0; padding: .65rem .75rem; font: inherit; color: var(--ifm-font-color-base); background: var(--ifm-background-surface-color); border: 1px solid var(--ifm-color-emphasis-300); border-radius: .4rem; }
+.controls select:focus-visible { outline: 2px solid var(--ifm-color-primary); outline-offset: 2px; }
+.figure { margin: 0; }
+.frame { padding: .5rem; border: 1px solid var(--ifm-color-emphasis-200); border-radius: .75rem; background: var(--ifm-background-surface-color); }
+.image { display: block; max-width: 100%; max-height: 680px; width: auto; height: auto; margin: 0 auto; object-fit: contain; }
+.figure figcaption { margin-top: .75rem; font-size: .875rem; line-height: 1.5; color: var(--ifm-color-emphasis-700); }
+.navigation { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: .75rem; font-size: .875rem; }
+.pending { padding: 1rem; border-left: 3px solid var(--ifm-color-primary); border-radius: .25rem; background: var(--ifm-color-emphasis-100); }
+@media (max-width: 576px) { .controls { gap: .65rem; } .controls label { flex-basis: 100%; } .frame { padding: .25rem; } }

@@ -3,124 +3,64 @@ sidebar_position: 3
 uid: Platforms.Maui.Behaviors.EventToCommandBehavior
 ---
 
-# Using the EventToCommandBehavior
+# EventToCommandBehavior
 
-The `EventToCommandBehavior` class provides a convenient way to, in XAML, "bind" events to `ICommand` according to MVVM paradigm to avoid code behind.
+`Prism.Behaviors.EventToCommandBehavior` invokes an `ICommand` when a named MAUI event is raised. Prefer a control's native `Command` property when it already provides one. Use this behavior for events that otherwise require an event handler.
 
-## Properties
+It derives from `BehaviorBase<BindableObject>`, so it follows the associated object's binding context. This differs from behaviors that do not automatically inherit a context.
 
-The `EventToCommandBehavior` expose the following properties
-
-* **EventName** The name of the event to listen to. For example _ItemTapped_
-* **Command** The `ICommand` that will be executed when the event is raised
-* **CommandParameter** The parameter that will be sent to the `ICommand.Execute(object)` method
-* **EventArgsConverter** Instance of `IValueConverter` that allows operating on the `EventArgs` type for the *EventName*
-* **EventArgsConverterParameter** The parameter that will be sent as the _parameter_ argument to `IValueConverter.Convert` method
-* **EventArgsParameterPath** Parameter path to extract property from `EventArgs` that will be passed to `ICommand.Execute(object)`
-
-## Usage
-
-First declare the namespace and assembly in where `EventToCommandBehavior` is declared and declare a XML-namespace.
-
-`xmlns:prism="http://prismlibrary.com"`
-
-### CommandParameter
-
-Bind or declare a parameter that will be sent to the `ICommand.Execute(object)` method.
+## Convert selection into a command parameter
 
 ```xml
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyNamespace.ContentPage"
-             xmlns:prism="http://prismlibrary.com">
-  <ListView>
-    <ListView.Behaviors>
-      <prism:EventToCommandBehavior EventName="ItemTapped"
-                                    Command="{Binding ItemTappedCommand}"
-                                    CommandParameter="MyParameter" />
-    </ListView.Behaviors>
-  </ListView>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    x:Class="MyApp.Views.CustomersPage">
+    <CollectionView ItemsSource="{Binding Customers}" SelectionMode="Single">
+        <CollectionView.Behaviors>
+            <prism:EventToCommandBehavior
+                EventName="SelectionChanged"
+                Command="{Binding SelectionChangedCommand}"
+                EventArgsParameterPath="CurrentSelection" />
+        </CollectionView.Behaviors>
+    </CollectionView>
 </ContentPage>
 ```
 
-### EventArgsConverter
+The command receives the event's `CurrentSelection` value, including an empty selection when it is cleared. Handle that case before selecting the first item.
 
-Using the **EventArgsConverter** to retrieve the `ItemTappedEventArgs.Item` property.
+## Parameter precedence
 
-```c#
-using System.Globalization;
+The current implementation evaluates values in this order and stops when it obtains a non-null result:
 
-namespace Prism.Converters;
+1. `CommandParameter`
+2. `EventArgsParameterPath`, including dotted property paths
+3. `EventArgsConverter`, passing `EventArgsConverterParameter` to the converter
 
-public class ItemTappedEventArgsConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        var itemTappedEventArgs = value as ItemTappedEventArgs;
-        if (itemTappedEventArgs == null)
-        {
-            throw new ArgumentException("Expected value to be of type ItemTappedEventArgs", nameof(value));
-        }
-        return itemTappedEventArgs.Item;
-    }
+If none produces a value, the command receives `null`. Raw event arguments are not automatically the fallback parameter. The behavior calls `CanExecute(parameter)` before `Execute(parameter)`.
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-```
-
-The XAML need a reference to the converter and the converter resource need to be defined
+For example, an explicit parameter ignores selection data:
 
 ```xml
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyNamespace.ContentPage"
-             xmlns:prism="http://prismlibrary.com"
-             xmlns:c="clr-namespace:AwesomeApp.Converters;assembly=YourProject">
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <c:ItemTappedEventArgsConverter x:Key="itemTappedEventArgsConverter" />
-    </ResourceDictionary>
-  </ContentPage.Resources>
-  <ListView>
-    <ListView.Behaviors>
-      <prism:EventToCommandBehavior EventName="ItemTapped"
-                                    Command="{Binding ItemTappedCommand}"
-                                    EventArgsConverter="{StaticResource itemTappedEventArgsConverter}" />
-    </ListView.Behaviors>
-  </ListView>
-</ContentPage>
+<prism:EventToCommandBehavior EventName="SelectionChanged"
+    Command="{Binding RefreshCommand}"
+    CommandParameter="selection-changed" />
 ```
 
-### EventArgsParameterPath
-
-Attach the command to **ItemTapped** event will raise the `ItemTappedEventArgs` event.
-
-```c#
-public class ItemTappedEventArgs : EventArgs
-{
-    public object Item { get; }
-    public object Group { get; }
-}
-```
-
-Setting `EventArgsParameterPath` to **Item** will extract the property value and pass it to the `ICommand.Execute(object)` method
+To transform the event arguments, register an `IValueConverter` resource and use it without a competing explicit parameter:
 
 ```xml
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyNamespace.ContentPage"
-             xmlns:prism="http://prismlibrary.com">
-  <ListView>
-    <ListView.Behaviors>
-      <prism:EventToCommandBehavior EventName="ItemTapped"
-                                    Command="{Binding ItemTappedCommand}"
-                                    EventArgsParameterPath="Item" />
-    </ListView.Behaviors>
-  </ListView>
-</ContentPage>
+<prism:EventToCommandBehavior EventName="SelectionChanged"
+    Command="{Binding SelectionChangedCommand}"
+    EventArgsConverter="{StaticResource SelectionConverter}" />
 ```
 
+Implement the converter for the actual event-argument type and handle empty/null values. A converter runs only after the higher-priority options yield null.
+
+## Attachment and publishing considerations
+
+`EventName` is resolved when the behavior attaches; an invalid event name throws. Property paths are evaluated by reflection and invalid paths can fail when the event fires. Event subscription uses reflected event metadata and expression construction, so do not assume this behavior is automatically NativeAOT-safe merely because the container is. Prefer direct command bindings or an explicitly typed behavior, and validate trimming/AOT warnings and the published application when using it in a NativeAOT target.
+
+The behavior removes its event handler on detachment. Give each control its own behavior instance and avoid making it a singleton.
+
+[Current implementation and parameter order](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Behaviors/EventToCommandBehavior.cs).

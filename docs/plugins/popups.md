@@ -4,188 +4,124 @@ title: Popups
 sidebar_label: Popups
 ---
 
-# Popups
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-## Getting Started
+# Popup dialog hosts
 
-The `Prism.Plugin.Popups` package has been hugely popular, enabling developers to leverage popup dialogs in their applications. Following the introduction of the [IDialogService](../dialogs/index.md), the Popup Plugin was updated to transition popup usage to dialogs. This change helps developers avoid strong dependencies on third-party libraries, as the `IDialogService` offers flexible implementation options should community packages become unmaintained.
+Prism's MAUI popup plugins host [IDialogService](../dialogs/index.md) dialogs in an overlay provided by Mopups or the .NET MAUI Community Toolkit. Install one selected provider from the [authorized Commercial Plus feed](../pipelines/commercial-plus.md). Keep view models on Prism's dialog contract so the hosting choice stays in the composition root.
 
-For .NET MAUI developers, the Popup Plugin will no longer be publicly available on NuGet.org. Instead, it will be exclusively provided to those with a Commercial Plus license. This decision supports the project's long-term sustainability, as maintaining and enhancing the plugin demands significant resources. Restricting access to licensed users allows us to allocate these resources effectively, ensuring continued development and improved support for our customers.
+## Choose a MAUI provider
 
----
+<Tabs groupId="popup-provider">
+<TabItem value="mopups" label="Mopups">
 
-## Setup
+Install `Prism.Plugin.Popups.Maui`. Inside the existing Prism builder callback:
 
-To integrate `Prism.Plugin.Popups.Maui` into your .NET MAUI project, follow these steps:
+```csharp
+using Prism.Plugin.Popups;
 
-1. **Install the NuGet Package**  
-   Add the `Prism.Plugin.Popups.Maui` package to your .NET MAUI project using NuGet Package Manager or by running:
-   ```
-   dotnet add package Prism.Plugin.Popups.Maui
-   ```
-
-2. **Register the Plugin**  
-   In your `MauiProgram.cs`, configure Prism to use the plugin by adding the following code:
-   ```csharp
-   builder.UseMauiApp<App>()
-       .UsePrism(prism => prism.ConfigureMopupDialogs());
-   ```
-
-3. **Register Your Dialog Views**  
-   Dialogs must be registered with Prism's dialog service (not navigated to like regular pages). For example:
-   ```csharp
-   containerRegistry.RegisterDialog<MyDialog>();
-   ```
-   This registers a dialog view named `MyDialog` with the Prism container.
-
----
-
-## Creating a Dialog View
-
-A dialog view typically inherits from `ContentView` or a similar base class. You can use XAML to define the content and customize its behavior with attached properties from the `PopupDialogLayout` class.
-
-Here's a basic template:
-```xaml
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="http://prismlibrary.com"
-             x:Class="YourNamespace.YourDialog">
-    <!-- Your popup content here -->
-</ContentView>
+prism.ConfigureMopupDialogs();
 ```
 
----
+This also calls the Mopups host setup, registers its popup navigation singleton, replaces `IDialogContainer`, and selects `SingletonDialogService`. Account for that dialog-service lifetime when resolving application dependencies. Do not also configure the Community Toolkit provider in the same startup path.
 
-## Attached Properties
+</TabItem>
+<TabItem value="community-toolkit" label="Community Toolkit">
 
-The `PopupDialogLayout` class provides several attached properties to customize popup dialogs. Below is a list of these properties, their purposes, and examples:
+Install `Prism.Plugin.Popups.CommunityToolkit.Maui`:
 
-### `HasSystemPadding`
-- **Type**: `bool`
-- **Default**: `true`
-- **Description**: Controls whether the popup respects system padding (e.g., status bar, navigation bar). Set to `false` for full-screen popups.
-- **Example**:
-  ```xaml
-  prism:PopupDialogLayout.HasSystemPadding="False"
-  ```
+```csharp
+using Prism.Plugin.Popups;
 
-### `SystemPadding`
-- **Type**: `Thickness`
-- **Default**: `0,0,0,0`
-- **Description**: Specifies custom padding around the popup, overriding system padding if needed.
-- **Example**:
-  ```xaml
-  prism:PopupDialogLayout.SystemPadding="20,40,20,20"
-  ```
+prism.ConfigureCommunityToolkitDialogs();
+```
 
-### `Animation`
-- **Type**: `IPopupAnimation`
-- **Default**: `ScaleAnimation`
-- **Description**: Defines the animation for popup appearance/disappearance. Use Mopups library animations (e.g., `MoveAnimation`) or custom ones.
-- **Example**:
-  ```xaml
-  <prism:PopupDialogLayout.Animation>
-      <animation:MoveAnimation PositionIn="Top" PositionOut="Bottom" />
-  </prism:PopupDialogLayout.Animation>
-  ```
+This calls `UseMauiCommunityToolkit()` and replaces `IDialogContainer`, retaining Prism's scoped dialog service. It does not use Mopups-specific attached properties. Match the installed Community Toolkit/MAUI versions and their actual supported platform assets.
 
-### `IsAnimationEnabled`
-- **Type**: `bool`
-- **Default**: `true`
-- **Description**: Enables/disables animations. Set to `false` for instant popup display.
-- **Example**:
-  ```xaml
-  prism:PopupDialogLayout.IsAnimationEnabled="False"
-  ```
+</TabItem>
+</Tabs>
 
-### `SystemPaddingSides`
-- **Type**: `PaddingSide`
-- **Default**: `PaddingSide.All`
-- **Description**: Specifies which sides receive system padding (e.g., `All`, `Top`, `Bottom`, `Left`, `Right`).
-- **Example**:
-  ```xaml
-  prism:PopupDialogLayout.SystemPaddingSides="Top,Bottom"
-  ```
+Register content with Prism, for example in the same builder's `RegisterTypes` callback:
 
-### `BackgroundInputTransparent`
-- **Type**: `bool`
-- **Default**: `false`
-- **Description**: If `true`, taps pass through to the background UI; if `false`, the background captures taps.
-- **Example**:
-  ```xaml
-  prism:PopupDialogLayout.BackgroundInputTransparent="True"
-  ```
+```csharp
+registry.RegisterDialog<ConfirmExportView, ConfirmExportViewModel>();
+```
 
-### `HasKeyboardOffset`
-- **Type**: `bool`
-- **Default**: `true`
-- **Description**: Adjusts the popup position when the keyboard appears. Set to `false` if no adjustment is needed.
-- **Example**:
-  ```xaml
-  prism:PopupDialogLayout.HasKeyboardOffset="False"
-  ```
+`ConfirmExportView` is an application-defined MAUI `ContentView`; its view model implements the current `Prism.Dialogs.IDialogAware` contract. It is not a `ContentPage` or a directly managed third-party popup page. Keep its XAML initialization and dialog lifecycle under Prism.
 
-### `KeyboardOffset`
-- **Type**: `double`
-- **Default**: `0`
-- **Description**: Adds an extra offset (in pixels) when the keyboard appears.
-- **Example**:
-  ```xaml
-  prism:PopupDialogLayout.KeyboardOffset="10"
-  ```
+## Shared dialog layout
 
----
+Use Prism's `DialogLayout` properties for host-neutral layout, mask, and relative sizing:
 
-## Example Dialog View
-
-Here's a complete example combining several attached properties:
-```xaml
+```xml
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
-             xmlns:animation="clr-namespace:Mopups.Animations;assembly=Mopups"
-             prism:PopupDialogLayout.HasSystemPadding="False"
-             prism:PopupDialogLayout.IsAnimationEnabled="True"
-             x:Class="MauiApp2.MyDialog">
-    <prism:PopupDialogLayout.Animation>
-        <animation:MoveAnimation PositionIn="Top" PositionOut="Bottom" />
-    </prism:PopupDialogLayout.Animation>
-    <VerticalStackLayout>
-        <Label Text="Welcome to .NET MAUI!"
-               VerticalOptions="Center"
-               HorizontalOptions="Center" />
+             x:Class="ExampleApp.Views.ConfirmExportView"
+             prism:DialogLayout.RelativeWidthRequest="0.8">
+    <VerticalStackLayout Padding="24" Spacing="12">
+        <Label Text="Export this report?" />
+        <Button Text="Export" Command="{Binding ConfirmCommand}" />
+        <Button Text="Cancel" Command="{Binding CancelCommand}" />
     </VerticalStackLayout>
 </ContentView>
 ```
 
-In this example:
-- `HasSystemPadding="False"` makes the popup full-screen.
-- `IsAnimationEnabled="True"` activates animations.
-- `MoveAnimation` slides the popup from the top in and out to the bottom.
+Define the commands in the dialog view model and close through its Prism `RequestClose` listener. See [MAUI dialogs](../platforms/maui/dialogs/index.md) for the full view-model and result lifecycle. Relative width is a fraction of the host, not a guarantee of a readable layout on every window size; test small/resized windows and keyboard appearance.
 
----
+## Mopups-only attached properties
 
-## Showing the Dialog
+`Prism.Plugin.Popups.Xaml.PopupDialogLayout` is exposed through the Prism XAML namespace. These settings apply to the Mopups container:
 
-Use Prism's `IDialogService` to display the dialog from a view model:
-```csharp
-public class MyViewModel
-{
-    private readonly IDialogService _dialogService;
+| Property | Default | Purpose |
+| --- | --- | --- |
+| `HasSystemPadding` | `true` | Apply native system padding |
+| `SystemPadding` | default `Thickness` | Padding value bound into the Mopups host |
+| `Animation` | `ScaleAnimation` | A Mopups `IPopupAnimation` |
+| `IsAnimationEnabled` | `true` | Enable host animation |
+| `SystemPaddingSides` | `PaddingSide.All` | Sides receiving system padding |
+| `BackgroundInputTransparent` | `false` | Background hit-testing behavior |
+| `HasKeyboardOffset` | `true` | Enable the host's keyboard offset behavior |
+| `KeyboardOffset` | `0d` | Host keyboard offset attached value; its binding mode is `OneWayToSource` |
 
-    public MyViewModel(IDialogService dialogService)
-    {
-        _dialogService = dialogService;
-    }
+Disabling system padding does not, by itself, make content full-screen. `SystemPadding` and `KeyboardOffset` are wired to the host's read-only properties; do not treat a numeric assignment as a portable way to move a dialog. Avoid applying Mopups animation/layout options to the Community Toolkit host.
 
-    public async Task ShowDialogAsync()
-    {
-        await _dialogService.ShowDialogAsync("MyDialog");
-    }
-}
-```
-- Inject `IDialogService` via constructor.
-- Call `ShowDialogAsync` with the registered dialog name.
+## Dismissal and lifecycle
 
----
+Open the dialog through `IDialogService` from the active page context. Prism owns dismissal and the `CanCloseDialog` veto. Do not remove native popups directly to bypass it, or assume a background tap always closes the dialog. Provider implementations coordinate dismissal and repeated close requests, but the app must still verify cancel, veto, rapid repeated actions, background taps, Back, interrupted presentation, and stacked-dialog behavior on its target devices.
 
+Dialog results and permission/cancellation semantics belong to the Prism dialog lifecycle; these registrations do not add an arbitrary cancellation-token overload or guarantee native rendering in a portable test.
+
+<Tabs groupId="platform">
+<TabItem value="maui" label=".NET MAUI">
+
+Both packages are MAUI hosts. Select a provider after checking its package assets and native dependencies for your Android, Apple, and Windows heads.
+
+</TabItem>
+<TabItem value="wpf" label="WPF">
+
+Use Prism's desktop dialog service/window contracts. These MAUI provider registrations do not apply to WPF.
+
+</TabItem>
+<TabItem value="uno-platform" label="Uno Platform">
+
+Use Prism's Uno dialog integration. A shared `IDialogAware` view-model contract does not make the MAUI popup container a supported Uno host.
+
+</TabItem>
+<TabItem value="avalonia" label="Avalonia">
+
+Use Prism's Avalonia dialog integration. Do not add MAUI provider packages to obtain an Avalonia popup host.
+
+</TabItem>
+</Tabs>
+
+## Source reference
+
+The following pinned Prism source links require authorized access to the private Prism.Plugins repository. Package availability must be checked in your authorized feed.
+
+- [`src/Prism.Plugin.Popups.Maui/MopupsRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Popups.Maui/MopupsRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Popups.Maui/Xaml/PopupDialogLayout.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Popups.Maui/Xaml/PopupDialogLayout.cs)
+- [`src/Prism.Plugin.Popups.Maui/PopupDialogContainer.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Popups.Maui/PopupDialogContainer.cs)
+- [`src/Prism.Plugin.Popups.CommunityToolkit.Maui/CommunityToolkitRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Popups.CommunityToolkit.Maui/CommunityToolkitRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Popups.CommunityToolkit.Maui/CommunityToolkitDialogContainer.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/f0abcbb95c9e865dc909966cfe8ad9883c42d5d5/src/Prism.Plugin.Popups.CommunityToolkit.Maui/CommunityToolkitDialogContainer.cs)

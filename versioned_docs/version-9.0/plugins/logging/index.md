@@ -2,168 +2,160 @@
 sidebar_position: 2
 title: Logging
 sidebar_label: Prism.Plugin.Logging
+description: "Configure Prism 9.0 logging contracts, providers, filters, scopes, and integrations using the shipped 9.0.345 plugins."
 ---
 
 # Prism.Plugin.Logging
 
-Available now to Commercial Plus license holders on the Prism NuGet feed.
+Prism Logging provides injectable contracts for application messages, analytics events, exception reports, and user context. Install `Prism.Plugin.Logging.Abstractions` and the provider packages you need from the [Commercial Plus feed](../../pipelines/commercial-plus.md).
+
+This guide describes the shipped `9.0.345` plugin packages, mapped to source commit `bbafa527`. That source uses Prism `9.0.539` and Containers `9.0.107`; this does not establish compatibility with the public Prism `9.0.537` baseline used elsewhere in these versioned docs. Check the published dependencies for your selected packages. The abstractions and several local providers include .NET Standard 2.0, .NET 6, and .NET 8 assets. Remote providers and integrations have their own framework and platform requirements.
 
 ## Why another Logging Library?
 
-It's a fair question. Certainly you may be thinking we already have a number of logging options using Microsoft.Extensions.Logging. While Microsoft Logging works great for a number of solutions it falls flat in a few key areas:
+Prism Logging separates three application concerns: tracking a named event, reporting an exception, and associating activity with a user. A service can request only the contract it needs, or use `ILogger` for all three plus ordinary messages.
 
-- It's hard to collect metrics with the context of a specific user
-- It doesn't map well for Tracking Events and Error Reports similar to what developers are used to with AppCenter
-
-Additionally Prism.Plugin.Logging allows you to opt into using the AggregateLogger. This allows you to register multiple logging providers which can be simultaneously streamed to. For instance you may want to use AppCenter while also testing out other providers like Graylog, Raygun or Sentry.
+An aggregate logger forwards calls to the registered providers. For example, you can inspect local Console output while sending error reports to Sentry, or send selected events to a mobile analytics provider. Each provider determines how those operations map to its destination.
 
 ## Getting Started
 
-Prism.Plugin Logging has a number of providers out of the box and it's fairly straight forward to implement custom solutions. There are 4 key interfaces that you may want to use from Prism.Plugin.Logging.
+Register logging once during application setup, using `IContainerRegistry`. This example requires `Prism.Plugin.Logging.Console`:
 
-- IAnalyticsService
-- ICrashesService
-- IUserProvider
+```csharp
+using Prism.Ioc;
+using Prism.Plugin.Logging;
 
-These 3 provide specific functionality that developers are generally looking for and can be helpful to write meaningful code as you can see clearly that you're tracking analytics, exceptions or managing the active user in your application. All 3 of these are included as part of the central `ILogger` interface, which additionally exposes a more generic `Log` method.
-
-By default Prism Logging provides an Aggregate Logger allowing you to register and configure multiple logging providers. There is no additional configuration that you need to do in order to use this feature. To get started with Prism Logging you simply need to register it with the IContainerProvider:
-
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    // Register your providers
-    logging.AddDebug();
-});
+public static class AppLogging
+{
+    public static void Register(IContainerRegistry containerRegistry)
+    {
+        containerRegistry.UsePrismLogging(logging =>
+        {
+            logging.ConfigureGlobalLoggingProperties(properties =>
+                properties.Add("Application", "ExampleApp"));
+            logging.AddConsole();
+        });
+    }
+}
 ```
+
+Call this from your application's existing Prism registration callback or `RegisterTypes` override. `UsePrismLogging` registers the aggregate automatically; add each selected provider once. `AddNull()` is available when you want an explicit no-output provider.
+
+### Choose a contract
+
+All of these interfaces are in `Prism.Plugin.Logging`:
+
+- `IAnalyticsService`: `TrackEvent` with a name and string properties
+- `ICrashesService`: `Report` with an exception and string properties
+- `IUserProvider`: `SetUser` and `ClearUser`
+- `ILogger`: all three interfaces, plus `Log` and `BeginScope`
+- `ILogger<T>`: an `ILogger` with a `Service` scope derived from the type name
+
+The extension methods include `Debug`, `Info`, `Warn`, and overloads that accept property tuples. `Report` is the exception-reporting path; logging an exception with the `Log` extension remains generic logging.
+
+```csharp
+using Prism.Plugin.Logging;
+
+public sealed class ExportDiagnostics(ILogger<ExportDiagnostics> logger)
+{
+    public void RecordCompleted()
+    {
+        logger.TrackEvent("ExportCompleted", ("Format", "Csv"));
+        logger.Info("Export completed", ("Outcome", "Succeeded"));
+    }
+
+    public void RecordFailure(Exception exception)
+    {
+        logger.Report(exception);
+    }
+}
+```
+
+Use aliases or fully qualified names when a file also imports `Microsoft.Extensions.Logging`. Only include messages, property values, and user identifiers that your application's telemetry policy permits. Debug and exception helpers can also capture caller information.
 
 ### Configuration
 
-Some logging providers such as the Null, Debug and Testing providers are intentionally not configurable as it makes sense to log all messages sent to them, or in the case of the Null logger nothing is logged anyway. The rest of the Logging providers provide some degree of configuration. This ensures that you can tailor the logging experience based on the provider. By default all features of the ILogger are enabled, however by optionally configuring the options, you can disable Event Tracking, Error Reporting, or you can disable or tune the generic logging.
+Providers that accept `LoggerOptions` allow independent control of generic messages, exception reports, and events. Console and Debug both have configurable overloads. Null discards calls, while the Testing provider records calls without provider filters.
 
-To disable the Error Tracking we can simply set the `EnableErrorTracking` property to false
-
-```cs
-logging.AddConsole(o => o.EnableErrorTracking = false);
+```csharp
+logging.AddConsole(options =>
+{
+    options.EnableErrorTracking = false;
+    options.ExcludedLoggingCategories = new[] { LogCategory.Debug };
+});
 ```
 
-To disable generic logging we can simply set the `EnableLogging` property to false
-
-```cs
-logging.AddConsole(o => o.EnableLogging = false);
-```
-
-We can also tune the logging to filter out logged messages by category assuming that it has one. In the following case we will exclude any logs that have a property `Category` with the value `Debug`.
-
-```cs
-logging.AddConsole(o => o.ExcludedLoggingCategories = [LogCategory.Debug]);
-```
-
-Similarly we could exclude logs which lack a category property.
-
-```cs
-logging.AddConsole(o => o.ExcludedLoggingCategories = [LogCategory.Uncategorized]);
-```
+`EnableLogging = false` disables generic messages. `EnableErrorTracking = false` disables the provider's exception-reporting path where implemented. Neither setting disables events. `ExcludedLoggingCategories` compares category strings exactly, so custom categories and the levels coming from Microsoft logging need deliberate configuration. Use explicit categories for messages you intend to filter.
 
 #### Customizing Event Tracking
 
-Event Tracking is handled special in Prism Logging. This allows you to enable some very powerful scenarios that can include multiple providers working in concert with each provider determining what it can and cannot track. This is done through 2 properties which can be used independently. The first is the `CanLogEvent` delegate which passes the Event Name and the Properties and returns a boolean indicating whether or not the provider can track a given event.
+`CanLogEvent` receives the event name and combined properties and decides whether the provider should accept the event. `DisableEvents()` sets that predicate to always return false. `FormatEventName` receives the name and properties and returns the name to send.
 
-```cs
-logging.AddConsole(o =>
+```csharp
+logging.AddConsole(options =>
 {
-    // Disable Events for the provider
-    o.CanLogEvent = (name, properties) => false;
-
-    // Optionally we can also do the following
-    o.DisableEvents();
+    options.CanLogEvent = (name, _) =>
+        name.StartsWith("Workflow_", StringComparison.Ordinal);
+    options.FormatEventName = (name, _) => name.Substring("Workflow_".Length);
 });
 
-logging.AddDebug(o =>
+logging.AddDebug(options =>
 {
-    // Conditionally Enable Event for the provider
-    o.CanLogEvent = (name, properties) => properties.TryGetValue("Debug", out var value) && value == bool.TrueString;
+    options.CanLogEvent = (_, properties) =>
+        properties.TryGetValue("Debug", out var value) && value == bool.TrueString;
 });
 ```
 
-The next delegate we have is the `FormatEventName` delegate. This again passes the provided event name and allows you to make any required modifications. If we put it all together you might have a situation where the Marketing team wants certain events and they want to use a platform like Kochava, while the development team might want some additional event tracking with App Center. In this case Prism Logging shines as it provides you the flexibility to customize the logger to your needs while only needing a single ILogger in your codebase.
-
-```cs
-logging.AddAppCenter("appSecret", o =>
-    {
-        o.CanLogEvent = (name, _) => name.StartsWith("Dev_");
-        o.FormatEventName = (name, _) = name[4..];
-    })
-    .AddKochava("{app secret}", o =>{
-        o.EnableErrorTracking = false;
-        o.EnableLogging = false;
-        o.CanLogEvent = (name, _) => !name.StartsWith("Dev_");
-    });
-```
+Apply each configuration to the provider that needs it. These delegates select and rename events; they do not automatically redact generic messages, exception details, or user context.
 
 ### Logging Scopes
 
-Scopes allow you to provide additional properties automatically on any logs, events or errors that you send to the ILogger. This means that you can define a property one time and it will automatically be added for you without the need to specify it again within the scope. An implicit Service Scope can be created by providing a generic type argument when resolving the ILogger.
+Use `BeginScope`, and dispose its result at the end of the operation. The scope's properties are combined with the properties supplied on individual calls.
 
-```cs
-public class MyViewModel(ILogger<MyViewModel> logger) : BindableBase
+```csharp
+using Prism.Plugin.Logging;
+
+public sealed class ImportDiagnostics(ILogger<ImportDiagnostics> logger)
 {
-}
-```
-
-Keep in mind that the `ILogger<T>` inherits from `ILogger` so when working with a base Service or ViewModel you can have a requirement for `ILogger` while injecting a typed `ILogger` in the implementing class.
-
-```cs
-public abstract class ViewModelBase(ILogger logger) : BindableBase { }
-
-public sealed class ViewAViewModel(ILogger<ViewAViewModel> logger) : ViewModelBase(logger) { }
-```
-
-In addition to implicit scoping you can provide an explicit logging scope by creating a disposable scope within your code. There are a number of times this could be useful for instance you may want to chain this within Commands or helper methods to help provide additional context about the code path that lead to an event or error.
-
-```cs
-public abstract class ViewModelBase(ILogger logger, IRegionManager regionManager) : BindableBase
-{
-    protected void DoNavigation(string regionName, string viewName)
+    public void RecordStarted()
     {
-        using (logger.CreateScope("Method", nameof(DoNavigation)))
-        {
-            logger.Debug($"Navigating to {viewName} in the {regionName} region.");
-            regionManager.RequestNavigate(regionName, viewName);
-        }
-    }
-}
-
-public sealed class ViewAViewModel(ILogger<ViewAViewModel> logger, IRegionManager regionManager) : ViewModelBase(logger, regionManager)
-{
-    private void OnLogin()
-    {
-        using var _ = logger.CreateScope("Command", nameof(LoginCommand));
-        // your login logic
-
-        DoNavigation("MyContent", "ViewB");
+        using var scope = logger.BeginScope("Operation", "Import");
+        logger.Info("Import started", ("Format", "Csv"));
     }
 }
 ```
 
-In the above example we can see that we have a single Debug log generated which has a simple message. However due to the Implicit and Explicit scopes we can expect to see the Service type, the Command name, and the Method name all added automatically as properties to our logged message.
+For providers that include combined properties, this call carries `Service=ImportDiagnostics`, `Operation=Import`, and `Format=Csv`, as well as any global properties. `ILogger<T>` inherits `ILogger`, so a typed logger can also be passed to a base class that accepts `ILogger`.
+
+`ConfigureGlobalLoggingProperties` supplies application-wide properties. Call properties take precedence over a colliding global key; the global value is retained under `Global:` followed by the key. Prefer distinct property names to keep output easy to read.
+
+The default aggregate and provider registrations are transient, while options and global user state are shared registrations. Keep operation scopes short, and call `ClearUser()` when the relevant account context ends. Changing provider lifetimes can change which operations share scopes.
+
+The logging contracts do not expose an awaitable delivery result or per-message cancellation token. A logging call returning does not establish that a remote service received it. Choose a separate acknowledged application workflow when delivery is part of a business requirement.
 
 ## Logging Providers
 
-Prism provides a number of logging providers available out of the box for you with additional providers currently under consideration. If we do not have integration for a provider that you would like please let us know on Discord.
-
-- [AppCenter](providers/appcenter.md)
-- [Console](providers/console.md)
-- [Debug](providers/debug.md)
-- [Firebase](providers/firebase.md)
-- [Graylog (GELF)](providers/gelf.md)
-- [Kochava](providers/kochava.md)
-- [Raygun](providers/raygun.md)
-- [Sentry](providers/sentry.md)
-- [Testing](providers/testing.md)
-- [Xunit](providers/xunit.md)
+- [Console](providers/console.md): standard output
+- [Debug](providers/debug.md): output while a debugger is attached
+- [Firebase](providers/firebase.md): Android and iOS analytics
+- [Graylog (GELF)](providers/gelf.md): UDP, TCP, HTTP, and HTTPS transport
+- [Kochava](providers/kochava.md): Android, iOS, and Mac Catalyst analytics
+- [Raygun](providers/raygun.md): exception reporting and diagnostic breadcrumbs
+- [Sentry](providers/sentry.md): messages and exception reports
+- [Testing](providers/testing.md): records for assertions
+- [Xunit](providers/xunit.md): test output plus the Testing provider
+- [AppCenter](providers/appcenter.md): guidance for existing integrations
 
 ## Interop Extensions
 
-- [Microsoft.Extensions.Logging Interoperability](interop/microsoft)
-- [Prism.Plugins.Essentials](interop/essentials)
+- [Microsoft.Extensions.Logging Interoperability](interop/microsoft.md)
+- [Prism.Plugin.Essentials](interop/essentials.md)
 
+## Source reference
+
+These sources are pinned to the implementation used by the `9.0.345` packages. The Prism.Plugins repository requires authorized access.
+
+- [`DefaultLoggingRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Abstractions/DefaultLoggingRegistrationExtensions.cs)
+- [`ILoggerExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Abstractions/ILoggerExtensions.cs)
+- [`LoggerOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Abstractions/LoggerOptions.cs)
+- [`GenericLogger.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Abstractions/GenericLogger.cs)

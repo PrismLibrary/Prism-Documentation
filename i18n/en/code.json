@@ -9,7 +9,7 @@
     "message": "Cross-Platform, Unified API"
   },
   "homepage.features.crossPlatform.description": {
-    "message": "Write once, deploy everywhere. Prism 9 provides a unified API across WPF, .NET MAUI, Uno Platform, and Avalonia. Maximize code reuse and minimize platform-specific code."
+    "message": "Share application patterns across WPF, .NET MAUI, Uno Platform, and Avalonia. Prism keeps business logic reusable while each host owns its UI and lifecycle."
   },
   "homepage.features.mvvm.title": {
     "message": "MVVM Made Simple"
@@ -24,4 +24,3 @@
     "message": "Modular architecture, event aggregation, and loose coupling make Prism perfect for large-scale applications. Keep your code organized and your team productive."
   }
 }
-

@@ -9,7 +9,7 @@
     "message": "クロスプラットフォーム、統一API"
   },
   "homepage.features.crossPlatform.description": {
-    "message": "一度書いて、どこでも展開。Prism 9は、WPF、.NET MAUI、Uno Platform、Avalonia全体で統一APIを提供します。コードの再利用を最大化し、プラットフォーム固有のコードを最小化します。"
+    "message": "WPF、.NET MAUI、Uno Platform、Avaloniaでアプリケーションのパターンを共有できます。Prismではビジネスロジックを再利用しながら、各ホストがUIとライフサイクルを管理します。"
   },
   "homepage.features.mvvm.title": {
     "message": "MVVMを簡単に"
@@ -24,4 +24,3 @@
     "message": "モジュラーアーキテクチャ、イベント集約、疎結合により、Prismは大規模アプリケーションに最適です。コードを整理し、チームの生産性を維持します。"
   }
 }
-

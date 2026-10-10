@@ -1,99 +1,104 @@
 ---
 sidebar_position: 5
 uid: Plugins.Logging.Gelf
+description: "Configure Prism 9.0 GELF transport, provider options, and local Graylog receiver validation."
 ---
 
 # Logging with Graylog (GELF)
 
-Graylog is a great option for Developers. We find that there are generally 2 categories of developers that really love using Graylog:
-
-- Developers who want to have logging that is disconnected from Visual Studio but something that can remain local on their developer machine. This can work fantastic in scenarios where you may be doing a demo from a pre-deploy dev build to a device without an active Debug session in Visual Studio. In these situations we have all had great demos where something goes wrong and we wish we could see what happened. Using the GELF logger this problem can be solved by ensuring that even while you're doing your demo the logs can continue to stream to your machine for you to review later.
-- Some Enterprises in particular have very strict Data policies. As such owning the full End-to-End solution can be of great importance. For these customers Graylog can provide a fantastic option as you can control your options by deploying your own Graylog server into production.
+`Prism.Plugin.Logging.Gelf` sends Prism messages, events, and exception reports to a GELF-compatible server such as Graylog. It is useful for collecting diagnostics independently of an attached debugger or for sending logs to infrastructure managed by your organization. The `9.0.345` package includes .NET Standard 2.0 and .NET 8 assets.
 
 ## Setup
 
-## Local Debugging
+Create a GELF input on the receiving server and match its protocol, host, and port in the application. For example, to send UDP messages to a local input:
 
-Below is a sample docker file. You can use this to create a local Graylog stack using the [Graylog Docker image](https://hub.docker.com/r/graylog/graylog/). This can be useful for testing application logs locally. Requires [Docker](https://www.docker.com/get-docker) and Docker Compose.
+```csharp
+using Prism.Plugin.Logging;
 
-- `docker-compose up`
-- Navigate to [http://localhost:9000](http://localhost:9000)
-- Credentials: admin/admin
-- Create a UDP input on port 12201 and set `GelfLoggerOptions.Host` to `localhost`.
-
-:::note
-The username and password are both `admin`. This should only be used for local testing. If putting this into production be sure to update the password.
-:::
-
-```docker
-services:
-  mongodb:
-    image: mongo:4.4
-    container_name: graylog-mongodb
-    restart: always
-    volumes:
-      - /docker/graylog/data/mongodb:/data/db
-    networks:
-      - graylog-network
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.9
-    container_name: graylog-elasticsearch
-    restart: always
-    environment:
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g
-      - xpack.security.enabled=false
-      - xpack.monitoring.enabled=false
-      - xpack.ml.enabled=false
-      - network.host=0.0.0.0
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - /docker/graylog/data/elasticsearch:/usr/share/elasticsearch/data
-    networks:
-      - graylog-network
-
-  graylog:
-    image: graylog/graylog:4.3
-    container_name: graylog
-    restart: always
-    depends_on:
-      - mongodb
-      - elasticsearch
-    environment:
-      - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
-      # Password: "admin"
-      - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9000/
-      - GRAYLOG_ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - GRAYLOG_MONGODB_URI=mongodb://mongodb:27017/graylog
-    ports:
-      # Graylog web interface and REST API
-      - "9000:9000/tcp"
-      # Beats
-      - "5044:5044/tcp"
-      # Syslog TCP
-      - "5140:5140/tcp"
-      # Syslog UDP
-      - "5140:5140/udp"
-      # GELF TCP
-      - "12201:12201/tcp"
-      # GELF UDP
-      - "12201:12201/udp"
-      # Forwarder data
-      - "13301:13301/tcp"
-      # Forwarder config
-      - "13302:13302/tcp"
-    volumes:
-      - /docker/graylog/data/graylog:/usr/share/graylog/data/journal
-    networks:
-      - graylog-network
-
-networks:
-  graylog-network:
-    driver: bridge
+containerRegistry.UsePrismLogging(logging =>
+{
+    logging.AddUdpGelf(host: "127.0.0.1", port: 12201);
+});
 ```
 
+Other convenience methods are `AddTcpGelf` and `AddHttpsGelf`. All three default to host `127.0.0.1` and port `12201`. For HTTP or an explicit timeout, use the protocol overload:
+
+```csharp
+using Prism.Plugin.Logging;
+using Prism.Plugin.Logging.Gelf;
+
+containerRegistry.UsePrismLogging(logging =>
+{
+    logging.AddGelf(
+        GelfProtocol.Http,
+        host: "127.0.0.1",
+        port: 12201,
+        timeout: TimeSpan.FromSeconds(10));
+});
+```
+
+HTTP and HTTPS post JSON to `/gelf` on the configured host and port. Pass a hostname or IP address in `Host`, not a complete URL or a path. The server must expose the corresponding input; the Graylog web interface port is not automatically a GELF ingestion port.
+
+### Configure transport and logging
+
+Pass a `GelfLoggerOptions` instance when you need both transport settings and provider filters:
+
+```csharp
+using Prism.Plugin.Logging;
+using Prism.Plugin.Logging.Gelf;
+
+containerRegistry.UsePrismLogging(logging =>
+{
+    logging.AddGelf(new GelfLoggerOptions
+    {
+        Protocol = GelfProtocol.Udp,
+        Host = "127.0.0.1",
+        Port = 12201,
+        CompressUdp = true,
+        ExcludedLoggingCategories = new[] { LogCategory.Debug },
+        FormatEventName = (name, _) => $"Event: {name}"
+    });
+});
+```
+
+The stable API accepts an options object, rather than an options callback. Set `Host` explicitly when constructing the options yourself.
+
+| Option | Default and purpose |
+| --- | --- |
+| `Protocol` | `Udp`; also supports `Tcp`, `Http`, and `Https` |
+| `Host` | No default on a new options instance; receiving host |
+| `Port` | `12201` |
+| `Timeout` | 30 seconds; HTTP request and applicable stream-operation timeout |
+| `CompressUdp` | `true`; enables gzip compression |
+| `UdpCompressionThreshold` | `512` bytes; messages larger than this can be compressed |
+| `UdpMaxChunkSize` | `8192` bytes; maximum UDP datagram size |
+| `HttpHeaders` | Empty dictionary; headers for HTTP/HTTPS requests |
+
+The common `LoggerOptions` filters are also available. By default, GELF formats event names as `Event: ` followed by the supplied name.
+
+### Message contents
+
+Generic messages and events become GELF short messages with additional fields from their properties, scopes, and global properties. Exception reports use the exception's message and include its string representation in an `Exception` field. A configured user is included as a `User` field. The serializer prefixes additional-field names with an underscore in the GELF payload.
+
+A `Category` property selects the syslog severity when recognized; messages without a recognized category default to informational severity. Review the resulting message and severity at the receiver when adding another adapter to the pipeline.
+
+## Local Debugging
+
+Run a GELF-capable receiver, enable an input, and expose its port for the selected protocol. A container port published for TCP does not also publish UDP. Then send a recognizable message from the running application and verify it in the receiver:
+
+```csharp
+logger.Info("GELF connection check", ("Environment", "LocalDevelopment"));
+```
+
+`127.0.0.1` refers to the machine or device running the application. A physical device or separate container needs a reachable address for the receiver instead of the developer computer's loopback address. Check the input binding, network routing, and firewall when the message does not arrive.
+
+This stable provider has no durable offline storage option. The logging contract does not return a delivery acknowledgement or expose a flush operation. Use a reachable receiver while testing and verify arrival there; a completed `Log` call is not confirmation that the server stored the message.
+
+## Source reference
+
+These sources are pinned to the implementation used by the `9.0.345` packages. The Prism.Plugins repository requires authorized access.
+
+- [`GelfLoggingServiceExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Gelf/GelfLoggingServiceExtensions.cs)
+- [`GelfLoggerOptions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Gelf/GelfLoggerOptions.cs)
+- [`GelfLoggingService.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Gelf/GelfLoggingService.cs)
+- [`HttpGelfClient.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Gelf/HttpGelfClient.cs)

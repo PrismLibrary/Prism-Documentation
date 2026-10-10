@@ -3,144 +3,128 @@ sidebar_position: 2
 uid: Mvvm.ViewModelLocator
 ---
 
-# Using the ViewModelLocator
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-The `ViewModelLocator` is used to wire the `DataContext` of a view to an instance of a ViewModel using a standard naming convention.
+# View-model location
 
-The Prism `ViewModelLocator` has an `AutoWireViewModel` attached property, that when set to `true` calls the `AutoWireViewModelChanged` method in the `ViewModelLocationProvider` class to resolve the ViewModel for the view, and then set the view's data context to an instance of that ViewModel. This behavior is on by default: if you don't want that for your view, you need to opt-out.
+Prism connects a view to its view model through `Prism.Mvvm.ViewModelLocationProvider` and the host's `ViewModelLocator`. Prefer an explicit view/view-model pair in navigation or dialog registration. That makes the relationship visible to readers, tooling and the NativeAOT preservation pipeline.
 
-> In the case of **WPF**, this is only the default behavior when using **region navigation** and ```IDialogService```. If you are using **view injection**, your view will need to opt-in.
+```csharp
+containerRegistry.RegisterForNavigation<OrderView, OrderViewModel>();
+containerRegistry.RegisterDialog<ConfirmOrderView, ConfirmOrderViewModel>();
+```
 
-Use the `AutoWireViewModel` attached property as below. Set the value to ```False``` to opt-out and ```True``` to explicitly opt-in.
+The view must satisfy the host's view constraints: for example, a .NET MAUI navigation registration is a `Page`, while dialog content is a `View`.
+
+## Host behavior
+
+<Tabs groupId="platform" queryString="platform">
+<TabItem value="wpf" label="WPF">
+
+Prism uses the view's `DataContext`. Navigation and dialog creation can autowire a view. For a manually created/injected view, opt in explicitly when needed:
 
 ```xml
-<Window x:Class="Demo.Views.MainWindow"
-    ...
-    xmlns:prism="http://prismlibrary.com/"
-    prism:ViewModelLocator.AutoWireViewModel="False">
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+</UserControl>
 ```
 
-To locate a ViewModel, the `ViewModelLocationProvider` first attempts to resolve the ViewModel from any mappings that may have been registered by the `ViewModelLocationProvider.Register` method (See [Custom ViewModel Registrations](#custom-viewmodel-registrations)).  If the ViewModel cannot be resolved using this approach, the `ViewModelLocationProvider` falls back to a convention-based approach to resolve the correct ViewModel type.  
+Use `False` when you own the data context. The attached property's default is nullable; do not assume every arbitrary WPF view is autowired merely because Prism is present.
 
-This convention assumes:
+</TabItem>
+<TabItem value="maui" label=".NET MAUI">
 
-- that ViewModels are in the same assembly as the view types
-- that ViewModels are in a `.ViewModels` child namespace
-- that views are in a `.Views` child namespace
-- that ViewModel names correspond with view names and end with "ViewModel."
+Prism's navigation path wires the `BindingContext` and preserves page-scoped resolution. The attached property uses an enum, with the spelling **AutowireViewModel**:
 
-:::note
-The `ViewModelLocationProvider` can be found in the `Prism.Mvvm` namespace in the **Prism.Core** NuGet package. The `ViewModelLocator` can be found in the `Prism.Mvvm` namespace in the platform specific packages (**Prism.WPF**, **Prism.Maui**) NuGet package.
-:::
-
-:::note
-The ViewModelLocator is required, and automatically applied to every View, when developing with .NET MAUI as it is responsible for providing the correct instance of the `INavigationService` to the ViewModel. When developing a .NET MAUI app, the `ViewModelLocator` is opt-out only.
-:::
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/I_3LxBdvJi4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-## Change the Naming Convention
-
-If your application does not follow the `ViewModelLocator` default naming convention, you can change the convention to meet the requirements of your application.  The `ViewModelLocationProvider` class provides a static method called `SetDefaultViewTypeToViewModelTypeResolver` that can be used to provide your own convention for associating views to view models.
-
-To change the `ViewModelLocator` naming convention, override the `ConfigureViewModelLocator` method in the `App.xaml.cs` class. Then provide your custom naming convention logic in the `ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver` method.
-
-```cs
-protected override void ConfigureViewModelLocator()
-{
-    base.ConfigureViewModelLocator();
-
-    ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver((viewType) =>
-    {
-        var viewName = viewType.FullName.Replace(".ViewModels.", ".CustomNamespace.");
-        var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
-        var viewModelName = $"{viewName}ViewModel, {viewAssemblyName}";
-        return Type.GetType(viewModelName);
-    });
-}
+```xml
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="Disabled">
+</ContentPage>
 ```
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/o4ibaOFvfww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+The values are `Automatic` (default), `Disabled`, and `Forced`. Automatic wiring respects an existing non-inherited binding context. Avoid replacing Prism's view-aware factory with a root-container resolver: a page's `INavigationService` must remain associated with the correct page scope.
 
-## Custom ViewModel Registrations
+</TabItem>
+<TabItem value="uno-platform" label="Uno Platform">
 
-There may be instances where your app is following the `ViewModelLocator` default naming convention, but you have a number of ViewModels that do not follow the convention. Instead of trying to customize the naming convention logic to conditionally meet all your naming requirments, you can register a mapping for a ViewModel to a specific view directly with the `ViewModelLocator` by using the `ViewModelLocationProvider.Register` method.
+Prism uses `DataContext`. Uno's attached property is spelled **AutowireViewModel**, with a nullable boolean value:
 
-The following examples show the various ways to create a mapping between a view called `MainWindow` and a ViewModel named `CustomViewModel`.
-
-**Type / Type**
-
-```cs
-ViewModelLocationProvider.Register(typeof(MainWindow).ToString(), typeof(CustomViewModel));
+```xml
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:prism="using:Prism.Mvvm"
+      prism:ViewModelLocator.AutowireViewModel="True">
+</Page>
 ```
 
-**Type / Factory**
+Use the navigation/dialog registration pair for routed views. An explicit `False` opts a view out; `True` opts in when constructing a view outside that path.
 
-```cs
-ViewModelLocationProvider.Register(typeof(MainWindow).ToString(), () => Container.Resolve<CustomViewModel>());
+</TabItem>
+<TabItem value="avalonia" label="Avalonia">
+
+Prism.Avalonia supplies a `DataContext`-based locator using the shared WPF/Avalonia implementation:
+
+```xml
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Avalonia"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+</UserControl>
 ```
 
-**Generic Factory**
+This is a supported Prism API even though the five reference applications do not yet provide Avalonia sample heads. Design mode is excluded from automatic runtime activation.
 
-```cs
-ViewModelLocationProvider.Register<MainWindow>(() => Container.Resolve<CustomViewModel>());
+</TabItem>
+</Tabs>
+
+## Custom view-model registrations
+
+Map a non-conventional pair without replacing the application's resolver:
+
+```csharp
+using Prism.Mvvm;
+
+ViewModelLocationProvider.Register<OrderView, EditOrderViewModel>();
 ```
 
-**Generic Type**
+A factory registration is also possible:
 
-```cs
-ViewModelLocationProvider.Register<MainWindow, CustomViewModel>();
+```csharp
+ViewModelLocationProvider.Register<OrderView>(
+    () => containerProvider.Resolve<EditOrderViewModel>());
 ```
 
-:::note
-Registering your ViewModels directly with the `ViewModelLocator` is faster than relying on the default naming convention. This is because the naming convention requires the use of reflection, while a custom mapping provides the type directly to the `ViewModelLocator`.
-:::
+A factory must use the appropriate scope and lifetime. A static factory that captures a page or scoped provider can retain that page; do not use one global mapping to smuggle per-page state into every future view.
 
-:::warning
-The `viewTypeName` parameter must be the fully qualifyied name of the view's Type (`Type.ToString()`). Otherwise the mapping will fail.
-:::
+## Default naming convention
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/phMc4OuKs58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+With no explicit mapping, the default resolver changes `.Views.` to `.ViewModels.` in the fully qualified view name and looks in the same assembly. A name ending in `View` receives `Model`; other names receive `ViewModel`:
 
-## Control how ViewModels are Resolved
+- `Example.Views.OrderView` → `Example.ViewModels.OrderViewModel`
+- `Example.Views.OrderPage` → `Example.ViewModels.OrderPageViewModel`
 
-By default, the `ViewModelLocator` will use the DI container you have chosen to create your Prism application to resolve ViewModels.  However, if you ever have the need to customize how ViewModels are resolved or change the resolver altogether, you can achieve this by using the `ViewModelLocationProvider.SetDefaultViewModelFactory` method.
+A registered factory is tried first. Type mappings, a platform view-to-type resolver and finally the convention provide the view-model type. The host's configured factory then creates the instance.
 
-This example shows how you might change the container used for resolving the ViewModel instances.
+## Change the naming convention
 
-```cs
-protected override void ConfigureViewModelLocator()
-{
-    base.ConfigureViewModelLocator();
+`SetDefaultViewTypeToViewModelTypeResolver` changes global convention lookup. For a finite mapping, a type-based resolver avoids constructing type names with reflection:
 
-    ViewModelLocationProvider.SetDefaultViewModelFactory((viewModelType) =>
-    {
-        return MyAwesomeNewContainer.Resolve(viewModelType);
-    });
-}
+```csharp
+ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(
+    viewType => viewType == typeof(OrderView)
+        ? typeof(EditOrderViewModel)
+        : null);
 ```
 
-This is an example of how you might check the type of the view the ViewModel is being created for, and performing logic to control how the ViewModel is created.
+Returning null means no type was found; it does not ask Prism to retry the old resolver. WPF/Avalonia applications can configure this after `base.ConfigureViewModelLocator()`. On builder-based hosts, configure it during startup before views are created.
 
-```cs
-protected override void ConfigureViewModelLocator()
-{
-    base.ConfigureViewModelLocator();
+## Control how view models are resolved
 
-    ViewModelLocationProvider.SetDefaultViewModelFactory((view, viewModelType) =>
-    {
-        switch (view)
-        {
-            case Window window:
-                //your logic
-                break;
-            case UserControl userControl:
-                //your logic
-                break;
-        }
+`SetDefaultViewModelFactory` has type-only and `(view, viewModelType)` overloads. These are advanced global customizations. Normally keep Prism's container-backed factory so constructor injection and host-specific scopes continue to work. A standalone use of `ViewModelLocationProvider` without a host factory defaults to parameterless activation, not automatic constructor injection.
 
-        return MyAwesomeNewContainer.Resolve(someNewType);
-    });
-}
-```
+## NativeAOT and trimming
 
+In Prism 10.0 the default convention first checks types preserved by the container generator. Unrestricted reflection lookup is disabled for NativeAOT publication. Explicit mappings still need statically preserved activation paths and binding metadata; a mapping by itself is not application qualification. Use the supported Microsoft container from Commercial Plus and follow the [NativeAOT guide](../dependency-injection/native-aot.md).
+
+Sources: [core lookup and factories](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Prism.Core/Mvvm/ViewModelLocationProvider.cs), [WPF/Avalonia attached property](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.Wpf/Mvvm/ViewModelLocator.cs), [.NET MAUI locator](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Maui/Prism.Maui/Mvvm/ViewModelLocator.cs), and [Uno locator](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Uno/Prism.Uno/Mvvm/ViewModelLocator.cs).

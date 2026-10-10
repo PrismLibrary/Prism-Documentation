@@ -1,23 +1,46 @@
 ---
 sidebar_position: 1
+description: "Use Prism 9.0 page visibility callbacks and distinguish them from navigation and final cleanup."
 ---
 
 # IPageLifecycleAware
 
-Prism's `IPageLifecycleAware` interface is used on ViewModels to provide some additional logic when a Page is appearing or disappearing. This could be applied to a ViewModel for the Page or for a ViewModel on a [Region](../../../navigation/regions/index.md). The interface itself is very simple with only 2 methods, which as the names suggest are called when the Page is Appearing or Disappearing.
+`Prism.AppModel.IPageLifecycleAware` receives MAUI page appearing/disappearing notifications. Prism attaches `PageLifeCycleAwareBehavior` to pages created through its navigation flow. That behavior invokes matching interfaces on the page, its binding context, and its tracked child-region views/view models.
 
 ```cs
-public class ViewAViewModel : BindableBase, IPageLifecycleAware
+using Prism.AppModel;
+using Prism.Mvvm;
+
+public class DetailsPageViewModel : BindableBase, IPageLifecycleAware
 {
-    public void OnAppearing()
+    private bool _isVisible;
+    public bool IsVisible
     {
-        // Any Logic you need when the Page.OnAppearing() is called
+        get => _isVisible;
+        private set => SetProperty(ref _isVisible, value);
     }
 
-    public void OnDisappearing()
-    {
-        // Any Logic you need when the Page.OnDisappearing() is called
-    }
+    public void OnAppearing() => IsVisible = true;
+    public void OnDisappearing() => IsVisible = false;
 }
 ```
 
+These methods are synchronous and can run repeatedly during a page's lifetime. Keep them short. For asynchronous refreshes, use an owned task/command with cancellation and error handling rather than an unobserved `async void` lifecycle method.
+
+## Choose the correct lifecycle
+
+- Use `IInitialize` / `IInitializeAsync` to consume page-navigation initialization parameters.
+- Use `INavigationAware` / `INavigatedAware` for page navigation notifications and `IConfirmNavigation` / `IConfirmNavigationAsync` to allow or reject navigation.
+- Use `IPageLifecycleAware` for visibility-related work such as starting/stopping a UI refresh.
+- Use `IDestructible` for final page/view-model cleanup when Prism removes the page. A disappearing page can remain on a navigation stack or inactive tab.
+- Use MAUI's [application/window lifecycle](https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/app-lifecycle) for application activation, stopping, resuming, and native window destruction.
+
+Do not equate `OnDisappearing` with scope disposal or user approval to leave an editor. Modal overlays, tab changes, and native platform behavior can affect visibility independently of the navigation decision.
+
+Prism's removal path destroys child pages/regions and invokes destruction callbacks. In 9.0, clearing a removed visual element's behaviors and binding context is deferred until `Unloaded` on Android; the other compiled targets clear them directly. Do not equate the destruction callback with immediate visual cleanup on every platform. Page scopes belong to pages; view models and services with longer lifetimes must not retain removed pages or their navigation services.
+
+## Source reference
+
+- [Page lifecycle behavior](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Behaviors/PageLifeCycleAwareBehavior.cs)
+- [View/view-model propagation and destruction](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Common/MvvmHelpers.cs)
+- [Page scope behavior](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Behaviors/PageScopeBehavior.cs)

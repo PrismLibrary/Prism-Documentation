@@ -1,52 +1,49 @@
 ---
 sidebar_position: 1
 uid: Plugins.Essentials.ApplicationModel.AppContext
+description: "Read application identity, version, packaging, and appearance through IAppContext."
 ---
 
 # AppContext
 
-The default implementation of the `IAppContext` interface is available by registering Prism Essentials or by specifically Registering the AppContext.
-
-```cs
-containerRegistry.UsePrismEssentials();
-
-// OR Specifically
-containerRegistry.RegisterAppContext();
-```
+`Prism.Plugin.Essentials.ApplicationModel.IAppContext` exposes application metadata and a request to open settings. Register it with `RegisterAppContext()` after the [host setup](../index.md), then inject the singleton.
 
 ## API
 
-```cs
-public interface IAppContext
-{
-    string PackageName { get; }
-
-    string Name { get; }
-
-    string VersionString { get; }
-
-    Version Version { get; }
-
-    string BuildString { get; }
-
-    void ShowSettingsUI();
-
-    AppTheme RequestedTheme { get; }
-
-    AppPackagingModel PackagingModel { get; }
-
-    LayoutDirection RequestedLayoutDirection { get; }
-}
-```
+| Member | Meaning |
+| --- | --- |
+| `PackageName`, `Name` | Application identifier and display name |
+| `VersionString`, `Version` | Version as text and `System.Version` |
+| `BuildString` | Build identifier |
+| `RequestedTheme` | Light, dark, or unspecified appearance |
+| `PackagingModel` | Packaged or unpackaged application |
+| `RequestedLayoutDirection` | Requested left-to-right or right-to-left layout |
+| `ShowSettingsUI()` | Requests the platform's settings surface |
 
 ## Read the app information
 
-The IAppContext interface exposes the following properties:
+```csharp
+using Prism.Plugin.Essentials.ApplicationModel;
 
-- Name — The application name.
-- PackageName — The package name or application identifier, such as com.prismlibrary.myapp.
-- VersionString — The application version, such as 1.0.0.
-- Version — The application version, as a Version object.
-- BuildString — The build number of the version, such as 1000.
-- RequestedTheme — The detected theme of the system or application.
+public sealed class AboutApplication(IAppContext app)
+{
+    public string VersionLabel =>
+        $"{app.Name} {app.VersionString} ({app.BuildString})";
 
+    public void OpenSettings() => app.ShowSettingsUI();
+}
+```
+
+Configure these values through the platform's manifests and project/assembly metadata. WPF reads metadata from the current application assembly, so resolve it after a WPF Application exists. Different heads need not use the same source for their identifier or build number.
+
+Call settings from an intentional foreground UI action. The method has no completion result and does not grant permissions; recheck required access when the application resumes. The interface has property reads, not theme-change notifications.
+
+Use [device information](../devices/deviceinfo.md) for OS details, [version tracking](versiontracking.md) for launch-history flags, and [latest version](latestversion.md) for store-version checks.
+
+## Source reference
+
+These pinned source links describe the Plugins 9.0 baseline and require authorized access to the Prism.Plugins repository.
+
+- [`src/Prism.Plugin.Essentials/ApplicationModel/AppContext/IAppContext.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/ApplicationModel/AppContext/IAppContext.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/ApplicationModel/AppContextImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Wpf/ApplicationModel/AppContextImplementation.cs)
+- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)

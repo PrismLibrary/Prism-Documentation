@@ -20,7 +20,7 @@ The ```InvokeCommandAction``` exposes the following properties:
 
 ### Basic Usage
 
-First the binding needs to be hooked up in WPF by specifying an ```InteractionTrigger```. This is standard out-of-the-box functionality in WPF. Add the namespace to be able to declare it in the XAML.
+First the binding needs to be hooked up in WPF by adding an `EventTrigger` to `Interaction.Triggers`. This comes from `Microsoft.Xaml.Behaviors.Wpf`, referenced by `Prism.Wpf`. Add the namespace to be able to declare it in the XAML.
 
 `xmlns:i="http://schemas.microsoft.com/xaml/behaviors"`
 
@@ -33,7 +33,7 @@ And attach to the control with the desired event.
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -58,7 +58,7 @@ In the code below, the ```SelectionChanged``` event receives a  ```SelectionChan
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -68,7 +68,6 @@ In the code below, the ```SelectionChanged``` event receives a  ```SelectionChan
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding SelectedCommand}"
-                                               CommandParameter="{Binding MyParameter}"
                                                TriggerParameterPath="AddedItems" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -84,7 +83,7 @@ The `AutoEnable` property specifies if the associated element should be automati
 ```xml
 <Window x:Class="UsingInvokeCommandAction.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
@@ -94,7 +93,6 @@ The `AutoEnable` property specifies if the associated element should be automati
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <prism:InvokeCommandAction Command="{Binding SelectedCommand}"
-                                               CommandParameter="{Binding MyParameter}"
                                                TriggerParameterPath="AddedItems"
                                                AutoEnable="true" />
                 </i:EventTrigger>
@@ -106,5 +104,9 @@ The `AutoEnable` property specifies if the associated element should be automati
 
 ## Full Code Sample
 
-For a complete code example, go to the ***Prism-Samples-Wpf*** repository in [GitHub](https://github.com/PrismLibrary/Prism-Samples-Wpf) and refer to [29-InvokeCommandAction](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/29-InvokeCommandAction).
+The historical [29-InvokeCommandAction sample](https://github.com/PrismLibrary/Prism-Samples-Wpf/tree/master/29-InvokeCommandAction) illustrates this behavior. Its package versions may predate the current APIs; use the [current WPF setup](../getting-started.md) and the source below for current APIs.
 
+
+Use either an explicit `CommandParameter` or a `TriggerParameterPath` when demonstrating event data. An explicit parameter takes precedence and would hide the event property in the examples above. This action is WPF-specific; MAUI uses its [EventToCommandBehavior](../../maui/behaviors/eventtocommandbehavior.md).
+
+[Current WPF implementation](https://github.com/PrismLibrary/Prism/blob/b8f00b5091063feea127a2417fc72d6b299ee16c/src/Wpf/Prism.Wpf/Interactivity/InvokeCommandAction.cs).

@@ -1,6 +1,6 @@
 {
   "name": "prism-docs",
-  "version": "9.1.0",
+  "version": "10.0.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -30,6 +30,7 @@
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "lunr-languages": "^1.10.0",
+    "sharp": "0.35.5",
     "typescript": "~5.6.2"
   },
   "browserslist": {
@@ -45,6 +46,6 @@
     ]
   },
   "engines": {
-    "node": ">=20.0"
+    "node": ">=20.9.0"
   }
 }

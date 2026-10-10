@@ -1,68 +1,82 @@
 ---
 sidebar_position: 2
 uid: Plugins.Essentials.Stores
+description: "Generate and register typed memory, settings, and secure stores with the Prism 9.0 APIs."
 ---
 
 # Stores
 
-The concept of Stores is borrowed from one of our favorite .NET Libraries [Shiny.NET](https://shinylib.net/), however we've made a few enhancements and provided implementations for all of your Prism applications. One of the root concepts of Stores is that the store implementation should be decoupled from any logic around how it is used. This means that unit testing is particularly easy.
-
-To get started you will need a reference to `Prism.Plugin.Essentials`. Note that this could be a transitive reference from the platform specific package for `Prism.Plugin.Essentials`. However you may use the root package for libraries that you wish to keep decoupled from platform specific references. The first thing to consider when building a store is what properties you may want to expose.
-
-```cs
-public interface IMyStore
-{
-    string MyProperty { get; set; }
-}
-```
+Stores expose application state through an injectable interface. Reference `Prism.Plugin.Essentials` in the assembly declaring the interface, and a [matching Essentials host package](../index.md) in the application.
 
 ## Available Stores
 
-We currently support 3 stores by default. You can choose the store that makes the most sense for your specific application, and you can have multiple interfaces which utilize the same or different stores throughout your application.
+- `[MemoryStore]` keeps temporary values in the process.
+- `[SettingsStore]` selects the host's settings backend for non-sensitive preferences.
+- `[SecureStore]` selects a secure backend where one is registered.
 
-- Memory Store - This is particular helpful for scenarios where you only need the values to remain in scope during the lifecycle of the application and you can revert back to a default state the next time the app is launched.
-- Settings Store - This is useful for a wide degree of persistent values that you want to store and which do not present security concerns.
-- Secure Store - This is useful for that last scenario where you need both persistence and to take advantage of the platform's built in ability to secure values. (NOTE: While this is implemented across all Prism platforms, some heads such as WASM do not support a Secure Store)
+The default secure-store fallback is `FallbackStrategy.None`. Explicit alternatives are `Memory`, `Settings`, and `Default`. A settings fallback does not preserve the security property of a secure backend; a memory fallback does not preserve values across restart. Uno BrowserWasm does not register the secure backend in this baseline.
 
 ## Creating a store
 
-As you noticed from the example above our store does not implement anything. In fact it simply needs to be an interface with properties that have both a get and set. However to actually make use of the store we must do 2 things.
+```csharp
+using Prism.Plugin.Essentials.IO;
 
-1. We must provide an attribute for the Store type that we want to have implemented.
-2. We must make the interface partial
-
-```cs
-[SecureStore]
-public partial interface IMyStore
+[SettingsStore]
+public partial interface IAppPreferences
 {
-    string MyProperty { get; set; }
+    string? Theme { get; set; }
 }
 ```
+
+The interface must be partial, with readable/writable properties that the generator can implement. Keep the Essentials analyzer enabled in the assembly containing the interface.
 
 ### What The Source Generator will do
 
-Under the covers a source generator will provide both an implementation for your interface using the specified store type, and it will provide a class that implements `INotifyPropertyChanged` so that you can actually Bind directly to any property on your Store.
-
-The next thing it will do is provide a Clear method. In the implementation it will clear out ONLY the properties specified as part of the interface. This means that other code that may be making use of the given store will never directly lose their values when you call clear unless you specifically get the KeyValueStore from the `IKeyValueStoreFactory` and clear all of the values for that specific store.
+The generator creates an implementation with property-change notifications and adds `Clear()` to the interface. The generated `Clear()` removes this interface's property keys, not every unrelated value in the backing store. A handwritten test fake must implement the generated members as well.
 
 ## Registering your Store
 
-As mentioned you will need to be sure to have the platform specific package when registering the Store, however you do not need it for the Store itself. In order to register your store you can simply call the extension
+Register serialization and the generated contract in the host's existing container callback:
 
-```cs
-containerRegistry.RegisterStore<IMyStore>();
+```csharp
+using Prism.Ioc;
+using Prism.Plugin.Essentials;
+
+containerRegistry.RegisterSerializer();
+containerRegistry.RegisterStore<IAppPreferences>();
 ```
+
+The registration extension is in `Prism.Ioc`. It registers the generated implementation as a singleton and adds the host's store factory/backends. Inject `IAppPreferences` into the service or view model that owns the state.
+
+Prism 9.0 locates generated implementations by runtime type name. It does not have the newer generated assembly-mapping or JSON-context registration APIs. Do not use newer overloads as a recipe for this package generation. Missing generated code can cause a `TypeLoadException`; rebuild the interface assembly with its analyzer enabled.
 
 ## Providing Default Values
 
-You may want to provide a default value for your properties. You can do this with the DefaultValue attribute from System.ComponentModel.
+Use `System.ComponentModel.DefaultValueAttribute` when the contract needs an explicit default:
 
-```cs
+```csharp
+using System.ComponentModel;
+using Prism.Plugin.Essentials.IO;
+
 [SettingsStore]
-public partial interface IMyStore
+public partial interface IDisplayPreferences
 {
     [DefaultValue(true)]
-    bool RememberMe { get; set; }
+    bool ShowHints { get; set; }
 }
 ```
 
+Test defaults, updates, null values, `Clear()`, process restart, and unavailable storage on every target used by the application. Storage scope and retention depend on the backend; do not use a settings store as an application database or a transaction log. Changing an interface/property name can change the generated storage keys and requires a migration plan.
+
+## Source reference
+
+These pinned source links describe the Plugins 9.0 baseline and require authorized access to the Prism.Plugins repository.
+
+- [`src/Prism.Plugin.Essentials/IO/Stores/SecureStoreAttribute.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/IO/Stores/SecureStoreAttribute.cs)
+- [`src/Prism.Plugin.Essentials/IO/Stores/FallbackStrategy.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/IO/Stores/FallbackStrategy.cs)
+- [`src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/IO/Stores/Internals/StoreRegistrationHelper.cs)
+- [`src/Prism.Plugin.Essentials/UniqueName.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/UniqueName.cs)
+- [`src/Prism.Plugin.Essentials.Analyzers/KeyStoreStoreGenerator.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Analyzers/KeyStoreStoreGenerator.cs)
+- [`src/Prism.Plugin.Essentials.Maui/Ioc/StoreRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Maui/Ioc/StoreRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/Ioc/StoreRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Uno.WinUI/Ioc/StoreRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/EssentialsRegistrationExtensions.cs)

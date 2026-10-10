@@ -1,74 +1,67 @@
 ---
 sidebar_position: 1
 uid: Mvvm.BindableBase
+description: "Notify bound properties with Prism BindableBase and understand callback and equality behavior."
 ---
 
 # BindableBase
 
-Like you would expect from any MVVM Library, Prism provides a base class implementing `INotifyPropertyChanged`. While it's important to understand how to use it, it's also important to note that features within Prism such as responding to lifecycle events, navigation, etc... are all interface driven. This means that while Prism provides the `BindableBase` as a base implementation of `INotifyPropertyChanged` to better assist you, Prism also has no strict requirement on you to use it. This means that you may use any base class you want for your ViewModels including no base class at all (though that isn't generally recommended).
+`Prism.Mvvm.BindableBase` implements `INotifyPropertyChanged` in `Prism.Core`. It gives WPF, .NET MAUI and Uno view models the same small property-notification API. Prism's navigation and lifecycle features depend on interfaces, so inheriting from this class is optional.
 
-## Creating Properties
+## Creating properties
 
-Properties used within a class inheriting from `BindableBase` which must notify the UI of changes should make use of the `SetProperty` method to set the changes and should have both a public property as well as a private backing field. The result is something like this:
+```csharp
+using Prism.Mvvm;
 
-```cs
-public class ViewAViewModel : BindableBase
+public sealed class EditorViewModel : BindableBase
 {
-    private string _message;
-    public string Message
+    private string _name = string.Empty;
+
+    public string Name
     {
-        get => _message;
-        set => SetProperty(ref _message, value);
+        get => _name;
+        set
+        {
+            if (SetProperty(ref _name, value))
+                RaisePropertyChanged(nameof(CanSave));
+        }
     }
+
+    public bool CanSave => !string.IsNullOrWhiteSpace(Name);
 }
 ```
 
 ### Why Use SetProperty
 
-You may be wondering, why use `SetProperty`? After all can't you just call RaisePropertyChanged yourself? The short answer is that you can. However this is generally not advisable because you will lose the built in EqualityComparer which helps to ensure that if the setter is called multiple times with the same value `INotifyPropertyChanged` will only trigger the `PropertyChanged` event the first time it changes.
+`SetProperty` compares the existing and proposed values using `EqualityComparer<T>.Default`. If they are equal, it returns false and raises no event. Otherwise it assigns the value, raises `PropertyChanged`, and returns true. The property name is supplied by `CallerMemberName`; use an explicit name for a dependent property such as `CanSave`.
 
-```cs
-public class ViewAViewModel : BindableBase
+A [command](../commands/commanding.md) can observe `CanSave` with `.ObservesCanExecute(() => CanSave)`. The dependent-property notification is what makes that observation useful.
+
+### Running a callback when a value changes {#executing-a-delegate-on-propertychanges}
+
+The callback overload invokes the callback after assignment and **before** the property's notification:
+
+```csharp
+private bool _isActive;
+public bool IsActive
 {
-    private string _message;
-    public string Message
-    {
-        get => _message;
-        set
-        {
-            // Don't do this!
-            _message = value;
-            RaisePropertyChanged();
-        }
-    }
+    get => _isActive;
+    set => SetProperty(ref _isActive, value,
+        () => IsActiveChanged?.Invoke(this, EventArgs.Empty));
 }
+
+public event EventHandler? IsActiveChanged;
 ```
 
-:::tip
-As we have reviewed code in production, we have commonly run into code like the above sample. This code is fundamentally flawed, overly verbose and will result in unnecessary PropertyChanged events being raised for the property. You should always base your code flow around SetProperty.
-:::
+These members can implement `Prism.IActiveAware` on a view model. The callback only runs when the value changes. Keep it synchronous and small; start cancellable asynchronous work through an explicit lifecycle method or [async command](../commands/async-commands.md).
 
-### Executing a Delegate on PropertyChanges
+## What property notification does not do
 
-Sometimes you may want to provide a callback when the property changes. One such example could be that you are implementing `IActiveAware` and you want to provide a method that will only execute when IsActive is true and another when it is false.
+- It does not validate input or implement `INotifyDataErrorInfo` for you.
+- It does not dispatch to a UI thread. Update UI-bound state on the appropriate host dispatcher.
+- A notification that a collection property changed is different from item-add/remove notifications. Use an appropriate observable collection when the UI must track those changes.
+- Equality is the type's equality. Mutating an existing object and assigning the same reference does not necessarily report a change; expose and notify the changed property deliberately.
 
-```cs
-public abstract class ViewModelBase : BindableBase, IActiveAware
-{
-    private bool _isActive;
-    public bool IsActive
-    {
-        get => _isActive;
-        set => SetProperty(ref _isActive, value, () => {
-            if (value)
-                OnIsActive();
-            else
-                OnIsNotActive();
-        });
-    }
+Calling `RaisePropertyChanged` directly is appropriate for computed properties or a notification with no backing-field assignment. Use `SetProperty` when the intended behavior is “assign only when different.”
 
-    protected virtual void OnIsActive() { }
-    protected virtual void OnIsNotActive() { }
-}
-```
-
+Source: [BindableBase](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Prism.Core/Mvvm/BindableBase.cs) and [tests](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/tests/Prism.Core.Tests/Mvvm/BindableBaseFixture.cs). For generated properties, see [Prism Magician](../magician/index.md).

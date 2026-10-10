@@ -1,43 +1,59 @@
 ---
 sidebar_position: 6
 uid: Platforms.Maui.Navigation.GlobalNavigationRequest
+description: "Observe Prism 9.0 MAUI navigation results with EventAggregator or Prism.Maui.Rx."
 ---
 
 # Global NavigationRequest Event
 
-Out of the Box Prism's PageNavigationService (the default implementation of the `INavigationService`) is configured to publish events with the `IEventAggregator` when one of it's Navigation methods `NavigateAsync`, `GoBackAsync`, or `GoBackToRootAsync` are called. When it has completed, the event will fire giving you an opportunity to globally monitor these requests. What you do with the context is ultimately up to you, however it is a great place to handle Navigation Exceptions at a global level.
+Prism's MAUI page navigation service publishes `Prism.Events.NavigationRequestEvent` through `IEventAggregator` when a request completes. Use it for application-wide diagnostics, not as a replacement for awaiting the result when the caller needs to decide what happens next.
 
 ## Handling this out of the box
 
-As mentioned out of the Box Prism will use the IEventAggregator to publish notifications when a Navigation request is completed. To hook up to this you might add something like the following to your app:
+Configure the subscription once during startup:
 
 ```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-builder.UsePrism(prism => {
-    prism.OnInitialized(container => {
-        var eventAggregator = container.Resolve<IEventAggregator>();
-        eventAggregator.GetEvent<NavigationRequestEvent>().Subscribe(context => {
-            // Handle the event
-        });
+using Prism.Events;
+using Prism.Navigation;
+
+prism.OnInitialized(container =>
+{
+    var events = container.Resolve<IEventAggregator>();
+    events.GetEvent<NavigationRequestEvent>().Subscribe(context =>
+    {
+        var status = context.Cancelled ? "Cancelled"
+            : context.Result.Success ? "Succeeded" : "Failed";
+        System.Diagnostics.Debug.WriteLine($"{context.Type}: {status}");
     });
 });
 ```
 
+The event context exposes `Type`, `Uri`, `Parameters`, and `Result`. Inspect `context.Result.Success` and `context.Result.Exception`; there is no `context.Success` property. `context.Cancelled` identifies a confirmation veto. The 9.0 request-type enum contains `Navigate`, `GoBack`, and `GoToRoot`, rather than one value for every convenience API. `GoBackToAsync` publishes `GoBack`; `SelectTabAsync` returns its result directly without publishing this event in 9.0. Await tab-selection results at the caller.
+
+Retain and dispose the returned `SubscriptionToken` when the subscribing component has a shorter lifetime than the application. EventAggregator uses the publisher thread by default; dispatch UI changes appropriately or choose the relevant subscription thread option. Keep handlers short and avoid starting recursive navigation from a diagnostic subscriber.
+
 ## GlobalNavigationObserver
 
-Reactive Programming has become a popular topic among .NET developers over the past several years. As a result we decided to ship the `Prism.Maui.Rx` package. This package is extremely lightweight and provides an easy to use extension on the `PrismAppBuilder` that allows you get access to the `IObservable<NavigationRequestContext>`.
+Install a matching version of `Prism.Maui.Rx` to use `AddGlobalNavigationObserver`:
 
 ```cs
-var builder = MauiApp.CreateBuilder();
-builder.UseMauiApp<App>()
-builder.UsePrism(prism => {
-    prism.AddGlobalNavigationObserver(observable => observable.Subscribe(context => {
-        if(!context.Success)
-        {
-            // handle the error
-        }
-    }));
-});
+using Prism.Navigation;
+
+prism.AddGlobalNavigationObserver(observable => observable.Subscribe(context =>
+{
+    if (!context.Result.Success && !context.Cancelled)
+    {
+        System.Diagnostics.Debug.WriteLine(context.Result.Exception);
+    }
+}));
 ```
 
+The package exposes `IObservable<NavigationRequestContext>` over the same event stream. The returned Rx subscription is disposable; retain it if you need to stop observing before application shutdown. Choose either this adapter or direct EventAggregator subscription unless you intentionally need both, to avoid duplicate reporting.
+
+Routes, parameter values, and exception details may contain application or personal data. The first example records only operation type/status. Apply redaction before forwarding richer diagnostics to external logging providers.
+
+## Source reference
+
+- [NavigationRequestContext](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Navigation/NavigationRequestContext.cs)
+- [Reactive observer registration](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui.Rx/NavigationObserverRegistrationExtensions.cs)
+- [EventAggregator-to-Rx adapter](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui.Rx/GlobalNavigationObserver.cs)

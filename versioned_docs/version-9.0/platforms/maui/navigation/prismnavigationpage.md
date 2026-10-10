@@ -1,20 +1,40 @@
 ---
 sidebar_position: 9
+description: "Use PrismNavigationPage to route MAUI system Back requests through Prism navigation."
 ---
 
 # PrismNavigationPage
 
-The NavigationPage is a unique element in .NET MAUI as it is the single Page that is capable of independently Popping Pages off of the Navigation Stack thus bypassing the NavigationService. In Prism.Maui we have made it easier to ensure that the NavigationService is used to navigate between Pages.
+`Prism.Controls.PrismNavigationPage` derives from MAUI `NavigationPage` and integrates system Back handling with Prism navigation. Use it when the navigation stack should respect Prism confirmation and lifecycle callbacks.
 
 ## Automatic Registration
 
-By Default the `PrismAppBuilder` will register the `PrismNavigationPage` with the navigation key `NavigationPage` if you do not register a NavigationPage. Keep in mind that it will NOT be available if you have registered any NavigationPages.
+At startup, Prism registers `PrismNavigationPage` under the navigation key `NavigationPage` if that name is not already registered. Registering a different navigation-page type under a different key does not by itself suppress this default route.
+
+```cs
+prism.CreateWindow("/NavigationPage/HomePage");
+```
+
+To replace the route deliberately, register a custom type derived from `PrismNavigationPage` using the name `NavigationPage` before initial navigation:
+
+```cs
+container.RegisterForNavigation<MyNavigationPage>("NavigationPage");
+```
+
+Keep its XAML root consistent with its C# base type if it is XAML-defined. If you register several navigation-page routes, explicitly name the desired route rather than relying on the builder's last-match selection.
 
 ## What does it do?
 
-By default the PrismNavigationPage will intercept the request to Pop the CurrentPage and cancel the request. It will then retrieve the NavigationService for the CurrentPage, and call the NavigationService's `GoBackAsync` method. As a result the Navigation Events will occur as you would expect honoring things like Prism's `IConfirmNavigation` rather than being reactionary.
+The class seals `OnBackButtonPressed`, delegates to Prism's back-navigation helper, and returns `true` so Prism owns that request. This lets navigation confirmation run before the Prism-managed transition. The 9.0 implementation also handles an iOS navigation page disappearing after a non-full-screen modal is swiped away; native dismissal has different timing from a command-driven Back request.
 
 ## Why do we need it?
 
-The `PrismNavigationPage` was added because there is simply no way with a Behavior that we could hook in and get access to be able to cancel the back navigation event. Without the PrismNavigationPage your app will be reactionary to the user pressing the back button which means they may navigate away before you have a chance to save state.
+Do not assume every platform gesture can be cancelled before native UI changes. Test toolbar Back, Android hardware/system Back, iOS modal dismissal, and returning from background on the targets you ship. A plain MAUI `NavigationPage`, manual stack edits, or direct `PopAsync` calls may bypass the intended Prism path.
 
+A temporary disappearance is not page destruction. Use [page lifecycle](../appmodel/pagelifecycleaware.md) and navigation cleanup for their separate purposes.
+
+## Source reference
+
+- [Default route registration](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/PrismAppBuilder.cs)
+- [Back interception and iOS disappearance handling](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Controls/PrismNavigationPage.cs)
+- [Navigation helper behavior](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Common/MvvmHelpers.cs)

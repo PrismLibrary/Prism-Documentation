@@ -681,3 +681,16 @@ article img {
   word-break: break-all;
   overflow-wrap: break-word;
 }
+
+/* Keep all sample framework choices visible on narrow screens. */
+@media (max-width: 576px) {
+  .sample-platform-tabs {
+    flex-wrap: wrap;
+  }
+
+  .sample-platform-tabs .tabs__item {
+    flex: 1 1 45%;
+    justify-content: center;
+    text-align: center;
+  }
+}

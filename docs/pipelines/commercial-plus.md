@@ -7,39 +7,56 @@ sidebar_label: Commercial Plus
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Setting up the Commercial Plus private NuGet Feed
+# Restore from the Commercial Plus feed
+
+Commercial Plus packages use `https://nuget.prismlibrary.com/v3/index.json`. Authenticate with the licensed user's email and the feed/license key issued through the Prism account. Keep that key in the build system's secret store, never in source control, application configuration or a published artifact.
+
+The examples assume the repository already has its required SDK/workloads and a NuGet source named `Prism` pointing to this endpoint. Keep ordinary package-source configuration credential-free. Source names matter: the environment credential name below must match `Prism` exactly.
 
 <Tabs groupId="ci-cd">
 <TabItem value="github" label="GitHub Actions">
 
-First be sure to add the Prism NuGet feed and your credentials as secrets in GitHub.
+## GitHub Actions
 
-PRISM_NUGET_FEED: `https://nuget.prismlibrary.com/v3/index.json`
-PRISM_NUGET_USER: The email of the licensed user
-PRISM_NUGET_API_KEY: The License Key you have generated on https://prismlibrary.com
+Create repository/environment secrets named `PRISM_NUGET_USER` and `PRISM_NUGET_API_KEY`. Limit access to the jobs and branches that need private restore. Pass them through the environment rather than interpolating secrets into shell commands:
 
-```yml
-- name: Add NuGet Feed
+```yaml
+- name: Restore
   shell: pwsh
-  run: |
-    dotnet nuget add source ${{ secrets.PRISM_NUGET_FEED }} -u ${{ secrets.PRISM_NUGET_USER }} -p ${{ secrets.PRISM_API_KEY }} -n InHouse --store-password-in-clear-text
+  env:
+    NuGetPackageSourceCredentials_Prism: Username=${{ secrets.PRISM_NUGET_USER }};Password=${{ secrets.PRISM_NUGET_API_KEY }};ValidAuthenticationTypes=Basic
+  run: dotnet restore
 ```
+
+NuGet recognizes `NuGetPackageSourceCredentials_{sourceName}`. The credential exists in the job environment without writing a clear-text password into a checked-in configuration. Never echo it. Do not run untrusted pull-request code with private feed credentials; repository secrets are normally unavailable to fork pull requests for that reason.
+
+See [GitHub's secret handling guidance](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets) and [NuGet authenticated feeds](https://learn.microsoft.com/en-us/nuget/consume-packages/consuming-packages-authenticated-feeds).
 
 </TabItem>
 <TabItem value="azure-pipelines" label="Azure Pipelines">
 
-Go to your project Settings -> Service connections. Then add a `New service connection` and select `NuGet` then click Next. Be sure to select `Basic Authentication`
+## Azure Pipelines
 
-Feed URL: `https://nuget.prismlibrary.com/v3/index.json`
-Username: The email of the licensed user
-Password: The License Key you have generated on https://prismlibrary.com
-Service connection name: This can be anything. For the sample below you will see we have set this to `Prism`
+Create an authorized NuGet service connection for the Prism feed with Basic Authentication. Use the licensed email as username and the issued key as password. Grant pipeline access narrowly rather than making the connection available to every pipeline by default.
 
-```yml
+If the connection is named `Prism`, authenticate before the existing restore step:
+
+```yaml
 - task: NuGetAuthenticate@1
   inputs:
-    nuGetServiceConnections: 'Prism'
+    nuGetServiceConnections: Prism
+
+- pwsh: dotnet restore
+  displayName: Restore
 ```
+
+The source URL in NuGet configuration must match the service connection's feed. This task configures authentication; it does not add your package references or install the project's SDK/workloads. See the [NuGetAuthenticate task reference](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/nuget-authenticate-v1?view=azure-pipelines).
 
 </TabItem>
 </Tabs>
+
+## Diagnose a failed restore
+
+Check the source name and URL, whether secrets are available to that particular job, the account's entitlement, and the requested package/version. An environment credential with an old value can take precedence over a newly edited configuration; verify the job's secret configuration without printing its value.
+
+Keep private package caches and diagnostic logs within the authorized build environment. Do not upload credentials or package contents to public artifacts. For NativeAOT applications, successful restore is only the start: use the [publication validation checklist](../dependency-injection/native-aot.md#validate-the-application-you-ship).

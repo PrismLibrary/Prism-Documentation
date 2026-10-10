@@ -1,75 +1,41 @@
 ---
 sidebar_position: 1
 uid: Plugins.Essentials.Threading.MainThread
+description: "Dispatch UI work through IMainThread and await asynchronous operations in Prism 9.0."
 ---
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 # Main Thread
 
-There are a variety of reasons why you may need to force the execution of a block of code on the MainThread. Some care should be taken when executing on the MainThread as this is used by the UI and long running processes on the UI Thread may result in "Locking" the UI, leading to a poor user experience and bad app store reviews.
+`Prism.Plugin.Essentials.Threading.IMainThread` dispatches work to the application's UI thread. Keep long-running CPU or I/O work outside UI callbacks so the application remains responsive.
 
-Prism.Essentials provides an abstraction layer for the Main Thread which works across all of Prism's primary supported platforms. `IMainThread` is a core service within Prism.Essentials. As a result any service that you register within Prism.Essentials will also automatically register `IMainThread`. For simplicity here we will register all of the Prism.Essentials Services.
+## Registration
 
-<Tabs groupId="platform">
-<TabItem value="maui" label=".NET MAUI">
-
-```cs
-builder.UseMauiApp<App>()
-    .UsePrism(prism => prism.UsePrismEssentials())
-```
-
-</TabItem>
-<TabItem value="wpf" label="WPF">
-
-```cs
-protected override void RegisterTypes(IContainerRegistry containerRegistry)
-{
-    containerRegistry.UsePrismEssentials();
-}
-```
-
-</TabItem>
-<TabItem value="uno-platform" label="Uno Platform">
-
-```cs
-protected override void RegisterTypes(IContainerRegistry containerRegistry)
-{
-    containerRegistry.UsePrismEssentials();
-}
-```
-
-</TabItem>
-</Tabs>
+Register a host service that includes the shared platform dependencies, such as `RegisterAppContext()` from `Prism.Plugin.Essentials`. This registers `IMainThread` as a singleton on MAUI native, Uno, and WPF. The supported MAUI/Uno `UsePrismEssentials()` setup also includes it. Not every standalone Essentials registration adds the dispatcher; follow the [host setup](../index.md).
 
 ## Using IMainThread
 
-Within your application you can make use of `IMainThread` similar to any other service with DependencyInjection.
+```csharp
+using Prism.Plugin.Essentials.Threading;
 
-```cs
-public class ViewAViewModel : BindableBase
+public sealed class StatusPresenter(IMainThread mainThread)
 {
-    private readonly IMainThread _mainThread;
-    public ViewAViewModel(IMainThread mainThread)
-    {
-        _mainThread = mainThread;
-    }
-
-    private void OnSomethingHappened()
-    {
-        if (_mainThread.IsMainThread)
-            DoSomething();
-        else
-            _mainThread.BeginInvokeOnMainThread(DoSomething);
-    }
-
-    private void DoSomething()
-    {
-        // Do Something....
-    }
+    public Task DisplayAsync(Action updateView) =>
+        mainThread.InvokeOnMainThreadAsync(updateView);
 }
 ```
 
-Additionally `IMainThread` has a number of overloads which will let you execute a Function with a return type or even asynchronous code.
+`IsMainThread` reports whether the current thread is the UI thread. `BeginInvokeOnMainThread(Action)` posts a callback without a completion task. Use the asynchronous overloads when the caller needs completion, a return value, or exception propagation.
 
+The async helpers support `Action`, `Func<T>`, `Func<Task>`, and `Func<Task<T>>`. Prefer the task-returning overload for asynchronous work rather than passing an `async void` callback. On older target contracts these helpers are extension methods in the same namespace; on newer targets they are interface members.
+
+`GetMainThreadSynchronizationContextAsync()` retrieves the UI synchronization context. The API has no cancellation-token overload; cancellation of the caller does not remove an already posted callback. Avoid blocking waits such as `.Result` or `.Wait()` on UI work, and resolve native services only after the application/window is ready.
+
+## Source reference
+
+These pinned source links describe the Plugins 9.0 baseline and require authorized access to the Prism.Plugins repository.
+
+- [`src/Prism.Plugin.Essentials/Threading/IMainThread.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials/Threading/IMainThread.cs)
+- [`src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Maui/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Uno.WinUI/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Wpf/EssentialRegistrationExtensions.cs)
+- [`src/Prism.Plugin.Essentials.Wpf/Threading/MainThreadImplementation.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Essentials.Wpf/Threading/MainThreadImplementation.cs)

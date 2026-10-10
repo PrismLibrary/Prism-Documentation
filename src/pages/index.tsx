@@ -480,16 +480,16 @@ function HomepageStats() {
             </div>
           </div>
           <div className={styles.statsItem}>
-            <div className={styles.statsNumber}>9.0</div>
+            <div className={styles.statsNumber}>10.0</div>
             <div className={styles.statsLabel}>
               <Translate
                 id="homepage.stats.version"
                 description="Version stat label">
-                Latest Version
+                vNext Documentation
               </Translate>
             </div>
             <div className={styles.statsDescription}>
-              Unified API across all platforms
+              Release preparation in progress
             </div>
           </div>
           <div className={styles.statsItem}>

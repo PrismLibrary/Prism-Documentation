@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Prism Library',
-  tagline: 'Build cohesive, testable XAML apps across every platform with Prism 9.',
+  tagline: 'Build maintainable XAML applications with Prism 10.0 vNext.',
   favicon: 'img/logo-prism-symbol@2x.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -15,7 +15,7 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://prismlibrary.com',
+  url: 'https://docs.prismlibrary.com',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -47,6 +47,14 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
+          sidebarItemsGenerator: ({defaultSidebarItemsGenerator, ...args}) =>
+            defaultSidebarItemsGenerator({
+              ...args,
+              docs: args.item.dirName === '.'
+                ? args.docs.filter(({sourceDirName}) =>
+                    sourceDirName !== 'samples' && !sourceDirName.startsWith('samples/'))
+                : args.docs,
+            }),
           editUrl: 'https://github.com/PrismLibrary/Prism-Documentation/edit/master/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
@@ -54,7 +62,8 @@ const config: Config = {
           // Versioning configuration
           versions: {
             current: {
-              label: '9.1',
+              label: '10.0 (vNext)',
+              banner: 'unreleased',
               path: 'current',
             },
             '9.0': {
@@ -72,6 +81,7 @@ const config: Config = {
   ],
 
   plugins: [
+    require.resolve('./plugins/social-cards'),
     [
       require.resolve('@easyops-cn/docusaurus-search-local'),
       {
@@ -108,6 +118,12 @@ const config: Config = {
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Docs',
+        },
+        {
+          to: '/docs/current/samples',
+          activeBaseRegex: '/docs/current/samples(?:/|$)',
+          label: 'Sample Applications',
+          position: 'left',
         },
         {
           type: 'search',

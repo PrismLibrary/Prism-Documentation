@@ -1,24 +1,46 @@
 ---
 sidebar_position: 1
 uid: Plugins.Logging.AppCenter
+description: "Plan an App Center migration using Prism logging contracts and supported providers, with current service retirement guidance."
 ---
 
 # AppCenter
 
-While AppCenter has been deprecated and will be officially shut down in March of 2025 many apps continue to have a dependency on AppCenter. As a result Prism Logging will continue to ship the AppCenter package until it has been officially retired.
+This page is retained for applications with an existing AppCenter integration. An AppCenter provider implementation is not included in the shipped source used for this version's Logging documentation. The `AddAppCenter` examples previously shown here should not be used as a setup guide for the documented `9.0.345` package set.
 
-As previously mentioned, Prism.Plugin.Logging has a couple of interfaces which help users better map to the sort of calls that you might be used to with the AppCenter SDK. This can really help you in 2 critical ways.
+Microsoft retired most App Center features on March 31, 2025. Its April 15, 2026 update extends Analytics & Diagnostics through the end of March 2027 while customers migrate. That exception does not restore Build, Test, or Distribution. See [Microsoft's retirement notice](https://learn.microsoft.com/en-us/appcenter/retirement) for the current service timeline.
 
-1) By removing the static references to the AppCenter SDK from your codebase, your code becomes easier to manage over time as you have the ability to swap out providers or inject a mock for Unit Testing.
-2) Since AppCenter is nearing EOL, it will be critical for businesses to continue using App Center while they evaluate other options. Prism.Plugin.Logging will help you to do just that by combining the AppCenter provider with the AggregateLogger as you evaluate other providers.
+## Isolate the application contract
 
-```cs
-containerRegistry.UsePrismLogging(logging => {
-    // By Default this registers Analytics and Crashes
-    logging.AddAppCenter("appSecret");
+Prism Logging lets application code depend on injectable services instead of static telemetry SDK calls:
 
-    // If you need to customize the list with other providers
-    logging.AddAppCenter("appSecret", typeof(Analytics), typeof(Crashes), typeof(Distribution));
+- `IAnalyticsService.TrackEvent` expresses a named application event.
+- `ICrashesService.Report` expresses an exception report.
+- `IUserProvider.SetUser` and `ClearUser` express user context.
+
+These contracts describe application intent. They do not establish that another provider has identical event names, properties, crash collection, retention, or session behavior to AppCenter. Review those requirements when moving an existing integration.
+
+## Evaluate a replacement
+
+Start with a supported provider and the [Testing provider](testing.md) to check which calls the application makes:
+
+```csharp
+using Prism.Plugin.Logging;
+
+containerRegistry.UsePrismLogging(logging =>
+{
+    logging.AddConsole();
+    logging.AddTest();
 });
 ```
 
+This example requires `Prism.Plugin.Logging.Console` and `Prism.Plugin.Logging.Testing`. It records local diagnostic output and in-process test records. When selecting a remote destination, use that provider's registration and configuration guidance: [Firebase](firebase.md), [Kochava](kochava.md), [Raygun](raygun.md), [Sentry](sentry.md), or [GELF](gelf.md).
+
+If an existing application uses an older AppCenter-specific package or a custom adapter, validate it against that package's own API and dependency requirements before combining it with the aggregate logger.
+
+## Source reference
+
+These sources are pinned to the implementation used by the `9.0.345` packages. The Prism.Plugins repository requires authorized access.
+
+- [`ILogger.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Abstractions/ILogger.cs)
+- [`DefaultLoggingRegistrationExtensions.cs`](https://github.com/PrismLibrary/Prism.Plugins/blob/bbafa527a111fb05f0078a86e810bc6e77c1807a/src/Prism.Plugin.Logging.Abstractions/DefaultLoggingRegistrationExtensions.cs)

@@ -1,142 +1,153 @@
 ---
 sidebar_position: 2
+description: "Use page-scoped Prism 9.0 navigation for URI routes, parameters, flyouts, deep links, and back navigation."
 ---
 
 # Page Navigation
 
-For those who may be familiar with Prism.Forms this is perhaps one of the most beloved features of Prism. Prism's INavigationService provides us the ability to easily navigate between pages with a powerful understanding of URI's. This allows us to inject parameters into the URI's that will be passed to specific Pages, overload query parameters, and even control the behavior of the navigation such as whether or not to animate the transition or navigate modally at a specific URI segment.
+`Prism.Navigation.INavigationService` navigates from a particular MAUI page. Prism creates a container scope when it constructs a page and supplies the navigation service associated with that page to its view model. Inject it there; do not cache a root-resolved service in a singleton or reuse another page's service after that page is removed.
 
-:::note
-Page based navigation in .NET MAUI is specific to the individual page you want to navigate from. This is NOT a concept unique to Prism, but is actually a fundamental part of how navigation within .NET MAUI works. As a result, Prism relies on Dependency Injection Container Scoping around the creation of Each Page to ensure that we inject an instance of the Navigation Service that has the ability to navigate from the corresponding Page for the current scope.
-:::
+## Register pages and navigate
+
+```cs
+// In PrismAppBuilder.RegisterTypes; using Prism.Ioc;
+container.RegisterForNavigation<HomePage, HomePageViewModel>();
+container.RegisterForNavigation<DetailsPage, DetailsPageViewModel>();
+
+// The initial route is configured on PrismAppBuilder.
+prism.CreateWindow("/NavigationPage/HomePage");
+```
+
+From the home page's view model:
+
+```cs
+using Prism.Commands;
+using Prism.Navigation;
+
+public class HomePageViewModel
+{
+    private readonly INavigationService _navigation;
+
+    public HomePageViewModel(INavigationService navigation)
+    {
+        _navigation = navigation;
+        OpenDetailsCommand = new AsyncDelegateCommand(OpenDetailsAsync);
+    }
+
+    public AsyncDelegateCommand OpenDetailsCommand { get; }
+
+    private async Task OpenDetailsAsync()
+    {
+        var result = await _navigation.NavigateAsync("DetailsPage",
+            new NavigationParameters { { "customerId", 42 } });
+        if (!result.Success && !result.Cancelled)
+            System.Diagnostics.Debug.WriteLine(result.Exception);
+    }
+}
+```
 
 ## What the heck is a Navigation Segment?
 
-You may see the term `Navigation Segment` used several times throughout the docs, but what is it? Given that you have a URI that looks like `ViewA/ViewB/ViewC`, we will split the URI into 3 segments, `ViewA`, `ViewB`, and `ViewC`. Each segment may contain it's own query parameters which are only passed to that specific Page during the navigation. An example of this would be `ViewA?color=Red/ViewB?color=Blue/ViewC?color=Green`. In this example `ViewA` will have a query parameter of `color=Red` and `ViewB` will have a query parameter of `color=Blue` and `ViewC` will have a query parameter of `color=Green`.
-
-## Known Navigation Parameters
-
-Prism.Maui has a number of "KnownNavigationParameters" that you can use to control the behavior of the navigation. Each of these parameter names can be accessed from the KnownNavigationParameters class.
-
-| Property | Value | Description |
-| -------- | ---- | ----------- |
-| `CreateTab` | `createTab` | This parameter will be evaluated by the Navigation Service when the parameter exists on a TabbedPage. This parameter is commonly overloaded like `TabbedPage?createTab=ViewA&createTab=ViewB`. This will create a new TabbedPage with 2 tabs, one for ViewA and one for ViewB. |
-| `SelectedTab` | `selectedTab` | This parameter will be evaluated by the Navigation Service when the parameter exists on a TabbedPage. This parameter should not be overloaded. Most commonly you would use the name of the tab you want to select like `TabbedPage?selectedTab=ViewA`. This will select the tab with the name of ViewA. In the event that you have a NavigationPage on the tab, you may want to use the alternate syntax like `TabbedPage?selectedTab=NavigationPage|ViewB` where ViewB is the CurrentPage of the NavigationPage. |
-| `UseModalNavigation` | `useModalNavigation` | When this parameter is present on any navigation segment, the page will be pushed modally if the value is true, and we will not push modally if it is false. Note that this may cause a Navigation failure if we cannot navigate the way you want from the current context. This parameter can be used when invoking `NavigateAsync` or `GoBackAsync`. |
-| `Animated` | `animated` | When this parameter is present we will override the default behavior to animate the navigation. If you do not want to animate the entire navigation you may want to pass this in the NavigationParameters rather than the URI as the URI would require you to pass this on each segment. |
+A route such as `HomePage/DetailsPage` has two page segments. A segment can have its own query parameters, for example `HomePage?section=recent/DetailsPage?customerId=42`. The query parameters for each segment are delivered to that segment's page. An `INavigationParameters` object passed with the request is available throughout that navigation.
 
 ## Navigation Parameters
-
-As has already been mentioned Prism allows you to easily pass parameters to specific Pages with query parameters. These are added to the Navigation Parameter that you may pass into various Navigation methods. The Navigation Parameters are passed to all pages that may be created during the navigation process. NavigationParameters are vary similar to an IDictionary but are not limited to a single entry of a key/value pair.
 
 ```cs
 var parameters = new NavigationParameters
 {
     { "color", "Red" },
     { "color", "Blue" },
-    { "color", "Green" },
-    { "size", "Large" }
-}
+    { "customer", customer }
+};
+
+var result = await navigation.NavigateAsync("DetailsPage", parameters);
 ```
 
-This allows you to pass parameters one at a time to the NavigationParameters if you need to. NavigationParameter are implemented as an `IEnumerable<KeyValuePair<string, object>>`, so as a result you can pass any value type that you require and overload Keys.
+`NavigationParameters` can contain repeated keys and object values. Use `GetValues<T>` for repeated keys. Values in URI query strings are textual; do not assume they have the same runtime type as an object parameter. Use the [Navigation Builder](navigation-builder.md) to compose complex routes and segment parameters, and avoid placing secrets in routes or logs.
 
-```cs
-var parameters = new NavigationParameters
-{
-    { "color", new [] { "Red", "Blue", "Green" } },
-    { "size", "Large" }
-}
-```
+## Known Navigation Parameters
+
+Useful controls in `KnownNavigationParameters` include:
+
+| Member | URI key | Purpose |
+| --- | --- | --- |
+| `UseModalNavigation` | `useModalNavigation` | Request modal/non-modal navigation where the current page hierarchy supports it |
+| `Animated` | `animated` | Control transition animation |
+| `CreateTab` | `createTab` | Add a child route to a newly created tabbed page; repeat for more tabs |
+| `SelectedTab` | `selectedTab` | Choose the active tab by its registered navigation name |
+
+A request such as `DetailsPage?useModalNavigation=true` requests a modal presentation. To create a modal navigation stack, use `NavigationPage?useModalNavigation=true/DetailsPage`. Parameter choices cannot make an invalid hierarchy valid; inspect the navigation result.
 
 ## Navigation Methods
 
-The actual `INavigationService` interface is kept as clean as possible with 3 core methods. Everything else you see in Intellisense is an extension method which is meant to help you just provide the parameters you need.
+The 9.0 `INavigationService` declares `NavigateAsync`, `GoBackAsync`, `GoBackToAsync`, `GoBackToRootAsync`, and `SelectTabAsync`. String routes and parameterless convenience calls are extension methods in `Prism.Navigation`.
 
 ### NavigateAsync
 
-The `NavigateAsync` method is one of most critical core concepts to building apps with Prism. This is where we accomplish setting the Page on our Application Window and updating the Navigation Stack by pushing pages Modally or non-Modally within our app. We can also use this method to dynamically set the FlyoutPage's Detail, add a page to a brand new NavigationPage, or even create an entire TabbedPage on the fly. We do this all through the requested Navigation URI. As has been already discussed the Navigation Service break apart the Navigation URI and process each segment. It is extremely intelligent in figuring out the context it needs to navigate. As a result, when Navigating from a FlyoutPage the Navigation Service understands that the next page will set the Detail of the FlyoutPage. When navigating within the context of a NavigationPage, the Navigation Service understands that the next page will be added to the NavigationPage and will not be pushed Modally.
+#### Absolute vs Relative Navigation
 
-#### FlyoutPages
-
-FlyoutPages in .NET MAUI are a special page that commonly provides the "Hamburger Menu" in the upper left hand corner of the app. You may swipe left to right to reveal or hide the menu or you may tap the Hamburger Menu depending on the platform and settings. Understanding how the FlyoutPage works though is critical to ensure that you use it correctly. The FlyoutPage has two primary properties that you should understand, both of which are a Page.
-
-- `FlyoutPage.Flyout`
-- `FlyoutPage.Detail`
-
-Within the context of a Prism Application you should NEVER directly set Detail as this should be set dynamically by the NavigationService.
-
-The Flyout itself may be a bit tricker for some to understand. The reality is that this never should have been a Page type, the best way to think of this is that you have a ContentView that we've decided to call ContentPage instead. The ContentPage that we're using for the Flyout should NOT have it's own ViewModel.
-
-```xml
-<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            x:Class="AwesomeApp.MainPage">
-  <FlyoutPage.Flyout>
-    <ContentPage Title="Menu">
-        <!-- Your Content Here -->
-    </ContentPage>
-  </FlyoutPage.Flyout>
-</FlyoutPage>
-```
-
-:::note
-In some cases you may find that you do not even need a ViewModel for the FlyoutPage if simply have a static view with a Menu that uses the [Xaml Navigation Extensions](xaml-navigation.md)
-:::
-
-If we were building a .NET MAUI application without the benefit of Prism, we would expect to set a NavigationPage as the Detail of the FlyoutPage, and then push our ContentPage into the NavigationPage. From code this might look something like:
+A route beginning with `/` replaces the root page of the relevant window. A relative route operates within the calling page's context. It may push onto a navigation stack, change flyout detail, or require a modal presentation depending on that context; it is not always a plain push.
 
 ```cs
-var mainPage = new FlyoutPage()
-{
-    Flyout = new ContentPage()
-    {
-        Title = "Menu",
-        Content = new StackLayout()
-        {
-            Children =
-            {
-                new Label()
-                {
-                    Text = "Hello World"
-                }
-            }
-        }
-    },
-    Detail = new NavigationPage(new ContentPage()
-    {
-        Title = "Content Page",
-        Content = new StackLayout()
-        {
-            Children =
-            {
-                new Label()
-                {
-                    Text = "Hello World"
-                }
-            }
-        }
-    })
-};
+// Replace the current window's root with a fresh hierarchy.
+await navigation.NavigateAsync("/NavigationPage/HomePage");
+
+// From a page within that navigation stack, push DetailsPage.
+await navigation.NavigateAsync("DetailsPage");
+
+// From DetailsPage, remove it and navigate forward to SummaryPage.
+await navigation.NavigateAsync("../SummaryPage");
 ```
 
-As already mentioned you should never set the Detail property of the FlyoutPage. Instead we will do this with the Navigation URI. Our Navigation might look something like:
-
-```cs
-Navigation.NavigateAsync("MyFlyoutPage/NavigationPage/ViewA");
-```
+Register every page used in these routes. An absolute reset can remove a large page tree and its state. Use it intentionally for flows such as login/logout, rather than as a substitute for normal Back navigation.
 
 #### Deep Linking
 
-#### Absolute vs Relative Navigation
+A route such as `/NavigationPage/HomePage/DetailsPage` creates a navigation page with both content pages in its stack. This constructs a hierarchy in one navigation request; it is not an operating-system app-link registration. Register both pages first. For tab-specific hierarchies, see [tabbed navigation](tabbed-navigation.md).
 
-A URI has two basic states, absolute and relative. Absolute URIs are URIs that start with a `/`, relative URIs do not. A relative URI may simply start with a ViewName, or it may start with `../` to go back a level.
+#### FlyoutPages
 
-When navigating with an Absolute URI, the Navigation Service will set a new Page on the Application Window. When navigating with a Relative URI, the Navigation Service will push a new Page onto the Navigation Stack.
+Declare the menu in `FlyoutPage.Flyout`, then let Prism supply `Detail` through navigation:
 
-Better yet when using the shorthand syntax `../` you can use this to both Navigate Back and Navigate Forward at the same time. Conceptually you might consider the example where your current Navigation Stack looks like `NavigationPage/ViewA/ViewB` and you are navigating from the ViewBViewModel. You can pass instead of first calling GoBack and then having to navigate forward again, you can instead pass a URI like `../ViewC` and the Navigation Service will pop ViewB from the NavigationPage and push ViewC onto the NavigationStack.
+```xml
+<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:prism="http://prismlibrary.com"
+    x:Class="MyApp.Views.MenuPage">
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Menu">
+            <Button Text="Home" Command="{prism:NavigateTo 'NavigationPage/HomePage'}" />
+        </ContentPage>
+    </FlyoutPage.Flyout>
+</FlyoutPage>
+```
+
+Register `MenuPage` and navigate initially to `/MenuPage/NavigationPage/HomePage`. Do not also assign its `Detail` directly. A simple menu can share its parent's binding context or use [XAML navigation](xaml-navigation.md); it does not need an independently navigated menu-page view model.
 
 ### GoBackAsync
 
+```cs
+var back = await navigation.GoBackAsync();
+```
+
+`GoBackAsync` leaves the current page using its stack/modal context. At the application root, behavior is platform-specific; it is not a universal way to close the application. Inspect its result and handle a confirmation veto as cancellation.
+
 ### GoBackToRootAsync
 
+```cs
+var toRoot = await navigation.GoBackToRootAsync();
+```
+
+This retains the root of the current `NavigationPage` and removes pages above it. It requires a navigation-page context. To retain a particular earlier page in that stack, use `await navigation.GoBackToAsync("HomePage")`. Choose a page behind the current page, and use its registered name. Both operations return results and check navigation confirmation.
+
+Use Prism's service rather than directly calling `Navigation.PopAsync` or editing the navigation stack, so confirmation, callbacks, and cleanup can run. [PrismNavigationPage](prismnavigationpage.md) integrates system Back with that flow, subject to platform-specific behavior.
+
+## Navigation lifecycle
+
+Page navigation can invoke `IInitialize` / `IInitializeAsync`, navigation-aware callbacks, and `IConfirmNavigation` / `IConfirmNavigationAsync`. Page appearing/disappearing are separate [MAUI lifecycle notifications](../appmodel/pagelifecycleaware.md). Removing a page triggers Prism cleanup and `IDestructible` callbacks; temporary disappearance does not mean the page or scope has ended.
+
+## Source reference
+
+- [Prism 9.0 navigation service contract](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Navigation/INavigationService.cs)
+- [String-route and convenience overloads](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Navigation/INavigationServiceExtensions.cs)
+- [Page creation, confirmation, and stack handling](https://github.com/PrismLibrary/Prism/blob/ec6d1926b4a20540f1dbf2d90b432660670d0c30/src/Maui/Prism.Maui/Navigation/PageNavigationService.cs)
